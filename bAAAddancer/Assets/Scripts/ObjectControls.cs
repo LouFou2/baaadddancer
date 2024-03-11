@@ -6,10 +6,13 @@ public class ObjectControls : MonoBehaviour
 {
     private PlayerControls playerControls;
     private GameObject controlObject;
-    [SerializeField] private CNTRL_Transforms_SO cntrl_Data_SO;
-    [SerializeField] private bool isActive = false;
+    [SerializeField] private CNTRL_Transforms_SO cntrl_Data_SO; // ***think I'm gonna forego the SO's
+    [SerializeField] private bool leftObject = true;
+    [SerializeField] private bool rightObject = false;
+    public bool isActive = false;
     [SerializeField] private float x_Range;
     [SerializeField] private float y_Range;
+    private Vector2 moveInput;
 
     private Vector3 initialPosition;
     private Vector3 initialRotation;
@@ -50,21 +53,27 @@ public class ObjectControls : MonoBehaviour
         {
             initialPosition = controlObject.transform.position;
             initialRotation = controlObject.transform.eulerAngles;
-
         }
     }
     void Update()
     {
         if (useControllerInput && isActive) 
         {
-            Vector2 moveInput = playerControls.DanceControls.Move.ReadValue<Vector2>();
-            Debug.Log("input x: " + moveInput.x);
-            Debug.Log("input y: " + moveInput.y);
+            if (leftObject) 
+            {
+                rightObject = false;
+                moveInput = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
+            }
+
+            if (rightObject) 
+            {
+                leftObject = false;
+                moveInput = playerControls.DanceControls.MoveR.ReadValue<Vector2>();
+            }
 
             float rangedX = Mathf.Lerp(-x_Range, x_Range, (moveInput.x + 1f) / 2f);
             float rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f);
 
-            //controlObjects[0].transform.position += new Vector3(-rangedX, rangedY, 0f) * Time.deltaTime * moveSpeed;
             controlObject.transform.position = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, 0f);
 
             Vector3 currentPosition = controlObject.transform.position;
@@ -72,7 +81,6 @@ public class ObjectControls : MonoBehaviour
             float newY = Mathf.Clamp(currentPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
             controlObject.transform.position = new Vector3(newX, newY, currentPosition.z);
         }
-        
     }
 
     void TransformUpdates()

@@ -68,7 +68,6 @@ public class ClockCounter : MonoBehaviour
         {
             current_Q_Beat = 1; // Reset to the first beat of the bar
         }
-        Debug.Log("QuarterBeat: " + current_Q_Beat);
 
         // Invoke event for beat count change
         OnBeat?.Invoke(current_Q_Beat);

@@ -6,9 +6,18 @@
             "id": "e38dc9af-913d-4df1-a536-849fdbfe3593",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "MoveL",
                     "type": "Value",
                     "id": "e7d64aa6-6835-4c27-bd61-6c4fd737f393",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MoveR",
+                    "type": "Value",
+                    "id": "49b7d592-f520-4db6-951b-7d17750da3ab",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -24,9 +33,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwitchObject",
+                    "name": "SwitchObjectL",
                     "type": "Button",
                     "id": "b6d27f35-8cff-4a52-81f2-2108a692175f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchObjectR",
+                    "type": "Button",
+                    "id": "98a588c7-f0b9-43f4-bcd5-f635e0670095",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -41,7 +59,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MoveL",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -96,18 +114,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchObject",
+                    "action": "SwitchObjectL",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "7e44b3c0-a91b-433e-b9a9-5f4f522d2ce5",
+                    "id": "6a19c530-f900-4383-81c3-95e5b3da89d1",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveR",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c2703a6-fe47-46d2-84f5-baeec28cbb7a",
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SwitchObject",
+                    "action": "SwitchObjectR",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
