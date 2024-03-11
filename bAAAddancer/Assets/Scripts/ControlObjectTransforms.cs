@@ -13,7 +13,6 @@ public class ControlObjectTransforms : MonoBehaviour
         cntrlObjectTransforms = transform;
         cntrlObjectTransforms.transform.localPosition = new Vector3(cntrl_Data_SO.positionX, cntrl_Data_SO.positionY, cntrl_Data_SO.positionZ);
         cntrlObjectTransforms.transform.localEulerAngles = new Vector3(cntrl_Data_SO.rotationX, cntrl_Data_SO.rotationY, cntrl_Data_SO.rotationZ);
-
     }
     // This section is temporary, along with TransformUpdates method
     // It allows me to check rig controls at runtime
