@@ -1,10 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ControlObjectSwitcher : MonoBehaviour
 {
-    [SerializeField] private ObjectControls[] objectCntrlScripts;
+    public enum ControlObjects { Pelvis, Legs, Hands, Shoulders, Head }
+
+
+    [Serializable]
+    public class ControlObjectData
+    {
+        public ControlObjects controlObject;
+        public ObjectControls[] controlScripts;
+    }
+
+    [SerializeField] private ControlObjectData[] controlObjectData;
 
     private int currentObjectIndex = 0;
 
@@ -25,19 +37,43 @@ public class ControlObjectSwitcher : MonoBehaviour
     }
     void Update()
     {
-        bool switchToNext = playerControls.DanceControls.SwitchObjectL.triggered;
-        bool switchToPrevious = playerControls.DanceControls.SwitchObjectR.triggered;
+        bool switchToNext = playerControls.DanceControls.SwitchObjectR.triggered;
+        bool switchToPrevious = playerControls.DanceControls.SwitchObjectL.triggered;
 
-        if (switchToNext) currentObjectIndex++;
-        if (switchToPrevious) currentObjectIndex--;
- 
-        if(currentObjectIndex == objectCntrlScripts.Length) currentObjectIndex = 0;
-        if(currentObjectIndex < 0) currentObjectIndex = objectCntrlScripts.Length - 1;
-        Debug.Log("current index: " + currentObjectIndex);
-
-        for (int i = 0; i < objectCntrlScripts.Length; i++)
+        if (switchToNext)
         {
-            objectCntrlScripts[i].isActive = (i == currentObjectIndex); // set it active if it is the current index
+            currentObjectIndex++;
+            if (currentObjectIndex >= Enum.GetNames(typeof(ControlObjects)).Length)
+                currentObjectIndex = 0;
+        }
+        if (switchToPrevious)
+        {
+            currentObjectIndex--;
+            if (currentObjectIndex < 0)
+                currentObjectIndex = Enum.GetNames(typeof(ControlObjects)).Length - 1;
+        }
+
+        ControlObjects currentObject = (ControlObjects)currentObjectIndex;
+        Debug.Log("current object: " + currentObject);
+
+        switch (currentObject)
+        {
+            case ControlObjects.Pelvis:
+            case ControlObjects.Legs:
+            case ControlObjects.Hands:
+            case ControlObjects.Shoulders:
+            case ControlObjects.Head:
+                for (int i = 0; i < controlObjectData.Length; i++)
+                {
+                    foreach (ObjectControls controlScript in controlObjectData[i].controlScripts)
+                    {
+                        controlScript.isActive = (i == currentObjectIndex);
+                    }
+                }
+                break;
+            default:
+                Debug.LogError("Unknown control object!");
+                break;
         }
     }
 }

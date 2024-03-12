@@ -1371,12 +1371,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1ac2fe632491444a12684a77c1942b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectCntrlScripts:
-  - {fileID: 455033338}
-  - {fileID: 1552667968}
-  - {fileID: 503884293}
-  - {fileID: 1106200544}
-  - {fileID: 1362100758}
+  controlObjectData:
+  - controlObject: 0
+    controlScripts:
+    - {fileID: 455033338}
+  - controlObject: 1
+    controlScripts:
+    - {fileID: 1106200544}
+    - {fileID: 1362100758}
+  - controlObject: 2
+    controlScripts:
+    - {fileID: 1552667968}
+    - {fileID: 503884293}
+  - controlObject: 2
+    controlScripts:
+    - {fileID: 1552667968}
+    - {fileID: 503884293}
+  - controlObject: 3
+    controlScripts:
+    - {fileID: 1552667968}
+    - {fileID: 503884293}
+  - controlObject: 4
+    controlScripts:
+    - {fileID: 1552667968}
+    - {fileID: 503884293}
 --- !u!1 &374990219
 GameObject:
   m_ObjectHideFlags: 0
