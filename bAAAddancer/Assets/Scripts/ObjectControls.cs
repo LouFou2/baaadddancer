@@ -10,6 +10,7 @@ public class ObjectControls : MonoBehaviour
     [SerializeField] private bool leftObject = true;
     [SerializeField] private bool rightObject = false;
     public bool isActive = false;
+    public bool useRecordedPositions = false;
     [SerializeField] private float x_Range;
     [SerializeField] private float y_Range;
     private Vector2 moveInput;

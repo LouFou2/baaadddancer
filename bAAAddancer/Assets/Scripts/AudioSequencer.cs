@@ -14,22 +14,22 @@ public class AudioSequencer : MonoBehaviour
         clock = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
 
         // Subscribe to the OnBeatTrigger event
-        ClockCounter.OnBeatTrigger += OnBeatTriggered;
+        ClockCounter.On_Q_BeatTrigger += On_Q_BeatTriggered;
     }
 
     void OnDestroy()
     {
         // Unsubscribe from the OnBeatTrigger event to avoid memory leaks
-        ClockCounter.OnBeatTrigger -= OnBeatTriggered;
+        ClockCounter.On_Q_BeatTrigger -= On_Q_BeatTriggered;
     }
 
     // Method called when a beat is triggered
-    void OnBeatTriggered()
+    void On_Q_BeatTriggered()
     {
-        int currentBeat = clock.GetCurrentBeat(); // Get the current beat count from the ClockCounter script
+        int currentBeat = clock.GetCurrent_Q_Beat(); // Get the current beat count from the ClockCounter script
 
         // Check if the current beat should trigger the audio clip based on the beat pattern
-        if (beatPattern[currentBeat - 1])
+        if (beatPattern[currentBeat])
         {
             // Play the audio clip
             if (audioSource != null && audioSource.clip != null)

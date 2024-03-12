@@ -54,7 +54,6 @@ public class ControlObjectSwitcher : MonoBehaviour
         }
 
         ControlObjects currentObject = (ControlObjects)currentObjectIndex;
-        Debug.Log("current object: " + currentObject);
 
         switch (currentObject)
         {

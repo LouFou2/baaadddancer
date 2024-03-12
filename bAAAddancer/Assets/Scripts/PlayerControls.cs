@@ -71,6 +71,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Record"",
+                    ""type"": ""Button"",
+                    ""id"": ""e06d41e8-df3e-4e98-a13b-a6576811643c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -161,6 +170,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""SwitchObjectR"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8cf1fe23-c3ea-45f1-9f44-9b37765e69d2"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Record"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -174,6 +194,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_DanceControls_Boop = m_DanceControls.FindAction("Boop", throwIfNotFound: true);
         m_DanceControls_SwitchObjectL = m_DanceControls.FindAction("SwitchObjectL", throwIfNotFound: true);
         m_DanceControls_SwitchObjectR = m_DanceControls.FindAction("SwitchObjectR", throwIfNotFound: true);
+        m_DanceControls_Record = m_DanceControls.FindAction("Record", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -240,6 +261,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_DanceControls_Boop;
     private readonly InputAction m_DanceControls_SwitchObjectL;
     private readonly InputAction m_DanceControls_SwitchObjectR;
+    private readonly InputAction m_DanceControls_Record;
     public struct DanceControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -249,6 +271,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Boop => m_Wrapper.m_DanceControls_Boop;
         public InputAction @SwitchObjectL => m_Wrapper.m_DanceControls_SwitchObjectL;
         public InputAction @SwitchObjectR => m_Wrapper.m_DanceControls_SwitchObjectR;
+        public InputAction @Record => m_Wrapper.m_DanceControls_Record;
         public InputActionMap Get() { return m_Wrapper.m_DanceControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -273,6 +296,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SwitchObjectR.started += instance.OnSwitchObjectR;
             @SwitchObjectR.performed += instance.OnSwitchObjectR;
             @SwitchObjectR.canceled += instance.OnSwitchObjectR;
+            @Record.started += instance.OnRecord;
+            @Record.performed += instance.OnRecord;
+            @Record.canceled += instance.OnRecord;
         }
 
         private void UnregisterCallbacks(IDanceControlsActions instance)
@@ -292,6 +318,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SwitchObjectR.started -= instance.OnSwitchObjectR;
             @SwitchObjectR.performed -= instance.OnSwitchObjectR;
             @SwitchObjectR.canceled -= instance.OnSwitchObjectR;
+            @Record.started -= instance.OnRecord;
+            @Record.performed -= instance.OnRecord;
+            @Record.canceled -= instance.OnRecord;
         }
 
         public void RemoveCallbacks(IDanceControlsActions instance)
@@ -316,5 +345,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnBoop(InputAction.CallbackContext context);
         void OnSwitchObjectL(InputAction.CallbackContext context);
         void OnSwitchObjectR(InputAction.CallbackContext context);
+        void OnRecord(InputAction.CallbackContext context);
     }
 }
