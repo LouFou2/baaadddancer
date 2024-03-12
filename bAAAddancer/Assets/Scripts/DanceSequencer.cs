@@ -17,27 +17,23 @@ public class DanceSequencer : MonoBehaviour
     private void OnEnable()
     {
         playerControls.Enable();
-        ClockCounter.OnBeatTrigger += OnBeatTriggerHandler; // Subscribe to the beat trigger event
+        ClockCounter.On_Q_BeatTrigger += OnBeatTriggerHandler; // Subscribe to the beat trigger event
     }
     private void OnDisable()
     {
         playerControls.Disable();
-        ClockCounter.OnBeatTrigger -= OnBeatTriggerHandler; // Unsubscribe from the beat trigger event
+        ClockCounter.On_Q_BeatTrigger -= OnBeatTriggerHandler; // Unsubscribe from the beat trigger event
     }
 
     void Start()
     {
         clockCounter = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
 
-        recordingDataArray = new RecordingData[objControlScripts.Length]; // Initialize array size
-
-        // Instantiate RecordingData for each GameObject
+        // For each Control Object:
+        // Initialize the array of Vector3 positions and fill each element with the starting position
         for (int i = 0; i < objControlScripts.Length; i++)
         {
-            recordingDataArray[i] = ScriptableObject.CreateInstance<RecordingData>();
-
-            // Initialize the array of Vector3 positions and fill each element with the starting position
-            recordingDataArray[i].recordedPositions = new Vector3[16];
+            recordingDataArray[i].recordedPositions = new Vector3[64];
             Vector3 startingPosition = objControlScripts[i].gameObject.transform.position;
             for (int j = 0; j < recordingDataArray[i].recordedPositions.Length; j++)
             {
@@ -49,7 +45,7 @@ public class DanceSequencer : MonoBehaviour
     void Update()
     {
         // === CHECKING FOR THE BEAT === //
-        beatCount = clockCounter.GetCurrentBeat(); //the clock counts in quarter beats
+        beatCount = clockCounter.GetCurrent_Q_Beat(); //the clock counts in quarter beats
     }
 
     // === RECORDING === //
@@ -62,6 +58,7 @@ public class DanceSequencer : MonoBehaviour
         {
             if (objControlScripts[i].isActive && record)
             {
+                objControlScripts[i].useRecordedPositions = false;
                 // Record the position for the current GameObject for the current beat
                 recordingDataArray[i].recordedPositions[beatCount] = objControlScripts[i].gameObject.transform.position;
             }

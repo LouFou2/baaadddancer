@@ -474,7 +474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &105194762
 Transform:
   m_ObjectHideFlags: 0
@@ -1450,7 +1450,7 @@ Rigidbody:
   m_GameObject: {fileID: 374990219}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -1803,13 +1803,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cntrl_Data_SO: {fileID: 0}
+  recordingDataSO: {fileID: 11400000, guid: 0b8d64cd4af4f804bbdb8ae09d97c93f, type: 2}
   leftObject: 1
   rightObject: 0
-  isActive: 1
-  useRecordedPositions: 0
   x_Range: 0.3
   y_Range: 0.3
+  isActive: 1
+  useRecordedPositions: 0
 --- !u!1 &457121552
 GameObject:
   m_ObjectHideFlags: 0
@@ -2180,13 +2180,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cntrl_Data_SO: {fileID: 0}
+  recordingDataSO: {fileID: 11400000, guid: cb9a9af2fd4d3db4c94e95bf9158d233, type: 2}
   leftObject: 0
   rightObject: 1
-  isActive: 0
-  useRecordedPositions: 0
   x_Range: 0.4
   y_Range: 0.4
+  isActive: 0
+  useRecordedPositions: 0
 --- !u!1 &532574480
 GameObject:
   m_ObjectHideFlags: 0
@@ -2512,7 +2512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &580115327
 Transform:
   m_ObjectHideFlags: 0
@@ -2569,7 +2569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &650557077
 Transform:
   m_ObjectHideFlags: 0
@@ -3021,7 +3021,7 @@ Rigidbody:
   m_GameObject: {fileID: 791807005}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -3144,7 +3144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &837355690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3157,7 +3157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 0
+  m_Weight: 1
   m_Effectors: []
 --- !u!4 &837355691
 Transform:
@@ -3857,13 +3857,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cntrl_Data_SO: {fileID: 0}
+  recordingDataSO: {fileID: 11400000, guid: dae3e514724f77847b3902d8e5bb8d1c, type: 2}
   leftObject: 1
   rightObject: 0
-  isActive: 0
-  useRecordedPositions: 0
   x_Range: 0.4
   y_Range: 0.4
+  isActive: 0
+  useRecordedPositions: 0
 --- !u!4 &1114371861 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1998532987373736945, guid: c2501ca65b1d44743b70ca28ca22aaa2,
@@ -4513,13 +4513,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cntrl_Data_SO: {fileID: 0}
+  recordingDataSO: {fileID: 11400000, guid: 67c622ab89267884fb5c975117d9fff0, type: 2}
   leftObject: 0
   rightObject: 1
-  isActive: 0
-  useRecordedPositions: 0
   x_Range: 0.4
   y_Range: 0.4
+  isActive: 0
+  useRecordedPositions: 0
 --- !u!1 &1396177263
 GameObject:
   m_ObjectHideFlags: 0
@@ -4924,13 +4924,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cntrl_Data_SO: {fileID: 0}
+  recordingDataSO: {fileID: 11400000, guid: 008baf876ccd6c94c96590f45e929f8c, type: 2}
   leftObject: 1
   rightObject: 0
-  isActive: 0
-  useRecordedPositions: 0
   x_Range: 0.4
   y_Range: 0.4
+  isActive: 0
+  useRecordedPositions: 0
 --- !u!4 &1555428771 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3369495272095857744, guid: c2501ca65b1d44743b70ca28ca22aaa2,
@@ -5820,7 +5820,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed3732d7df1b7824180db319c14d8a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordingDataArray: []
+  recordingDataArray:
+  - {fileID: 11400000, guid: 0b8d64cd4af4f804bbdb8ae09d97c93f, type: 2}
+  - {fileID: 11400000, guid: 008baf876ccd6c94c96590f45e929f8c, type: 2}
+  - {fileID: 11400000, guid: cb9a9af2fd4d3db4c94e95bf9158d233, type: 2}
+  - {fileID: 11400000, guid: dae3e514724f77847b3902d8e5bb8d1c, type: 2}
+  - {fileID: 11400000, guid: 67c622ab89267884fb5c975117d9fff0, type: 2}
   objControlScripts:
   - {fileID: 455033338}
   - {fileID: 1552667968}
@@ -5879,7 +5884,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2108777617
 Transform:
   m_ObjectHideFlags: 0

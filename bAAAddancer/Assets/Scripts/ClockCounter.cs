@@ -93,4 +93,8 @@ public class ClockCounter : MonoBehaviour
     {
         return currentBeat;
     }
+    public float GetBeatInterval() 
+    {
+        return beatInterval;
+    }
 }

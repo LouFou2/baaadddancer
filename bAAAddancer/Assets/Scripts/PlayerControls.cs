@@ -80,6 +80,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Play"",
+                    ""type"": ""Button"",
+                    ""id"": ""b30910d4-5296-430c-84c6-d7ca041d53a1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -181,6 +190,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Record"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0118f00b-30ff-42f1-bfd0-f97840cdca86"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Play"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -195,6 +215,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_DanceControls_SwitchObjectL = m_DanceControls.FindAction("SwitchObjectL", throwIfNotFound: true);
         m_DanceControls_SwitchObjectR = m_DanceControls.FindAction("SwitchObjectR", throwIfNotFound: true);
         m_DanceControls_Record = m_DanceControls.FindAction("Record", throwIfNotFound: true);
+        m_DanceControls_Play = m_DanceControls.FindAction("Play", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -262,6 +283,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_DanceControls_SwitchObjectL;
     private readonly InputAction m_DanceControls_SwitchObjectR;
     private readonly InputAction m_DanceControls_Record;
+    private readonly InputAction m_DanceControls_Play;
     public struct DanceControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -272,6 +294,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SwitchObjectL => m_Wrapper.m_DanceControls_SwitchObjectL;
         public InputAction @SwitchObjectR => m_Wrapper.m_DanceControls_SwitchObjectR;
         public InputAction @Record => m_Wrapper.m_DanceControls_Record;
+        public InputAction @Play => m_Wrapper.m_DanceControls_Play;
         public InputActionMap Get() { return m_Wrapper.m_DanceControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -299,6 +322,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Record.started += instance.OnRecord;
             @Record.performed += instance.OnRecord;
             @Record.canceled += instance.OnRecord;
+            @Play.started += instance.OnPlay;
+            @Play.performed += instance.OnPlay;
+            @Play.canceled += instance.OnPlay;
         }
 
         private void UnregisterCallbacks(IDanceControlsActions instance)
@@ -321,6 +347,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Record.started -= instance.OnRecord;
             @Record.performed -= instance.OnRecord;
             @Record.canceled -= instance.OnRecord;
+            @Play.started -= instance.OnPlay;
+            @Play.performed -= instance.OnPlay;
+            @Play.canceled -= instance.OnPlay;
         }
 
         public void RemoveCallbacks(IDanceControlsActions instance)
@@ -346,5 +375,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSwitchObjectL(InputAction.CallbackContext context);
         void OnSwitchObjectR(InputAction.CallbackContext context);
         void OnRecord(InputAction.CallbackContext context);
+        void OnPlay(InputAction.CallbackContext context);
     }
 }
