@@ -43,14 +43,14 @@ public class ControlObjectSwitcher : MonoBehaviour
         if (switchToNext)
         {
             currentObjectIndex++;
-            if (currentObjectIndex >= Enum.GetNames(typeof(ControlObjects)).Length)
+            if (currentObjectIndex >= Enum.GetNames(typeof(ControlObjects)).Length) // *** COULD I USE controlObjectData.Length INSTEAD?
                 currentObjectIndex = 0;
         }
         if (switchToPrevious)
         {
             currentObjectIndex--;
             if (currentObjectIndex < 0)
-                currentObjectIndex = Enum.GetNames(typeof(ControlObjects)).Length - 1;
+                currentObjectIndex = Enum.GetNames(typeof(ControlObjects)).Length - 1; // *** IT COULD ENSURE IT DOESNT HAVE BLANK ITEMS WHEN SWITCHING
         }
 
         ControlObjects currentObject = (ControlObjects)currentObjectIndex;

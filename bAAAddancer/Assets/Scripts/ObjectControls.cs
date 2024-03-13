@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.VFX;
 
 public class ObjectControls : MonoBehaviour
 {
     private PlayerControls playerControls;
     private GameObject controlObject;
     private ClockCounter clockCounter;
+    [SerializeField] GameObject controlGizmoObject;
     [SerializeField] private RecordingData recordingDataSO;
     [SerializeField] private bool leftObject = true;
     [SerializeField] private bool rightObject = false;
@@ -39,6 +41,8 @@ public class ObjectControls : MonoBehaviour
         clockCounter = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
 
         initialPosition = controlObject.transform.position;
+
+        controlGizmoObject.SetActive(false);
     }
     void Update()
     {
@@ -49,8 +53,11 @@ public class ObjectControls : MonoBehaviour
             useRecordedPositions = !useRecordedPositions;
         }
 
+        controlGizmoObject.SetActive(false);
+
         if (isActive && !useRecordedPositions)
         {
+            controlGizmoObject.SetActive(true);
             if (leftObject) 
             {
                 rightObject = false;
