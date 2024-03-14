@@ -8,9 +8,9 @@ using System;
 public class ObjectControls : MonoBehaviour
 {
     private PlayerControls playerControls;
-    private GameObject controlObject;
     private ClockCounter clockCounter;
-    [SerializeField] GameObject controlGizmoObject;
+    private GameObject controlObject; // the actual control object
+    [SerializeField] GameObject controlGizmoObject; // the gizmo of the control object (to visualise if its active)
     [SerializeField] private RecordingData recordingDataSO;
     [SerializeField] private bool leftObject = true;
     [SerializeField] private bool rightObject = false;
@@ -22,6 +22,7 @@ public class ObjectControls : MonoBehaviour
     public bool useRecordedPositions = false;
 
     private Vector3 initialPosition;
+    private Vector3 finalUpdatePosition;
 
     private void Awake()
     {
@@ -31,12 +32,12 @@ public class ObjectControls : MonoBehaviour
     private void OnEnable()
     {
         playerControls.Enable();
-        ClockCounter.On_Q_BeatTrigger += OnBeatTrigger; // Subscribe to the beat trigger event
+        ClockCounter.On_Q_BeatTrigger += On_Q_BeatHandler; // Subscribe to the beat trigger event
     }
     private void OnDisable()
     {
         playerControls.Disable();
-        ClockCounter.On_Q_BeatTrigger -= OnBeatTrigger; // Subscribe to the beat trigger event
+        ClockCounter.On_Q_BeatTrigger -= On_Q_BeatHandler; // Subscribe to the beat trigger event
     }
 
     private void Start()
@@ -81,7 +82,8 @@ public class ObjectControls : MonoBehaviour
             Vector3 currentPosition = controlObject.transform.position;
             float newX = Mathf.Clamp(currentPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
             float newY = Mathf.Clamp(currentPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
-            controlObject.transform.position = new Vector3(newX, newY, currentPosition.z);
+            finalUpdatePosition = new Vector3(newX, newY, currentPosition.z); // I need the final calculated Vector 3 to pass to the Dance Sequencer
+            controlObject.transform.position = finalUpdatePosition;
         }
 
         /*if (useRecordedPositions) 
@@ -96,7 +98,11 @@ public class ObjectControls : MonoBehaviour
             controlObject.transform.DOMove(recordingDataSO.recordedPositions[targetPositionIndex], tweenDuration);
         }*/
     }
-    void OnBeatTrigger() 
+    public Vector3 GetPositionToRecord() 
+    {
+        return finalUpdatePosition;
+    }
+    void On_Q_BeatHandler() 
     {
         if (useRecordedPositions)
         {
@@ -104,10 +110,11 @@ public class ObjectControls : MonoBehaviour
             int targetPositionIndex = currentPositionIndex + 1;
             if (targetPositionIndex > recordingDataSO.recordedPositions.Length - 1) targetPositionIndex = 0;
             if (targetPositionIndex < 0) targetPositionIndex = 0;
-            float tweenDuration = clockCounter.GetBeatInterval();
+            float tweenDuration = clockCounter.Get_Q_BeatInterval();
 
             // Tween the object's position to the next recorded position
-            controlObject.transform.DOMove(recordingDataSO.recordedPositions[targetPositionIndex], tweenDuration);
+            controlObject.transform.DOMove(recordingDataSO.recordedPositions[targetPositionIndex], tweenDuration).SetEase(Ease.Linear);
+
         }
     }
 
