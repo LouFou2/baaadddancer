@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.VFX;
+using System;
 
 public class ObjectControls : MonoBehaviour
 {
@@ -30,10 +31,12 @@ public class ObjectControls : MonoBehaviour
     private void OnEnable()
     {
         playerControls.Enable();
+        ClockCounter.On_Q_BeatTrigger += OnBeatTrigger; // Subscribe to the beat trigger event
     }
     private void OnDisable()
     {
         playerControls.Disable();
+        ClockCounter.On_Q_BeatTrigger -= OnBeatTrigger; // Subscribe to the beat trigger event
     }
 
     private void Start()
@@ -81,11 +84,25 @@ public class ObjectControls : MonoBehaviour
             controlObject.transform.position = new Vector3(newX, newY, currentPosition.z);
         }
 
-        if (useRecordedPositions) 
+        /*if (useRecordedPositions) 
         {
             int currentPositionIndex = clockCounter.GetCurrent_Q_Beat(); //the indexes of the positions corresponds to the beats (the beats are used to record them)
             int targetPositionIndex = currentPositionIndex + 1;
             if (targetPositionIndex > recordingDataSO.recordedPositions.Length -1) targetPositionIndex = 0;
+            if (targetPositionIndex < 0) targetPositionIndex = 0;
+            float tweenDuration = clockCounter.GetBeatInterval();
+
+            // Tween the object's position to the next recorded position
+            controlObject.transform.DOMove(recordingDataSO.recordedPositions[targetPositionIndex], tweenDuration);
+        }*/
+    }
+    void OnBeatTrigger() 
+    {
+        if (useRecordedPositions)
+        {
+            int currentPositionIndex = clockCounter.GetCurrent_Q_Beat(); //the indexes of the positions corresponds to the beats (the beats are used to record them)
+            int targetPositionIndex = currentPositionIndex + 1;
+            if (targetPositionIndex > recordingDataSO.recordedPositions.Length - 1) targetPositionIndex = 0;
             if (targetPositionIndex < 0) targetPositionIndex = 0;
             float tweenDuration = clockCounter.GetBeatInterval();
 
