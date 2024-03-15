@@ -89,6 +89,42 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateViewX_Top"",
+                    ""type"": ""Button"",
+                    ""id"": ""cbe11457-02e4-4184-b2fc-5943e996ecb8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateViewX_Front"",
+                    ""type"": ""Button"",
+                    ""id"": ""8ac653bc-8eac-4707-8a1c-1b3d658bb58b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateViewY_Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""c8eeb4fe-7111-4bfe-8b8a-2268afceb560"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateViewY_Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ee88f04-dc38-4071-b246-939080c42387"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -201,6 +237,50 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Play"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d459a0f-3227-4cb2-9b9e-0b6c55aa117f"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateViewX_Top"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1016fdd3-7aa7-4403-9ac0-eae681a25a6b"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateViewX_Front"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e470bf06-70ec-403c-b421-816e23e23199"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateViewY_Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f32dd03-cc14-4249-a5af-f5490da0c4ad"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateViewY_Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -216,6 +296,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_DanceControls_SwitchObjectR = m_DanceControls.FindAction("SwitchObjectR", throwIfNotFound: true);
         m_DanceControls_Record = m_DanceControls.FindAction("Record", throwIfNotFound: true);
         m_DanceControls_Play = m_DanceControls.FindAction("Play", throwIfNotFound: true);
+        m_DanceControls_RotateViewX_Top = m_DanceControls.FindAction("RotateViewX_Top", throwIfNotFound: true);
+        m_DanceControls_RotateViewX_Front = m_DanceControls.FindAction("RotateViewX_Front", throwIfNotFound: true);
+        m_DanceControls_RotateViewY_Left = m_DanceControls.FindAction("RotateViewY_Left", throwIfNotFound: true);
+        m_DanceControls_RotateViewY_Right = m_DanceControls.FindAction("RotateViewY_Right", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -284,6 +368,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_DanceControls_SwitchObjectR;
     private readonly InputAction m_DanceControls_Record;
     private readonly InputAction m_DanceControls_Play;
+    private readonly InputAction m_DanceControls_RotateViewX_Top;
+    private readonly InputAction m_DanceControls_RotateViewX_Front;
+    private readonly InputAction m_DanceControls_RotateViewY_Left;
+    private readonly InputAction m_DanceControls_RotateViewY_Right;
     public struct DanceControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -295,6 +383,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SwitchObjectR => m_Wrapper.m_DanceControls_SwitchObjectR;
         public InputAction @Record => m_Wrapper.m_DanceControls_Record;
         public InputAction @Play => m_Wrapper.m_DanceControls_Play;
+        public InputAction @RotateViewX_Top => m_Wrapper.m_DanceControls_RotateViewX_Top;
+        public InputAction @RotateViewX_Front => m_Wrapper.m_DanceControls_RotateViewX_Front;
+        public InputAction @RotateViewY_Left => m_Wrapper.m_DanceControls_RotateViewY_Left;
+        public InputAction @RotateViewY_Right => m_Wrapper.m_DanceControls_RotateViewY_Right;
         public InputActionMap Get() { return m_Wrapper.m_DanceControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -325,6 +417,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Play.started += instance.OnPlay;
             @Play.performed += instance.OnPlay;
             @Play.canceled += instance.OnPlay;
+            @RotateViewX_Top.started += instance.OnRotateViewX_Top;
+            @RotateViewX_Top.performed += instance.OnRotateViewX_Top;
+            @RotateViewX_Top.canceled += instance.OnRotateViewX_Top;
+            @RotateViewX_Front.started += instance.OnRotateViewX_Front;
+            @RotateViewX_Front.performed += instance.OnRotateViewX_Front;
+            @RotateViewX_Front.canceled += instance.OnRotateViewX_Front;
+            @RotateViewY_Left.started += instance.OnRotateViewY_Left;
+            @RotateViewY_Left.performed += instance.OnRotateViewY_Left;
+            @RotateViewY_Left.canceled += instance.OnRotateViewY_Left;
+            @RotateViewY_Right.started += instance.OnRotateViewY_Right;
+            @RotateViewY_Right.performed += instance.OnRotateViewY_Right;
+            @RotateViewY_Right.canceled += instance.OnRotateViewY_Right;
         }
 
         private void UnregisterCallbacks(IDanceControlsActions instance)
@@ -350,6 +454,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Play.started -= instance.OnPlay;
             @Play.performed -= instance.OnPlay;
             @Play.canceled -= instance.OnPlay;
+            @RotateViewX_Top.started -= instance.OnRotateViewX_Top;
+            @RotateViewX_Top.performed -= instance.OnRotateViewX_Top;
+            @RotateViewX_Top.canceled -= instance.OnRotateViewX_Top;
+            @RotateViewX_Front.started -= instance.OnRotateViewX_Front;
+            @RotateViewX_Front.performed -= instance.OnRotateViewX_Front;
+            @RotateViewX_Front.canceled -= instance.OnRotateViewX_Front;
+            @RotateViewY_Left.started -= instance.OnRotateViewY_Left;
+            @RotateViewY_Left.performed -= instance.OnRotateViewY_Left;
+            @RotateViewY_Left.canceled -= instance.OnRotateViewY_Left;
+            @RotateViewY_Right.started -= instance.OnRotateViewY_Right;
+            @RotateViewY_Right.performed -= instance.OnRotateViewY_Right;
+            @RotateViewY_Right.canceled -= instance.OnRotateViewY_Right;
         }
 
         public void RemoveCallbacks(IDanceControlsActions instance)
@@ -376,5 +492,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSwitchObjectR(InputAction.CallbackContext context);
         void OnRecord(InputAction.CallbackContext context);
         void OnPlay(InputAction.CallbackContext context);
+        void OnRotateViewX_Top(InputAction.CallbackContext context);
+        void OnRotateViewX_Front(InputAction.CallbackContext context);
+        void OnRotateViewY_Left(InputAction.CallbackContext context);
+        void OnRotateViewY_Right(InputAction.CallbackContext context);
     }
 }

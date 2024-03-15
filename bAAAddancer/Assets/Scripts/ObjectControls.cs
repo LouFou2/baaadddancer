@@ -14,8 +14,11 @@ public class ObjectControls : MonoBehaviour
     [SerializeField] private RecordingData recordingDataSO;
     [SerializeField] private bool leftObject = true;
     [SerializeField] private bool rightObject = false;
+    private enum ViewSwitch { front, top, left, right };
+    private ViewSwitch currentView = ViewSwitch.front;
     [SerializeField] private float x_Range = 0.5f;
     [SerializeField] private float y_Range = 0.5f;
+    [SerializeField] private float z_Range = 0.5f;
     private Vector2 moveInput;
 
     public bool isActive = false;
@@ -74,12 +77,56 @@ public class ObjectControls : MonoBehaviour
                 moveInput = playerControls.DanceControls.MoveR.ReadValue<Vector2>();
             }
 
+            ///=== VIEWS SWITCHING ===///
+            
+            //--Front View--
+            if (playerControls.DanceControls.RotateViewX_Front.triggered && currentView != ViewSwitch.front)
+            {
+                currentView = ViewSwitch.front;
+            }
+            //--Top View
+            if (playerControls.DanceControls.RotateViewX_Top.triggered && currentView != ViewSwitch.top) 
+            {
+                currentView = ViewSwitch.top;
+            }
+            //--Left
+            if (playerControls.DanceControls.RotateViewY_Left.triggered && currentView != ViewSwitch.left)
+            {
+                currentView = ViewSwitch.left;
+            }
+            //--Right
+            if (playerControls.DanceControls.RotateViewY_Right.triggered && currentView != ViewSwitch.right)
+            {
+                currentView = ViewSwitch.right;
+            }
+
+            // map input to limit ranges
             float rangedX = Mathf.Lerp(-x_Range, x_Range, (moveInput.x + 1f) / 2f);
             float rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f);
+            float rangedZ = Mathf.Lerp(-z_Range, z_Range, (moveInput.x + 1f) / 2f);
+
+            switch (currentView)  // The view will determine how the inputs control the objects
+            {
+               
+                case ViewSwitch.front:
+                    /*Vector3 rangedPosition = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z);
+                    float clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
+                    float clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
+                    finalUpdatePosition = new Vector3(clampedX, clampedY, rangedPosition.z); // I need the final calculated Vector 3 to pass to the Dance Sequencer*/
+                    break;
+                case ViewSwitch.top:
+                    break;
+                case ViewSwitch.left:
+                    break;
+                case ViewSwitch.right:
+                    break;
+                default:
+                    currentView = ViewSwitch.front;
+                    break;
+
+            }
 
             Vector3 rangedPosition = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z);
-
-            //Vector3 currentPosition = controlObject.transform.position;
             float clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
             float clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
             finalUpdatePosition = new Vector3(clampedX, clampedY, rangedPosition.z); // I need the final calculated Vector 3 to pass to the Dance Sequencer
