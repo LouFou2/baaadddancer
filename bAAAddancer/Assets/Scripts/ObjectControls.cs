@@ -25,6 +25,7 @@ public class ObjectControls : MonoBehaviour
     public bool useRecordedPositions = false;
 
     private Vector3 initialPosition;
+    private Vector3 currentRecordedPosition;
     private Vector3 finalUpdatePosition;
 
     private void Awake()
@@ -103,7 +104,7 @@ public class ObjectControls : MonoBehaviour
                     // Handle top view controls
                     rangedX = Mathf.Lerp(-x_Range, x_Range, (moveInput.x + 1f) / 2f);
                     rangedZ = Mathf.Lerp(-z_Range, z_Range, (moveInput.y + 1f) / 2f);
-                    rangedZ = -rangedZ;
+                    rangedZ = -rangedZ; // top view "mirrors" the z axis (+y input = -z movement)
                     rangedPosition = new Vector3(-rangedX + initialPosition.x, initialPosition.y, rangedZ + initialPosition.z);
                     clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
                     clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z - z_Range, initialPosition.z + z_Range);
@@ -122,7 +123,7 @@ public class ObjectControls : MonoBehaviour
                     // Handle right view controls
                     rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f);
                     rangedZ = Mathf.Lerp(-z_Range, z_Range, (moveInput.x + 1f) / 2f);
-                    rangedZ = -rangedZ;
+                    rangedZ = -rangedZ; // right view also flips the z axis (+x input = -z movement)
                     rangedPosition = new Vector3(initialPosition.x, rangedY + initialPosition.y, rangedZ + initialPosition.z);
                     clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
                     clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z - z_Range, initialPosition.z + z_Range);
