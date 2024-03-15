@@ -14,8 +14,8 @@ public class ObjectControls : MonoBehaviour
     [SerializeField] private RecordingData recordingDataSO;
     [SerializeField] private bool leftObject = true;
     [SerializeField] private bool rightObject = false;
-    [SerializeField] private float x_Range;
-    [SerializeField] private float y_Range;
+    [SerializeField] private float x_Range = 0.5f;
+    [SerializeField] private float y_Range = 0.5f;
     private Vector2 moveInput;
 
     public bool isActive = false;
@@ -77,26 +77,14 @@ public class ObjectControls : MonoBehaviour
             float rangedX = Mathf.Lerp(-x_Range, x_Range, (moveInput.x + 1f) / 2f);
             float rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f);
 
-            controlObject.transform.position = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, 0f);
+            Vector3 rangedPosition = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z);
 
-            Vector3 currentPosition = controlObject.transform.position;
-            float newX = Mathf.Clamp(currentPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
-            float newY = Mathf.Clamp(currentPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
-            finalUpdatePosition = new Vector3(newX, newY, currentPosition.z); // I need the final calculated Vector 3 to pass to the Dance Sequencer
+            //Vector3 currentPosition = controlObject.transform.position;
+            float clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
+            float clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
+            finalUpdatePosition = new Vector3(clampedX, clampedY, rangedPosition.z); // I need the final calculated Vector 3 to pass to the Dance Sequencer
             controlObject.transform.position = finalUpdatePosition;
         }
-
-        /*if (useRecordedPositions) 
-        {
-            int currentPositionIndex = clockCounter.GetCurrent_Q_Beat(); //the indexes of the positions corresponds to the beats (the beats are used to record them)
-            int targetPositionIndex = currentPositionIndex + 1;
-            if (targetPositionIndex > recordingDataSO.recordedPositions.Length -1) targetPositionIndex = 0;
-            if (targetPositionIndex < 0) targetPositionIndex = 0;
-            float tweenDuration = clockCounter.GetBeatInterval();
-
-            // Tween the object's position to the next recorded position
-            controlObject.transform.DOMove(recordingDataSO.recordedPositions[targetPositionIndex], tweenDuration);
-        }*/
     }
     public Vector3 GetPositionToRecord() 
     {
