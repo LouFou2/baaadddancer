@@ -105,14 +105,14 @@ public class ObjectControls : MonoBehaviour
             float rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f);
             float rangedZ = Mathf.Lerp(-z_Range, z_Range, (moveInput.x + 1f) / 2f);
 
-            switch (currentView)  // The view will determine how the inputs control the objects
+            /*switch (currentView)  // The view will determine how the inputs control the objects
             {
                
                 case ViewSwitch.front:
-                    /*Vector3 rangedPosition = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z);
+                    *//*Vector3 rangedPosition = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z);
                     float clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
                     float clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
-                    finalUpdatePosition = new Vector3(clampedX, clampedY, rangedPosition.z); // I need the final calculated Vector 3 to pass to the Dance Sequencer*/
+                    finalUpdatePosition = new Vector3(clampedX, clampedY, rangedPosition.z); // I need the final calculated Vector 3 to pass to the Dance Sequencer*//*
                     break;
                 case ViewSwitch.top:
                     break;
@@ -124,7 +124,7 @@ public class ObjectControls : MonoBehaviour
                     currentView = ViewSwitch.front;
                     break;
 
-            }
+            }*/
 
             Vector3 rangedPosition = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z);
             float clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
