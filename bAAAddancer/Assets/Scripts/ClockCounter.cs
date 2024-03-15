@@ -3,8 +3,8 @@ using System.Collections;
 
 public class ClockCounter : MonoBehaviour
 {
-    public delegate void BeatAction(int beatCount); //*** CAN THESE TWO LINES 
-    public static event BeatAction On_Q_Beat;       // BE REMOVED?
+    /*public delegate void BeatAction(int beatCount); //*** CAN THESE TWO LINES 
+    public static event BeatAction On_Q_Beat;       // BE REMOVED?*/
     public static event System.Action On_Q_BeatTrigger;
     public static event System.Action OnBeatTrigger;
 
@@ -71,8 +71,8 @@ public class ClockCounter : MonoBehaviour
             current_Q_Beat = 0; // Reset to the first beat of the bar
         }
 
-        // Invoke event for beat count change
-        On_Q_Beat?.Invoke(current_Q_Beat);
+        /*// Invoke event for beat count change
+        On_Q_Beat?.Invoke(current_Q_Beat);*/
 
         // Invoke event for beat trigger
         On_Q_BeatTrigger?.Invoke();

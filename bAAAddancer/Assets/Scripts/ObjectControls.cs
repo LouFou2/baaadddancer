@@ -9,13 +9,13 @@ public class ObjectControls : MonoBehaviour
 {
     private PlayerControls playerControls;
     private ClockCounter clockCounter;
+    
     private GameObject controlObject; // the actual control object
     [SerializeField] GameObject controlGizmoObject; // the gizmo of the control object (to visualise if its active)
     [SerializeField] private RecordingData recordingDataSO;
     [SerializeField] private bool leftObject = true;
     [SerializeField] private bool rightObject = false;
-    private enum ViewSwitch { front, top, left, right };
-    private ViewSwitch currentView = ViewSwitch.front;
+    private ViewSwitcher viewSwitcher;
     [SerializeField] private float x_Range = 0.5f;
     [SerializeField] private float y_Range = 0.5f;
     [SerializeField] private float z_Range = 0.5f;
@@ -46,6 +46,7 @@ public class ObjectControls : MonoBehaviour
     private void Start()
     {
         clockCounter = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
+        viewSwitcher = FindObjectOfType<ViewSwitcher>();
 
         initialPosition = controlObject.transform.position;
 
@@ -53,6 +54,7 @@ public class ObjectControls : MonoBehaviour
     }
     void Update()
     {
+        Vector3 currentPosition = controlObject.transform.position;
         // Check if the playback trigger is pressed
         if (playerControls.DanceControls.Play.triggered && isActive)
         {
@@ -77,67 +79,67 @@ public class ObjectControls : MonoBehaviour
                 moveInput = playerControls.DanceControls.MoveR.ReadValue<Vector2>();
             }
 
-            ///=== VIEWS SWITCHING ===///
-            
-            //--Front View--
-            if (playerControls.DanceControls.RotateViewX_Front.triggered && currentView != ViewSwitch.front)
-            {
-                currentView = ViewSwitch.front;
-            }
-            //--Top View
-            if (playerControls.DanceControls.RotateViewX_Top.triggered && currentView != ViewSwitch.top) 
-            {
-                currentView = ViewSwitch.top;
-            }
-            //--Left
-            if (playerControls.DanceControls.RotateViewY_Left.triggered && currentView != ViewSwitch.left)
-            {
-                currentView = ViewSwitch.left;
-            }
-            //--Right
-            if (playerControls.DanceControls.RotateViewY_Right.triggered && currentView != ViewSwitch.right)
-            {
-                currentView = ViewSwitch.right;
-            }
-
             // map input to limit ranges
-            float rangedX = Mathf.Lerp(-x_Range, x_Range, (moveInput.x + 1f) / 2f);
-            float rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f);
-            float rangedZ = Mathf.Lerp(-z_Range, z_Range, (moveInput.x + 1f) / 2f);
+            float rangedX = 0f;
+            float rangedY = 0f;
+            float rangedZ = 0f;
 
-            /*switch (currentView)  // The view will determine how the inputs control the objects
+            Vector3 rangedPosition = Vector3.zero;
+            float clampedX = 0f;
+            float clampedY = 0f;
+            float clampedZ = 0f;
+
+            switch (viewSwitcher.CurrentView)  // Access the current view from ViewSwitcher
             {
-               
-                case ViewSwitch.front:
-                    *//*Vector3 rangedPosition = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z);
-                    float clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
-                    float clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
-                    finalUpdatePosition = new Vector3(clampedX, clampedY, rangedPosition.z); // I need the final calculated Vector 3 to pass to the Dance Sequencer*//*
+                case ViewSwitcher.ViewSwitch.front:
+                    rangedX = Mathf.Lerp(-x_Range, x_Range, (moveInput.x + 1f) / 2f);
+                    rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f); //The move input axis used changes with Views
+                    rangedPosition = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z);
+                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
+                    clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
+                    finalUpdatePosition = new Vector3(clampedX, clampedY, rangedPosition.z);
                     break;
-                case ViewSwitch.top:
+                case ViewSwitcher.ViewSwitch.top:
+                    // Handle top view controls
+                    rangedX = Mathf.Lerp(-x_Range, x_Range, (moveInput.x + 1f) / 2f);
+                    rangedZ = Mathf.Lerp(-z_Range, z_Range, (moveInput.y + 1f) / 2f);
+                    rangedZ = -rangedZ;
+                    rangedPosition = new Vector3(-rangedX + initialPosition.x, initialPosition.y, rangedZ + initialPosition.z);
+                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
+                    clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z - z_Range, initialPosition.z + z_Range);
+                    finalUpdatePosition = new Vector3(clampedX, rangedPosition.y, clampedZ);
                     break;
-                case ViewSwitch.left:
+                case ViewSwitcher.ViewSwitch.left:
+                    // Handle left view controls
+                    rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f);
+                    rangedZ = Mathf.Lerp(-z_Range, z_Range, (moveInput.x + 1f) / 2f);
+                    rangedPosition = new Vector3(initialPosition.x, rangedY + initialPosition.y, rangedZ + initialPosition.z);
+                    clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
+                    clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z - z_Range, initialPosition.z + z_Range);
+                    finalUpdatePosition = new Vector3(rangedPosition.x, clampedY, clampedZ);
                     break;
-                case ViewSwitch.right:
+                case ViewSwitcher.ViewSwitch.right:
+                    // Handle right view controls
+                    rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f);
+                    rangedZ = Mathf.Lerp(-z_Range, z_Range, (moveInput.x + 1f) / 2f);
+                    rangedZ = -rangedZ;
+                    rangedPosition = new Vector3(initialPosition.x, rangedY + initialPosition.y, rangedZ + initialPosition.z);
+                    clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
+                    clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z - z_Range, initialPosition.z + z_Range);
+                    finalUpdatePosition = new Vector3(rangedPosition.x, clampedY, clampedZ);
                     break;
                 default:
-                    currentView = ViewSwitch.front;
+                    viewSwitcher.CurrentView = ViewSwitcher.ViewSwitch.front; // Set default view to front if the current view is not recognized
                     break;
-
-            }*/
-
-            Vector3 rangedPosition = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z);
-            float clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
-            float clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
-            finalUpdatePosition = new Vector3(clampedX, clampedY, rangedPosition.z); // I need the final calculated Vector 3 to pass to the Dance Sequencer
+            }
             controlObject.transform.position = finalUpdatePosition;
         }
     }
-    public Vector3 GetPositionToRecord() 
+    public Vector3 GetPositionToRecord()
     {
         return finalUpdatePosition;
     }
-    void On_Q_BeatHandler() 
+    void On_Q_BeatHandler()
     {
         if (useRecordedPositions)
         {
@@ -149,9 +151,8 @@ public class ObjectControls : MonoBehaviour
 
             // Tween the object's position to the next recorded position
             controlObject.transform.DOMove(recordingDataSO.recordedPositions[targetPositionIndex], tweenDuration).SetEase(Ease.Linear);
-
         }
     }
 
-    
+
 }
