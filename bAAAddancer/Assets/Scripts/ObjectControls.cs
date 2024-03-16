@@ -16,9 +16,13 @@ public class ObjectControls : MonoBehaviour
     [SerializeField] private bool leftObject = true;
     [SerializeField] private bool rightObject = false;
     private ViewSwitcher viewSwitcher;
-    [SerializeField] private float x_Range = 0.5f;
-    [SerializeField] private float y_Range = 0.5f;
-    [SerializeField] private float z_Range = 0.5f;
+    [SerializeField] private float x_RangeMin = -0.5f;
+    [SerializeField] private float x_RangeMax = 0.5f;
+    [SerializeField] private float y_RangeMin = -0.5f;
+    [SerializeField] private float y_RangeMax = 0.5f;
+    [SerializeField] private float z_RangeMin = -0.5f;
+    [SerializeField] private float z_RangeMax = 0.5f;
+    
     private Vector2 moveInput;
 
     public bool isActive = false;
@@ -53,9 +57,8 @@ public class ObjectControls : MonoBehaviour
 
         controlGizmoObject.SetActive(false);
     }
-    void Update()
+    private void Update()
     {
-        Vector3 currentPosition = controlObject.transform.position;
         // Check if the playback trigger is pressed
         if (playerControls.DanceControls.Play.triggered && isActive)
         {
@@ -68,17 +71,27 @@ public class ObjectControls : MonoBehaviour
         if (isActive && !useRecordedPositions)
         {
             controlGizmoObject.SetActive(true);
-            if (leftObject) 
+            if (leftObject)
             {
                 rightObject = false;
                 moveInput = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
             }
 
-            if (rightObject) 
+            if (rightObject)
             {
                 leftObject = false;
                 moveInput = playerControls.DanceControls.MoveR.ReadValue<Vector2>();
             }
+
+        }
+    }
+    void FixedUpdate()
+    {
+        Vector3 currentPosition = controlObject.transform.position;
+
+        
+        if (isActive && !useRecordedPositions)
+        {
 
             // map input to limit ranges
             float rangedX = 0f;
@@ -93,41 +106,43 @@ public class ObjectControls : MonoBehaviour
             switch (viewSwitcher.CurrentView)  // Access the current view from ViewSwitcher
             {
                 case ViewSwitcher.ViewSwitch.front:
-                    rangedX = Mathf.Lerp(-x_Range, x_Range, (moveInput.x + 1f) / 2f);
-                    rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f); //The move input axis used changes with Views
-                    rangedPosition = new Vector3(-rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z);
-                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
-                    clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
-                    finalUpdatePosition = new Vector3(clampedX, clampedY, rangedPosition.z);
+                    // NB: audience view (controller input) is mirror of character orientation (so:(+x input = -x position movement)
+                    // swap the range max and min values so it corresponds with controller input:
+                    rangedX = Mathf.Lerp(x_RangeMax, x_RangeMin, (moveInput.x + 1f) / 2f); 
+                    rangedY = Mathf.Lerp(y_RangeMin, y_RangeMax, (moveInput.y + 1f) / 2f); //The move input axis used changes with Views
+                    rangedPosition = new Vector3(rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z); 
+                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);
+                    clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
+                    finalUpdatePosition = new Vector3(clampedX, clampedY, initialPosition.z);
                     break;
                 case ViewSwitcher.ViewSwitch.top:
-                    // Handle top view controls
-                    rangedX = Mathf.Lerp(-x_Range, x_Range, (moveInput.x + 1f) / 2f);
-                    rangedZ = Mathf.Lerp(-z_Range, z_Range, (moveInput.y + 1f) / 2f);
-                    rangedZ = -rangedZ; // top view "mirrors" the z axis (+y input = -z movement)
-                    rangedPosition = new Vector3(-rangedX + initialPosition.x, initialPosition.y, rangedZ + initialPosition.z);
-                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x - x_Range, initialPosition.x + x_Range);
-                    clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z - z_Range, initialPosition.z + z_Range);
-                    finalUpdatePosition = new Vector3(clampedX, rangedPosition.y, clampedZ);
+                    rangedX = Mathf.Lerp(x_RangeMax, x_RangeMin, (moveInput.x + 1f) / 2f);
+                    rangedZ = Mathf.Lerp(z_RangeMax, z_RangeMin, (moveInput.y + 1f) / 2f);
+                    //rangedX = -rangedX; // audience view is mirror of character orientation
+                    //rangedZ = -rangedZ; // top view "mirrors" the z axis (+y input = -z movement)
+                    rangedPosition = new Vector3(rangedX + initialPosition.x, initialPosition.y, rangedZ + initialPosition.z);
+                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);// -rangedPosition.x
+                    clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z + z_RangeMin, initialPosition.z + z_RangeMax);
+                    finalUpdatePosition = new Vector3(clampedX, initialPosition.y, clampedZ);
                     break;
                 case ViewSwitcher.ViewSwitch.left:
                     // Handle left view controls
-                    rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f);
-                    rangedZ = Mathf.Lerp(-z_Range, z_Range, (moveInput.x + 1f) / 2f);
+                    rangedY = Mathf.Lerp(y_RangeMin, y_RangeMax, (moveInput.y + 1f) / 2f);
+                    rangedZ = Mathf.Lerp(z_RangeMin, z_RangeMax, (moveInput.x + 1f) / 2f);
                     rangedPosition = new Vector3(initialPosition.x, rangedY + initialPosition.y, rangedZ + initialPosition.z);
-                    clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
-                    clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z - z_Range, initialPosition.z + z_Range);
-                    finalUpdatePosition = new Vector3(rangedPosition.x, clampedY, clampedZ);
+                    clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
+                    clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z + z_RangeMin, initialPosition.z + z_RangeMax);
+                    finalUpdatePosition = new Vector3(initialPosition.x, clampedY, clampedZ);
                     break;
                 case ViewSwitcher.ViewSwitch.right:
                     // Handle right view controls
-                    rangedY = Mathf.Lerp(-y_Range, y_Range, (moveInput.y + 1f) / 2f);
-                    rangedZ = Mathf.Lerp(-z_Range, z_Range, (moveInput.x + 1f) / 2f);
+                    rangedY = Mathf.Lerp(y_RangeMin, y_RangeMax, (moveInput.y + 1f) / 2f);
+                    rangedZ = Mathf.Lerp(z_RangeMin, z_RangeMax, (moveInput.x + 1f) / 2f);
                     rangedZ = -rangedZ; // right view also flips the z axis (+x input = -z movement)
                     rangedPosition = new Vector3(initialPosition.x, rangedY + initialPosition.y, rangedZ + initialPosition.z);
-                    clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y - y_Range, initialPosition.y + y_Range);
-                    clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z - z_Range, initialPosition.z + z_Range);
-                    finalUpdatePosition = new Vector3(rangedPosition.x, clampedY, clampedZ);
+                    clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
+                    clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z + z_RangeMin, initialPosition.z + z_RangeMax);
+                    finalUpdatePosition = new Vector3(initialPosition.x, clampedY, clampedZ);
                     break;
                 default:
                     viewSwitcher.CurrentView = ViewSwitcher.ViewSwitch.front; // Set default view to front if the current view is not recognized
