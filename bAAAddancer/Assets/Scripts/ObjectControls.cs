@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.VFX;
-using System;
 
 public class ObjectControls : MonoBehaviour
 {
