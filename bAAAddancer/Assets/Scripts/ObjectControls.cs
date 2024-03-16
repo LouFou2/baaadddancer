@@ -105,47 +105,47 @@ public class ObjectControls : MonoBehaviour
                     // NB: audience view (controller input) is mirror of character orientation (so:(+x input = -x position movement)
                     // swap the range max and min values so it corresponds with controller input:
                     // also, if input is negative, we lerp from object default to object min position using negated input value...
-                    rangedX = (moveInput.x <= 0)? Mathf.Lerp(initialPosition.x, x_RangeMax, -moveInput.x) : Mathf.Lerp(initialPosition.x, x_RangeMin, moveInput.x);
-                    rangedY = (moveInput.y <= 0) ? Mathf.Lerp(initialPosition.y, y_RangeMin, -moveInput.y) : Mathf.Lerp(initialPosition.y, y_RangeMax, moveInput.y);
+                    rangedX = (moveInput.x <= 0)? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
+                    rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
 
                     rangedPosition = new Vector3(rangedX + initialPosition.x, rangedY + initialPosition.y, initialPosition.z); 
                     clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);
                     clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
                     finalUpdatePosition = new Vector3(clampedX, clampedY, initialPosition.z);
                     break;
+
                 case ViewSwitcher.ViewSwitch.top:
-                    rangedX = (moveInput.x <= 0) ? Mathf.Lerp(initialPosition.x, x_RangeMax, -moveInput.x) : Mathf.Lerp(initialPosition.x, x_RangeMin, moveInput.x);
-                    rangedZ = (moveInput.y <= 0) ? Mathf.Lerp(initialPosition.z, z_RangeMax, -moveInput.y) : Mathf.Lerp(initialPosition.z, z_RangeMin, moveInput.y);
+                    rangedX = (moveInput.x <= 0) ? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
+                    rangedZ = (moveInput.y <= 0) ? Mathf.Lerp(0, z_RangeMin, -moveInput.y) : Mathf.Lerp(0, z_RangeMax, moveInput.y);
 
                     rangedPosition = new Vector3(rangedX + initialPosition.x, initialPosition.y, rangedZ + initialPosition.z);
                     clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);// -rangedPosition.x
                     clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z + z_RangeMin, initialPosition.z + z_RangeMax);
                     finalUpdatePosition = new Vector3(clampedX, initialPosition.y, clampedZ);
                     break;
+
                 case ViewSwitcher.ViewSwitch.left:
                     // Handle left view controls
-                    rangedY = (moveInput.y <= 0) ? Mathf.Lerp(initialPosition.y, y_RangeMin, -moveInput.y) : Mathf.Lerp(initialPosition.y, x_RangeMax, moveInput.y);
-                    rangedZ = (moveInput.x <= 0) ? Mathf.Lerp(initialPosition.z, z_RangeMin, -moveInput.x) : Mathf.Lerp(initialPosition.z, z_RangeMax, moveInput.x);
+                    rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
+                    rangedZ = (moveInput.x <= 0) ? Mathf.Lerp(0, z_RangeMin, -moveInput.x) : Mathf.Lerp(0, z_RangeMax, moveInput.x);
 
-                    /*rangedY = Mathf.Lerp(y_RangeMin, y_RangeMax, (moveInput.y + 1f) / 2f);
-                    rangedZ = Mathf.Lerp(z_RangeMin, z_RangeMax, (moveInput.x + 1f) / 2f);*/
                     rangedPosition = new Vector3(initialPosition.x, rangedY + initialPosition.y, rangedZ + initialPosition.z);
                     clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
                     clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z + z_RangeMin, initialPosition.z + z_RangeMax);
                     finalUpdatePosition = new Vector3(initialPosition.x, clampedY, clampedZ);
                     break;
+
                 case ViewSwitcher.ViewSwitch.right:
                     // Handle right view controls
-                    rangedY = (moveInput.y <= 0) ? Mathf.Lerp(initialPosition.y, y_RangeMin, -moveInput.y) : Mathf.Lerp(initialPosition.y, x_RangeMax, moveInput.y);
-                    rangedZ = (moveInput.x <= 0) ? Mathf.Lerp(initialPosition.z, z_RangeMax, -moveInput.x) : Mathf.Lerp(initialPosition.z, z_RangeMin, moveInput.x);
+                    rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
+                    rangedZ = (moveInput.x <= 0) ? Mathf.Lerp(0, z_RangeMax, -moveInput.x) : Mathf.Lerp(0, z_RangeMin, moveInput.x);
 
-                    /*rangedY = Mathf.Lerp(y_RangeMin, y_RangeMax, (moveInput.y + 1f) / 2f);
-                    rangedZ = Mathf.Lerp(z_RangeMin, z_RangeMax, (moveInput.x + 1f) / 2f);*/
                     rangedPosition = new Vector3(initialPosition.x, rangedY + initialPosition.y, rangedZ + initialPosition.z);
                     clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
                     clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z + z_RangeMin, initialPosition.z + z_RangeMax);
                     finalUpdatePosition = new Vector3(initialPosition.x, clampedY, clampedZ);
                     break;
+
                 default:
                     viewSwitcher.CurrentView = ViewSwitcher.ViewSwitch.front; // Set default view to front if the current view is not recognized
                     break;
