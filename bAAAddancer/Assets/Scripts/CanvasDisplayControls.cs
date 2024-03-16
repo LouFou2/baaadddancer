@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,10 @@ public class CanvasDisplayControls : MonoBehaviour
     [SerializeField] private GameObject rightTrigger;
     [SerializeField] private GameObject d_Pad;
     [SerializeField] private Image[] beatLights;
+
+    [SerializeField] private TextMeshProUGUI leftButtonText;
+    [SerializeField] private TextMeshProUGUI rightButtonText;
+    [SerializeField] private TextMeshProUGUI viewText;
 
     private enum TutorialState { useJoysticks, useObjectSwitch, useViewSwitch, useRecord, usePlay }
     private TutorialState CurrentTutorialState = TutorialState.useJoysticks;
@@ -164,46 +169,59 @@ public class CanvasDisplayControls : MonoBehaviour
         while (isRunning) 
         {
             CurrentTutorialState = TutorialState.useJoysticks;
+            rightButtonText.text = "swivel that pelvis";
             yield return new WaitForSeconds(4f); // adjust time to wait here
 
             CurrentTutorialState = TutorialState.useRecord;
+            leftButtonText.text = "hold left trigger to record your moves";
             yield return new WaitUntil(playerControls.DanceControls.Record.IsPressed);
             yield return new WaitWhile(playerControls.DanceControls.Record.IsPressed);
 
             CurrentTutorialState = TutorialState.usePlay;
+            rightButtonText.text = "tap right trigger to play back";
             yield return new WaitUntil(playerControls.DanceControls.Play.IsPressed);
 
             CurrentTutorialState = TutorialState.useObjectSwitch;
+            rightButtonText.text = "tap right bumper to move your feet";
             yield return new WaitUntil(() => switchObject);
             isPlaying = false;
 
             // --- Tutorial Loop for Each Object Control e.g. [legs]
             CurrentTutorialState = TutorialState.useJoysticks;
+            leftButtonText.text = "show us some fancy footwork";
             yield return new WaitForSeconds(4f);
 
             CurrentTutorialState = TutorialState.useRecord;
+            leftButtonText.text = "hold to record";
             yield return new WaitUntil(playerControls.DanceControls.Record.IsPressed);
             yield return new WaitWhile(playerControls.DanceControls.Record.IsPressed);
 
             CurrentTutorialState = TutorialState.usePlay;
+            rightButtonText.text = "tap to play back";
             yield return new WaitUntil(playerControls.DanceControls.Play.IsPressed);
 
             CurrentTutorialState = TutorialState.useObjectSwitch;
+            rightButtonText.text = "next: hands";
             yield return new WaitUntil(() => switchObject);
             isPlaying = false;
 
             // --- Another Loop --- e.g. [hands]
             CurrentTutorialState = TutorialState.useJoysticks;
+            leftButtonText.text = "dance hands!";
+            rightButtonText.text = "dance hands!";
             yield return new WaitForSeconds(4f);
 
             CurrentTutorialState = TutorialState.useRecord;
+            leftButtonText.text = "hold to record";
             yield return new WaitUntil(playerControls.DanceControls.Record.IsPressed);
             yield return new WaitWhile(playerControls.DanceControls.Record.IsPressed);
 
             CurrentTutorialState = TutorialState.usePlay;
+            rightButtonText.text = "tap it!";
             yield return new WaitForSeconds(10f);
 
             CurrentTutorialState = TutorialState.useObjectSwitch;
+            leftButtonText.text = "";
             yield return new WaitUntil(() => switchObject);
             isPlaying = false;
 

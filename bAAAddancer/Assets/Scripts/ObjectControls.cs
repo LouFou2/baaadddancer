@@ -18,7 +18,8 @@ public class ObjectControls : MonoBehaviour
     [SerializeField] private float y_RangeMax = 0.5f;
     [SerializeField] private float z_RangeMin = -0.5f;
     [SerializeField] private float z_RangeMax = 0.5f;
-    
+
+
     private Vector2 moveInput;
 
     public bool isActive = false;
