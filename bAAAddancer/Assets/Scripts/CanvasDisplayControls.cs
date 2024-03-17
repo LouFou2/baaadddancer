@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CanvasDisplayControls : MonoBehaviour
 {
     private ClockCounter clockCounter;
-    private bool isRunning = false; // To control whether the tutorial is running or not
+    private bool tutorialIsRunning = false; // To control whether the tutorial is running or not
     private float sequenceDuration;
     private PlayerControls playerControls;
     [SerializeField] private GameObject leftStick;
@@ -16,16 +16,23 @@ public class CanvasDisplayControls : MonoBehaviour
     [SerializeField] private GameObject leftTrigger;
     [SerializeField] private GameObject rightTrigger;
     [SerializeField] private GameObject d_Pad;
+    [SerializeField] private GameObject xButton;
+    [SerializeField] private GameObject yButton;
     [SerializeField] private Image[] beatLights;
 
     [SerializeField] private TextMeshProUGUI leftButtonText;
     [SerializeField] private TextMeshProUGUI rightButtonText;
     [SerializeField] private TextMeshProUGUI viewText;
+    [SerializeField] private TextMeshProUGUI generalText;
+    [SerializeField] private TextMeshProUGUI yesText;
+    [SerializeField] private TextMeshProUGUI noText;
 
-    private enum TutorialState { useJoysticks, useObjectSwitch, useViewSwitch, useRecord, usePlay }
-    private TutorialState CurrentTutorialState = TutorialState.useJoysticks;
+    private enum TutorialState { UseJoysticks, UseObjectSwitch, UseViewSwitch, UseRecord, UsePlay, SaveOrContinueDance, KeepDancing }
+    private TutorialState CurrentTutorialState;
 
-    bool isRecording, isPlaying, switchObject = false;
+    bool isRecording, isPlaying, switchObject, saveOrContinue = false;
+    bool savedDance = false;
+    bool keepDancing = false;
 
     private void Awake()
     {
@@ -45,7 +52,7 @@ public class CanvasDisplayControls : MonoBehaviour
         clockCounter = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
         sequenceDuration = clockCounter.GetBeatInterval() * 16; //*** THIS IS RETURNING 0 *** (would be nice to use)
         Debug.Log(sequenceDuration);
-        CurrentTutorialState = TutorialState.useJoysticks;
+        CurrentTutorialState = TutorialState.UseJoysticks;
         StartTutorial();
     }
 
@@ -65,8 +72,8 @@ public class CanvasDisplayControls : MonoBehaviour
         Color beatHighlight_Playback = new Color(0f, 1f, 1f, 0.6f);
 
         isRecording = playerControls.DanceControls.Record.IsPressed();
-        isPlaying = playerControls.DanceControls.Play.triggered;
         switchObject = (playerControls.DanceControls.SwitchObjectL.triggered) ? true : (playerControls.DanceControls.SwitchObjectR.triggered) ? true : false;
+        saveOrContinue = (playerControls.DanceControls.YesButton.triggered) ? true : (playerControls.DanceControls.NoButton.triggered) ? true : false;
 
         for (int i = 0; i < beatLights.Length; i++) 
         {
@@ -90,7 +97,7 @@ public class CanvasDisplayControls : MonoBehaviour
                 else
                 {
                     beatLights[i].color = beatLightOff;
-                    //beatLights[i].color = (i == current_Q_Beat) ? beatLightOn : beatLightOff;
+                    beatLights[i].color = (i == current_Q_Beat) ? beatLightOn : beatLightOff;
                     beatLights[i].rectTransform.localScale = new Vector3(1f, 1f, 1f);
                 }
             }
@@ -104,7 +111,7 @@ public class CanvasDisplayControls : MonoBehaviour
         }
         switch (CurrentTutorialState) 
         {
-            case TutorialState.useJoysticks:
+            case TutorialState.UseJoysticks:
                 leftStick.SetActive(true); // joysticks true
                 rightStick.SetActive(true); // joysticks true
                 leftBumper.SetActive(false);
@@ -113,7 +120,7 @@ public class CanvasDisplayControls : MonoBehaviour
                 rightTrigger.SetActive(false);
                 d_Pad.SetActive(false);
                 break;
-            case TutorialState.useObjectSwitch:
+            case TutorialState.UseObjectSwitch:
                 leftStick.SetActive(false);
                 rightStick.SetActive(false);
                 leftBumper.SetActive(true); // leftBumper true
@@ -122,7 +129,7 @@ public class CanvasDisplayControls : MonoBehaviour
                 rightTrigger.SetActive(false);
                 d_Pad.SetActive(false);
                 break;
-            case TutorialState.useViewSwitch:
+            case TutorialState.UseViewSwitch:
                 leftStick.SetActive(false);
                 rightStick.SetActive(false);
                 leftBumper.SetActive(false);
@@ -131,7 +138,7 @@ public class CanvasDisplayControls : MonoBehaviour
                 rightTrigger.SetActive(false);
                 d_Pad.SetActive(true); // d_Pad true
                 break;
-            case TutorialState.useRecord:
+            case TutorialState.UseRecord:
                 leftStick.SetActive(true);
                 rightStick.SetActive(true);
                 leftBumper.SetActive(false);
@@ -140,7 +147,7 @@ public class CanvasDisplayControls : MonoBehaviour
                 rightTrigger.SetActive(false);
                 d_Pad.SetActive(false);
                 break;
-            case TutorialState.usePlay:
+            case TutorialState.UsePlay:
                 leftStick.SetActive(false);
                 rightStick.SetActive(false);
                 leftBumper.SetActive(false);
@@ -149,120 +156,182 @@ public class CanvasDisplayControls : MonoBehaviour
                 rightTrigger.SetActive(true); // rightTrigger true
                 d_Pad.SetActive(false);
                 break;
+            case TutorialState.SaveOrContinueDance:
+                leftStick.SetActive(false); 
+                rightStick.SetActive(false);
+                leftBumper.SetActive(false);
+                rightBumper.SetActive(false);
+                leftTrigger.SetActive(false);
+                rightTrigger.SetActive(false); 
+                d_Pad.SetActive(false);
+                xButton.SetActive(true);
+                yButton.SetActive(true);
+                savedDance = (playerControls.DanceControls.YesButton.triggered) ? true : (playerControls.DanceControls.NoButton.triggered) ? false : false;
+                keepDancing = (playerControls.DanceControls.NoButton.triggered) ? true : (playerControls.DanceControls.YesButton.triggered) ? false : false;
+                break;
+            case TutorialState.KeepDancing:
+                leftStick.SetActive(true);
+                rightStick.SetActive(true);
+                leftBumper.SetActive(true);
+                rightBumper.SetActive(true);
+                leftTrigger.SetActive(true);
+                rightTrigger.SetActive(true);
+                d_Pad.SetActive(true);
+                xButton.SetActive(true);
+                yButton.SetActive(false);
+                yesText.text = "press x when done";
+                savedDance = false;
+                savedDance = (playerControls.DanceControls.YesButton.triggered) ? true : (playerControls.DanceControls.NoButton.triggered) ? false : false;
+                if (savedDance) EndScene();
+                break;
             default:
-                CurrentTutorialState = TutorialState.useJoysticks;
+                CurrentTutorialState = TutorialState.UseJoysticks;
                 break;
         }
     }
     public void StartTutorial() 
     {
-        isRunning = true;
+        tutorialIsRunning = true;
         StartCoroutine(LearningControls());
     }
     public void EndTutorial()
     {
-        isRunning = false;
+        tutorialIsRunning = false;
         StopCoroutine(LearningControls());
+        if (keepDancing) CurrentTutorialState = TutorialState.KeepDancing;
+        if (savedDance) EndScene();
+    }
+    public void EndScene() 
+    {
+        //switch to the next scene
+        Debug.Log("Scene End");
     }
     private IEnumerator LearningControls()
     {
-        while (isRunning) 
+        while (tutorialIsRunning) 
         {
-            CurrentTutorialState = TutorialState.useJoysticks;
+            // -- pelvis is first active object
+            CurrentTutorialState = TutorialState.UseJoysticks;
             rightButtonText.text = "swivel that pelvis";
             yield return new WaitForSeconds(4f); // adjust time to wait here
+            rightButtonText.text = "";
 
-            CurrentTutorialState = TutorialState.useRecord;
+            CurrentTutorialState = TutorialState.UseRecord;
             leftButtonText.text = "hold left trigger to record your moves";
             yield return new WaitUntil(playerControls.DanceControls.Record.IsPressed);
             yield return new WaitWhile(playerControls.DanceControls.Record.IsPressed);
+            leftButtonText.text = "";
 
-            CurrentTutorialState = TutorialState.usePlay;
+            CurrentTutorialState = TutorialState.UsePlay;
             rightButtonText.text = "tap right trigger to play back";
             yield return new WaitUntil(playerControls.DanceControls.Play.IsPressed);
+            rightButtonText.text = "";
+            isPlaying = true; // playback indicating (colour change)
 
-            CurrentTutorialState = TutorialState.useObjectSwitch;
+            CurrentTutorialState = TutorialState.UseObjectSwitch;
             rightButtonText.text = "tap right bumper to move your feet";
             yield return new WaitUntil(() => switchObject);
-            isPlaying = false;
+            rightButtonText.text = "";
+            isPlaying = false; // playback stops indicating for next object (colour change back)
 
             // --- Tutorial Loop for Each Object Control e.g. [legs]
-            CurrentTutorialState = TutorialState.useJoysticks;
+            CurrentTutorialState = TutorialState.UseJoysticks;
             leftButtonText.text = "show us some fancy footwork";
             yield return new WaitForSeconds(4f);
+            leftButtonText.text = "";
 
-            CurrentTutorialState = TutorialState.useRecord;
+            CurrentTutorialState = TutorialState.UseRecord;
             leftButtonText.text = "hold to record";
             yield return new WaitUntil(playerControls.DanceControls.Record.IsPressed);
             yield return new WaitWhile(playerControls.DanceControls.Record.IsPressed);
+            leftButtonText.text = "";
 
-            CurrentTutorialState = TutorialState.usePlay;
+            CurrentTutorialState = TutorialState.UsePlay;
             rightButtonText.text = "tap to play back";
             yield return new WaitUntil(playerControls.DanceControls.Play.IsPressed);
+            isPlaying = true;
 
-            CurrentTutorialState = TutorialState.useObjectSwitch;
+            CurrentTutorialState = TutorialState.UseObjectSwitch;
             rightButtonText.text = "next: hands";
             yield return new WaitUntil(() => switchObject);
+            rightButtonText.text = "";
             isPlaying = false;
 
             // --- Another Loop --- e.g. [hands]
-            CurrentTutorialState = TutorialState.useJoysticks;
+            CurrentTutorialState = TutorialState.UseJoysticks;
             leftButtonText.text = "dance hands!";
             rightButtonText.text = "dance hands!";
             yield return new WaitForSeconds(4f);
+            rightButtonText.text = "";
+            leftButtonText.text = "";
 
-            CurrentTutorialState = TutorialState.useRecord;
+            CurrentTutorialState = TutorialState.UseRecord;
             leftButtonText.text = "hold to record";
             yield return new WaitUntil(playerControls.DanceControls.Record.IsPressed);
             yield return new WaitWhile(playerControls.DanceControls.Record.IsPressed);
+            leftButtonText.text = "";
 
-            CurrentTutorialState = TutorialState.usePlay;
+            CurrentTutorialState = TutorialState.UsePlay;
             rightButtonText.text = "tap it!";
-            yield return new WaitForSeconds(10f);
+            yield return new WaitUntil(playerControls.DanceControls.Play.IsPressed);
+            rightButtonText.text = "";
+            isPlaying = true;
 
-            CurrentTutorialState = TutorialState.useObjectSwitch;
+            CurrentTutorialState = TutorialState.UseObjectSwitch;
             leftButtonText.text = "";
             yield return new WaitUntil(() => switchObject);
+            leftButtonText.text = "";
             isPlaying = false;
 
             // --- Another Loop --- e.g. [torso] *** Introducing view Switch
-            CurrentTutorialState = TutorialState.useViewSwitch;
+            CurrentTutorialState = TutorialState.UseViewSwitch;
+            leftButtonText.text = "You can use different views";
+            yield return new WaitForSeconds(3f);
+            leftButtonText.text = "Try the top view (press up)";
             yield return new WaitUntil(() => playerControls.DanceControls.RotateViewX_Top.triggered);
-            // add logic for signalling (e.g. animation, text)  which button to press
+            leftButtonText.text = "Try the left view (press left)";
             yield return new WaitUntil(() => playerControls.DanceControls.RotateViewY_Left.triggered);
-            // add logic for signalling (e.g. animation, text)  which button to press
+            leftButtonText.text = "Try the right view (press right)";
             yield return new WaitUntil(() => playerControls.DanceControls.RotateViewY_Right.triggered);
-            // add logic for signalling (e.g. animation, text)  which button to press
+            leftButtonText.text = "Now back to the front (press front)";
             yield return new WaitUntil(() => playerControls.DanceControls.RotateViewX_Front.triggered);
+            leftButtonText.text = "";
 
-            CurrentTutorialState = TutorialState.useJoysticks;
+            CurrentTutorialState = TutorialState.UseJoysticks;
             yield return new WaitForSeconds(4f);
 
-            CurrentTutorialState = TutorialState.useRecord;
+            CurrentTutorialState = TutorialState.UseRecord;
             yield return new WaitUntil(playerControls.DanceControls.Record.IsPressed);
             yield return new WaitWhile(playerControls.DanceControls.Record.IsPressed);
 
-            CurrentTutorialState = TutorialState.usePlay;
-            yield return new WaitForSeconds(10f);
+            CurrentTutorialState = TutorialState.UsePlay;
+            yield return new WaitUntil(playerControls.DanceControls.Play.IsPressed);
+            isPlaying = true;
 
-            CurrentTutorialState = TutorialState.useObjectSwitch;
+            CurrentTutorialState = TutorialState.UseObjectSwitch;
             yield return new WaitUntil(() => switchObject);
             isPlaying = false;
 
             // --- Another Loop --- e.g. [head]
-            CurrentTutorialState = TutorialState.useJoysticks;
+            CurrentTutorialState = TutorialState.UseJoysticks;
             yield return new WaitForSeconds(4f);
 
-            CurrentTutorialState = TutorialState.useRecord;
+            CurrentTutorialState = TutorialState.UseRecord;
             yield return new WaitUntil(playerControls.DanceControls.Record.IsPressed);
             yield return new WaitWhile(playerControls.DanceControls.Record.IsPressed);
 
-            CurrentTutorialState = TutorialState.usePlay;
-            yield return new WaitForSeconds(10f);
+            CurrentTutorialState = TutorialState.UsePlay;
+            yield return new WaitUntil(playerControls.DanceControls.Play.IsPressed);
+            isPlaying = true;
 
-            CurrentTutorialState = TutorialState.useObjectSwitch;
-            yield return new WaitUntil(() => switchObject);
-            isPlaying = false;
+            CurrentTutorialState = TutorialState.SaveOrContinueDance;
+            generalText.text = "Are you ready to save this dance?";
+            yesText.text = "lock it in!";
+            noText.text = "not yet...";
+            yield return new WaitUntil(() => saveOrContinue);
+            generalText.text = "";
+            yesText.text = "";
+            noText.text = "";
 
             EndTutorial();
         }

@@ -125,6 +125,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""YesButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""767e4032-db96-43b1-94cf-e04bdc6e4515"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""3bd1569a-9091-48b2-a32f-816b027244a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -281,6 +299,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""RotateViewY_Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9725efc6-d341-4701-b781-97507f03632b"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""YesButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e22cbb87-e213-4f0f-9c1a-9a42aa0d797b"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -300,6 +340,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_DanceControls_RotateViewX_Front = m_DanceControls.FindAction("RotateViewX_Front", throwIfNotFound: true);
         m_DanceControls_RotateViewY_Left = m_DanceControls.FindAction("RotateViewY_Left", throwIfNotFound: true);
         m_DanceControls_RotateViewY_Right = m_DanceControls.FindAction("RotateViewY_Right", throwIfNotFound: true);
+        m_DanceControls_YesButton = m_DanceControls.FindAction("YesButton", throwIfNotFound: true);
+        m_DanceControls_NoButton = m_DanceControls.FindAction("NoButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -372,6 +414,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_DanceControls_RotateViewX_Front;
     private readonly InputAction m_DanceControls_RotateViewY_Left;
     private readonly InputAction m_DanceControls_RotateViewY_Right;
+    private readonly InputAction m_DanceControls_YesButton;
+    private readonly InputAction m_DanceControls_NoButton;
     public struct DanceControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -387,6 +431,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @RotateViewX_Front => m_Wrapper.m_DanceControls_RotateViewX_Front;
         public InputAction @RotateViewY_Left => m_Wrapper.m_DanceControls_RotateViewY_Left;
         public InputAction @RotateViewY_Right => m_Wrapper.m_DanceControls_RotateViewY_Right;
+        public InputAction @YesButton => m_Wrapper.m_DanceControls_YesButton;
+        public InputAction @NoButton => m_Wrapper.m_DanceControls_NoButton;
         public InputActionMap Get() { return m_Wrapper.m_DanceControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -429,6 +475,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RotateViewY_Right.started += instance.OnRotateViewY_Right;
             @RotateViewY_Right.performed += instance.OnRotateViewY_Right;
             @RotateViewY_Right.canceled += instance.OnRotateViewY_Right;
+            @YesButton.started += instance.OnYesButton;
+            @YesButton.performed += instance.OnYesButton;
+            @YesButton.canceled += instance.OnYesButton;
+            @NoButton.started += instance.OnNoButton;
+            @NoButton.performed += instance.OnNoButton;
+            @NoButton.canceled += instance.OnNoButton;
         }
 
         private void UnregisterCallbacks(IDanceControlsActions instance)
@@ -466,6 +518,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RotateViewY_Right.started -= instance.OnRotateViewY_Right;
             @RotateViewY_Right.performed -= instance.OnRotateViewY_Right;
             @RotateViewY_Right.canceled -= instance.OnRotateViewY_Right;
+            @YesButton.started -= instance.OnYesButton;
+            @YesButton.performed -= instance.OnYesButton;
+            @YesButton.canceled -= instance.OnYesButton;
+            @NoButton.started -= instance.OnNoButton;
+            @NoButton.performed -= instance.OnNoButton;
+            @NoButton.canceled -= instance.OnNoButton;
         }
 
         public void RemoveCallbacks(IDanceControlsActions instance)
@@ -496,5 +554,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnRotateViewX_Front(InputAction.CallbackContext context);
         void OnRotateViewY_Left(InputAction.CallbackContext context);
         void OnRotateViewY_Right(InputAction.CallbackContext context);
+        void OnYesButton(InputAction.CallbackContext context);
+        void OnNoButton(InputAction.CallbackContext context);
     }
 }

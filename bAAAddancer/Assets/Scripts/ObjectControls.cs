@@ -104,8 +104,9 @@ public class ObjectControls : MonoBehaviour
             {
                 case ViewSwitcher.ViewSwitch.front:
                     // NB: audience view (controller input) is mirror of character orientation (so:(+x input = -x position movement)
-                    // swap the range max and min values so it corresponds with controller input:
-                    // also, if input is negative, we lerp from object default to object min position using negated input value...
+                    // swap the range max and min values so object movement in world space corresponds with controller input:
+                    // also, if input is negative, we lerp from object default to object min position using negated input value
+                    // (lerp uses 0-1 range) so if input value is nagative, we make it positive (-input)
                     rangedX = (moveInput.x <= 0)? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
                     rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
 
@@ -117,7 +118,7 @@ public class ObjectControls : MonoBehaviour
 
                 case ViewSwitcher.ViewSwitch.top:
                     rangedX = (moveInput.x <= 0) ? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
-                    rangedZ = (moveInput.y <= 0) ? Mathf.Lerp(0, z_RangeMin, -moveInput.y) : Mathf.Lerp(0, z_RangeMax, moveInput.y);
+                    rangedZ = (moveInput.y <= 0) ? Mathf.Lerp(0, z_RangeMax, -moveInput.y) : Mathf.Lerp(0, z_RangeMin, moveInput.y);
 
                     rangedPosition = new Vector3(rangedX + initialPosition.x, initialPosition.y, rangedZ + initialPosition.z);
                     clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);// -rangedPosition.x
