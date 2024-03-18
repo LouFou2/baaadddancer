@@ -35,6 +35,7 @@ public class DanceSequencer : MonoBehaviour
             Vector3 startingPosition = objControlScripts[i].gameObject.transform.position;
             for (int j = 0; j < recordingDataArray[i].recordedPositions.Length; j++)
             {
+                recordingDataArray[i].initialPositions[j] = startingPosition;
                 recordingDataArray[i].recordedPositions[j] = startingPosition;
             }
         }

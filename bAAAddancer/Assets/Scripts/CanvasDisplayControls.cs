@@ -9,6 +9,7 @@ public class CanvasDisplayControls : MonoBehaviour
     private bool tutorialIsRunning = false; // To control whether the tutorial is running or not
     private float sequenceDuration;
     private PlayerControls playerControls;
+    private SceneSwitcher sceneSwitcher;
     [SerializeField] private GameObject leftStick;
     [SerializeField] private GameObject rightStick;
     [SerializeField] private GameObject leftBumper;
@@ -27,12 +28,10 @@ public class CanvasDisplayControls : MonoBehaviour
     [SerializeField] private TextMeshProUGUI yesText;
     [SerializeField] private TextMeshProUGUI noText;
 
-    private enum TutorialState { UseJoysticks, UseObjectSwitch, UseViewSwitch, UseRecord, UsePlay, SaveOrContinueDance, KeepDancing }
+    private enum TutorialState { SkipTutorial, UseJoysticks, UseObjectSwitch, UseViewSwitch, UseRecord, UsePlay, SaveOrContinueDance, KeepDancing }
     private TutorialState CurrentTutorialState;
 
-    bool isRecording, isPlaying, switchObject, saveOrContinue = false;
-    bool savedDance = false;
-    bool keepDancing = false;
+    bool skipTutorial, isRecording, isPlaying, switchObject, yesOrNo, savedDance, keepDancing = false;
 
     private void Awake()
     {
@@ -49,10 +48,19 @@ public class CanvasDisplayControls : MonoBehaviour
 
     void Start()
     {
+        sceneSwitcher = FindObjectOfType<SceneSwitcher>();
+        if (sceneSwitcher == null)
+        {
+            Debug.LogError("SceneSwitcher component not found in the scene.");
+        }
         clockCounter = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
+        if (clockCounter == null)
+        {
+            Debug.LogError("ClockCounter component not found in the scene.");
+        }
         sequenceDuration = clockCounter.GetBeatInterval() * 16; //*** THIS IS RETURNING 0 *** (would be nice to use)
         Debug.Log(sequenceDuration);
-        CurrentTutorialState = TutorialState.UseJoysticks;
+        CurrentTutorialState = TutorialState.SkipTutorial;
         StartTutorial();
     }
 
@@ -73,7 +81,7 @@ public class CanvasDisplayControls : MonoBehaviour
 
         isRecording = playerControls.DanceControls.Record.IsPressed();
         switchObject = (playerControls.DanceControls.SwitchObjectL.triggered) ? true : (playerControls.DanceControls.SwitchObjectR.triggered) ? true : false;
-        saveOrContinue = (playerControls.DanceControls.YesButton.triggered) ? true : (playerControls.DanceControls.NoButton.triggered) ? true : false;
+        yesOrNo = (playerControls.DanceControls.YesButton.triggered) ? true : (playerControls.DanceControls.NoButton.triggered) ? true : false;
 
         for (int i = 0; i < beatLights.Length; i++) 
         {
@@ -111,6 +119,19 @@ public class CanvasDisplayControls : MonoBehaviour
         }
         switch (CurrentTutorialState) 
         {
+            case TutorialState.SkipTutorial:
+                leftStick.SetActive(false);
+                rightStick.SetActive(false);
+                leftBumper.SetActive(false);
+                rightBumper.SetActive(false);
+                leftTrigger.SetActive(false);
+                rightTrigger.SetActive(false);
+                d_Pad.SetActive(false);
+                xButton.SetActive(true);
+                yButton.SetActive(true);
+                skipTutorial = (playerControls.DanceControls.YesButton.triggered) ? true : (playerControls.DanceControls.NoButton.triggered) ? false : false;
+                if(skipTutorial) CurrentTutorialState = TutorialState.KeepDancing;
+                break;
             case TutorialState.UseJoysticks:
                 leftStick.SetActive(true); // joysticks true
                 rightStick.SetActive(true); // joysticks true
@@ -204,12 +225,23 @@ public class CanvasDisplayControls : MonoBehaviour
     public void EndScene() 
     {
         //switch to the next scene
-        Debug.Log("Scene End");
+        sceneSwitcher.LoadNextScene();
     }
     private IEnumerator LearningControls()
     {
         while (tutorialIsRunning) 
         {
+            // -- Check if Skip Tutorial
+            CurrentTutorialState = TutorialState.SkipTutorial;
+            generalText.text = "skip tutorial?";
+            yesText.text = "skip";
+            yield return new WaitUntil(() => yesOrNo);
+            if (skipTutorial) 
+            {
+                EndTutorial();
+                yield break;
+            }
+            
             // -- pelvis is first active object
             CurrentTutorialState = TutorialState.UseJoysticks;
             rightButtonText.text = "swivel that pelvis";
@@ -328,7 +360,7 @@ public class CanvasDisplayControls : MonoBehaviour
             generalText.text = "Are you ready to save this dance?";
             yesText.text = "lock it in!";
             noText.text = "not yet...";
-            yield return new WaitUntil(() => saveOrContinue);
+            yield return new WaitUntil(() => yesOrNo);
             generalText.text = "";
             yesText.text = "";
             noText.text = "";

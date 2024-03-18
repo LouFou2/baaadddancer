@@ -86,7 +86,6 @@ public class ObjectControls : MonoBehaviour
     {
         Vector3 currentPosition = controlObject.transform.position;
 
-        
         if (isActive && !useRecordedPositions)
         {
 
