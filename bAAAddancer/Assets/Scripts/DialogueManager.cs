@@ -43,7 +43,6 @@ public class DialogueManager : MonoBehaviour
                 // yes button acts as "continue"
                 break;
             case DialogueState.PlayerResponse:
-                // here we queue new dialogue... HOW?
                 button0.gameObject.SetActive(true);
                 button1.gameObject.SetActive(true);
                 break;

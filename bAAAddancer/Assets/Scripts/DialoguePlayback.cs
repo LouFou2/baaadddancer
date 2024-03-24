@@ -8,15 +8,12 @@ using UnityEngine.UI;
 public class DialoguePlayback : MonoBehaviour
 {
     [SerializeField] private DialogueManager dialogueManager;
-    //public DialogueData dialogue; // The dialogue S.O. associated with this script
+    [SerializeField] private DialogueData currentDialogue; // Current dialogue being played
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private float typeSpeedInterval = 0.03f;
 
     private Queue<string> sentences;
-
-    private bool isDialoguePlaying = false; // Flag to indicate if dialogue is currently playing
-    private DialogueData currentDialogue; // Current dialogue being played
 
     void Start()
     {
@@ -24,30 +21,14 @@ public class DialoguePlayback : MonoBehaviour
         sentences = new Queue<string>();
         dialoguePanel.transform.localScale = Vector3.zero;
 
-        QueueDialogue(currentDialogue);
+        StartDialogue(currentDialogue);
     }
-    public void QueueDialogue(DialogueData newDialogue)
-    {
-        if (!isDialoguePlaying)
-        {
-            StartDialogue(newDialogue);
-        }
-        else
-        {
-            sentences.Clear();
-            currentDialogue = newDialogue;
-            foreach (string sentence in currentDialogue.sentences)
-            {
-                sentences.Enqueue(sentence);
-            }
-        }
-    }
-
-    public void StartDialogue(DialogueData dialogue) 
+    
+    public void StartDialogue(DialogueData newDialogue) 
     {
         sentences.Clear();
-        
-        foreach (string sentence in dialogue.sentences) 
+        currentDialogue = newDialogue;
+        foreach (string sentence in currentDialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
@@ -82,7 +63,5 @@ public class DialoguePlayback : MonoBehaviour
         dialogueText.text = "";
         dialoguePanel.transform.DOScale(0, 0.3f);
         dialogueManager.PlayerSpeaks( currentDialogue.responseNo, currentDialogue.responseYes );
-        
-        Debug.Log("end of conversation");
     }
 }
