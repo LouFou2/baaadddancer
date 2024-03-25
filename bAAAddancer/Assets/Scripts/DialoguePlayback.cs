@@ -28,6 +28,7 @@ public class DialoguePlayback : MonoBehaviour
     {
         sentences.Clear();
         currentDialogue = newDialogue;
+        dialogueManager.NpcSpeaks();
         foreach (string sentence in currentDialogue.sentences)
         {
             sentences.Enqueue(sentence);
@@ -55,9 +56,15 @@ public class DialoguePlayback : MonoBehaviour
             dialogueText.text += letter;
             yield return new WaitForSeconds(typeSpeedInterval);
         }
+
         if (sentences.Count >= 1)
             dialogueManager.DialoguePaused();
-        else EndDialogue();
+        else 
+        {
+            yield return new WaitForSeconds(1f);
+            EndDialogue(); 
+        }
+        
     }
 
     void EndDialogue() 
