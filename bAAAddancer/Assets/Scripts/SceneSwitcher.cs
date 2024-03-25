@@ -15,4 +15,11 @@ public class SceneSwitcher : MonoBehaviour
         // Load the next scene by incrementing the current scene index
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
+    public void LoadSceneByName(string sceneName) 
+    {
+        // Kill all tweens associated with GameObjects
+        DOTween.KillAll();
+
+        SceneManager.LoadScene(sceneName);
+    }
 }

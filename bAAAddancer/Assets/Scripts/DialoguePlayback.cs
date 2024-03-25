@@ -55,13 +55,15 @@ public class DialoguePlayback : MonoBehaviour
             dialogueText.text += letter;
             yield return new WaitForSeconds(typeSpeedInterval);
         }
-        dialogueManager.DialoguePaused();
+        if (sentences.Count >= 1)
+            dialogueManager.DialoguePaused();
+        else EndDialogue();
     }
 
     void EndDialogue() 
     {
         dialogueText.text = "";
         dialoguePanel.transform.DOScale(0, 0.3f);
-        dialogueManager.PlayerSpeaks( currentDialogue.responseNo, currentDialogue.responseYes );
+        dialogueManager.PlayerResponse( currentDialogue.responseNo, currentDialogue.responseYes );
     }
 }
