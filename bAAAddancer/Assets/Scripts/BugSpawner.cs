@@ -13,7 +13,8 @@ public class BugSpawner : MonoBehaviour
     private List<GameObject> activeBugs = new List<GameObject>(); // List of active bugs
 
     private bool allBugsReleased = false;
-    [SerializeField] private float bugMoveSpeed = 2f;
+    private bool debugHasEnded = false;
+    [SerializeField] private float bugMoveDuration = 2f;
     private int bugMovements = 0;
 
     void Start()
@@ -62,13 +63,12 @@ public class BugSpawner : MonoBehaviour
         (
             Random.Range(planeBounds.min.x, planeBounds.max.x),
             Random.Range(planeBounds.min.y, planeBounds.max.y),
-            Random.Range(planeBounds.min.z, planeBounds.max.z)
+            planeBounds.center.z
         );
     }
     private void MoveBugs()
     {
         bugMovements++;
-        Debug.Log(bugMovements);
         MeshCollider planeCollider = gameSurfacePlane.GetComponent<MeshCollider>();
 
         foreach (GameObject bug in activeBugs)
@@ -76,21 +76,7 @@ public class BugSpawner : MonoBehaviour
             if (bug.activeSelf)
             {
                 Vector3 moveTarget = GetRandomPointOnPlane(planeCollider.bounds);
-                bug.transform.DOMove(moveTarget, bugMoveSpeed).SetEase(Ease.InOutBounce);
-
-                //this older code makes objects jittery and erratic (which could be cool)
-                /*// Get a random direction for each bug
-                Vector3 moveDirection = Random.onUnitSphere;
-
-                // Move the bug in its current direction
-                bug.transform.position += moveDirection * bugMoveSpeed * Time.deltaTime;
-
-                // If the bug goes outside the bounds of the plane, reflect its movement direction
-                if (!planeCollider.bounds.Contains(bug.transform.position))
-                {
-                    Vector3 reflectionDirection = Vector3.Reflect(moveDirection, planeCollider.bounds.ClosestPoint(bug.transform.position) - bug.transform.position).normalized;
-                    bug.transform.position += reflectionDirection * bugMoveSpeed * Time.deltaTime;
-                }*/
+                bug.transform.DOMove(moveTarget, bugMoveDuration).SetEase(Ease.InOutBounce);
             }
         }
     }
@@ -100,5 +86,14 @@ public class BugSpawner : MonoBehaviour
         {
             bug.SetActive(false);
         }
+        debugHasEnded = true;
+    }
+    public int GetBugCount() 
+    {
+        return poolSize;
+    }
+    public bool DebugHasEnded() 
+    {
+        return debugHasEnded;
     }
 }

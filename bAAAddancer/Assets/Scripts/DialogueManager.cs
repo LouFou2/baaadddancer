@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
     private bool button1clicked = false;
 
     // Unity Events for yes and no responses
-    public UnityEvent noResponseEvent;
+    public UnityEvent noResponseEvent; // set the event in the inspector (what method to call)
     public UnityEvent yesResponseEvent;
     
     void Start()
@@ -60,8 +60,17 @@ public class DialogueManager : MonoBehaviour
                 button0.gameObject.SetActive(true);
                 button1.gameObject.SetActive(true);
 
-                if (button0clicked) noResponseEvent.Invoke();
-                if (button1clicked) yesResponseEvent.Invoke();
+                if (button0clicked) 
+                { 
+                    noResponseEvent.Invoke();
+                    dialogueState = DialogueState.NoDialogue;
+                } 
+                if (button1clicked) 
+                { 
+                    yesResponseEvent.Invoke();
+                    dialogueState = DialogueState.NoDialogue;
+                }
+                
                 break;
 
             default:

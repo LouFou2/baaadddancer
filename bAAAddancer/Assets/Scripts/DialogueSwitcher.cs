@@ -23,7 +23,7 @@ public class DialogueSwitcher : MonoBehaviour
         currentDialogue = dialogue[currentIndex];
         dialoguePlayer.StartDialogue(currentDialogue);
 
-        // Select button1 after starting the dialogue
+        // Select button1 after restarting the dialogue
         EventSystem.current.SetSelectedGameObject(button1.gameObject);
     }
 }
