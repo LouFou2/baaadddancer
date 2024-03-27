@@ -4,6 +4,19 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
+    public enum SceneKey
+    {
+        Phase1, // ***TODO: give these the appropriate names
+        Phase2,
+        Phase3
+    }
+    public string GetCurrentSceneName()
+    {
+        // Get the name of the current active scene
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        return currentSceneName;
+    }
+
     public void LoadNextScene()
     {
         // Kill all tweens associated with GameObjects
@@ -15,7 +28,7 @@ public class SceneSwitcher : MonoBehaviour
         // Load the next scene by incrementing the current scene index
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
-    public void LoadSceneByName(string sceneName) 
+    public void LoadSceneByName(string sceneName) //*** dont like using strings for switches, but this should be fine
     {
         // Kill all tweens associated with GameObjects
         DOTween.KillAll();
