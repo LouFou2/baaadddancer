@@ -9,15 +9,8 @@ public class GameManager : MonoBehaviour
     // Singleton instance of the GameManager
     public static GameManager Instance { get; private set; }
 
-    /*[System.Serializable]
-    public enum LevelKey
-    {
-        IntroDialogue,
-        IntroMakeDance,
-        IntroCopyDance,
-        IntroDebug
-    }*/
     private LevelKey currentLevelKey;
+    private bool gameStarted = false;
 
     private void Awake()
     {
@@ -32,6 +25,21 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject); // Destroy any duplicate instances
         }
     }
+    private void Start()
+    {
+        currentLevelKey = gameData.currentLevelKey;
+        if (!gameStarted)
+        {
+            // If this is the first loading of the game, reset the currentLevelKey
+            ResetCurrentLevelKey();
+            gameStarted = true;
+        }
+    }
+    private void ResetCurrentLevelKey()
+    {
+        currentLevelKey = (LevelKey)0; // Set default level key to first index (0)
+        gameData.currentLevelKey = currentLevelKey;
+    }
 
     // Method to set the current level key
     public void SetCurrentLevelKey(LevelKey levelKey)
@@ -43,9 +51,10 @@ public class GameManager : MonoBehaviour
     // Method to get the current level key
     public LevelKey GetCurrentLevelKey()
     {
+        currentLevelKey = gameData.currentLevelKey;
         return currentLevelKey;
     }
-    public void SwitchToNextLevelKey() 
+    public void SwitchToNextLevelKey()
     {
         //how do we return the next index levelkey?
         int currentLevelIndex = (int)currentLevelKey;

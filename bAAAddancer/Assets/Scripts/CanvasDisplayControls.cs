@@ -242,6 +242,7 @@ public class CanvasDisplayControls : MonoBehaviour
     {
         //switch to the next scene
         sceneSwitcher.LoadNextScene();
+        sceneSwitcher.SwitchToNextLevelKey();
     }
     private IEnumerator LearningControls()
     {

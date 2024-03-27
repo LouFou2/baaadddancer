@@ -1,5 +1,6 @@
 using DG.Tweening;
 using DG.Tweening.Core.Easing;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,5 +30,13 @@ public class SceneSwitcher : MonoBehaviour
         DOTween.KillAll();
 
         SceneManager.LoadScene(sceneName);
+    }
+    public void SwitchToNextLevelKey()
+    {
+        LevelKey currentLevelKey = GameManager.Instance.GetCurrentLevelKey();
+        int currentLevelIndex = (int)currentLevelKey;
+        int nextLevelIndex = (currentLevelIndex + 1) % Enum.GetNames(typeof(LevelKey)).Length;
+        LevelKey nextLevel = (LevelKey)nextLevelIndex;
+        GameManager.Instance.SetCurrentLevelKey(nextLevel);
     }
 }
