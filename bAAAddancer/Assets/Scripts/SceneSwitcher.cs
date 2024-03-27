@@ -1,15 +1,10 @@
 using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    public enum SceneKey
-    {
-        Phase1, // ***TODO: give these the appropriate names
-        Phase2,
-        Phase3
-    }
     public string GetCurrentSceneName()
     {
         // Get the name of the current active scene

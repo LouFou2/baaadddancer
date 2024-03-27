@@ -9,7 +9,7 @@ public class DialogueSwitcher : MonoBehaviour
 
     [SerializeField] private DialogueData[] currentDialogueSequence; // a sequence of dialogue objects that plays in a specific scene
 
-    private DialogueData currentDialogue; // the single unit of dialogue
+    [SerializeField] private DialogueData currentDialogue; // the single unit of dialogue
 
     [SerializeField] private DialoguePlayback dialoguePlayer; // the dialogue "player" (just types out the sentences)
 
@@ -17,21 +17,21 @@ public class DialogueSwitcher : MonoBehaviour
 
     private int currentIndex = 0;
 
-    private SceneSwitcher sceneSwitcher; // will need to get scene name to swap dialogue sequences
-
     private void Start()
     {
-        sceneSwitcher = FindObjectOfType<SceneSwitcher>();
-
         // Set the initial dialogue sequence based on the current scene
         SetCurrentDialogueSequence();
 
         currentDialogue = currentDialogueSequence[0];
     }
+    public DialogueData GetCurrentDialogue() 
+    {
+        return currentDialogue;
+    }
     private void SetCurrentDialogueSequence()
     {
-        string currentSceneName = sceneSwitcher.GetCurrentSceneName();
-        DialogueSequence sequence = GetDialogueSequence(currentSceneName);
+        LevelKey currentLevelKey = GameManager.Instance.GetCurrentLevelKey();
+        DialogueSequence sequence = GetDialogueSequence(currentLevelKey);
 
         if (sequence != null)
         {
@@ -40,14 +40,14 @@ public class DialogueSwitcher : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Dialogue sequence for scene " + currentSceneName + " not found.");
+            Debug.LogError("Dialogue sequence for scene " + currentLevelKey + " not found.");
         }
     }
-    private DialogueSequence GetDialogueSequence(string sceneName)
+    private DialogueSequence GetDialogueSequence(LevelKey levelKey)
     {
         foreach (DialogueSequence sequence in dialogueSequences)
         {
-            if (sequence.sceneKey == sceneName) // Assuming sceneKey holds scene names
+            if (sequence.levelKey == levelKey) // Assuming sceneKey holds scene names
             {
                 return sequence;
             }

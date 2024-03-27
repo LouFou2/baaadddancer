@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue System/Dialogue Data")]
 public class DialogueData : ScriptableObject
@@ -9,4 +10,9 @@ public class DialogueData : ScriptableObject
     public string[] sentences;
     public string responseNo;
     public string responseYes;
+
+    public enum EventsToCall { triggerNextDialogue, switchScene }
+    public EventsToCall YesEventToCall;
+    public EventsToCall NoEventToCall;
+
 }

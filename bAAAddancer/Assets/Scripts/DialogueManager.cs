@@ -4,9 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static DialogueData;
 
 public class DialogueManager : MonoBehaviour
 {
+    [SerializeField] private DialogueSwitcher dialogueSwitcher;
     [SerializeField] private DialoguePlayback dialoguePlayer;
     public enum DialogueState { NoDialogue, NPCSpeaks, PauseOrContinue, PlayerResponse }
     public DialogueState dialogueState;
@@ -18,10 +20,11 @@ public class DialogueManager : MonoBehaviour
     private TextMeshProUGUI button1Text;
     private bool button1clicked = false;
 
-    // Unity Events for yes and no responses
-    public UnityEvent noResponseEvent; // set the event in the inspector (what method to call)
-    public UnityEvent yesResponseEvent;
-    
+    // Unity Events for responses
+    public UnityEvent triggerNextDialogueEvent; // set the event in the inspector (what method to call)
+    public UnityEvent switchSceneEvent;
+    public UnityEvent possibleEvent3; //etc
+
     void Start()
     {
         if (dialoguePlayer == null)
@@ -61,13 +64,13 @@ public class DialogueManager : MonoBehaviour
                 button1.gameObject.SetActive(true);
 
                 if (button0clicked) 
-                { 
-                    noResponseEvent.Invoke();
+                {
+                    HandleNoResponse(); // can i just modify this line?
                     dialogueState = DialogueState.NoDialogue;
                 } 
                 if (button1clicked) 
-                { 
-                    yesResponseEvent.Invoke();
+                {
+                    HandleYesResponse(); // and this line??
                     dialogueState = DialogueState.NoDialogue;
                 }
                 
@@ -107,14 +110,42 @@ public class DialogueManager : MonoBehaviour
         button1Text.text = yesResponse;
     }
 
-    public void HandleYesResponse() 
+    public void HandleYesResponse()
     {
-        //refer to appropriate event that should follow
+        DialogueData currentDialogue = dialogueSwitcher.GetCurrentDialogue();
 
+        //here we can use case-switching logic, using the enums from the SO
+        //and making it call PossibleEvent1/2/3/etc
+        switch (currentDialogue.YesEventToCall)
+        {
+            case EventsToCall.triggerNextDialogue:
+                triggerNextDialogueEvent.Invoke();
+                break;
+            case EventsToCall.switchScene:
+                switchSceneEvent.Invoke();
+                break;
+            // Add more cases for other events as needed
+            default:
+                Debug.LogError("Unknown event type in dialogue data: " + currentDialogue.YesEventToCall);
+                break;
+        }
     }
-    public void HandleNoResponse() 
+    public void HandleNoResponse()
     {
-        //refer to appropriate event that should follow
+        DialogueData currentDialogue = dialogueSwitcher.GetCurrentDialogue();
 
+        switch (currentDialogue.YesEventToCall)
+        {
+            case EventsToCall.triggerNextDialogue:
+                triggerNextDialogueEvent.Invoke();
+                break;
+            case EventsToCall.switchScene:
+                switchSceneEvent.Invoke();
+                break;
+            // Add more cases for other events as needed
+            default:
+                Debug.LogError("Unknown event type in dialogue data: " + currentDialogue.NoEventToCall);
+                break;
+        }
     }
 }

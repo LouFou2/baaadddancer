@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class DialoguePlayback : MonoBehaviour
 {
     [SerializeField] private DialogueManager dialogueManager;
-    [SerializeField] private DialogueData currentDialogue; // Current dialogue being played
+    [SerializeField] private DialogueSwitcher dialogueSwitcher;
+    [SerializeField] private DialogueData currentDialogue; // Current dialogue to play
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private float typeSpeedInterval = 0.03f;
@@ -20,7 +21,7 @@ public class DialoguePlayback : MonoBehaviour
         dialogueManager = FindObjectOfType<DialogueManager>();
         sentences = new Queue<string>();
         dialoguePanel.transform.localScale = Vector3.zero;
-
+        currentDialogue =  dialogueSwitcher.GetCurrentDialogue();
         StartDialogue(currentDialogue);
     }
     
