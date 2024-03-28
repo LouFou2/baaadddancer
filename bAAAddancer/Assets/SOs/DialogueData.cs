@@ -11,7 +11,7 @@ public class DialogueData : ScriptableObject
     public string responseNo;
     public string responseYes;
 
-    public enum EventsToCall { triggerNextDialogue, switchScene }
+    public enum EventsToCall { triggerNextDialogue, switchScene, customEvent }
     public EventsToCall YesEventToCall;
     public EventsToCall NoEventToCall;
 

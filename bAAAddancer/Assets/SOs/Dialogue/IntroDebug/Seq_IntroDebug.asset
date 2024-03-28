@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
-  m_Name: IntroCopyDance
+  m_Script: {fileID: 11500000, guid: 0470bba9d907e3747aae2f9689d2fb5e, type: 3}
+  m_Name: Seq_IntroDebug
   m_EditorClassIdentifier: 
-  sentences:
-  - Did I nail it?
-  - I feel like I've nailed it...
-  responseNo: ...
-  responseYes: I think you might be bugged
-  YesEventToCall: 1
-  NoEventToCall: 1
+  dialogueData:
+  - {fileID: 11400000, guid: a5bed0b597f161043b1ef163cbaf1e4c, type: 2}
+  levelKey: 3

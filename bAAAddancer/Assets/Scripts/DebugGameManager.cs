@@ -13,8 +13,12 @@ public class DebugGameManager : MonoBehaviour
     private Slider slider;
     private int bugsRemain;
 
+    private DialogueManager dialogueManager;
+
     private void Start()
     {
+        dialogueManager = FindObjectOfType<DialogueManager>();
+
         bugSpawnerScript = FindObjectOfType<BugSpawner>();
         zapperScript = FindObjectOfType<Zapper>();
         slider = debugSliderObject.GetComponent<Slider>();
@@ -47,5 +51,6 @@ public class DebugGameManager : MonoBehaviour
         screen.SetActive(false);
         zapper.SetActive(false);
         debugSliderObject.SetActive(false);
+        dialogueManager.switchSceneEvent.Invoke();
     }
 }

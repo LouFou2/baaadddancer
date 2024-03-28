@@ -23,7 +23,7 @@ public class DialogueManager : MonoBehaviour
     // Unity Events for responses
     public UnityEvent triggerNextDialogueEvent; // set the event in the inspector (what method to call)
     public UnityEvent switchSceneEvent;
-    public UnityEvent possibleEvent3; //etc
+    public UnityEvent customDialogueEvent; //etc
 
     void Start()
     {
@@ -124,6 +124,9 @@ public class DialogueManager : MonoBehaviour
             case EventsToCall.switchScene:
                 switchSceneEvent.Invoke();
                 break;
+            case EventsToCall.customEvent:
+                customDialogueEvent.Invoke();
+                break;
             // Add more cases for other events as needed
             default:
                 Debug.LogError("Unknown event type in dialogue data: " + currentDialogue.YesEventToCall);
@@ -141,6 +144,9 @@ public class DialogueManager : MonoBehaviour
                 break;
             case EventsToCall.switchScene:
                 switchSceneEvent.Invoke();
+                break;
+            case EventsToCall.customEvent:
+                customDialogueEvent.Invoke();
                 break;
             // Add more cases for other events as needed
             default:
