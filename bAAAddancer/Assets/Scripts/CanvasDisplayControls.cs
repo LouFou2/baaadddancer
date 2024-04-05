@@ -61,7 +61,7 @@ public class CanvasDisplayControls : MonoBehaviour
         sequenceDuration = clockCounter.GetBeatInterval() * 16; //*** THIS IS RETURNING 0 *** (would be nice to use)
         Debug.Log(sequenceDuration);
         CurrentSceneState = SceneState.SkipTutorial;
-        StartTutorial();
+        //StartTutorial();
     }
 
     void Update()
@@ -70,18 +70,12 @@ public class CanvasDisplayControls : MonoBehaviour
         int current_Beat = clockCounter.GetCurrentBeat();
 
         Color beatLightOff = new Color(1f, 1f, 1f, 0.13f);
-        Color beatLightOff_Recording = new Color(1f, 0.627f, 0.637f, 0.2f);
-        Color beatLightOff_Playback = new Color(0f, 1f, 1f, 0.2f);
         Color beatLightOn = new Color(1f, 1f, 1f, 0.4f);
-        Color beatLightOn_Recording = new Color(1f, 0.627f, 0.637f, 0.4f);
-        Color beatLightOn_Playback = new Color(0f, 1f, 1f, 0.4f);
         Color beatHighlight = new Color(1f, 1f, 1f, 0.6f);
-        Color beatHighlight_Recording = new Color(1f, 0.627f, 0.637f, 0.6f);
-        Color beatHighlight_Playback = new Color(0f, 1f, 1f, 0.6f);
 
-        isRecording = playerControls.DanceControls.Record.IsPressed();
+        /*//isRecording = playerControls.DanceControls.Record.IsPressed();
         switchObject = (playerControls.DanceControls.SwitchObjectL.triggered) ? true : (playerControls.DanceControls.SwitchObjectR.triggered) ? true : false;
-        yesOrNo = (playerControls.DanceControls.YesButton.triggered) ? true : (playerControls.DanceControls.NoButton.triggered) ? true : false;
+        yesOrNo = (playerControls.DanceControls.YesButton.triggered) ? true : (playerControls.DanceControls.NoButton.triggered) ? true : false;*/
 
         for (int i = 0; i < beatLights.Length; i++) 
         {
@@ -90,34 +84,21 @@ public class CanvasDisplayControls : MonoBehaviour
 
             if (i== current_Q_Beat) // light display for each quarter beat
             {
-                if (isRecording)
-                {
-                    beatLights[i].color = beatLightOff_Recording;
-                    beatLights[i].color = (i == current_Q_Beat) ? beatLightOn_Recording : beatLightOff_Recording;
-                    beatLights[i].rectTransform.localScale = new Vector3(1f, 1f, 1f);
-                }
-                else if (isPlaying)
-                {
-                    beatLights[i].color = beatLightOff_Playback;
-                    beatLights[i].color = (i == current_Q_Beat) ? beatLightOn_Playback : beatLightOff_Playback;
-                    beatLights[i].rectTransform.localScale = new Vector3(1f, 1f, 1f);
-                }
-                else
-                {
+                
                     beatLights[i].color = beatLightOff;
                     beatLights[i].color = (i == current_Q_Beat) ? beatLightOn : beatLightOff;
                     beatLights[i].rectTransform.localScale = new Vector3(1f, 1f, 1f);
-                }
+                
             }
 
             // Slightly different lights for each beat:
             if (i == current_Beat * 4 && current_Q_Beat % 4 == 0)
             {
                 beatLights[i].rectTransform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
-                beatLights[i].color = (isRecording)? beatHighlight_Recording : (isPlaying)? beatHighlight_Playback : beatHighlight;
+                beatLights[i].color = beatHighlight;
             }
         }
-        switch (CurrentSceneState) 
+        /*switch (CurrentSceneState) 
         {
             case SceneState.SkipTutorial:
                 leftStick.SetActive(false);
@@ -224,9 +205,9 @@ public class CanvasDisplayControls : MonoBehaviour
             default:
                 CurrentSceneState = SceneState.UseJoysticks;
                 break;
-        }
+        }*/
     }
-    public void StartTutorial() 
+    /*public void StartTutorial() 
     {
         tutorialIsRunning = true;
         StartCoroutine(LearningControls());
@@ -237,14 +218,14 @@ public class CanvasDisplayControls : MonoBehaviour
         StopCoroutine(LearningControls());
         if (keepDancing) CurrentSceneState = SceneState.KeepDancing;
         if (savedDance) EndScene();
-    }
+    }*/
     public void EndScene() 
     {
         //switch to the next scene
         sceneSwitcher.LoadNextScene();
         sceneSwitcher.SwitchToNextLevelKey();
     }
-    private IEnumerator LearningControls()
+/*    private IEnumerator LearningControls()
     {
         while (tutorialIsRunning) 
         {
@@ -389,4 +370,4 @@ public class CanvasDisplayControls : MonoBehaviour
             EndTutorial();
         }
     }
-}
+*/}

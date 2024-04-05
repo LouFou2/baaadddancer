@@ -23,11 +23,13 @@ public class ObjectControls : MonoBehaviour
     private Vector2 moveInput;
 
     public bool isActive = false;
+    public bool isRecording = false;
     public bool useRecordedPositions = false;
 
     private Vector3 initialPosition;
     private Vector3 currentRecordedPosition;
     private Vector3 finalUpdatePosition;
+    private Quaternion finalUpdateRotation;
 
     private void Awake()
     {
@@ -56,18 +58,25 @@ public class ObjectControls : MonoBehaviour
     }
     private void Update()
     {
-        // Check if the playback trigger is pressed
-        if (playerControls.DanceControls.Play.triggered && isActive)
+        if (!isActive)
         {
-            // Toggle the useRecordedPositions boolean
-            useRecordedPositions = !useRecordedPositions;
+            useRecordedPositions = true;
+            controlGizmoObject.SetActive(false);
         }
-
-        controlGizmoObject.SetActive(false);
-
-        if (isActive && !useRecordedPositions)
+        else 
         {
             controlGizmoObject.SetActive(true);
+        }
+            
+        isRecording = false;
+
+        Vector2 inputVector2 = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
+
+        if (inputVector2.magnitude > 0.01f) isRecording = true; // turn on recording if input is above a threshold
+
+        if (isActive && isRecording)
+        {
+            
             if (leftObject)
             {
                 rightObject = false;
@@ -86,7 +95,7 @@ public class ObjectControls : MonoBehaviour
     {
         Vector3 currentPosition = controlObject.transform.position;
 
-        if (isActive && !useRecordedPositions)
+        if (isActive && isRecording)
         {
 
             // map input to limit ranges
@@ -106,6 +115,7 @@ public class ObjectControls : MonoBehaviour
                     // swap the range max and min values so object movement in world space corresponds with controller input:
                     // also, if input is negative, we lerp from object default to object min position using negated input value
                     // (lerp uses 0-1 range) so if input value is nagative, we make it positive (-input)
+
                     rangedX = (moveInput.x <= 0)? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
                     rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
 
@@ -120,7 +130,7 @@ public class ObjectControls : MonoBehaviour
                     rangedZ = (moveInput.y <= 0) ? Mathf.Lerp(0, z_RangeMax, -moveInput.y) : Mathf.Lerp(0, z_RangeMin, moveInput.y);
 
                     rangedPosition = new Vector3(rangedX + initialPosition.x, initialPosition.y, rangedZ + initialPosition.z);
-                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);// -rangedPosition.x
+                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);
                     clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z + z_RangeMin, initialPosition.z + z_RangeMax);
                     finalUpdatePosition = new Vector3(clampedX, initialPosition.y, clampedZ);
                     break;
@@ -151,12 +161,18 @@ public class ObjectControls : MonoBehaviour
                     viewSwitcher.CurrentView = ViewSwitcher.ViewSwitch.front; // Set default view to front if the current view is not recognized
                     break;
             }
+
             controlObject.transform.position = finalUpdatePosition;
+            controlObject.transform.rotation = finalUpdateRotation;
         }
     }
     public Vector3 GetPositionToRecord()
     {
         return finalUpdatePosition;
+    }
+    public Quaternion GetRotationToRecord()
+    {
+        return finalUpdateRotation;
     }
     void On_Q_BeatHandler()
     {

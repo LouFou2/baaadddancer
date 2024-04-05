@@ -52,7 +52,12 @@ public class DanceSequencer : MonoBehaviour
     void OnBeatTriggerHandler() // Method to handle beat trigger event
     {
         // === CHECKING INPUT === //
-        bool record = playerControls.DanceControls.Record.IsPressed();
+        //bool record = playerControls.DanceControls.Record.IsPressed();
+        bool record = false;
+
+        Vector2 inputVector2 = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
+
+        if(inputVector2.magnitude > 0.01f) record = true;
 
         for (int i = 0; i < objControlScripts.Length; i++)
         {
@@ -61,6 +66,7 @@ public class DanceSequencer : MonoBehaviour
                 objControlScripts[i].useRecordedPositions = false;
                 // Record the position for the current GameObject for the current beat
                 recordingDataArray[i].recordedPositions[beatCount] = objControlScripts[i].GetPositionToRecord();
+                recordingDataArray[i].recordedRotations[beatCount] = objControlScripts[i].GetRotationToRecord();
             }
         }
     }
