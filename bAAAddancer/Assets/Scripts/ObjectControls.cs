@@ -70,9 +70,17 @@ public class ObjectControls : MonoBehaviour
             
         isRecording = false;
 
-        Vector2 inputVector2 = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
+        if (leftObject) 
+        {
+            Vector2 inputVector2 = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
+            if (inputVector2.magnitude > 0.001f) isRecording = true; // turn on recording if input is above a threshold
+        }
+        if (rightObject)
+        {
+            Vector2 inputVector2 = playerControls.DanceControls.MoveR.ReadValue<Vector2>();
+            if (inputVector2.magnitude > 0.001f) isRecording = true; // turn on recording if input is above a threshold
+        }
 
-        if (inputVector2.magnitude > 0.01f) isRecording = true; // turn on recording if input is above a threshold
 
         if (isActive && isRecording)
         {
