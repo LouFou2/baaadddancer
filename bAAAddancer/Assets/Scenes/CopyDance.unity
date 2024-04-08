@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -342,7 +342,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  possibleEvent3:
+  customDialogueEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &133497351
@@ -4307,6 +4307,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 311873395}
     m_Modifications:
+    - target: {fileID: 8804588293617454324, guid: 2f1824d8de0bc924da588c3003c25e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804588293754444582, guid: 2f1824d8de0bc924da588c3003c25e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8804588293760037122, guid: 2f1824d8de0bc924da588c3003c25e18,
         type: 3}
       propertyPath: m_Name
@@ -4365,6 +4375,46 @@ PrefabInstance:
     - target: {fileID: 8804588293760037125, guid: 2f1824d8de0bc924da588c3003c25e18,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804588294699291170, guid: 2f1824d8de0bc924da588c3003c25e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804588294759956475, guid: 2f1824d8de0bc924da588c3003c25e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804588294766598383, guid: 2f1824d8de0bc924da588c3003c25e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804588294826428909, guid: 2f1824d8de0bc924da588c3003c25e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804588294871829938, guid: 2f1824d8de0bc924da588c3003c25e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804588294942338616, guid: 2f1824d8de0bc924da588c3003c25e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804588295265382926, guid: 2f1824d8de0bc924da588c3003c25e18,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804588295438281194, guid: 2f1824d8de0bc924da588c3003c25e18,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

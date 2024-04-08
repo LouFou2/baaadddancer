@@ -5887,7 +5887,7 @@ MonoBehaviour:
   opposingObject: {fileID: 0}
   x_RangeMin: -0.5
   x_RangeMax: 0.5
-  y_RangeMin: -0.01
+  y_RangeMin: 0
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
@@ -15286,6 +15286,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: -2733958281863975909, guid: e6e076b79cb96224885236f236f42135,
+        type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4c872e71393a50e49956ecea67175e27, type: 2}
     - target: {fileID: -1060593788927448110, guid: e6e076b79cb96224885236f236f42135,
         type: 3}
       propertyPath: m_LocalRotation.w
