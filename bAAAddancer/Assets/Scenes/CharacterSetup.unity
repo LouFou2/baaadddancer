@@ -329,6 +329,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3536723156579824297, guid: 08101438bc990244a948d4afe7fe17a3,
+        type: 3}
+      propertyPath: m_Effectors.Array.data[14].m_Transform
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3536723156579824297, guid: 08101438bc990244a948d4afe7fe17a3,
+        type: 3}
+      propertyPath: m_Effectors.Array.data[15].m_Transform
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3935670561071011887, guid: 08101438bc990244a948d4afe7fe17a3,
         type: 3}
       propertyPath: m_RootOrder
@@ -388,6 +398,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Zaphod.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4455642406593348245, guid: 08101438bc990244a948d4afe7fe17a3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08101438bc990244a948d4afe7fe17a3, type: 3}
@@ -532,11 +547,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lava.001
       objectReference: {fileID: 0}
-    - target: {fileID: 861775634368344654, guid: 5dc165ad6ff21264b934a380791af451,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dc165ad6ff21264b934a380791af451, type: 3}
 --- !u!1001 &1228968239152617632
@@ -550,11 +560,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cubo.001
-      objectReference: {fileID: 0}
-    - target: {fileID: 1228968238519581737, guid: e49677f464934874badd943e6cffe823,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1228968238519581742, guid: e49677f464934874badd943e6cffe823,
         type: 3}
@@ -610,11 +615,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1228968239802171517, guid: e49677f464934874badd943e6cffe823,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e49677f464934874badd943e6cffe823, type: 3}
@@ -703,11 +703,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sharkey.001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4007801924947624540, guid: 657a1552579ae7a438ac3b577f8d1788,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4383482591744956646, guid: 657a1552579ae7a438ac3b577f8d1788,
         type: 3}
