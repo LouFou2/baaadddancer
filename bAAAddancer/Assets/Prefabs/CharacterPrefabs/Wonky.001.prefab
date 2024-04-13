@@ -1126,8 +1126,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -1308,8 +1308,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
-  useMovementLimit: 1
   opposingObject: {fileID: 2561278419046339145}
+  useMovementLimit: 1
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -1345,7 +1345,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2561278417698468255}
   m_LocalRotation: {x: 0.00000009362675, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00000015554257, y: 1.7792822, z: 0.0149976015}
+  m_LocalPosition: {x: 0, y: 1.7792822, z: 0.0149976015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1512,8 +1512,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 1.5
   y_RangeMin: -1
@@ -1681,8 +1681,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -1810,8 +1810,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -1.5
   x_RangeMax: 0.5
   y_RangeMin: -1
@@ -2518,8 +2518,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: 0
@@ -2747,8 +2747,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: 0
@@ -4090,8 +4090,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -4466,8 +4466,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -4911,8 +4911,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -5906,6 +5906,7 @@ GameObject:
   - component: {fileID: 2561278419373713695}
   - component: {fileID: 2561278419373713693}
   - component: {fileID: 2561278419373713692}
+  - component: {fileID: 6444981125162435082}
   m_Layer: 0
   m_Name: Wonky.001
   m_TagString: Untagged
@@ -6071,6 +6072,22 @@ MonoBehaviour:
   - m_Rig: {fileID: 2561278418370089164}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &6444981125162435082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3407559120875670968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d34a2411ba0cae4c9e1144a705b9ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDataSO: {fileID: 11400000, guid: 18485facb075edd40be3a0605845f3c8, type: 2}
+  isPlayer: 0
+  isNPC: 0
+  isBug: 0
 --- !u!1 &3486931071931613492
 GameObject:
   m_ObjectHideFlags: 0

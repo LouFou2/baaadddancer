@@ -8834,6 +8834,7 @@ GameObject:
   - component: {fileID: 6953104076211241557}
   - component: {fileID: 3536723154806570567}
   - component: {fileID: 3536723154806570564}
+  - component: {fileID: 145536448194601286}
   m_Layer: 0
   m_Name: Zaphod.001
   m_TagString: Untagged
@@ -9044,6 +9045,22 @@ MonoBehaviour:
   - m_Rig: {fileID: 3536723156579824297}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &145536448194601286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4455642406593348245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d34a2411ba0cae4c9e1144a705b9ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDataSO: {fileID: 11400000, guid: 8a9370ba4b2c97a46bdc597c7b267f29, type: 2}
+  isPlayer: 0
+  isNPC: 0
+  isBug: 0
 --- !u!1 &4488853048339789269
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,15 +46,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Boop"",
-                    ""type"": ""Button"",
-                    ""id"": ""e3034d1f-5f38-40f2-8659-532daec9db47"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""SwitchObjectL"",
                     ""type"": ""Button"",
                     ""id"": ""b6d27f35-8cff-4a52-81f2-2108a692175f"",
@@ -143,6 +134,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""a459ec09-c6a7-4985-a84d-24f1cf89fa8b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""eef1626f-cef7-4e03-8a1f-19094103fe42"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -154,50 +163,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MoveL"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9b6e001e-67f3-4d80-b8ea-dbd64fafd566"",
-                    ""path"": ""<Gamepad>/dpad/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Boop"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""902b0810-a483-4777-bd9a-8b8e5399c8b8"",
-                    ""path"": ""<Gamepad>/dpad/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Boop"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""69295f4a-ade5-4005-b573-b1495402452a"",
-                    ""path"": ""<Gamepad>/dpad/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Boop"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2988367c-6335-42f4-a285-0552e5272e00"",
-                    ""path"": ""<Gamepad>/dpad/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Boop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -321,6 +286,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""NoButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a9a4d71-13a8-4c45-838f-d663ed9306ee"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55c62404-c681-4005-bcd5-46517d8c4a2c"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -331,7 +318,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_DanceControls = asset.FindActionMap("DanceControls", throwIfNotFound: true);
         m_DanceControls_MoveL = m_DanceControls.FindAction("MoveL", throwIfNotFound: true);
         m_DanceControls_MoveR = m_DanceControls.FindAction("MoveR", throwIfNotFound: true);
-        m_DanceControls_Boop = m_DanceControls.FindAction("Boop", throwIfNotFound: true);
         m_DanceControls_SwitchObjectL = m_DanceControls.FindAction("SwitchObjectL", throwIfNotFound: true);
         m_DanceControls_SwitchObjectR = m_DanceControls.FindAction("SwitchObjectR", throwIfNotFound: true);
         m_DanceControls_Record = m_DanceControls.FindAction("Record", throwIfNotFound: true);
@@ -342,6 +328,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_DanceControls_RotateViewY_Right = m_DanceControls.FindAction("RotateViewY_Right", throwIfNotFound: true);
         m_DanceControls_YesButton = m_DanceControls.FindAction("YesButton", throwIfNotFound: true);
         m_DanceControls_NoButton = m_DanceControls.FindAction("NoButton", throwIfNotFound: true);
+        m_DanceControls_AButton = m_DanceControls.FindAction("AButton", throwIfNotFound: true);
+        m_DanceControls_BButton = m_DanceControls.FindAction("BButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -405,7 +393,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IDanceControlsActions> m_DanceControlsActionsCallbackInterfaces = new List<IDanceControlsActions>();
     private readonly InputAction m_DanceControls_MoveL;
     private readonly InputAction m_DanceControls_MoveR;
-    private readonly InputAction m_DanceControls_Boop;
     private readonly InputAction m_DanceControls_SwitchObjectL;
     private readonly InputAction m_DanceControls_SwitchObjectR;
     private readonly InputAction m_DanceControls_Record;
@@ -416,13 +403,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_DanceControls_RotateViewY_Right;
     private readonly InputAction m_DanceControls_YesButton;
     private readonly InputAction m_DanceControls_NoButton;
+    private readonly InputAction m_DanceControls_AButton;
+    private readonly InputAction m_DanceControls_BButton;
     public struct DanceControlsActions
     {
         private @PlayerControls m_Wrapper;
         public DanceControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveL => m_Wrapper.m_DanceControls_MoveL;
         public InputAction @MoveR => m_Wrapper.m_DanceControls_MoveR;
-        public InputAction @Boop => m_Wrapper.m_DanceControls_Boop;
         public InputAction @SwitchObjectL => m_Wrapper.m_DanceControls_SwitchObjectL;
         public InputAction @SwitchObjectR => m_Wrapper.m_DanceControls_SwitchObjectR;
         public InputAction @Record => m_Wrapper.m_DanceControls_Record;
@@ -433,6 +421,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @RotateViewY_Right => m_Wrapper.m_DanceControls_RotateViewY_Right;
         public InputAction @YesButton => m_Wrapper.m_DanceControls_YesButton;
         public InputAction @NoButton => m_Wrapper.m_DanceControls_NoButton;
+        public InputAction @AButton => m_Wrapper.m_DanceControls_AButton;
+        public InputAction @BButton => m_Wrapper.m_DanceControls_BButton;
         public InputActionMap Get() { return m_Wrapper.m_DanceControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -448,9 +438,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MoveR.started += instance.OnMoveR;
             @MoveR.performed += instance.OnMoveR;
             @MoveR.canceled += instance.OnMoveR;
-            @Boop.started += instance.OnBoop;
-            @Boop.performed += instance.OnBoop;
-            @Boop.canceled += instance.OnBoop;
             @SwitchObjectL.started += instance.OnSwitchObjectL;
             @SwitchObjectL.performed += instance.OnSwitchObjectL;
             @SwitchObjectL.canceled += instance.OnSwitchObjectL;
@@ -481,6 +468,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @NoButton.started += instance.OnNoButton;
             @NoButton.performed += instance.OnNoButton;
             @NoButton.canceled += instance.OnNoButton;
+            @AButton.started += instance.OnAButton;
+            @AButton.performed += instance.OnAButton;
+            @AButton.canceled += instance.OnAButton;
+            @BButton.started += instance.OnBButton;
+            @BButton.performed += instance.OnBButton;
+            @BButton.canceled += instance.OnBButton;
         }
 
         private void UnregisterCallbacks(IDanceControlsActions instance)
@@ -491,9 +484,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MoveR.started -= instance.OnMoveR;
             @MoveR.performed -= instance.OnMoveR;
             @MoveR.canceled -= instance.OnMoveR;
-            @Boop.started -= instance.OnBoop;
-            @Boop.performed -= instance.OnBoop;
-            @Boop.canceled -= instance.OnBoop;
             @SwitchObjectL.started -= instance.OnSwitchObjectL;
             @SwitchObjectL.performed -= instance.OnSwitchObjectL;
             @SwitchObjectL.canceled -= instance.OnSwitchObjectL;
@@ -524,6 +514,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @NoButton.started -= instance.OnNoButton;
             @NoButton.performed -= instance.OnNoButton;
             @NoButton.canceled -= instance.OnNoButton;
+            @AButton.started -= instance.OnAButton;
+            @AButton.performed -= instance.OnAButton;
+            @AButton.canceled -= instance.OnAButton;
+            @BButton.started -= instance.OnBButton;
+            @BButton.performed -= instance.OnBButton;
+            @BButton.canceled -= instance.OnBButton;
         }
 
         public void RemoveCallbacks(IDanceControlsActions instance)
@@ -545,7 +541,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnMoveL(InputAction.CallbackContext context);
         void OnMoveR(InputAction.CallbackContext context);
-        void OnBoop(InputAction.CallbackContext context);
         void OnSwitchObjectL(InputAction.CallbackContext context);
         void OnSwitchObjectR(InputAction.CallbackContext context);
         void OnRecord(InputAction.CallbackContext context);
@@ -556,5 +551,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnRotateViewY_Right(InputAction.CallbackContext context);
         void OnYesButton(InputAction.CallbackContext context);
         void OnNoButton(InputAction.CallbackContext context);
+        void OnAButton(InputAction.CallbackContext context);
+        void OnBButton(InputAction.CallbackContext context);
     }
 }

@@ -4139,7 +4139,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519265868659892263}
   m_LocalRotation: {x: 0.00000009362675, y: -0.0000001872535, z: 1.7531937e-14, w: 1}
-  m_LocalPosition: {x: -0.00000013345706, y: 1.5176646, z: 0.012988806}
+  m_LocalPosition: {x: 0, y: 1.5176646, z: 0.012988806}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5402,6 +5402,7 @@ GameObject:
   - component: {fileID: 519265868632391457}
   - component: {fileID: 519265868632391463}
   - component: {fileID: 519265868632391456}
+  - component: {fileID: 6400845903224695788}
   m_Layer: 0
   m_Name: Lava.001
   m_TagString: Untagged
@@ -5568,6 +5569,22 @@ MonoBehaviour:
   - m_Rig: {fileID: 519265867857983584}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &6400845903224695788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861775634368344654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d34a2411ba0cae4c9e1144a705b9ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDataSO: {fileID: 11400000, guid: db1d2a1ab36d2c14f8fe1f98eff04b20, type: 2}
+  isPlayer: 0
+  isNPC: 0
+  isBug: 0
 --- !u!1 &946258145441392896
 GameObject:
   m_ObjectHideFlags: 0

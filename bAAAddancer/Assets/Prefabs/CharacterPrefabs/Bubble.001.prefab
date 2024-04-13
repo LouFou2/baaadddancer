@@ -309,8 +309,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -1.5
   x_RangeMax: 0.5
   y_RangeMin: -1
@@ -944,8 +944,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: 0
@@ -1085,8 +1085,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -2548,8 +2548,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 1.5
   y_RangeMin: -1
@@ -3426,8 +3426,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -3951,8 +3951,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -4509,8 +4509,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -4915,8 +4915,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: 0
@@ -5000,8 +5000,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
-  useMovementLimit: 0
   opposingObject: {fileID: 0}
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -5075,7 +5075,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247443440293116788}
   m_LocalRotation: {x: 0.0000001872535, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00000013466145, y: 1.5403491, z: 0.021861672}
+  m_LocalPosition: {x: 0, y: 1.5403491, z: 0.021861672}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5448,8 +5448,8 @@ MonoBehaviour:
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
-  useMovementLimit: 1
   opposingObject: {fileID: 247443440008559991}
+  useMovementLimit: 1
   x_RangeMin: -0.5
   x_RangeMax: 0.5
   y_RangeMin: -0.5
@@ -5829,6 +5829,7 @@ GameObject:
   - component: {fileID: 247443439419098856}
   - component: {fileID: 247443439419098862}
   - component: {fileID: 247443439419098857}
+  - component: {fileID: 1272089162375651206}
   m_Layer: 0
   m_Name: Bubble.001
   m_TagString: Untagged
@@ -6004,6 +6005,22 @@ MonoBehaviour:
   - m_Rig: {fileID: 247443438578509997}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &1272089162375651206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129965551349578709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d34a2411ba0cae4c9e1144a705b9ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDataSO: {fileID: 11400000, guid: fa6a3b99d944a024ca560ab340bd20af, type: 2}
+  isPlayer: 0
+  isNPC: 0
+  isBug: 0
 --- !u!1 &1179566184313847330
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1228968238519581740}
   - component: {fileID: 1228968238519581738}
   - component: {fileID: 1228968238519581739}
+  - component: {fileID: 8918289274111261525}
   m_Layer: 0
   m_Name: Cubo.001
   m_TagString: Untagged
@@ -179,6 +180,22 @@ MonoBehaviour:
   - m_Rig: {fileID: 1228968240264053697}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &8918289274111261525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968238519581737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d34a2411ba0cae4c9e1144a705b9ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDataSO: {fileID: 11400000, guid: 74058c245c16f7444afbfad598cfec5e, type: 2}
+  isPlayer: 0
+  isNPC: 0
+  isBug: 0
 --- !u!1 &1228968238584028285
 GameObject:
   m_ObjectHideFlags: 0
@@ -6393,7 +6410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228968240054582849}
   m_LocalRotation: {x: 0.00000009362675, y: -0.0000001872535, z: 1.7531937e-14, w: 1}
-  m_LocalPosition: {x: -0.00000014103453, y: 1.6131588, z: 0.014065146}
+  m_LocalPosition: {x: 0, y: 1.6131588, z: 0.014065146}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

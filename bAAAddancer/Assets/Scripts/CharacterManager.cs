@@ -1,13 +1,12 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CharacterManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] characters;
-    private CharacterData[] characterDataSOs;
+    public GameObject[] characters;
+    public CharacterData[] characterDataSOs;
 
-    private enum CurrentScene { DialogueScene, MakeDanceScene, CopyDanceScene, DebugScene } //add more if needed
+    private enum CurrentScene { TitleScene, DialogueScene, MakeDanceScene, CopyDanceScene, DebugScene } //add more if needed
     private CurrentScene currentScene;
     
     void Start()
@@ -36,12 +35,15 @@ public class CharacterManager : MonoBehaviour
         string currentSceneName = SceneManager.GetActiveScene().name;
 
         // Make sure to add scene names accurately:
-        if (currentSceneName == "") { currentScene = CurrentScene.DialogueScene; }
+        if (currentSceneName == "TitleScene") { currentScene = CurrentScene.TitleScene; }
+        else if (currentSceneName == "") { currentScene = CurrentScene.DialogueScene; }
         else if (currentSceneName == "") { currentScene = CurrentScene.MakeDanceScene; }
         else if (currentSceneName == "") { currentScene = CurrentScene.CopyDanceScene; }
         else if (currentSceneName == "") { currentScene = CurrentScene.DebugScene; }
 
     }
-
+    public void SetPlayerCharacter() 
+    {
+    }
     //Add methods for accessing character Data
 }
