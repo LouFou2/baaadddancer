@@ -1,9 +1,14 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] characters;
     private CharacterData[] characterDataSOs;
+
+    private enum CurrentScene { DialogueScene, MakeDanceScene, CopyDanceScene, DebugScene } //add more if needed
+    private CurrentScene currentScene;
     
     void Start()
     {
@@ -23,11 +28,19 @@ public class CharacterManager : MonoBehaviour
                 Debug.LogWarning("CharacterProfile component is missing on GameObject " + characters[i].name);
             }
         }
+
     }
 
     void Update()
     {
-        
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Make sure to add scene names accurately:
+        if (currentSceneName == "") { currentScene = CurrentScene.DialogueScene; }
+        else if (currentSceneName == "") { currentScene = CurrentScene.MakeDanceScene; }
+        else if (currentSceneName == "") { currentScene = CurrentScene.CopyDanceScene; }
+        else if (currentSceneName == "") { currentScene = CurrentScene.DebugScene; }
+
     }
 
     //Add methods for accessing character Data
