@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentLevelKey = gameData.currentLevelKey;
-        if (!gameStarted)
+        if (!gameStarted && SceneManager.GetActiveScene().buildIndex == 0)
         {
             // If this is the first loading of the game, reset the currentLevelKey
             ResetCurrentLevelKey();

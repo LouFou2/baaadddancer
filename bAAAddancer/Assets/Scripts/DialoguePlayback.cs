@@ -65,7 +65,6 @@ public class DialoguePlayback : MonoBehaviour
             yield return new WaitForSeconds(1f);
             EndDialogue(); 
         }
-        
     }
 
     void EndDialogue() 

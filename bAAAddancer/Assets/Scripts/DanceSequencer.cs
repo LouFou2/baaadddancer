@@ -64,7 +64,7 @@ public class DanceSequencer : MonoBehaviour
             if (objControlScripts[i].isActive && record)
             {
                 objControlScripts[i].useRecordedPositions = false;
-                // Record the position for the current GameObject for the current beat
+                // Record the position + rotation for the current GameObject for the current beat
                 recordingDataArray[i].recordedPositions[beatCount] = objControlScripts[i].GetPositionToRecord();
                 recordingDataArray[i].recordedRotations[beatCount] = objControlScripts[i].GetRotationToRecord();
             }

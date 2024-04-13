@@ -5,22 +5,23 @@ public class ObjectControls : MonoBehaviour
 {
     private PlayerControls playerControls;
     private ClockCounter clockCounter;
-    
+    private ViewSwitcher viewSwitcher;
+
     private GameObject controlObject; // the actual control object
     [SerializeField] GameObject controlGizmoObject; // the gizmo of the control object (to visualise if its active)
     [SerializeField] private RecordingData recordingDataSO;
+
     [SerializeField] private bool leftObject = true;
     [SerializeField] private bool rightObject = false;
-    [SerializeField] private bool useMovementLimit = false;
     [SerializeField] private GameObject opposingObject; // assign other left/right object
-    private ViewSwitcher viewSwitcher;
+    [SerializeField] private bool useMovementLimit = false;
+
     [SerializeField] private float x_RangeMin = -0.5f;
     [SerializeField] private float x_RangeMax = 0.5f;
     [SerializeField] private float y_RangeMin = -0.5f;
     [SerializeField] private float y_RangeMax = 0.5f;
     [SerializeField] private float z_RangeMin = -0.5f;
     [SerializeField] private float z_RangeMax = 0.5f;
-
 
     private Vector2 moveInput;
 
@@ -48,10 +49,9 @@ public class ObjectControls : MonoBehaviour
         playerControls.Disable();
         ClockCounter.On_Q_BeatTrigger -= On_Q_BeatHandler; // Subscribe to the beat trigger event
     }
-
     private void Start()
     {
-        clockCounter = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
+        clockCounter = FindObjectOfType<ClockCounter>();
         viewSwitcher = FindObjectOfType<ViewSwitcher>();
 
         initialPosition = controlObject.transform.position;
@@ -179,10 +179,12 @@ public class ObjectControls : MonoBehaviour
                     rangedX = (moveInput.x <= 0) ? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
                     rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
 
-                    rangedPosition = new Vector3(rangedX + initialPosition.x, rangedY + initialPosition.y, currentRecordedPosition.z);
-                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);
+                    rangedPosition = new Vector3(rangedX + initialPosition.x, rangedY + initialPosition.y, currentRecordedPosition.z); // note: we use the current position for the uncontrolled axis
+
+                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax); // but: initial position to set the clamp range
                     clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
-                    finalUpdatePosition = new Vector3(clampedX, clampedY, currentRecordedPosition.z);
+
+                    finalUpdatePosition = new Vector3(clampedX, clampedY, currentRecordedPosition.z); // current position again for the uncontrolled axis 
                     break;
 
                 case ViewSwitcher.ViewSwitch.top:
@@ -192,6 +194,7 @@ public class ObjectControls : MonoBehaviour
                     rangedPosition = new Vector3(rangedX + initialPosition.x, currentRecordedPosition.y, rangedZ + initialPosition.z);
                     clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);
                     clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z + z_RangeMin, initialPosition.z + z_RangeMax);
+
                     finalUpdatePosition = new Vector3(clampedX, currentRecordedPosition.y, clampedZ);
                     break;
 
@@ -203,6 +206,7 @@ public class ObjectControls : MonoBehaviour
                     rangedPosition = new Vector3(currentRecordedPosition.x, rangedY + initialPosition.y, rangedZ + initialPosition.z);
                     clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
                     clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z + z_RangeMin, initialPosition.z + z_RangeMax);
+
                     finalUpdatePosition = new Vector3(currentRecordedPosition.x, clampedY, clampedZ);
                     break;
 
@@ -214,6 +218,7 @@ public class ObjectControls : MonoBehaviour
                     rangedPosition = new Vector3(currentRecordedPosition.x, rangedY + initialPosition.y, rangedZ + initialPosition.z);
                     clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
                     clampedZ = Mathf.Clamp(rangedPosition.z, initialPosition.z + z_RangeMin, initialPosition.z + z_RangeMax);
+
                     finalUpdatePosition = new Vector3(currentRecordedPosition.x, clampedY, clampedZ);
                     break;
 
@@ -276,10 +281,11 @@ public class ObjectControls : MonoBehaviour
             controlObject.transform.DOMove(tweenTargetPosition, tweenDuration).SetEase(Ease.Linear);
         }
         // This tween is moving a Vector3 that can be used for axis not controlled by player input (depending on view switching)
+        // Note: it is not actually moving the object, only the Vector3 (currentRecordedPosition) that can be referred to in the Fixed Update method
         float xTarget = tweenTargetPosition.x;
         float yTarget = tweenTargetPosition.y;
         float zTarget = tweenTargetPosition.z;
-        DOTween.To(() => currentRecordedPosition, x => currentRecordedPosition = x, new Vector3(xTarget, yTarget, zTarget), tweenDuration);
+        DOTween.To(() => currentRecordedPosition, x => currentRecordedPosition = x, new Vector3(xTarget, yTarget, zTarget), tweenDuration).SetEase(Ease.Linear);
     }
 
 

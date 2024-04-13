@@ -37,12 +37,12 @@ public class DialogueManager : MonoBehaviour
     }
     void Update()
     {
-        switch (dialogueState) 
+        switch (dialogueState)
         {
             case DialogueState.NoDialogue:
                 button0.gameObject.SetActive(false);
                 button1.gameObject.SetActive(false);
-                break;            
+                break;
             case DialogueState.NPCSpeaks:
                 button0.gameObject.SetActive(false);
                 button1.gameObject.SetActive(false);
@@ -60,17 +60,34 @@ public class DialogueManager : MonoBehaviour
                 break;
 
             case DialogueState.PlayerResponse:
-                button0.gameObject.SetActive(true);
-                button1.gameObject.SetActive(true);
+
+                if (!string.IsNullOrEmpty(button0Text.text))
+                {
+                    button0.gameObject.SetActive(true);
+                }
+                else 
+                {
+                    button0.gameObject.SetActive(false);
+                }
+                if (!string.IsNullOrEmpty(button1Text.text))
+                {
+                    button1.gameObject.SetActive(true);
+                }
+                else
+                {
+                    button1.gameObject.SetActive(false);
+                }
+                if (string.IsNullOrEmpty(button0Text.text) && string.IsNullOrEmpty(button1Text.text))
+                    dialogueState = DialogueState.NoDialogue;
 
                 if (button0clicked) 
                 {
-                    HandleNoResponse(); // can i just modify this line?
+                    HandleNoResponse();
                     dialogueState = DialogueState.NoDialogue;
                 } 
                 if (button1clicked) 
                 {
-                    HandleYesResponse(); // and this line??
+                    HandleYesResponse();
                     dialogueState = DialogueState.NoDialogue;
                 }
                 
@@ -108,6 +125,28 @@ public class DialogueManager : MonoBehaviour
         dialogueState = DialogueState.PlayerResponse;
         button0Text.text = noResponse;
         button1Text.text = yesResponse;
+
+    }
+    public void HandleNoResponse()
+    {
+        DialogueData currentDialogue = dialogueSwitcher.GetCurrentDialogue();
+
+        switch (currentDialogue.NoEventToCall)
+        {
+            case EventsToCall.triggerNextDialogue:
+                triggerNextDialogueEvent.Invoke();
+                break;
+            case EventsToCall.switchScene:
+                switchSceneEvent.Invoke();
+                break;
+            case EventsToCall.customEvent:
+                customDialogueEvent.Invoke();
+                break;
+            // Add more cases for other events as needed
+            default:
+                Debug.LogError("Unknown event type in dialogue data: " + currentDialogue.NoEventToCall);
+                break;
+        }
     }
 
     public void HandleYesResponse()
@@ -133,25 +172,5 @@ public class DialogueManager : MonoBehaviour
                 break;
         }
     }
-    public void HandleNoResponse()
-    {
-        DialogueData currentDialogue = dialogueSwitcher.GetCurrentDialogue();
-
-        switch (currentDialogue.YesEventToCall)
-        {
-            case EventsToCall.triggerNextDialogue:
-                triggerNextDialogueEvent.Invoke();
-                break;
-            case EventsToCall.switchScene:
-                switchSceneEvent.Invoke();
-                break;
-            case EventsToCall.customEvent:
-                customDialogueEvent.Invoke();
-                break;
-            // Add more cases for other events as needed
-            default:
-                Debug.LogError("Unknown event type in dialogue data: " + currentDialogue.NoEventToCall);
-                break;
-        }
-    }
+    
 }

@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class CanvasDisplayControls : MonoBehaviour
 {
     private ClockCounter clockCounter;
-    private bool tutorialIsRunning = false; // To control whether the tutorial is running or not
-    private float sequenceDuration;
+
+    /*private bool tutorialIsRunning = false; // To control whether the tutorial is running or not
+    private float sequenceDuration;*/
+
     private PlayerControls playerControls;
     private SceneSwitcher sceneSwitcher;
     [SerializeField] private GameObject leftStick;
@@ -28,10 +30,10 @@ public class CanvasDisplayControls : MonoBehaviour
     [SerializeField] private TextMeshProUGUI yesText;
     [SerializeField] private TextMeshProUGUI noText;
 
-    private enum SceneState { SkipTutorial, UseJoysticks, UseObjectSwitch, UseViewSwitch, UseRecord, UsePlay, SaveOrContinueDance, KeepDancing }
+    /*private enum SceneState { SkipTutorial, UseJoysticks, UseObjectSwitch, UseViewSwitch, UseRecord, UsePlay, SaveOrContinueDance, KeepDancing }
     private SceneState CurrentSceneState;
 
-    bool skipTutorial, isRecording, isPlaying, switchObject, yesOrNo, savedDance, keepDancing = false;
+    bool skipTutorial, isRecording, isPlaying, switchObject, yesOrNo, savedDance, keepDancing = false;*/
 
     private void Awake()
     {
@@ -53,14 +55,15 @@ public class CanvasDisplayControls : MonoBehaviour
         {
             Debug.LogError("SceneSwitcher component not found in the scene.");
         }
+
         clockCounter = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
         if (clockCounter == null)
         {
             Debug.LogError("ClockCounter component not found in the scene.");
         }
-        sequenceDuration = clockCounter.GetBeatInterval() * 16; //*** THIS IS RETURNING 0 *** (would be nice to use)
-        Debug.Log(sequenceDuration);
-        CurrentSceneState = SceneState.SkipTutorial;
+
+        //sequenceDuration = clockCounter.GetBeatInterval() * 16; 
+        //CurrentSceneState = SceneState.SkipTutorial;
         //StartTutorial();
     }
 
@@ -73,23 +76,21 @@ public class CanvasDisplayControls : MonoBehaviour
         Color beatLightOn = new Color(1f, 1f, 1f, 0.4f);
         Color beatHighlight = new Color(1f, 1f, 1f, 0.6f);
 
-        /*//isRecording = playerControls.DanceControls.Record.IsPressed();
-        switchObject = (playerControls.DanceControls.SwitchObjectL.triggered) ? true : (playerControls.DanceControls.SwitchObjectR.triggered) ? true : false;
-        yesOrNo = (playerControls.DanceControls.YesButton.triggered) ? true : (playerControls.DanceControls.NoButton.triggered) ? true : false;*/
-
         for (int i = 0; i < beatLights.Length; i++) 
         {
 
             beatLights[i].rectTransform.localScale = new Vector3(1f, 1f, 1f);
 
-            if (i== current_Q_Beat) // light display for each quarter beat
+            /*if (i== current_Q_Beat) // light display for each quarter beat ***THIS CONDITION SEEMS UNNECCESARRY
             {
                 
                     beatLights[i].color = beatLightOff;
-                    beatLights[i].color = (i == current_Q_Beat) ? beatLightOn : beatLightOff;
-                    beatLights[i].rectTransform.localScale = new Vector3(1f, 1f, 1f);
+                    beatLights[i].color = (i == current_Q_Beat) ? beatLightOn : beatLightOff; //***SINCE WE HAVE THIS CONDITION
+                    beatLights[i].rectTransform.localScale = new Vector3(1f, 1f, 1f); //*** REMOVE ABOVE CONDITION CHECK, ALSO THIS LINE...
                 
-            }
+            }*/
+            beatLights[i].color = beatLightOff;
+            beatLights[i].color = (i == current_Q_Beat) ? beatLightOn : beatLightOff;
 
             // Slightly different lights for each beat:
             if (i == current_Beat * 4 && current_Q_Beat % 4 == 0)

@@ -12,7 +12,7 @@ public class DialogueData : ScriptableObject
     public string responseYes;
 
     public enum EventsToCall { triggerNextDialogue, switchScene, customEvent }
-    public EventsToCall YesEventToCall;
     public EventsToCall NoEventToCall;
+    public EventsToCall YesEventToCall;
 
 }
