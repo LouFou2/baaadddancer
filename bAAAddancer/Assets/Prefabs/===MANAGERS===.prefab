@@ -1,5 +1,57 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &282075063466687107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5020884655645197713}
+  - component: {fileID: 5136341050117366257}
+  m_Layer: 0
+  m_Name: CharacterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5020884655645197713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282075063466687107}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2245521105252993682}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5136341050117366257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282075063466687107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b17826b0b37721445ae6ee83c29ce8ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characters:
+  - {fileID: 861775634368344654, guid: 5dc165ad6ff21264b934a380791af451, type: 3}
+  - {fileID: 4455642406593348245, guid: 08101438bc990244a948d4afe7fe17a3, type: 3}
+  - {fileID: 3407559120875670968, guid: d9c4df16b0114d642b0252d9a8988a7b, type: 3}
+  - {fileID: 1228968238519581737, guid: e49677f464934874badd943e6cffe823, type: 3}
+  - {fileID: 1129965551349578709, guid: 316b40a3a52dc1e40b6c44f04a91db2f, type: 3}
+  - {fileID: 4007801924947624540, guid: 657a1552579ae7a438ac3b577f8d1788, type: 3}
+  characterDataSOs: []
 --- !u!1 &2245521104278735625
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +143,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  possibleEvent3:
+  customDialogueEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2245521104589306492
@@ -411,6 +463,7 @@ Transform:
   - {fileID: 2245521104874939663}
   - {fileID: 2245521104589306491}
   - {fileID: 2245521104753076569}
+  - {fileID: 5020884655645197713}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

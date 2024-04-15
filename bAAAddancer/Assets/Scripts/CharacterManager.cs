@@ -6,6 +6,7 @@ public class CharacterManager : MonoBehaviour
     public GameObject[] characters;
     public CharacterData[] characterDataSOs;
 
+    // We can use the current scene to activate/de-activate components on character as needed
     private enum CurrentScene { TitleScene, DialogueScene, MakeDanceScene, CopyDanceScene, DebugScene } //add more if needed
     private CurrentScene currentScene;
     

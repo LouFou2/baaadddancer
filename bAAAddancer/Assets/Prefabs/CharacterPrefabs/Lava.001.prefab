@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 519265866909591746}
   - component: {fileID: 519265866909591756}
   - component: {fileID: 519265866909591747}
+  - component: {fileID: 2988842862092481285}
   m_Layer: 0
   m_Name: Cntrl_Pelvis_L
   m_TagString: Untagged
@@ -298,6 +299,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &2988842862092481285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519265866909591745}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &519265866910421365
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,6 +998,7 @@ GameObject:
   - component: {fileID: 519265867266002343}
   - component: {fileID: 519265867266002337}
   - component: {fileID: 519265867266002336}
+  - component: {fileID: 3895672854041880919}
   m_Layer: 0
   m_Name: Cntrl_Pelvis_R
   m_TagString: Untagged
@@ -1058,6 +1073,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &3895672854041880919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519265867266002342}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &519265867297788429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,6 +1335,7 @@ GameObject:
   - component: {fileID: 519265867350776135}
   - component: {fileID: 519265867350776134}
   - component: {fileID: 519265867350776133}
+  - component: {fileID: 5306702655266260171}
   m_Layer: 0
   m_Name: CNTRL_Arm_R
   m_TagString: Untagged
@@ -1424,6 +1453,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &5306702655266260171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519265867350776155}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &519265867404748089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,6 +1478,7 @@ GameObject:
   - component: {fileID: 519265867404748069}
   - component: {fileID: 519265867404748068}
   - component: {fileID: 519265867404748091}
+  - component: {fileID: 8056496464499460606}
   m_Layer: 0
   m_Name: CNTRL_Leg_L
   m_TagString: Untagged
@@ -1553,6 +1596,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &8056496464499460606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519265867404748089}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &519265867409434488
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,6 +2639,7 @@ GameObject:
   - component: {fileID: 519265867953531407}
   - component: {fileID: 519265867953531406}
   - component: {fileID: 519265867953531405}
+  - component: {fileID: 3955438969304110162}
   m_Layer: 0
   m_Name: CNTRL_Arm_L
   m_TagString: Untagged
@@ -2700,6 +2757,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &3955438969304110162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519265867953531395}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &519265867990231565
 GameObject:
   m_ObjectHideFlags: 0
@@ -3026,6 +3096,7 @@ GameObject:
   - component: {fileID: 519265868113274512}
   - component: {fileID: 519265868113274514}
   - component: {fileID: 519265868113274513}
+  - component: {fileID: 8459141327377599362}
   m_Layer: 0
   m_Name: Cntrl_Torso_L
   m_TagString: Untagged
@@ -3100,6 +3171,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &8459141327377599362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519265868113274519}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &519265868256191703
 GameObject:
   m_ObjectHideFlags: 0
@@ -3542,6 +3626,7 @@ GameObject:
   - component: {fileID: 519265868376232409}
   - component: {fileID: 519265868376232408}
   - component: {fileID: 519265868376232415}
+  - component: {fileID: 6604351955291640814}
   m_Layer: 0
   m_Name: CNTRL_Leg_R
   m_TagString: Untagged
@@ -3659,6 +3744,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &6604351955291640814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519265868376232413}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &519265868531805675
 GameObject:
   m_ObjectHideFlags: 0
@@ -4199,6 +4297,7 @@ GameObject:
   - component: {fileID: 519265868664872811}
   - component: {fileID: 519265868664872789}
   - component: {fileID: 519265868664872788}
+  - component: {fileID: 8230235786786363656}
   m_Layer: 0
   m_Name: Cntrl_Head_L
   m_TagString: Untagged
@@ -4273,6 +4372,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &8230235786786363656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519265868664872810}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &519265868667882915
 GameObject:
   m_ObjectHideFlags: 0
@@ -4284,6 +4396,7 @@ GameObject:
   - component: {fileID: 519265868667882924}
   - component: {fileID: 519265868667882926}
   - component: {fileID: 519265868667882925}
+  - component: {fileID: 7197175190646727391}
   m_Layer: 0
   m_Name: Cntrl_Torso_R
   m_TagString: Untagged
@@ -4358,6 +4471,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &7197175190646727391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519265868667882915}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &519265868668842052
 GameObject:
   m_ObjectHideFlags: 0
@@ -4586,6 +4712,7 @@ GameObject:
   - component: {fileID: 519265868821996754}
   - component: {fileID: 519265868821996764}
   - component: {fileID: 519265868821996755}
+  - component: {fileID: 5048544800389958904}
   m_Layer: 0
   m_Name: Cntrl_Head_R
   m_TagString: Untagged
@@ -4660,6 +4787,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &5048544800389958904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519265868821996753}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &519265868837506862
 GameObject:
   m_ObjectHideFlags: 0
@@ -5403,13 +5543,14 @@ GameObject:
   - component: {fileID: 519265868632391463}
   - component: {fileID: 519265868632391456}
   - component: {fileID: 6400845903224695788}
+  - component: {fileID: 6357267072107213349}
   m_Layer: 0
   m_Name: Lava.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &53608833543366900
 Transform:
   m_ObjectHideFlags: 0
@@ -5585,6 +5726,20 @@ MonoBehaviour:
   isPlayer: 0
   isNPC: 0
   isBug: 0
+--- !u!114 &6357267072107213349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861775634368344654}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e84099f428139fe4ca4472dabf34340b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlObjects: []
+  proxyObjects: []
 --- !u!1 &946258145441392896
 GameObject:
   m_ObjectHideFlags: 0

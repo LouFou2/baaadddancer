@@ -13,12 +13,8 @@ MonoBehaviour:
   m_Name: IntroDialogue2
   m_EditorClassIdentifier: 
   sentences:
-  - I hope youre ready for the competion tomorrow?
-  responseNo: buh? what competition
-  responseYes: tell me about it...
-  onNoResponse:
-    m_PersistentCalls:
-      m_Calls: []
-  onYesResponse:
-    m_PersistentCalls:
-      m_Calls: []
+  - I think the newbie should show us some moves
+  responseNo: 
+  responseYes: Why me?
+  NoEventToCall: 0
+  YesEventToCall: 0

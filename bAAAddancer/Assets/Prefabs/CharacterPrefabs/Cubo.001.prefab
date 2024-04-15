@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 1228968238519581738}
   - component: {fileID: 1228968238519581739}
   - component: {fileID: 8918289274111261525}
+  - component: {fileID: 813319116045067552}
   m_Layer: 0
   m_Name: Cubo.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1228968238519581742
 Transform:
   m_ObjectHideFlags: 0
@@ -196,6 +197,20 @@ MonoBehaviour:
   isPlayer: 0
   isNPC: 0
   isBug: 0
+--- !u!114 &813319116045067552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968238519581737}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e84099f428139fe4ca4472dabf34340b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlObjects: []
+  proxyObjects: []
 --- !u!1 &1228968238584028285
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,6 +718,7 @@ GameObject:
   - component: {fileID: 1228968238691332173}
   - component: {fileID: 1228968238691332172}
   - component: {fileID: 1228968238691332171}
+  - component: {fileID: 5145329516466323947}
   m_Layer: 0
   m_Name: CNTRL_Arm_L
   m_TagString: Untagged
@@ -820,6 +836,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &5145329516466323947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968238691332169}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &1228968238695003108
 GameObject:
   m_ObjectHideFlags: 0
@@ -2498,6 +2527,7 @@ GameObject:
   - component: {fileID: 1228968239160194757}
   - component: {fileID: 1228968239160194756}
   - component: {fileID: 1228968239160194755}
+  - component: {fileID: 2433136680290946847}
   m_Layer: 0
   m_Name: CNTRL_Leg_L
   m_TagString: Untagged
@@ -2615,6 +2645,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &2433136680290946847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968239160194753}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &1228968239163827820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2974,6 +3017,7 @@ GameObject:
   - component: {fileID: 1228968239217545102}
   - component: {fileID: 1228968239217545104}
   - component: {fileID: 1228968239217545103}
+  - component: {fileID: 2641092266703792544}
   m_Layer: 0
   m_Name: Cntrl_Head_L
   m_TagString: Untagged
@@ -3048,6 +3092,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &2641092266703792544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968239217545101}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &1228968239220234784
 GameObject:
   m_ObjectHideFlags: 0
@@ -3818,6 +3875,7 @@ GameObject:
   - component: {fileID: 1228968239402117240}
   - component: {fileID: 1228968239402117239}
   - component: {fileID: 1228968239402117238}
+  - component: {fileID: 7165015036673703560}
   m_Layer: 0
   m_Name: CNTRL_Leg_R
   m_TagString: Untagged
@@ -3935,6 +3993,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &7165015036673703560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968239402117236}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &1228968239409328486
 GameObject:
   m_ObjectHideFlags: 0
@@ -3946,6 +4017,7 @@ GameObject:
   - component: {fileID: 1228968239409328487}
   - component: {fileID: 1228968239409328489}
   - component: {fileID: 1228968239409328488}
+  - component: {fileID: 1445585106861523959}
   m_Layer: 0
   m_Name: Cntrl_Pelvis_L
   m_TagString: Untagged
@@ -4020,6 +4092,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &1445585106861523959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968239409328486}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &1228968239411618182
 GameObject:
   m_ObjectHideFlags: 0
@@ -4573,6 +4658,7 @@ GameObject:
   - component: {fileID: 1228968239541847238}
   - component: {fileID: 1228968239541847240}
   - component: {fileID: 1228968239541847239}
+  - component: {fileID: 6600597955696956773}
   m_Layer: 0
   m_Name: Cntrl_Torso_R
   m_TagString: Untagged
@@ -4647,6 +4733,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &6600597955696956773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968239541847237}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &1228968239580797093
 GameObject:
   m_ObjectHideFlags: 0
@@ -5158,6 +5257,7 @@ GameObject:
   - component: {fileID: 1228968239714478320}
   - component: {fileID: 1228968239714478319}
   - component: {fileID: 1228968239714478318}
+  - component: {fileID: 4598270472404965953}
   m_Layer: 0
   m_Name: Cntrl_Pelvis_R
   m_TagString: Untagged
@@ -5232,6 +5332,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &4598270472404965953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968239714478317}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &1228968239727881094
 GameObject:
   m_ObjectHideFlags: 0
@@ -5767,6 +5880,7 @@ GameObject:
   - component: {fileID: 1228968239802171518}
   - component: {fileID: 1228968239802171456}
   - component: {fileID: 1228968239802171519}
+  - component: {fileID: 2414069252837782387}
   m_Layer: 0
   m_Name: Cntrl_Torso_L
   m_TagString: Untagged
@@ -5841,6 +5955,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &2414069252837782387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968239802171517}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &1228968239803445940
 GameObject:
   m_ObjectHideFlags: 0
@@ -6595,6 +6722,7 @@ GameObject:
   - component: {fileID: 1228968240170180756}
   - component: {fileID: 1228968240170180758}
   - component: {fileID: 1228968240170180757}
+  - component: {fileID: 7835702031846962740}
   m_Layer: 0
   m_Name: Cntrl_Head_R
   m_TagString: Untagged
@@ -6669,6 +6797,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &7835702031846962740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968240170180755}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &1228968240183986103
 GameObject:
   m_ObjectHideFlags: 0
@@ -7488,6 +7629,7 @@ GameObject:
   - component: {fileID: 1228968240288579272}
   - component: {fileID: 1228968240288579271}
   - component: {fileID: 1228968240288579270}
+  - component: {fileID: 4270217819033994597}
   m_Layer: 0
   m_Name: CNTRL_Arm_R
   m_TagString: Untagged
@@ -7605,6 +7747,19 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!114 &4270217819033994597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228968240288579268}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsAndMoveData: []
 --- !u!1 &1228968240339378061
 GameObject:
   m_ObjectHideFlags: 0

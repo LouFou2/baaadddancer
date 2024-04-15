@@ -8,6 +8,15 @@ public class CharacterProfile : MonoBehaviour
     public bool isNPC = false;
     public bool isBug = false;
 
+    private void Update()
+    {
+        if (characterDataSO != null) 
+        {
+            isPlayer = (characterDataSO.characterRoleSelect == CharacterData.CharacterRole.Player) ? true : false;
+            isNPC = (characterDataSO.characterRoleSelect == CharacterData.CharacterRole.NPC) ? true : false;
+            isBug = (characterDataSO.characterRoleSelect == CharacterData.CharacterRole.Bug) ? true : false;
+        }
+    }
     public void SetCharacterAsPlayer()
     {
         isPlayer = true;
