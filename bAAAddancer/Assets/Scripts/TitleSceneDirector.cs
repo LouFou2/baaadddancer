@@ -13,6 +13,8 @@ public class TitleSceneDirector : MonoBehaviour
     [SerializeField] private Image selectButtonImage;
     [SerializeField] private CharacterManager characterManager;
     [SerializeField] private GameObject[] charactersSelection;
+    [SerializeField] private GameObject titleLights;
+    [SerializeField] private GameObject characterLights;
     private int currentCharacterIndex = 0;
     private GameObject currentCharacter;
     [SerializeField] private TitleEndEventHandler titleEnd;
@@ -22,6 +24,7 @@ public class TitleSceneDirector : MonoBehaviour
     private bool bugIsAssigned = false;
 
     private PlayerControls playerControls;
+    private SceneSwitcher sceneSwitcher;
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -37,21 +40,27 @@ public class TitleSceneDirector : MonoBehaviour
 
     void Start()
     {
+        sceneSwitcher = FindObjectOfType<SceneSwitcher>();
+
         chooseCharacterText.text = string.Empty;
         leftBumperImage.gameObject.SetActive(false);
         rightBumperImage.gameObject.SetActive(false);
         selectButtonImage.gameObject.SetActive(false);
 
+        characterLights.SetActive(false);
+        titleLights.SetActive(true);
+
         charactersSelection = new GameObject[characterManager.characters.Length];
 
-        for (int i = 0; i < charactersSelection.Length; i++) 
+        bugIsAssigned = false;
+
+        for (int i = 0; i < charactersSelection.Length; i++)
         {
             charactersSelection[i] = characterManager.characters[i];
             characterManager.characterDataSOs[i].characterRoleSelect = CharacterData.CharacterRole.NPC; //this just resets all characters to NPC's
-
         }
         currentCharacter = charactersSelection[0];
-
+        
         titleSceneState = TitleSceneState.TitlePlaying;
     }
 
@@ -63,11 +72,13 @@ public class TitleSceneDirector : MonoBehaviour
             case TitleSceneState.TitlePlaying:
                 if (titleEnd != null && titleEnd.isTitleFinished)
                 {
+                    titleLights.SetActive(false);
                     titleSceneState = TitleSceneState.ChoosingCharacter;
                 }
                 break;
 
             case TitleSceneState.ChoosingCharacter:
+                characterLights.SetActive(true);
                 chooseCharacterText.text = "select character";
                 leftBumperImage.gameObject.SetActive(true);
                 rightBumperImage.gameObject.SetActive(true);
@@ -147,5 +158,9 @@ public class TitleSceneDirector : MonoBehaviour
         }
         
     }
-    void HandleSceneEnd() { }
+    void HandleSceneEnd() 
+    {
+        sceneSwitcher.SwitchToNextLevelKey();
+        sceneSwitcher.LoadNextScene();
+    }
 }

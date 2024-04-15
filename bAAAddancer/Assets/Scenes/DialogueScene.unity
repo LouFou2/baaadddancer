@@ -1895,7 +1895,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.40511078, g: 0.31679422, b: 0.5943396, a: 0}
+  m_BackGroundColor: {r: 0.16335179, g: 0.07849768, b: 0.26415092, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2655,28 +2655,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3536723154794380933, guid: 08101438bc990244a948d4afe7fe17a3,
         type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3536723154794380933, guid: 08101438bc990244a948d4afe7fe17a3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3536723154794380933, guid: 08101438bc990244a948d4afe7fe17a3,
-        type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.00000009362675
-      objectReference: {fileID: 0}
-    - target: {fileID: 3536723154959989898, guid: 08101438bc990244a948d4afe7fe17a3,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3536723154959989898, guid: 08101438bc990244a948d4afe7fe17a3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3536723154959989898, guid: 08101438bc990244a948d4afe7fe17a3,
         type: 3}
@@ -2737,21 +2717,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.03083544
-      objectReference: {fileID: 0}
-    - target: {fileID: 3536723156227547484, guid: 08101438bc990244a948d4afe7fe17a3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3536723156277010580, guid: 08101438bc990244a948d4afe7fe17a3,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3536723156277010580, guid: 08101438bc990244a948d4afe7fe17a3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3536723156277010580, guid: 08101438bc990244a948d4afe7fe17a3,
         type: 3}
@@ -2865,6 +2830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characters: []
+  characterDataSOs: []
 --- !u!4 &565289395 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 984515694945983731, guid: 81ee251a44df3b948930a16bf3c6b8c8,
