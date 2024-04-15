@@ -64,7 +64,6 @@ public class TitleSceneDirector : MonoBehaviour
         titleSceneState = TitleSceneState.TitlePlaying;
     }
 
-    // Update is called once per frame
     void Update()
     {
         switch (titleSceneState) 

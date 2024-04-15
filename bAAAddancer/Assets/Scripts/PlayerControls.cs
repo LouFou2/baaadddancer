@@ -310,6 +310,34 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""GenericInput"",
+            ""id"": ""ac9880aa-036c-4479-9cf9-3a3b1065bfdc"",
+            ""actions"": [
+                {
+                    ""name"": ""YButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""75c92ea4-c077-479b-ac8d-7b42be5217b6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""afcbae49-f90a-47c5-a4a2-97c5e41a4e3c"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""YButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -330,6 +358,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_DanceControls_NoButton = m_DanceControls.FindAction("NoButton", throwIfNotFound: true);
         m_DanceControls_AButton = m_DanceControls.FindAction("AButton", throwIfNotFound: true);
         m_DanceControls_BButton = m_DanceControls.FindAction("BButton", throwIfNotFound: true);
+        // GenericInput
+        m_GenericInput = asset.FindActionMap("GenericInput", throwIfNotFound: true);
+        m_GenericInput_YButton = m_GenericInput.FindAction("YButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -537,6 +568,52 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public DanceControlsActions @DanceControls => new DanceControlsActions(this);
+
+    // GenericInput
+    private readonly InputActionMap m_GenericInput;
+    private List<IGenericInputActions> m_GenericInputActionsCallbackInterfaces = new List<IGenericInputActions>();
+    private readonly InputAction m_GenericInput_YButton;
+    public struct GenericInputActions
+    {
+        private @PlayerControls m_Wrapper;
+        public GenericInputActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @YButton => m_Wrapper.m_GenericInput_YButton;
+        public InputActionMap Get() { return m_Wrapper.m_GenericInput; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GenericInputActions set) { return set.Get(); }
+        public void AddCallbacks(IGenericInputActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GenericInputActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GenericInputActionsCallbackInterfaces.Add(instance);
+            @YButton.started += instance.OnYButton;
+            @YButton.performed += instance.OnYButton;
+            @YButton.canceled += instance.OnYButton;
+        }
+
+        private void UnregisterCallbacks(IGenericInputActions instance)
+        {
+            @YButton.started -= instance.OnYButton;
+            @YButton.performed -= instance.OnYButton;
+            @YButton.canceled -= instance.OnYButton;
+        }
+
+        public void RemoveCallbacks(IGenericInputActions instance)
+        {
+            if (m_Wrapper.m_GenericInputActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGenericInputActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GenericInputActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GenericInputActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GenericInputActions @GenericInput => new GenericInputActions(this);
     public interface IDanceControlsActions
     {
         void OnMoveL(InputAction.CallbackContext context);
@@ -553,5 +630,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnNoButton(InputAction.CallbackContext context);
         void OnAButton(InputAction.CallbackContext context);
         void OnBButton(InputAction.CallbackContext context);
+    }
+    public interface IGenericInputActions
+    {
+        void OnYButton(InputAction.CallbackContext context);
     }
 }

@@ -61,9 +61,9 @@ public class CopyDance : MonoBehaviour
         //check for player input to stop dance
     }
 
-    void FixedUpdate() // Fixed Update because objects use physics
+    void FixedUpdate() // Fixed Update for objects using physics
     {
-        //could add extra logic to influence moving objects
+        //extra logic to influence moving physics objects
     }
     private void On_Q_BeatHandler() 
     {

@@ -288,6 +288,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "GenericInput",
+            "id": "ac9880aa-036c-4479-9cf9-3a3b1065bfdc",
+            "actions": [
+                {
+                    "name": "YButton",
+                    "type": "Button",
+                    "id": "75c92ea4-c077-479b-ac8d-7b42be5217b6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "afcbae49-f90a-47c5-a4a2-97c5e41a4e3c",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "YButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

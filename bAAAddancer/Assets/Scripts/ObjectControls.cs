@@ -30,7 +30,9 @@ public class ObjectControls : MonoBehaviour
     public bool useRecordedPositions = false;
 
     private Vector3 initialPosition;
+    private Quaternion initialRotation;
     private Vector3 currentRecordedPosition;
+    private Quaternion currentRecordedRotation;
     private Vector3 finalUpdatePosition;
     private Quaternion finalUpdateRotation;
 
@@ -55,7 +57,9 @@ public class ObjectControls : MonoBehaviour
         viewSwitcher = FindObjectOfType<ViewSwitcher>();
 
         initialPosition = controlObject.transform.position;
+        initialRotation = controlObject.transform.rotation;
         currentRecordedPosition = initialPosition;
+        currentRecordedRotation = initialRotation;
 
         controlGizmoObject.SetActive(false);
     }
@@ -104,6 +108,9 @@ public class ObjectControls : MonoBehaviour
     void FixedUpdate()
     {
         controlObject.transform.position = currentRecordedPosition;
+        controlObject.transform.rotation = currentRecordedRotation;
+
+        finalUpdateRotation = currentRecordedRotation; // *** MIGHT USE ROTATION, IN WHICH CASE ADD INTO LOGIC BELOW (instead of this line)
 
         if (isActive && isRecording)
         {

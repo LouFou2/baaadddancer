@@ -1,16 +1,24 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ControlObjectSwitcher : MonoBehaviour
 {
     public enum ControlObjects { Pelvis, Legs, Hands, Shoulders, Head }
 
+    private Color activeImageColor = new Color(0.7f, 0.4f, 1f, 0.15f); // Example active color (RGB and alpha)
+    private Color inactiveImageColor = new Color(1f, 1f, 1f, 0.05f); // Example inactive color (RGB and alpha)
+    private Color activeTextColor = new Color(0.1f, 1f, 0f, 1.0f); 
+    private Color inactiveTextColor = new Color(0f, 0f, 0f, 0.7f);
 
     [Serializable]
     public class ControlObjectData
     {
         public ControlObjects controlObject;
         public ObjectControls[] controlScripts;
+        public Image uiImageVisualiser;
+        public TextMeshProUGUI uiTextVisualiser;
     }
 
     [SerializeField] private ControlObjectData[] controlObjectData;
@@ -64,6 +72,19 @@ public class ControlObjectSwitcher : MonoBehaviour
                     foreach (ObjectControls controlScript in controlObjectData[i].controlScripts)
                     {
                         controlScript.isActive = (i == currentObjectIndex);
+
+                        // Set colors based on the current control object
+                        bool isActiveControl = (i == currentObjectIndex);
+                        if (controlObjectData[i].uiImageVisualiser != null)
+                        {
+                            // Change color of the Image component
+                            controlObjectData[i].uiImageVisualiser.color = isActiveControl ? activeImageColor : inactiveImageColor;
+                        }
+                        if (controlObjectData[i].uiTextVisualiser != null)
+                        {
+                            // Change color of the TextMeshProUGUI text
+                            controlObjectData[i].uiTextVisualiser.color = isActiveControl ? activeTextColor : inactiveTextColor;
+                        }
                     }
                 }
                 break;
