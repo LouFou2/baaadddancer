@@ -67,7 +67,10 @@ public class CopyDance : MonoBehaviour
     }
     private void On_Q_BeatHandler() 
     {
-        for (int objectsIndex = 0; objectsIndex < objectsAndMoveData.Length; objectsIndex++) 
+        GameObject copyCharacter = gameObject;
+        CharacterProfile characterProfile = copyCharacter.GetComponent<CharacterProfile>();
+
+        for (int objectsIndex = 0; objectsIndex < objectsAndMoveData.Length; objectsIndex++)
         {
             GameObject copyingObject = objectsAndMoveData[objectsIndex].copyObject;
             Vector3[] targetRecordedPositions = objectsAndMoveData[objectsIndex].targetRecordedPositions;
@@ -80,8 +83,19 @@ public class CopyDance : MonoBehaviour
             if (targetBeatIndex < 0) targetBeatIndex = 0;
             float tweenDuration = clockCounter.Get_Q_BeatInterval();
 
-            // Tween the object's position to the next recorded position
-            copyingObject.transform.DOMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
+            if (characterProfile.characterDataSO.infectionLevel > 0) // if the character is infected
+            {
+                // call infection behaviours
+                int frameRateDivider = 4; // change how much to divide the frame rate
+                int glitchedBeatIndex = 0;
+                if (currentBeatIndex % frameRateDivider == 0) glitchedBeatIndex = currentBeatIndex;
+                copyingObject.transform.position = targetRecordedPositions[glitchedBeatIndex];
+
+            }
+            else
+            { // Tween the object's position to the next recorded position
+                copyingObject.transform.DOMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
+            }
             
         }
 
