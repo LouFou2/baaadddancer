@@ -6,6 +6,7 @@ public class DialogueSceneSetup : MonoBehaviour
     void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
+
         foreach (GameObject character in characterManager.characters) 
         {
             character.SetActive(true);

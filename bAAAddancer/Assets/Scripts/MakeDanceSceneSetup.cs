@@ -37,7 +37,6 @@ public class MakeDanceSceneSetup : MonoBehaviour
             {
                 character.SetActive(true);
                 copyProxyRig.enabled = true;
-                Debug.Log(character.name);
             }
         }
     }
