@@ -19,8 +19,10 @@ public class InfectionManager : MonoBehaviour
         List<CharacterData> eligibleCharacters = new List<CharacterData>();
         foreach (CharacterData characterData in characterManager.characterDataSOs)
         {
-            Debug.Log(characterData.name + " - Role: " + characterData.characterRoleSelect.ToString());
-            if (characterData != null && characterData.characterRoleSelect != CharacterData.CharacterRole.Player && characterData.characterRoleSelect != CharacterData.CharacterRole.Bug)
+            if (characterData != null 
+                && characterData.characterRoleSelect != CharacterData.CharacterRole.Player 
+                && characterData.characterRoleSelect != CharacterData.CharacterRole.Bug
+                && !characterData.wasDebuggedLastRound)
             {
                 eligibleCharacters.Add(characterData);
             }
@@ -42,9 +44,4 @@ public class InfectionManager : MonoBehaviour
         Debug.Log(selectedCharacter.name + " was infected");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -13,9 +13,10 @@ public class DebugSceneSetup : MonoBehaviour
             CharacterData characterData = characterManager.characterDataSOs[i];
             character.SetActive(false);
 
-            if (characterData.infectionLevel > 0) 
+            if (characterData.infectionLevel > 0 && !characterData.wasDebuggedLastRound) 
             { 
                 character.SetActive(true);
+                characterData.wasDebuggedLastRound = true;
             }
         }
     }
