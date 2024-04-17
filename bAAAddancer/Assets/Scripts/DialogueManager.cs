@@ -133,8 +133,8 @@ public class DialogueManager : MonoBehaviour
 
         switch (currentDialogue.NoEventToCall)
         {
-            case EventsToCall.triggerNextDialogue:
-                triggerNextDialogueEvent.Invoke();
+            case EventsToCall.triggerNextDialogue: 
+                triggerNextDialogueEvent.Invoke(); // these are set up so the can be assigned in the inspector
                 break;
             case EventsToCall.switchScene:
                 switchSceneEvent.Invoke();

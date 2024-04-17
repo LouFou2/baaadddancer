@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5e8fb268605624eaea97e995a39b51, type: 3}
-  m_Name: WonkyData
+  m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
+  m_Name: Round3_Dialogue_MakeDance
   m_EditorClassIdentifier: 
-  characterRoleSelect: 0
-  infectionLevel: 0
-  spreadInfectionChance: 0
-  wasDebuggedLastRound: 0
+  sentences:
+  - one, two, three, four
+  responseNo: 
+  responseYes: 
+  NoEventToCall: 2
+  YesEventToCall: 2

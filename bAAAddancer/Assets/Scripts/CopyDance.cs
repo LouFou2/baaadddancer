@@ -86,7 +86,7 @@ public class CopyDance : MonoBehaviour
             if (characterProfile.characterDataSO.infectionLevel > 0) // if the character is infected
             {
                 // call infection behaviours
-                int frameRateDivider = 4; // change how much to divide the frame rate
+                int frameRateDivider = 1; // change how much to divide the frame rate
                 int glitchedBeatIndex = 0;
                 if (currentBeatIndex % frameRateDivider == 0) glitchedBeatIndex = currentBeatIndex;
                 copyingObject.transform.position = targetRecordedPositions[glitchedBeatIndex];
