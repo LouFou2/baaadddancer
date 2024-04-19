@@ -341,6 +341,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""3a1faf52-d993-4bb1-82d0-5e42cc73e188"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -376,6 +385,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""RTrigger"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e6f9809-b9d8-4fcd-af03-e23692138648"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -403,6 +423,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_GenericInput_YButton = m_GenericInput.FindAction("YButton", throwIfNotFound: true);
         m_GenericInput_LTrigger = m_GenericInput.FindAction("LTrigger", throwIfNotFound: true);
         m_GenericInput_RTrigger = m_GenericInput.FindAction("RTrigger", throwIfNotFound: true);
+        m_GenericInput_AButton = m_GenericInput.FindAction("AButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -617,6 +638,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_GenericInput_YButton;
     private readonly InputAction m_GenericInput_LTrigger;
     private readonly InputAction m_GenericInput_RTrigger;
+    private readonly InputAction m_GenericInput_AButton;
     public struct GenericInputActions
     {
         private @PlayerControls m_Wrapper;
@@ -624,6 +646,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @YButton => m_Wrapper.m_GenericInput_YButton;
         public InputAction @LTrigger => m_Wrapper.m_GenericInput_LTrigger;
         public InputAction @RTrigger => m_Wrapper.m_GenericInput_RTrigger;
+        public InputAction @AButton => m_Wrapper.m_GenericInput_AButton;
         public InputActionMap Get() { return m_Wrapper.m_GenericInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -642,6 +665,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RTrigger.started += instance.OnRTrigger;
             @RTrigger.performed += instance.OnRTrigger;
             @RTrigger.canceled += instance.OnRTrigger;
+            @AButton.started += instance.OnAButton;
+            @AButton.performed += instance.OnAButton;
+            @AButton.canceled += instance.OnAButton;
         }
 
         private void UnregisterCallbacks(IGenericInputActions instance)
@@ -655,6 +681,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RTrigger.started -= instance.OnRTrigger;
             @RTrigger.performed -= instance.OnRTrigger;
             @RTrigger.canceled -= instance.OnRTrigger;
+            @AButton.started -= instance.OnAButton;
+            @AButton.performed -= instance.OnAButton;
+            @AButton.canceled -= instance.OnAButton;
         }
 
         public void RemoveCallbacks(IGenericInputActions instance)
@@ -694,5 +723,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnYButton(InputAction.CallbackContext context);
         void OnLTrigger(InputAction.CallbackContext context);
         void OnRTrigger(InputAction.CallbackContext context);
+        void OnAButton(InputAction.CallbackContext context);
     }
 }

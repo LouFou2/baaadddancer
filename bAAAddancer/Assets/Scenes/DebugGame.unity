@@ -1969,32 +1969,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7210517695317612765}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1773428102 &7210517695317612763
-ParentConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7210517695317612765}
-  m_Enabled: 1
-  m_Weight: 1
-  m_TranslationAtRest: {x: -0.04, y: 1.08, z: 1.1199999}
-  m_RotationAtRest: {x: 80.999115, y: 0.0019741051, z: 0.0019097322}
-  m_TranslationOffsets:
-  - {x: 0.012919705, y: -0.013222396, z: 3.3767447}
-  m_RotationOffsets:
-  - {x: 89.70326, y: 25.0883, z: -154.11212}
-  m_AffectTranslationX: 1
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 1
-  m_AffectRotationX: 1
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 1
-  m_IsContraintActive: 0
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 0}
-    weight: 1
 --- !u!1 &7210517695317612765
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,8 +1981,6 @@ GameObject:
   - component: {fileID: 7210517695317612762}
   - component: {fileID: 7210517695317612761}
   - component: {fileID: 7210517695317612760}
-  - component: {fileID: 7210517695317612763}
-  - component: {fileID: 7210517695317612767}
   m_Layer: 0
   m_Name: Screen
   m_TagString: Untagged
@@ -2031,30 +2003,6 @@ Transform:
   m_Father: {fileID: 7210517696203753422}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!895512359 &7210517695317612767
-AimConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7210517695317612765}
-  m_Enabled: 1
-  m_Weight: 1
-  m_RotationAtRest: {x: -0, y: 0, z: 0}
-  m_RotationOffset: {x: 0, y: 0, z: 0}
-  m_AimVector: {x: 0, y: 0, z: 1}
-  m_UpVector: {x: 0, y: 1, z: 0}
-  m_WorldUpVector: {x: 0, y: 1, z: 0}
-  m_WorldUpObject: {fileID: 0}
-  m_UpType: 0
-  m_AffectRotationX: 1
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 1
-  m_IsContraintActive: 0
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 0}
-    weight: 1
 --- !u!4 &7210517695456083588
 Transform:
   m_ObjectHideFlags: 0
@@ -2194,6 +2142,7 @@ MonoBehaviour:
   zapMesh1: {fileID: 1391206550}
   zapMesh2: {fileID: 1913520159}
   moveSpeed: 2
+  bugsZapped: 0
 --- !u!65 &7210517696883195929
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -5,12 +5,11 @@ public class Zapper : MonoBehaviour
 {
     private PlayerControls playerControls;
     [SerializeField] private GameObject gameSurfacePlane; // Reference to the plane object
-    private Vector3 intitialPosition;
     [SerializeField] private GameObject zapEffectPrefab;
     [SerializeField] private GameObject zapMesh1;
     [SerializeField] private GameObject zapMesh2;
     [SerializeField] private float moveSpeed = 1f;
-    private int bugsZapped = 0;
+    [SerializeField] private int bugsZapped = 0;
 
     private void Awake()
     {
@@ -26,27 +25,12 @@ public class Zapper : MonoBehaviour
     }
     void Start()
     {
-        intitialPosition = transform.position;
         zapMesh1.SetActive(true);
         zapMesh2.SetActive(false);
     }
 
     void Update()
     {
-        /*MeshCollider planeCollider = gameSurfacePlane.GetComponent<MeshCollider>();
-        Vector2 moveInput = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
-
-        //have to move it within bounds of plane surface (where bugs spawned)
-        float x_RangeMin = -(intitialPosition.x - planeCollider.bounds.min.x);
-        float x_RangeMax = planeCollider.bounds.max.x - intitialPosition.x;
-        float y_RangeMin = -(intitialPosition.y - planeCollider.bounds.min.y);
-        float y_RangeMax = planeCollider.bounds.max.y - intitialPosition.y;
-
-        float rangedX = (moveInput.x <= 0) ? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
-        float rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
-
-        //move zapper object
-        transform.position = new Vector3(intitialPosition.x + rangedX, intitialPosition.y + rangedY, planeCollider.bounds.center.z);*/
         MeshCollider planeCollider = gameSurfacePlane.GetComponent<MeshCollider>();
         Vector2 moveInput = playerControls.DanceControls.MoveR.ReadValue<Vector2>();
 
@@ -77,11 +61,10 @@ public class Zapper : MonoBehaviour
         if (other.CompareTag("Bug"))
         {
             //wait for player trigger pewpew
-            if (playerControls.GenericInput.RTrigger.IsPressed())
+            if (playerControls.GenericInput.RTrigger.IsPressed() || playerControls.GenericInput.AButton.IsPressed())
             {
                 Instantiate(zapEffectPrefab, transform.position, Quaternion.identity);
                 DestroyBug(other.gameObject);
-                bugsZapped++;
             }
         }
     }
@@ -104,6 +87,8 @@ public class Zapper : MonoBehaviour
 
         // Destroy the parent GameObject
         Destroy(rootParent);
+
+        bugsZapped++;
 
         zapMesh1.SetActive(true); // just ensuring the colours swap back
         zapMesh2.SetActive(false);
