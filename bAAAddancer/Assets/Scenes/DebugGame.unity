@@ -657,6 +657,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7210517695872269518, guid: 6bb863e7f5536c24c86aa13d5d074ea4,
+        type: 3}
+      propertyPath: bugPrefab
+      value: 
+      objectReference: {fileID: 9069951699918986092, guid: 992b2703264bcd145a52774d41d14089,
+        type: 3}
     - target: {fileID: 7210517696010689168, guid: 6bb863e7f5536c24c86aa13d5d074ea4,
         type: 3}
       propertyPath: m_IsContraintActive
@@ -760,7 +766,7 @@ PrefabInstance:
     - target: {fileID: 7210517696010689174, guid: 6bb863e7f5536c24c86aa13d5d074ea4,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7210517696458621521, guid: 6bb863e7f5536c24c86aa13d5d074ea4,
         type: 3}

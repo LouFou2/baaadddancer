@@ -43,7 +43,8 @@ public class DebugGameManager : MonoBehaviour
         screen.SetActive(true);
         zapper.SetActive(true);
         debugSliderObject.SetActive(true);
-        bugSpawnerScript.SpawnAllBugsInPool();
+        //bugSpawnerScript.SpawnAllBugsInPool();
+        bugSpawnerScript.StartCoroutine(bugSpawnerScript.SpawnBugsSequentially());
     }
 
     public void EndDebugGame() 
