@@ -3,7 +3,17 @@ guid: 97f8458f6dc8f9543849bc96addd749f
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zapper1Mat
+    second: {fileID: 2100000, guid: a6eaf3a0ec9f2a849919ac0a31a224bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zapper2Mat
+    second: {fileID: 2100000, guid: 59d1297387f9b134cbb3d03bef36c7be, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

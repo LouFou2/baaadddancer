@@ -44,11 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef2b992c41a9592469069e020b850edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bugPrefab: {fileID: 7840980471841110461, guid: 37cce010ed78db94093c5626f923d27c,
+  bugPrefab: {fileID: 9069951699918986092, guid: 992b2703264bcd145a52774d41d14089,
     type: 3}
-  poolSize: 8
   gameSurfacePlane: {fileID: 7210517696010689174}
-  bugMoveDuration: 2
+  poolSize: 8
+  minSpawnInterval: 1
+  maxSpawnInterval: 2
+  bugMoveSpeed: 0.5
+  bugRotationSpeed: 20
+  rotationAngleRange: 60
 --- !u!1 &7210517696010689174
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,7 +73,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7210517696010689173
 Transform:
   m_ObjectHideFlags: 0
@@ -77,14 +81,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7210517696010689174}
-  m_LocalRotation: {x: 0.64943415, y: 0.000006808012, z: 0.000004300015, w: 0.7604179}
-  m_LocalPosition: {x: -0.03999999, y: 1.0799999, z: 1.1200001}
-  m_LocalScale: {x: 0.35, y: 1, z: 0.19700001}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1.3, z: 1.12}
+  m_LocalScale: {x: 0.18, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7210517696617973125}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 81, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &7210517696010689169
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -170,7 +174,7 @@ ParentConstraint:
   m_AffectRotationX: 1
   m_AffectRotationY: 1
   m_AffectRotationZ: 1
-  m_IsContraintActive: 1
+  m_IsContraintActive: 0
   m_IsLocked: 1
   m_Sources:
   - sourceTransform: {fileID: 0}
@@ -184,8 +188,8 @@ AimConstraint:
   m_GameObject: {fileID: 7210517696010689174}
   m_Enabled: 1
   m_Weight: 1
-  m_RotationAtRest: {x: 80.999985, y: 0, z: 0}
-  m_RotationOffset: {x: 89.47961, y: -161.95753, z: -160.93872}
+  m_RotationAtRest: {x: -0, y: 0, z: 0}
+  m_RotationOffset: {x: 0, y: 0, z: 0}
   m_AimVector: {x: 0, y: 0, z: 1}
   m_UpVector: {x: 0, y: 1, z: 0}
   m_WorldUpVector: {x: 0, y: 1, z: 0}
@@ -194,7 +198,7 @@ AimConstraint:
   m_AffectRotationX: 1
   m_AffectRotationY: 1
   m_AffectRotationZ: 1
-  m_IsContraintActive: 1
+  m_IsContraintActive: 0
   m_IsLocked: 1
   m_Sources:
   - sourceTransform: {fileID: 0}
@@ -263,7 +267,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c3c63c578b1012c4ea9b208011d5ee6b, type: 2}
+  - {fileID: 2100000, guid: 6c38de2b59059ff4d8066a2e7c46cbf7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -379,5 +383,5 @@ MonoBehaviour:
   screen: {fileID: 7210517696010689174}
   zapper: {fileID: 7210517696458621525}
   debugSliderObject: {fileID: 0}
-  bugSpawnerScript: {fileID: 0}
-  zapperScript: {fileID: 0}
+  bugSpawnerScript: {fileID: 7210517695872269518}
+  zapperScript: {fileID: 7210517696458621523}

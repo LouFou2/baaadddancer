@@ -7,6 +7,9 @@ public class Zapper : MonoBehaviour
     [SerializeField] private GameObject gameSurfacePlane; // Reference to the plane object
     private Vector3 intitialPosition;
     [SerializeField] private GameObject zapEffectPrefab;
+    [SerializeField] private GameObject zapMesh1;
+    [SerializeField] private GameObject zapMesh2;
+    [SerializeField] private float moveSpeed = 1f;
     private int bugsZapped = 0;
 
     private void Awake()
@@ -24,12 +27,13 @@ public class Zapper : MonoBehaviour
     void Start()
     {
         intitialPosition = transform.position;
+        zapMesh1.SetActive(true);
+        zapMesh2.SetActive(false);
     }
 
     void Update()
     {
-        MeshCollider planeCollider = gameSurfacePlane.GetComponent<MeshCollider>();
-        
+        /*MeshCollider planeCollider = gameSurfacePlane.GetComponent<MeshCollider>();
         Vector2 moveInput = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
 
         //have to move it within bounds of plane surface (where bugs spawned)
@@ -42,17 +46,67 @@ public class Zapper : MonoBehaviour
         float rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
 
         //move zapper object
-        transform.position = new Vector3(intitialPosition.x + rangedX, intitialPosition.y + rangedY, planeCollider.bounds.center.z);
+        transform.position = new Vector3(intitialPosition.x + rangedX, intitialPosition.y + rangedY, planeCollider.bounds.center.z);*/
+        MeshCollider planeCollider = gameSurfacePlane.GetComponent<MeshCollider>();
+        Vector2 moveInput = playerControls.DanceControls.MoveR.ReadValue<Vector2>();
+
+        // Calculate the desired movement direction based on input
+        Vector3 moveDirection = new Vector3(-moveInput.x, moveInput.y, 0f).normalized;
+
+        // Calculate the movement amount based on the move speed and time
+        Vector3 movement = moveDirection * moveSpeed * Time.deltaTime;
+
+        // Calculate the new position while constraining it within the bounds of the plane surface
+        Vector3 newPosition = transform.position + movement;
+        newPosition.x = Mathf.Clamp(newPosition.x, planeCollider.bounds.min.x, planeCollider.bounds.max.x);
+        newPosition.y = Mathf.Clamp(newPosition.y, planeCollider.bounds.min.y, planeCollider.bounds.max.y);
+
+        // Update the zapper object's position
+        transform.position = newPosition;
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bug"))
         {
-            other.gameObject.SetActive(false);
-            Instantiate(zapEffectPrefab, transform.position, Quaternion.identity);
-            bugsZapped++;
-            
+            zapMesh1.SetActive(false);
+            zapMesh2.SetActive(true);
         }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Bug"))
+        {
+            //wait for player trigger pewpew
+            if (playerControls.GenericInput.RTrigger.IsPressed())
+            {
+                Instantiate(zapEffectPrefab, transform.position, Quaternion.identity);
+                DestroyBug(other.gameObject);
+                bugsZapped++;
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Bug"))
+        {
+            zapMesh1.SetActive(true);
+            zapMesh2.SetActive(false);
+        }
+    }
+    private void DestroyBug(GameObject colliderObject) 
+    {
+        // Get the topmost parent GameObject
+        GameObject rootParent = colliderObject;
+        while (rootParent.transform.parent != null)
+        {
+            rootParent = rootParent.transform.parent.gameObject;
+        }
+
+        // Destroy the parent GameObject
+        Destroy(rootParent);
+
+        zapMesh1.SetActive(true); // just ensuring the colours swap back
+        zapMesh2.SetActive(false);
     }
     public int GetBugZappedAmount() 
     {

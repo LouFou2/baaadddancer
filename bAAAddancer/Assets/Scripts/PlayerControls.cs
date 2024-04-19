@@ -323,6 +323,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LTrigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""c9c738f9-c267-4cf9-a21f-3ec77396ec63"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RTrigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""c60ce82d-b76c-4212-b823-35ad53974f70"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -334,6 +352,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""YButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb958335-28b7-4710-a261-e48ac2469e66"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15d63802-c048-43eb-915d-7d3c798b454b"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RTrigger"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -361,6 +401,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // GenericInput
         m_GenericInput = asset.FindActionMap("GenericInput", throwIfNotFound: true);
         m_GenericInput_YButton = m_GenericInput.FindAction("YButton", throwIfNotFound: true);
+        m_GenericInput_LTrigger = m_GenericInput.FindAction("LTrigger", throwIfNotFound: true);
+        m_GenericInput_RTrigger = m_GenericInput.FindAction("RTrigger", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -573,11 +615,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_GenericInput;
     private List<IGenericInputActions> m_GenericInputActionsCallbackInterfaces = new List<IGenericInputActions>();
     private readonly InputAction m_GenericInput_YButton;
+    private readonly InputAction m_GenericInput_LTrigger;
+    private readonly InputAction m_GenericInput_RTrigger;
     public struct GenericInputActions
     {
         private @PlayerControls m_Wrapper;
         public GenericInputActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @YButton => m_Wrapper.m_GenericInput_YButton;
+        public InputAction @LTrigger => m_Wrapper.m_GenericInput_LTrigger;
+        public InputAction @RTrigger => m_Wrapper.m_GenericInput_RTrigger;
         public InputActionMap Get() { return m_Wrapper.m_GenericInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -590,6 +636,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @YButton.started += instance.OnYButton;
             @YButton.performed += instance.OnYButton;
             @YButton.canceled += instance.OnYButton;
+            @LTrigger.started += instance.OnLTrigger;
+            @LTrigger.performed += instance.OnLTrigger;
+            @LTrigger.canceled += instance.OnLTrigger;
+            @RTrigger.started += instance.OnRTrigger;
+            @RTrigger.performed += instance.OnRTrigger;
+            @RTrigger.canceled += instance.OnRTrigger;
         }
 
         private void UnregisterCallbacks(IGenericInputActions instance)
@@ -597,6 +649,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @YButton.started -= instance.OnYButton;
             @YButton.performed -= instance.OnYButton;
             @YButton.canceled -= instance.OnYButton;
+            @LTrigger.started -= instance.OnLTrigger;
+            @LTrigger.performed -= instance.OnLTrigger;
+            @LTrigger.canceled -= instance.OnLTrigger;
+            @RTrigger.started -= instance.OnRTrigger;
+            @RTrigger.performed -= instance.OnRTrigger;
+            @RTrigger.canceled -= instance.OnRTrigger;
         }
 
         public void RemoveCallbacks(IGenericInputActions instance)
@@ -634,5 +692,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IGenericInputActions
     {
         void OnYButton(InputAction.CallbackContext context);
+        void OnLTrigger(InputAction.CallbackContext context);
+        void OnRTrigger(InputAction.CallbackContext context);
     }
 }
