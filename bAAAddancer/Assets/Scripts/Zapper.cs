@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class Zapper : MonoBehaviour
     [SerializeField] private GameObject zapMesh2;
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private int bugsZapped = 0;
+
+    private HashSet<GameObject> zappedBugs = new HashSet<GameObject>(); // Set to track zapped bugs
 
     private void Awake()
     {
@@ -58,7 +61,7 @@ public class Zapper : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Bug"))
+        /*if (other.CompareTag("Bug"))
         {
             //wait for player trigger pewpew
             if (playerControls.GenericInput.RTrigger.IsPressed() || playerControls.GenericInput.AButton.IsPressed())
@@ -66,8 +69,16 @@ public class Zapper : MonoBehaviour
                 Instantiate(zapEffectPrefab, transform.position, Quaternion.identity);
                 DestroyBug(other.gameObject);
             }
+        }*/
+        if (other.CompareTag("Bug") && !zappedBugs.Contains(other.gameObject))
+        {
+            GameObject rootParent = GetRootParent(other.gameObject);
+            zappedBugs.Add(other.gameObject); // Add the bug to the set of zapped bugs
+            Instantiate(zapEffectPrefab, transform.position, Quaternion.identity);
+            DestroyBug(rootParent);
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Bug"))
@@ -76,9 +87,9 @@ public class Zapper : MonoBehaviour
             zapMesh2.SetActive(false);
         }
     }
-    private void DestroyBug(GameObject colliderObject) 
+    private void DestroyBug(GameObject rootParent) 
     {
-        // Get the topmost parent GameObject
+        /*// Get the topmost parent GameObject
         GameObject rootParent = colliderObject;
         while (rootParent.transform.parent != null)
         {
@@ -91,7 +102,20 @@ public class Zapper : MonoBehaviour
         bugsZapped++;
 
         zapMesh1.SetActive(true); // just ensuring the colours swap back
+        zapMesh2.SetActive(false);*/
+        Destroy(rootParent);
+        bugsZapped++;
+        zapMesh1.SetActive(true); // Ensuring the colors swap back
         zapMesh2.SetActive(false);
+    }
+    private GameObject GetRootParent(GameObject obj)
+    {
+        GameObject rootParent = obj;
+        while (rootParent.transform.parent != null)
+        {
+            rootParent = rootParent.transform.parent.gameObject;
+        }
+        return rootParent;
     }
     public int GetBugZappedAmount() 
     {

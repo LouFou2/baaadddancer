@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using Cinemachine.Utility;
 
 public class BugSpawner : MonoBehaviour
 {
@@ -18,10 +19,16 @@ public class BugSpawner : MonoBehaviour
     private bool allBugsReleased = false;
     private bool debugHasEnded = false;
 
+    private int bugsDestroyedCount = 0;
+    private int bugsOffBottomCount = 0;
+
+    [SerializeField] private Zapper zapper;
+
     private void Start()
     {
         gameSurfacePlane.SetActive(true);
         InitializeBugPool();
+        zapper = FindObjectOfType<Zapper>();
     }
 
     private void InitializeBugPool()
@@ -92,10 +99,29 @@ public class BugSpawner : MonoBehaviour
             {
                 // Handle what happens when the bug reaches the bottom (e.g., return to pool)
                 bug.SetActive(false);
+                bugsOffBottomCount++;
                 yield break;
             }
 
             yield return null;
+        }
+    }
+    /*private void BugOffBottom(GameObject bug)
+    {
+        bugsOffBottomCount++;
+        CheckAllBugsHandled();
+    }*/
+    private void Update() 
+    {
+        CheckAllBugsHandled();
+    }
+    private void CheckAllBugsHandled()
+    {
+        int totalBugsHandled = bugsDestroyedCount + bugsOffBottomCount + zapper.GetBugZappedAmount();
+        if (totalBugsHandled >= poolSize)
+        {
+            Debug.Log("Debug Ended");
+            debugHasEnded = true;
         }
     }
     public int GetBugCount()
