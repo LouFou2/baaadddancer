@@ -70,7 +70,9 @@ public class Zapper : MonoBehaviour
                 DestroyBug(other.gameObject);
             }
         }*/
-        if (other.CompareTag("Bug") && !zappedBugs.Contains(other.gameObject))
+        bool zapButtonPressed = (playerControls.GenericInput.RTrigger.IsPressed() || playerControls.GenericInput.AButton.IsPressed()) ? true : false;
+
+        if (other.CompareTag("Bug") && !zappedBugs.Contains(other.gameObject) && zapButtonPressed)
         {
             GameObject rootParent = GetRootParent(other.gameObject);
             zappedBugs.Add(other.gameObject); // Add the bug to the set of zapped bugs
