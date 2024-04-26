@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class TitleSceneDirector : MonoBehaviour
 {
-    [SerializeField] private Material titleMaterial;
     [SerializeField] private TextMeshProUGUI chooseCharacterText;
     [SerializeField] private Image leftBumperImage;
     [SerializeField] private Image rightBumperImage;
@@ -44,8 +43,6 @@ public class TitleSceneDirector : MonoBehaviour
 
     void Start()
     {
-        titleMaterial.SetFloat("_NoiseX", 0f);
-        titleMaterial.SetFloat("_ColorFade", 1f);
         sceneSwitcher = FindObjectOfType<SceneSwitcher>();
 
         chooseCharacterText.text = string.Empty;
