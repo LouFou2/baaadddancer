@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class TitleSceneDirector : MonoBehaviour
 {
+    [SerializeField] private Material titleMaterial;
     [SerializeField] private TextMeshProUGUI chooseCharacterText;
     [SerializeField] private Image leftBumperImage;
     [SerializeField] private Image rightBumperImage;
@@ -25,6 +26,9 @@ public class TitleSceneDirector : MonoBehaviour
 
     private PlayerControls playerControls;
     private SceneSwitcher sceneSwitcher;
+    [SerializeField] private AudioSource titleAudioSource;
+    [SerializeField] private AudioSource charSelectAudioSource;
+    [SerializeField] private Animator titleAnimator;
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -40,6 +44,8 @@ public class TitleSceneDirector : MonoBehaviour
 
     void Start()
     {
+        titleMaterial.SetFloat("_NoiseX", 0f);
+        titleMaterial.SetFloat("_ColorFade", 1f);
         sceneSwitcher = FindObjectOfType<SceneSwitcher>();
 
         chooseCharacterText.text = string.Empty;
@@ -48,7 +54,7 @@ public class TitleSceneDirector : MonoBehaviour
         selectButtonImage.gameObject.SetActive(false);
 
         characterLights.SetActive(false);
-        titleLights.SetActive(true);
+        //titleLights.SetActive(true);
 
         charactersSelection = new GameObject[characterManager.characters.Length];
 
@@ -62,7 +68,8 @@ public class TitleSceneDirector : MonoBehaviour
             characterManager.characterDataSOs[i].wasDebuggedLastRound = false;
         }
         currentCharacter = charactersSelection[0];
-        
+
+        titleAnimator.SetBool("TitleStart", true);
         titleSceneState = TitleSceneState.TitlePlaying;
     }
 
@@ -74,11 +81,14 @@ public class TitleSceneDirector : MonoBehaviour
                 if (titleEnd != null && titleEnd.isTitleFinished)
                 {
                     titleLights.SetActive(false);
+                    titleAudioSource.Stop();
+                    charSelectAudioSource.Play();
                     titleSceneState = TitleSceneState.ChoosingCharacter;
                 }
                 break;
 
             case TitleSceneState.ChoosingCharacter:
+                
                 characterLights.SetActive(true);
                 chooseCharacterText.text = "select character";
                 leftBumperImage.gameObject.SetActive(true);
@@ -101,7 +111,7 @@ public class TitleSceneDirector : MonoBehaviour
                 break;
         }
     }
-
+    
     void HandleCharacterSelection() 
     {
         if (playerControls.DanceControls.SwitchObjectL.triggered) 

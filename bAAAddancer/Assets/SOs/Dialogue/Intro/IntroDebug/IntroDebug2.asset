@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - just tell me when its over
+  dialogueUnits:
+  - sentence: 
+    Camera: 0
+    audioClipToPlay: {fileID: 0}
   responseNo: all better
   responseYes: i'm done
-  YesEventToCall: 2
   NoEventToCall: 2
+  YesEventToCall: 2
