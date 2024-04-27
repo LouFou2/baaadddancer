@@ -13,7 +13,7 @@ public class TitleSceneDirector : MonoBehaviour
     [SerializeField] private Image selectButtonImage;
     [SerializeField] private CharacterManager characterManager;
     [SerializeField] private GameObject[] charactersSelection;
-    [SerializeField] private GameObject titleLights;
+    //[SerializeField] private GameObject titleLights;
     [SerializeField] private GameObject characterLights;
     private int currentCharacterIndex = 0;
     private GameObject currentCharacter;
@@ -28,6 +28,7 @@ public class TitleSceneDirector : MonoBehaviour
     [SerializeField] private AudioSource titleAudioSource;
     [SerializeField] private AudioSource charSelectAudioSource;
     [SerializeField] private Animator titleAnimator;
+    [SerializeField] private Animator camAnimator;
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -85,7 +86,8 @@ public class TitleSceneDirector : MonoBehaviour
                 break;
 
             case TitleSceneState.ChoosingCharacter:
-                
+
+                camAnimator.SetBool("CharacterCam", true);
                 characterLights.SetActive(true);
                 chooseCharacterText.text = "select character";
                 leftBumperImage.gameObject.SetActive(true);
