@@ -66,7 +66,7 @@ public class TitleSceneDirector : MonoBehaviour
         }
         currentCharacter = charactersSelection[0];
 
-        titleAnimator.SetBool("TitleStart", true);
+        //titleAnimator.SetBool("TitleStart", true);
         titleSceneState = TitleSceneState.TitlePlaying;
     }
 
@@ -77,7 +77,7 @@ public class TitleSceneDirector : MonoBehaviour
             case TitleSceneState.TitlePlaying:
                 if (titleEnd != null && titleEnd.isTitleFinished)
                 {
-                    titleLights.SetActive(false);
+                    //titleLights.SetActive(false);
                     titleAudioSource.Stop();
                     charSelectAudioSource.Play();
                     titleSceneState = TitleSceneState.ChoosingCharacter;
