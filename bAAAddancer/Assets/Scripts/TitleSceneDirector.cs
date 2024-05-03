@@ -13,7 +13,7 @@ public class TitleSceneDirector : MonoBehaviour
     [SerializeField] private Image selectButtonImage;
     [SerializeField] private CharacterManager characterManager;
     [SerializeField] private GameObject[] charactersSelection;
-    //[SerializeField] private GameObject titleLights;
+    [SerializeField] private GameObject titleObject;
     [SerializeField] private GameObject characterLights;
     private int currentCharacterIndex = 0;
     private GameObject currentCharacter;
@@ -52,7 +52,7 @@ public class TitleSceneDirector : MonoBehaviour
         selectButtonImage.gameObject.SetActive(false);
 
         characterLights.SetActive(false);
-        //titleLights.SetActive(true);
+        titleObject.SetActive(true);
 
         charactersSelection = new GameObject[characterManager.characters.Length];
 
@@ -88,6 +88,7 @@ public class TitleSceneDirector : MonoBehaviour
             case TitleSceneState.ChoosingCharacter:
 
                 camAnimator.SetBool("CharacterCam", true);
+                titleObject.SetActive(false);
                 characterLights.SetActive(true);
                 chooseCharacterText.text = "select character";
                 leftBumperImage.gameObject.SetActive(true);
