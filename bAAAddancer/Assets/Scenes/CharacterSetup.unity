@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.43029836, g: 0.627451, b: 0.41960785, a: 1}
+  m_SubtractiveShadowColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: f10afbde3fd3b154d8d7950b081ed07e, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1.4113299, g: 0.71462846, b: 1.5177526, a: 1}
+  m_IndirectSpecularColor: {r: 0.8273136, g: 0.57787764, b: 1.8969672, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2195,7 +2195,7 @@ MonoBehaviour:
     - bone: {fileID: 745965047}
       target: {fileID: 1972219618}
       positionWeight: 1
-      rotationWeight: 1
+      rotationWeight: 0
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       positionOffset: {x: 0, y: 0, z: 0}
@@ -2209,7 +2209,7 @@ MonoBehaviour:
     - bone: {fileID: 1065524740}
       target: {fileID: 1024379823}
       positionWeight: 1
-      rotationWeight: 1
+      rotationWeight: 0
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       positionOffset: {x: 0, y: 0, z: 0}
@@ -2223,7 +2223,7 @@ MonoBehaviour:
     - bone: {fileID: 1724992825}
       target: {fileID: 1008347206}
       positionWeight: 1
-      rotationWeight: 1
+      rotationWeight: 0
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       positionOffset: {x: 0, y: 0, z: 0}
@@ -2237,7 +2237,7 @@ MonoBehaviour:
     - bone: {fileID: 1851086801}
       target: {fileID: 1862571563}
       positionWeight: 1
-      rotationWeight: 1
+      rotationWeight: 0
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       positionOffset: {x: 0, y: 0, z: 0}
@@ -3199,7 +3199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Effectors:
   - m_Transform: {fileID: 2094879293}
     m_Style:
@@ -4595,7 +4595,7 @@ GameObject:
   - component: {fileID: 310027711}
   - component: {fileID: 310027710}
   - component: {fileID: 310027709}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5774,7 +5774,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -5817,7 +5817,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -6267,7 +6267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Effectors:
   - m_Transform: {fileID: 1091957362}
     m_Style:
@@ -19195,7 +19195,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f6caff44f8622224f9a6db5599623ecb,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6caff44f8622224f9a6db5599623ecb, type: 3}
@@ -20506,7 +20506,7 @@ MonoBehaviour:
     - bone: {fileID: 1077421891}
       target: {fileID: 189330697}
       positionWeight: 1
-      rotationWeight: 1
+      rotationWeight: 0
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       positionOffset: {x: 0, y: 0, z: 0}
@@ -20520,7 +20520,7 @@ MonoBehaviour:
     - bone: {fileID: 480735713}
       target: {fileID: 1714843412}
       positionWeight: 1
-      rotationWeight: 1
+      rotationWeight: 0
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       positionOffset: {x: 0, y: 0, z: 0}
@@ -20534,7 +20534,7 @@ MonoBehaviour:
     - bone: {fileID: 1310877520}
       target: {fileID: 1775705735}
       positionWeight: 1
-      rotationWeight: 1
+      rotationWeight: 0
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       positionOffset: {x: 0, y: 0, z: 0}
@@ -20548,7 +20548,7 @@ MonoBehaviour:
     - bone: {fileID: 1310572749}
       target: {fileID: 1167195008}
       positionWeight: 1
-      rotationWeight: 1
+      rotationWeight: 0
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       positionOffset: {x: 0, y: 0, z: 0}
@@ -23441,6 +23441,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zaphod.002
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bf09d07f2009d20488f900e9174f794c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf09d07f2009d20488f900e9174f794c, type: 3}
 --- !u!4 &1773519105 stripped
@@ -26030,7 +26035,7 @@ ReflectionProbe:
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_IntensityMultiplier: 1
   m_BlendDistance: 1
   m_HDR: 1
