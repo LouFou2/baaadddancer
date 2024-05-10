@@ -29,7 +29,7 @@ public class CopyProxyRig : MonoBehaviour
             rotationOffsets[i] = Quaternion.Inverse(initialRotations[i]) * controlObjects[i].transform.rotation;
         }
     }
-    void Update()
+    void LateUpdate() // using late update else the "copy" doesn't get all the constraint (rotation) updates
     {
         
         for (int i = 0; i < controlObjects.Length; i++) 
