@@ -61,18 +61,21 @@ public class ObjectControls : MonoBehaviour
         currentRecordedPosition = initialPosition;
         currentRecordedRotation = initialRotation;
 
-        controlGizmoObject.SetActive(false);
+        if (controlGizmoObject != null)
+            controlGizmoObject.SetActive(false);
     }
     private void Update()
     {
         if (!isActive)
         {
             useRecordedPositions = true;
-            controlGizmoObject.SetActive(false);
+            if(controlGizmoObject != null)
+                controlGizmoObject.SetActive(false);
         }
         else 
         {
-            controlGizmoObject.SetActive(true);
+            if (controlGizmoObject != null)
+                controlGizmoObject.SetActive(true);
         }
 
         isRecording = false;
