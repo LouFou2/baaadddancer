@@ -22,6 +22,7 @@ public class ObjectControls : MonoBehaviour
     [SerializeField] private float y_RangeMax = 0.5f;
     [SerializeField] private float z_RangeMin = -0.5f;
     [SerializeField] private float z_RangeMax = 0.5f;
+    [SerializeField] private float moveSpeed = 2f;
 
     private Vector2 moveInput;
 
@@ -107,9 +108,7 @@ public class ObjectControls : MonoBehaviour
             }
 
         }
-    /*}
-    void FixedUpdate()
-    {*/
+
         controlObject.transform.position = currentRecordedPosition;
         controlObject.transform.rotation = currentRecordedRotation;
 
@@ -143,7 +142,8 @@ public class ObjectControls : MonoBehaviour
                     clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax); // but: initial position to set the clamp range
                     clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
 
-                    finalUpdatePosition = new Vector3(clampedX, clampedY, currentRecordedPosition.z); // current position again for the uncontrolled axis 
+                    finalUpdatePosition = new Vector3(clampedX, clampedY, currentRecordedPosition.z); // current position again for the uncontrolled axis
+
                     break;
 
                 case ViewSwitcher.ViewSwitch.top:
