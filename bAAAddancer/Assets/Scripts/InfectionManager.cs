@@ -26,6 +26,11 @@ public class InfectionManager : MonoBehaviour
             {
                 eligibleCharacters.Add(characterData);
             }
+            //increase current infection level
+            if(characterData.infectionLevel > 0)
+            {
+                characterData.infectionLevel += Random.Range(0.1f,0.25f);
+            }
         }
 
         // Check if there are eligible characters to infect
