@@ -237,12 +237,12 @@ MonoBehaviour:
   opposingObject: {fileID: 410065293}
   useMovementLimit: 0
   x_RangeMin: -0.5
-  x_RangeMax: 1.5
-  y_RangeMin: -1
+  x_RangeMax: 0.5
+  y_RangeMin: -0.5
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 2
+  moveSpeed: 4
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -1330,7 +1330,7 @@ MonoBehaviour:
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 2
+  moveSpeed: 4
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -3104,7 +3104,7 @@ MonoBehaviour:
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 2
+  moveSpeed: 4
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -3183,13 +3183,13 @@ MonoBehaviour:
   rightObject: 1
   opposingObject: {fileID: 19804925}
   useMovementLimit: 0
-  x_RangeMin: -1.5
+  x_RangeMin: -0.5
   x_RangeMax: 0.5
-  y_RangeMin: -1
+  y_RangeMin: -0.5
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 2
+  moveSpeed: 4
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5206,14 +5206,14 @@ MonoBehaviour:
   leftObject: 1
   rightObject: 0
   opposingObject: {fileID: 777729771}
-  useMovementLimit: 1
+  useMovementLimit: 0
   x_RangeMin: -0.5
   x_RangeMax: 0
   y_RangeMin: -0.5
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 20
+  moveSpeed: 4
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -6059,14 +6059,14 @@ MonoBehaviour:
   leftObject: 0
   rightObject: 1
   opposingObject: {fileID: 628731417}
-  useMovementLimit: 1
+  useMovementLimit: 0
   x_RangeMin: 0
   x_RangeMax: 0.5
   y_RangeMin: -0.4
   y_RangeMax: 0.4
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 20
+  moveSpeed: 4
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -6481,7 +6481,7 @@ MonoBehaviour:
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 2
+  moveSpeed: 4
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -7676,7 +7676,7 @@ MonoBehaviour:
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 2
+  moveSpeed: 4
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -8095,7 +8095,7 @@ MonoBehaviour:
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 2
+  moveSpeed: 4
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -12712,7 +12712,7 @@ MonoBehaviour:
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 2
+  moveSpeed: 4
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -14142,6 +14142,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254844367057990122, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
+        type: 3}
+      propertyPath: solver.boneMappings.Array.data[0].maintainRotationWeight
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666020052305507, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}

@@ -2125,14 +2125,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3129477824244321666}
+  - component: {fileID: 919132147699613102}
   - component: {fileID: 3234880845166093417}
-  - component: {fileID: 3234880845166093418}
-  - component: {fileID: 3234880845166093416}
   - component: {fileID: 3234880845166093423}
+  - component: {fileID: 3234880845166093416}
+  - component: {fileID: 3234880845166093418}
   - component: {fileID: 3234880845166093422}
   - component: {fileID: 919132147699613100}
   - component: {fileID: 919132147699613101}
-  - component: {fileID: 919132147699613102}
+  - component: {fileID: 4780876207481282930}
   m_Layer: 0
   m_Name: Zaphod.002
   m_TagString: Untagged
@@ -2165,6 +2166,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &919132147699613102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2316524955874613048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d34a2411ba0cae4c9e1144a705b9ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDataSO: {fileID: 11400000, guid: 8a9370ba4b2c97a46bdc597c7b267f29, type: 2}
+  isPlayer: 0
+  isNPC: 0
+  isBug: 0
 --- !u!95 &3234880845166093417
 Animator:
   serializedVersion: 5
@@ -2186,40 +2203,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3234880845166093418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2316524955874613048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RigLayers:
-  - m_Rig: {fileID: 3234880844051747457}
-    m_Active: 1
-  - m_Rig: {fileID: 3234880845316129947}
-    m_Active: 1
-  - m_Rig: {fileID: 3234880845756657451}
-    m_Active: 1
-  m_Effectors: []
---- !u!114 &3234880845166093416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2316524955874613048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a48af8ef2fd147446af3c65186a1cd9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weight: 1.5
-  offset: 0.2
 --- !u!114 &3234880845166093423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2681,6 +2664,40 @@ MonoBehaviour:
     spineStiffness: 0.5
     pullBodyVertical: 0.5
     pullBodyHorizontal: 0
+--- !u!114 &3234880845166093416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2316524955874613048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a48af8ef2fd147446af3c65186a1cd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1.5
+  offset: 0.2
+--- !u!114 &3234880845166093418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2316524955874613048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RigLayers:
+  - m_Rig: {fileID: 3234880844051747457}
+    m_Active: 1
+  - m_Rig: {fileID: 3234880845316129947}
+    m_Active: 1
+  - m_Rig: {fileID: 3234880845756657451}
+    m_Active: 1
+  m_Effectors: []
 --- !u!114 &3234880845166093422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2914,7 +2931,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!114 &919132147699613102
+--- !u!114 &4780876207481282930
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2923,13 +2940,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2316524955874613048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d34a2411ba0cae4c9e1144a705b9ade, type: 3}
+  m_Script: {fileID: 11500000, guid: e87d10f5c2cb1d442ad0031bc12473e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterDataSO: {fileID: 11400000, guid: 8a9370ba4b2c97a46bdc597c7b267f29, type: 2}
-  isPlayer: 0
-  isNPC: 0
-  isBug: 0
 --- !u!1 &2360712188506096712
 GameObject:
   m_ObjectHideFlags: 0

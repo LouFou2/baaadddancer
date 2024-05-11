@@ -67,6 +67,7 @@ public class ObjectControls : MonoBehaviour
     }
     private void Update()
     {
+        // activating the gizmo/control/visualiser object
         if (!isActive)
         {
             useRecordedPositions = true;
@@ -80,7 +81,8 @@ public class ObjectControls : MonoBehaviour
         }
 
         isRecording = false;
-
+        
+        // checking controller input = isRecording
         if (leftObject) 
         {
             Vector2 inputVector2 = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
@@ -92,6 +94,7 @@ public class ObjectControls : MonoBehaviour
             if (inputVector2.magnitude > 0.001f) isRecording = true; // turn on recording if input is above a threshold
         }
 
+        // get moveInput value from controller
         if (isActive && isRecording)
         {
             
@@ -109,10 +112,10 @@ public class ObjectControls : MonoBehaviour
 
         }
 
-        controlObject.transform.position = currentRecordedPosition;
-        controlObject.transform.rotation = currentRecordedRotation;
+        //controlObject.transform.position = currentRecordedPosition;
+        //controlObject.transform.rotation = currentRecordedRotation;
 
-        finalUpdateRotation = currentRecordedRotation; // *** MIGHT USE ROTATION, IN WHICH CASE ADD INTO LOGIC BELOW (instead of this line)
+        //finalUpdateRotation = currentRecordedRotation; // *** MIGHT USE ROTATION, IN WHICH CASE ADD INTO LOGIC BELOW (instead of this line)
 
         if (isActive && isRecording)
         {
@@ -134,7 +137,7 @@ public class ObjectControls : MonoBehaviour
                     // also, if input is negative, we lerp from object default to object min position using negated input value
                     // (lerp uses 0-1 range) so if input value is nagative, we make it positive (-input)
 
-                    rangedX = (moveInput.x <= 0) ? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
+                    /* rangedX = (moveInput.x <= 0) ? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
                     rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
 
                     rangedPosition = new Vector3(rangedX + initialPosition.x, rangedY + initialPosition.y, currentRecordedPosition.z); // note: we use the current position for the uncontrolled axis
@@ -142,7 +145,26 @@ public class ObjectControls : MonoBehaviour
                     clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax); // but: initial position to set the clamp range
                     clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
 
-                    finalUpdatePosition = new Vector3(clampedX, clampedY, currentRecordedPosition.z); // current position again for the uncontrolled axis
+                    finalUpdatePosition = new Vector3(clampedX, clampedY, currentRecordedPosition.z); // current position again for the uncontrolled axis */
+
+                    //---NEW MOVEMENT:
+                    controlObject.transform.position = new Vector3(controlObject.transform.position.x, controlObject.transform.position.y, currentRecordedPosition.z);
+
+                    // Calculate movement based on time and speed
+                    float moveX = moveInput.x * moveSpeed * Time.deltaTime;
+                    float moveY = moveInput.y * moveSpeed * Time.deltaTime;
+
+                    // Update object's position based on movement
+                    Vector3 newPosition = controlObject.transform.position + new Vector3(-moveX, moveY, 0f);
+                    
+                    //Clamp in Min-Max Range
+                    float newX = Mathf.Clamp(newPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);
+                    float newY = Mathf.Clamp(newPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
+
+                    Vector3 clampedPosition = new Vector3(newX, newY, currentRecordedPosition.z);
+
+                    // Update object's position
+                    finalUpdatePosition = clampedPosition;
 
                     break;
 
@@ -189,7 +211,7 @@ public class ObjectControls : MonoBehaviour
             if (!useMovementLimit) // logic below: stop objects from crossing over each other
             {
                 controlObject.transform.position = finalUpdatePosition;
-                controlObject.transform.rotation = finalUpdateRotation;
+                //controlObject.transform.rotation = finalUpdateRotation;
             }
             else 
             {
@@ -199,19 +221,19 @@ public class ObjectControls : MonoBehaviour
 
                     finalUpdatePosition = new Vector3(limitedX, finalUpdatePosition.y, finalUpdatePosition.z);
                     controlObject.transform.position = finalUpdatePosition;
-                    controlObject.transform.rotation = finalUpdateRotation;
+                    //controlObject.transform.rotation = finalUpdateRotation;
                 }
                 else if (rightObject && opposingObject != null) 
                 { 
                     float limitedX = Mathf.Clamp(finalUpdatePosition.x, opposingObject.transform.position.x, x_RangeMax);
                     finalUpdatePosition = new Vector3(limitedX, finalUpdatePosition.y, finalUpdatePosition.z);
                     controlObject.transform.position = finalUpdatePosition;
-                    controlObject.transform.rotation = finalUpdateRotation;
+                    //controlObject.transform.rotation = finalUpdateRotation;
                 }
                 else 
                 {
                     controlObject.transform.position = finalUpdatePosition;
-                    controlObject.transform.rotation = finalUpdateRotation;
+                    //controlObject.transform.rotation = finalUpdateRotation;
                 }
             }
             
@@ -229,8 +251,11 @@ public class ObjectControls : MonoBehaviour
     {
         int currentPositionIndex = clockCounter.GetCurrent_Q_Beat(); //the indexes of the positions corresponds to the beats (the beats are used to record them)
         int targetPositionIndex = currentPositionIndex + 1;
+
+        // index can loop/wrap around:
         if (targetPositionIndex > recordingDataSO.recordedPositions.Length - 1) targetPositionIndex = 0;
         if (targetPositionIndex < 0) targetPositionIndex = 0;
+
         float tweenDuration = clockCounter.Get_Q_BeatInterval();
         Vector3 tweenTargetPosition = recordingDataSO.recordedPositions[targetPositionIndex];
 
@@ -240,11 +265,12 @@ public class ObjectControls : MonoBehaviour
             controlObject.transform.DOMove(tweenTargetPosition, tweenDuration).SetEase(Ease.Linear);
         }
         // This tween is moving a Vector3 that can be used for axis not controlled by player input (depending on view switching)
-        // Note: it is not actually moving the object, only the Vector3 (currentRecordedPosition) that can be referred to in the Fixed Update method
+        // Note: it is not actually moving the object, only the Vector3 (currentRecordedPosition) that can be referred to in the Update method
         float xTarget = tweenTargetPosition.x;
         float yTarget = tweenTargetPosition.y;
         float zTarget = tweenTargetPosition.z;
         DOTween.To(() => currentRecordedPosition, x => currentRecordedPosition = x, new Vector3(xTarget, yTarget, zTarget), tweenDuration).SetEase(Ease.Linear);
+
     }
 
 
