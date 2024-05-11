@@ -83,7 +83,8 @@ public class CopyDance : MonoBehaviour
             if (targetBeatIndex < 0) targetBeatIndex = 0;
             float tweenDuration = clockCounter.Get_Q_BeatInterval();
 
-            if (characterProfile.characterDataSO.infectionLevel > 0) // if the character is infected
+            //OLD FRAME DROP LOGIC:
+            /* if (characterProfile.characterDataSO.infectionLevel > 0) // if the character is infected
             {
                 // call infection behaviours
                 int frameRateDivider = 1; // change how much to divide the frame rate
@@ -95,8 +96,9 @@ public class CopyDance : MonoBehaviour
             else
             { // Tween the object's position to the next recorded position
                 copyingObject.transform.DOMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
-            }
+            } */
             
+            copyingObject.transform.DOMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
         }
 
     }

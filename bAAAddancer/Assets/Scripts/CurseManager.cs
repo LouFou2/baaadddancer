@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class CurseManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private Animator characterAnimator;
+    [SerializeField] private CharacterProfile characterProfile;
+    private CharacterData charData;
     void Start()
     {
-        
+        characterAnimator = GetComponent<Animator>();
+        characterProfile = GetComponent<CharacterProfile>();
+        charData = characterProfile.characterDataSO;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        characterAnimator.SetFloat("CurseAmount", charData.infectionLevel);
     }
 }
