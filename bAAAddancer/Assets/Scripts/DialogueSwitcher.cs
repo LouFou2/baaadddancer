@@ -24,7 +24,7 @@ public class DialogueSwitcher : MonoBehaviour
 
         currentDialogue = currentDialogueSequence[0];
     }
-    public DialogueData GetCurrentDialogue() 
+    public DialogueData GetCurrentDialogue() // this method gets used by other scripts
     {
         return currentDialogue;
     }

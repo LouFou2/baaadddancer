@@ -16,6 +16,7 @@ public class TitleSceneDirector : MonoBehaviour
     [SerializeField] private GameObject titleObject;
     [SerializeField] private GameObject characterLights;
     [SerializeField] private GameObject floor;
+
     private int currentCharacterIndex = 0;
     private GameObject currentCharacter;
     [SerializeField] private TitleEndEventHandler titleEnd;
@@ -30,6 +31,7 @@ public class TitleSceneDirector : MonoBehaviour
     [SerializeField] private AudioSource charSelectAudioSource;
     [SerializeField] private Animator titleAnimator;
     [SerializeField] private Animator camAnimator;
+
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -80,7 +82,6 @@ public class TitleSceneDirector : MonoBehaviour
             case TitleSceneState.TitlePlaying:
                 if (titleEnd != null && titleEnd.isTitleFinished)
                 {
-                    //titleLights.SetActive(false);
                     titleAudioSource.Stop();
                     charSelectAudioSource.Play();
                     titleSceneState = TitleSceneState.ChoosingCharacter;

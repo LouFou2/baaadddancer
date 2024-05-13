@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private DialogueSwitcher dialogueSwitcher;
     [SerializeField] private DialoguePlayback dialoguePlayer;
+    [SerializeField] private CameraManager cameraManager;
     public enum DialogueState { NoDialogue, NPCSpeaks, PauseOrContinue, PlayerResponse }
     public DialogueState dialogueState;
 

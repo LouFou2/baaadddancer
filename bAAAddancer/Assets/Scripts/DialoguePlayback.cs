@@ -10,6 +10,7 @@ public class DialoguePlayback : MonoBehaviour
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField] private DialogueSwitcher dialogueSwitcher;
     [SerializeField] private DialogueData currentDialogue; // Current dialogue to play
+
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private float typeSpeedInterval = 0.03f;
@@ -25,7 +26,7 @@ public class DialoguePlayback : MonoBehaviour
         StartDialogue(currentDialogue);
     }
     
-    public void StartDialogue(DialogueData newDialogue) 
+    /* public void StartDialogue(DialogueData newDialogue) 
     {
         sentences.Clear();
         currentDialogue = newDialogue;
@@ -35,9 +36,9 @@ public class DialoguePlayback : MonoBehaviour
             sentences.Enqueue(sentence);
         }
         DisplayNextSentence();
-    }
+    } */
     //*** the above method should become this:
-    /*
+    
     public void StartDialogue(DialogueData newDialogue) 
     {
         sentences.Clear();
@@ -52,7 +53,7 @@ public class DialoguePlayback : MonoBehaviour
     
         DisplayNextSentence();
     }
-    */
+   
     public void DisplayNextSentence() 
     {
         if (sentences.Count == 0) 

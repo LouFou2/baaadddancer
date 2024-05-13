@@ -3,7 +3,13 @@ using UnityEngine;
 public class TitleEndEventHandler : MonoBehaviour
 {
     public bool isTitleFinished = false;
-    private void OnTitleAnimFinished() 
+
+    public void Awake()
+    {
+        isTitleFinished = false;
+    }
+
+    public void OnTitleAnimFinished() 
     {
         isTitleFinished = true;
     }

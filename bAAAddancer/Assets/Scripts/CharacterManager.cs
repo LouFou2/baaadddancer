@@ -8,10 +8,6 @@ public class CharacterManager : MonoBehaviour
     public int playerIndex;
     public int bugIndex;
 
-    // We can use the current scene to activate/de-activate components on character as needed **MIGHT REMOVE SCENE INFO RELATED LOGIC
-    /*private enum CurrentScene { TitleScene, DialogueScene, MakeDanceScene, CopyDanceScene, DebugScene } //add more if needed
-    private CurrentScene currentScene;*/
-    
     void Start()
     {
         // Initialize characterDataSOs array with the same length as characters array
@@ -23,7 +19,7 @@ public class CharacterManager : MonoBehaviour
 
             if (characterProfile != null)
             {
-                 characterDataSOs[i] = characterProfile.characterDataSO;
+                characterDataSOs[i] = characterProfile.characterDataSO;
                 if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player) 
                 {
                     playerIndex = i;
@@ -38,21 +34,6 @@ public class CharacterManager : MonoBehaviour
                 Debug.LogWarning("CharacterProfile component is missing on GameObject " + characters[i].name);
             }
         }
-
     }
 
-    void Update()
-    {
-        /*string currentSceneName = SceneManager.GetActiveScene().name;
-
-        // Make sure to add scene names accurately:
-        if (currentSceneName == "TitleScene") { currentScene = CurrentScene.TitleScene; }
-        else if (currentSceneName == "") { currentScene = CurrentScene.DialogueScene; }
-        else if (currentSceneName == "") { currentScene = CurrentScene.MakeDanceScene; }
-        else if (currentSceneName == "") { currentScene = CurrentScene.CopyDanceScene; }
-        else if (currentSceneName == "") { currentScene = CurrentScene.DebugScene; }*/
-
-    }
-    
-    //Add methods for accessing character Data
 }
