@@ -66,6 +66,8 @@ public class DialogueManager : MonoBehaviour
                 if (!string.IsNullOrEmpty(button0Text.text))
                 {
                     button0.gameObject.SetActive(true);
+                    cameraManager.SelectPlayerCamera(); // adding it here because sometimes it is only the Yes response
+                    
                 }
                 else 
                 {
@@ -74,6 +76,7 @@ public class DialogueManager : MonoBehaviour
                 if (!string.IsNullOrEmpty(button1Text.text))
                 {
                     button1.gameObject.SetActive(true);
+                    cameraManager.SelectPlayerCamera(); // adding it here because sometimes it is only the Yes response
                 }
                 else
                 {

@@ -18,6 +18,7 @@ public class CameraManager : MonoBehaviour
     private int npc1_Index, npc2_Index, npc3_Index; //remaining npcs
 
     private Queue<DialogueData.DialogueUnit> dialogueUnitQueue = new Queue<DialogueData.DialogueUnit>();
+    private DialogueData.DialogueUnit currentDialogueUnit;
     
     void Start()
     {
@@ -91,6 +92,7 @@ public class CameraManager : MonoBehaviour
         if (dialogueUnitQueue.Count > 0)
         {
             DialogueData.DialogueUnit unit = dialogueUnitQueue.Dequeue();
+            currentDialogueUnit = unit;
             SwitchCamera(unit.Camera);
         }
         else
@@ -98,9 +100,18 @@ public class CameraManager : MonoBehaviour
             Debug.LogWarning("No more dialogue units in queue.");
         }
     }
+    public void SelectPlayerCamera()
+    {
+        SwitchCamera(DialogueData.CameraToSwitch.playerCamM);
+    }
 
     void SwitchCamera(DialogueData.CameraToSwitch cameraToSwitch)
     {
+        // Reset all boolean parameters to false
+        foreach (string flag in cameraFlags)
+        {
+            cameraAnimator.SetBool(flag, false);
+        }
         // Perform camera switching logic based on the provided enum value
         switch (cameraToSwitch)
         {
@@ -108,40 +119,53 @@ public class CameraManager : MonoBehaviour
                 cameraAnimator.SetBool("LongCam", true);
                 break;
             case DialogueData.CameraToSwitch.playerCamM:
+                Debug.Log("PlayerCam: " + cameraFlags[playerIndex] + " activated");
                 cameraAnimator.SetBool(cameraFlags[playerIndex], true); //see here we pass in the indexes that we get above
+                cameraAnimator.SetFloat("MedToClose", 0);
                 break;
             case DialogueData.CameraToSwitch.playerCamC:
                 cameraAnimator.SetBool(cameraFlags[playerIndex], true);
+                cameraAnimator.SetFloat("MedToClose", 1);
                 break;
             case DialogueData.CameraToSwitch.ravedemonCamM:
                 cameraAnimator.SetBool(cameraFlags[bugIndex], true); // *** bug is always npc1 cam, is there way to make this random?
+                cameraAnimator.SetFloat("MedToClose", 0);
                 break;
             case DialogueData.CameraToSwitch.ravedemonCamC:
                 cameraAnimator.SetBool(cameraFlags[bugIndex], true);
+                cameraAnimator.SetFloat("MedToClose", 1);
                 break;
             case DialogueData.CameraToSwitch.npc02CamM:
                 cameraAnimator.SetBool(cameraFlags[npc1_Index], true);
+                cameraAnimator.SetFloat("MedToClose", 0);
                 break;
             case DialogueData.CameraToSwitch.npc02CamC:
                 cameraAnimator.SetBool(cameraFlags[npc1_Index], true);
+                cameraAnimator.SetFloat("MedToClose", 1);
                 break;
             case DialogueData.CameraToSwitch.npc03CamM:
                 cameraAnimator.SetBool(cameraFlags[npc2_Index], true);
+                cameraAnimator.SetFloat("MedToClose", 0);
                 break;
             case DialogueData.CameraToSwitch.npc03CamC:
                 cameraAnimator.SetBool(cameraFlags[npc2_Index], true);
+                cameraAnimator.SetFloat("MedToClose", 1);
                 break;
             case DialogueData.CameraToSwitch.npc04CamM:
                 cameraAnimator.SetBool(cameraFlags[npc3_Index], true);
+                cameraAnimator.SetFloat("MedToClose", 0);
                 break;
             case DialogueData.CameraToSwitch.npc04CamC:
                 cameraAnimator.SetBool(cameraFlags[npc3_Index], true);
+                cameraAnimator.SetFloat("MedToClose", 1);
                 break;
             case DialogueData.CameraToSwitch.lastBuggedCamM:
                 cameraAnimator.SetBool(cameraFlags[lastBuggedCharacterIndex], true);
+                cameraAnimator.SetFloat("MedToClose", 0);
                 break;
             case DialogueData.CameraToSwitch.lastBuggedCamC:
                 cameraAnimator.SetBool(cameraFlags[lastBuggedCharacterIndex], true);
+                cameraAnimator.SetFloat("MedToClose", 1);
                 break;
             default:
                 cameraAnimator.SetBool("LongCam", true);
