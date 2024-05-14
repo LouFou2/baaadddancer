@@ -10,4 +10,5 @@ public class CharacterData : ScriptableObject
     [Range(0f, 1f)] public float spreadInfectionChance = 0f;
 
     public bool wasDebuggedLastRound;
+    public bool lastBuggedCharacter;
 }

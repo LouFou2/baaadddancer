@@ -54,7 +54,8 @@ public class DialogueManager : MonoBehaviour
 
                 if (button1clicked)
                 {
-                    dialoguePlayer.DisplayNextSentence(); // *** 
+                    dialoguePlayer.DisplayNextSentence();
+                    cameraManager.SelectNewCamera();
                     dialogueState = DialogueState.NPCSpeaks;
                     button1clicked = false;
                 }

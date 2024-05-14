@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 
 public class CameraManager : MonoBehaviour
@@ -7,12 +8,14 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private DialogueSwitcher dialogueSwitcher;
     [SerializeField] private Animator cameraAnimator; // script should be attached to GameObject with Camera Animator Controller
     [SerializeField] private CharacterManager characterManager;
+    [SerializeField] private string[] cameraFlags; // the camera flags are the bool names in the Animator
 
     private CharacterData[] characterDataSOs;
     private List<int> availableIndexes = new List<int>();
     private int playerIndex;
     private int bugIndex;
-    private int npc1_Index, npc2_Index, npc3_Index, npc4_Index;
+    private int lastBuggedCharacterIndex;
+    private int npc1_Index, npc2_Index, npc3_Index; //remaining npcs
 
     private Queue<DialogueData.DialogueUnit> dialogueUnitQueue = new Queue<DialogueData.DialogueUnit>();
     
@@ -22,8 +25,18 @@ public class CameraManager : MonoBehaviour
         cameraAnimator = GetComponent<Animator>();
         characterManager = FindObjectOfType<CharacterManager>();
         
-        characterDataSOs = new CharacterData[characterManager.characterDataSOs.Length];
+        characterDataSOs = new CharacterData[6];
+        cameraFlags = new string[6];
 
+        // the camera flags are the bool names in the Animator
+        cameraFlags[0] = "CharCam1"; // the caracters these cameras are aimed at are arranged in same order as in Character Manager
+        cameraFlags[1] = "CharCam2"; // which is why we need logic below to figire out which indexes are the player, ravedemon, and last bugged character
+        cameraFlags[2] = "CharCam3"; // (for the sake of the dialogue moments)
+        cameraFlags[3] = "CharCam4";
+        cameraFlags[4] = "CharCam5";
+        cameraFlags[5] = "CharCam6";
+
+        availableIndexes.Clear();
         // Populate available indexes
         for (int i = 0; i < characterManager.characterDataSOs.Length; i++)
         {
@@ -43,12 +56,19 @@ public class CameraManager : MonoBehaviour
                 bugIndex = i;
                 availableIndexes.Remove(i); // Remove bug index
             }
+            if (characterDataSOs[i].lastBuggedCharacter == true)
+            {
+                lastBuggedCharacterIndex = i;
+                availableIndexes.Remove(i); // Remove last bugged character index
+            }
         }
         // Assign remaining indexes to NPC characters
         npc1_Index = availableIndexes[0];
         npc2_Index = availableIndexes[1];
         npc3_Index = availableIndexes[2];
-        npc4_Index = availableIndexes[3];
+
+        if(availableIndexes.Count == 4) //meaning there is no "lastBuggedCharacter" yet
+            lastBuggedCharacterIndex = availableIndexes[3];
 
         // Get the current dialogue data
         DialogueData currentDialogue = dialogueSwitcher.GetCurrentDialogue();
@@ -88,41 +108,40 @@ public class CameraManager : MonoBehaviour
                 cameraAnimator.SetBool("LongCam", true);
                 break;
             case DialogueData.CameraToSwitch.playerCamM:
-                // the issue with the player cam is, we need to use the indexes assigned in start
-                // to determine which camera is for the player (e.g. if player index is 3, cameraAnimator will use "Char3Cam")
+                cameraAnimator.SetBool(cameraFlags[playerIndex], true); //see here we pass in the indexes that we get above
                 break;
             case DialogueData.CameraToSwitch.playerCamC:
-                cameraAnimator.SetBool("LongCam", true);
+                cameraAnimator.SetBool(cameraFlags[playerIndex], true);
                 break;
-            case DialogueData.CameraToSwitch.npc01CamM:
-                cameraAnimator.SetBool("LongCam", true);
+            case DialogueData.CameraToSwitch.ravedemonCamM:
+                cameraAnimator.SetBool(cameraFlags[bugIndex], true); // *** bug is always npc1 cam, is there way to make this random?
                 break;
-            case DialogueData.CameraToSwitch.npc01CamC:
-                cameraAnimator.SetBool("LongCam", true);
+            case DialogueData.CameraToSwitch.ravedemonCamC:
+                cameraAnimator.SetBool(cameraFlags[bugIndex], true);
                 break;
             case DialogueData.CameraToSwitch.npc02CamM:
-                cameraAnimator.SetBool("LongCam", true);
+                cameraAnimator.SetBool(cameraFlags[npc1_Index], true);
                 break;
             case DialogueData.CameraToSwitch.npc02CamC:
-                cameraAnimator.SetBool("LongCam", true);
+                cameraAnimator.SetBool(cameraFlags[npc1_Index], true);
                 break;
             case DialogueData.CameraToSwitch.npc03CamM:
-                cameraAnimator.SetBool("LongCam", true);
+                cameraAnimator.SetBool(cameraFlags[npc2_Index], true);
                 break;
             case DialogueData.CameraToSwitch.npc03CamC:
-                cameraAnimator.SetBool("LongCam", true);
+                cameraAnimator.SetBool(cameraFlags[npc2_Index], true);
                 break;
             case DialogueData.CameraToSwitch.npc04CamM:
-                cameraAnimator.SetBool("LongCam", true);
+                cameraAnimator.SetBool(cameraFlags[npc3_Index], true);
                 break;
             case DialogueData.CameraToSwitch.npc04CamC:
-                cameraAnimator.SetBool("LongCam", true);
+                cameraAnimator.SetBool(cameraFlags[npc3_Index], true);
                 break;
-            case DialogueData.CameraToSwitch.npc05CamM:
-                cameraAnimator.SetBool("LongCam", true);
+            case DialogueData.CameraToSwitch.lastBuggedCamM:
+                cameraAnimator.SetBool(cameraFlags[lastBuggedCharacterIndex], true);
                 break;
-            case DialogueData.CameraToSwitch.npc05CamC:
-                cameraAnimator.SetBool("LongCam", true);
+            case DialogueData.CameraToSwitch.lastBuggedCamC:
+                cameraAnimator.SetBool(cameraFlags[lastBuggedCharacterIndex], true);
                 break;
             default:
                 cameraAnimator.SetBool("LongCam", true);

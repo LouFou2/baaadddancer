@@ -19,6 +19,8 @@ public class InfectionManager : MonoBehaviour
         List<CharacterData> eligibleCharacters = new List<CharacterData>();
         foreach (CharacterData characterData in characterManager.characterDataSOs)
         {
+            characterData.lastBuggedCharacter = false;
+
             if (characterData != null 
                 && characterData.characterRoleSelect != CharacterData.CharacterRole.Player 
                 && characterData.characterRoleSelect != CharacterData.CharacterRole.Bug
@@ -46,6 +48,7 @@ public class InfectionManager : MonoBehaviour
 
         // Infect the selected character
         selectedCharacter.infectionLevel += 0.25f;
+        selectedCharacter.lastBuggedCharacter = true;
         Debug.Log(selectedCharacter.name + " was infected");
     }
 

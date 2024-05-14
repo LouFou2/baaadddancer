@@ -1310,7 +1310,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -17.81
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8249811682818784745, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
+    - {fileID: 2747345127598480292, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
+    - {fileID: 9001972108911360259, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
+    - {fileID: 62038530021686245, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
+    - {fileID: 8745057201382012355, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
+    - {fileID: 8003579725615039660, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
+    - {fileID: 7012833371590456524, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
+    - {fileID: 6697312968452481245, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
+    - {fileID: 6728900498185362553, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
+    - {fileID: 696047978452290646, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
 --- !u!1 &299952324 stripped
 GameObject:
@@ -1907,6 +1917,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueSwitcher: {fileID: 1709227249}
   dialoguePlayer: {fileID: 1424368517}
+  cameraManager: {fileID: 2097008799}
   dialogueState: 0
   button0: {fileID: 66719756}
   button1: {fileID: 1742261221}
@@ -4061,7 +4072,35 @@ MonoBehaviour:
   - {fileID: 209950606}
   - {fileID: 1332953281}
   - {fileID: 313910147}
-  m_Instructions: []
+  m_Instructions:
+  - m_FullHash: -1250349964
+    m_VirtualCamera: {fileID: 595992220}
+    m_ActivateAfter: 0
+    m_MinDuration: 0
+  - m_FullHash: -1848597061
+    m_VirtualCamera: {fileID: 383882122}
+    m_ActivateAfter: 0
+    m_MinDuration: 0
+  - m_FullHash: 148501505
+    m_VirtualCamera: {fileID: 1198248519}
+    m_ActivateAfter: 0
+    m_MinDuration: 0
+  - m_FullHash: 2145305751
+    m_VirtualCamera: {fileID: 1480749547}
+    m_ActivateAfter: 0
+    m_MinDuration: 0
+  - m_FullHash: -507883212
+    m_VirtualCamera: {fileID: 209950606}
+    m_ActivateAfter: 0
+    m_MinDuration: 0
+  - m_FullHash: -1765973598
+    m_VirtualCamera: {fileID: 1332953281}
+    m_ActivateAfter: 0
+    m_MinDuration: 0
+  - m_FullHash: 263467032
+    m_VirtualCamera: {fileID: 313910147}
+    m_ActivateAfter: 0
+    m_MinDuration: 0
   m_DefaultBlend:
     m_Style: 1
     m_Time: 0.5
@@ -4072,7 +4111,23 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   m_CustomBlends: {fileID: 0}
-  m_ParentHash: []
+  m_ParentHash:
+  - m_Hash: -1848597061
+    m_ParentHash: 756556552
+  - m_Hash: -1250349964
+    m_ParentHash: 756556552
+  - m_Hash: 148501505
+    m_ParentHash: 756556552
+  - m_Hash: 2145305751
+    m_ParentHash: 756556552
+  - m_Hash: 263467032
+    m_ParentHash: 756556552
+  - m_Hash: -1765973598
+    m_ParentHash: 756556552
+  - m_Hash: -507883212
+    m_ParentHash: 756556552
+  - m_Hash: 275797799
+    m_ParentHash: 756556552
 --- !u!1 &1709227247
 GameObject:
   m_ObjectHideFlags: 0
@@ -4702,6 +4757,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2097008797}
   - component: {fileID: 2097008798}
+  - component: {fileID: 2097008799}
   m_Layer: 0
   m_Name: CamAnimator
   m_TagString: Untagged
@@ -4746,6 +4802,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2097008799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097008796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6715ee336e9ec448aef7e2545ab2110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueSwitcher: {fileID: 0}
+  cameraAnimator: {fileID: 0}
+  characterManager: {fileID: 0}
+  cameraFlags: []
 --- !u!1 &2072658904776139644
 GameObject:
   m_ObjectHideFlags: 0

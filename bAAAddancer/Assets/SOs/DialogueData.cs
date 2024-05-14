@@ -32,11 +32,11 @@ public class DialogueData : ScriptableObject
     public enum CameraToSwitch {
         longCam,
         playerCamM, playerCamC,
-        npc01CamM, npc01CamC,
+        ravedemonCamM, ravedemonCamC,
         npc02CamM, npc02CamC,
         npc03CamM, npc03CamC,
         npc04CamM, npc04CamC,
-        npc05CamM, npc05CamC
+        lastBuggedCamM, lastBuggedCamC
     }
     
 }
