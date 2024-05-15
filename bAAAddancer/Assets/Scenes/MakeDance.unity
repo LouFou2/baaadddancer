@@ -242,7 +242,7 @@ MonoBehaviour:
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 4
+  moveSpeed: 2
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -253,8 +253,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19804925}
-  m_LocalRotation: {x: -0.68558717, y: 0.15003198, z: 0.69912875, w: 0.13667335}
-  m_LocalPosition: {x: -0.30261323, y: 0.73366916, z: -0.0012869835}
+  m_LocalRotation: {x: -0.00000011920926, y: 0.00000012303661, z: 0.0000014020479,
+    w: 1}
+  m_LocalPosition: {x: -0.5999815, y: 1.2480069, z: -0.0014967918}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2036,7 +2037,7 @@ PrefabInstance:
     - target: {fileID: 6631851765770614766, guid: c2f38aca245f47f4d9b41b6fb6f365c4,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2f38aca245f47f4d9b41b6fb6f365c4, type: 3}
@@ -3156,8 +3157,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410065293}
-  m_LocalRotation: {x: -0.68591577, y: -0.14852266, z: -0.69942784, w: 0.13513443}
-  m_LocalPosition: {x: 0.2998018, y: 0.7324802, z: -0.0012871623}
+  m_LocalRotation: {x: -0, y: -0.00000016044063, z: -0.000002648166, w: 1}
+  m_LocalPosition: {x: 0.59998125, y: 1.2480056, z: -0.001496911}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3189,7 +3190,7 @@ MonoBehaviour:
   y_RangeMax: 0.5
   z_RangeMin: -0.5
   z_RangeMax: 0.5
-  moveSpeed: 4
+  moveSpeed: 2
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5210,7 +5211,7 @@ MonoBehaviour:
   x_RangeMin: -0.5
   x_RangeMax: 0
   y_RangeMin: -0.5
-  y_RangeMax: 0.5
+  y_RangeMax: 0
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 4
@@ -6103,7 +6104,7 @@ MonoBehaviour:
   x_RangeMin: 0
   x_RangeMax: 0.5
   y_RangeMin: -0.4
-  y_RangeMax: 0.4
+  y_RangeMax: 0
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 4
@@ -14135,7 +14136,7 @@ PrefabInstance:
     - target: {fileID: 2444027865858116415, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2747345127598480292, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}

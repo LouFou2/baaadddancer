@@ -9,15 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
-  m_Name: Round4_MakeDance_Dialogue
+  m_Script: {fileID: 11500000, guid: 0470bba9d907e3747aae2f9689d2fb5e, type: 3}
+  m_Name: Seq_Round4_CopyDance
   m_EditorClassIdentifier: 
-  sentences: []
-  dialogueUnits:
-  - sentence: ok, last move
-    Camera: 0
-    audioClipToPlay: {fileID: 0}
-  responseNo: 
-  responseYes: 
-  NoEventToCall: 2
-  YesEventToCall: 2
+  dialogueData:
+  - {fileID: 11400000, guid: cf4b06bd39b7418479c3602fcaef0e88, type: 2}
+  levelKey: 18

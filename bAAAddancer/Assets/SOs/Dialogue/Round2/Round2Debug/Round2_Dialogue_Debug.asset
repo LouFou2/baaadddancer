@@ -16,7 +16,14 @@ MonoBehaviour:
   - at least you know i'm not the bug
   - you'd better figure out who it is
   - or we will look like fools at the dance-off
-  responseNo: 
-  responseYes: ok i'll try
+  dialogueUnits:
+  - sentence: I think I want to keep this curse
+    Camera: 0
+    audioClipToPlay: {fileID: 0}
+  - sentence: Can we just tell the others you did it?
+    Camera: 0
+    audioClipToPlay: {fileID: 0}
+  responseNo: no we need to fix this
+  responseYes: I'm not sure...
   NoEventToCall: 2
   YesEventToCall: 2

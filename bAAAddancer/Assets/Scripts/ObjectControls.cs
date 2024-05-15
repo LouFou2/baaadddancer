@@ -95,7 +95,7 @@ public class ObjectControls : MonoBehaviour
         }
 
         // get moveInput value from controller
-        if (isActive && isRecording)
+        if (isActive)// && isRecording)
         {
             
             if (leftObject)
@@ -117,7 +117,7 @@ public class ObjectControls : MonoBehaviour
 
         //finalUpdateRotation = currentRecordedRotation; // *** MIGHT USE ROTATION, IN WHICH CASE ADD INTO LOGIC BELOW (instead of this line)
 
-        if (isActive && isRecording)
+        if (isActive)// && isRecording)
         {
             // map input to limit ranges
             float rangedX = 0f;

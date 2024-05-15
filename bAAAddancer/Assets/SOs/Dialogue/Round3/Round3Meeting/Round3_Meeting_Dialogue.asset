@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: Round3_Meeting_Dialogue
   m_EditorClassIdentifier: 
   sentences: []
-  dialogueUnits: []
-  responseNo: 
-  responseYes: 
+  dialogueUnits:
+  - sentence: listen, there are only 3 of you who haven't been cursed
+    Camera: 11
+    audioClipToPlay: {fileID: 0}
+  - sentence: yeah, one of you is the Rave Demon
+    Camera: 7
+    audioClipToPlay: {fileID: 0}
+  responseNo: it's not me
+  responseYes: why would I debug everyone if it was me?
   NoEventToCall: 0
   YesEventToCall: 0
