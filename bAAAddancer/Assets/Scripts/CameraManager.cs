@@ -83,6 +83,7 @@ public class CameraManager : MonoBehaviour
         foreach (DialogueData.DialogueUnit unit in newDialogue.dialogueUnits)
         {
             dialogueUnitQueue.Enqueue(unit);
+            Debug.Log("1 dialogue unit queued");
         }
         SelectNewCamera();
     }
@@ -119,7 +120,6 @@ public class CameraManager : MonoBehaviour
                 cameraAnimator.SetBool("LongCam", true);
                 break;
             case DialogueData.CameraToSwitch.playerCamM:
-                Debug.Log("PlayerCam: " + cameraFlags[playerIndex] + " activated");
                 cameraAnimator.SetBool(cameraFlags[playerIndex], true); //see here we pass in the indexes that we get above
                 cameraAnimator.SetFloat("MedToClose", 0);
                 break;

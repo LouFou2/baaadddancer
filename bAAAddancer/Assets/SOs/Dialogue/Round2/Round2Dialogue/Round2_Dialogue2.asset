@@ -10,16 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
-  m_Name: IntroCopyDance1
+  m_Name: Round2_Dialogue2
   m_EditorClassIdentifier: 
-  sentences:
-  - ok cool, thats one sequence...
-  - oh no... someone looks a bit bugged
+  sentences: []
   dialogueUnits:
-  - sentence: oh yeah, these moves are hot
-    Camera: 0
+  - sentence: Well, time is ticking, we need more moves
+    Camera: 3
+    audioClipToPlay: {fileID: 0}
+  - sentence: I'm just freaked out knowing one of you has the Rave Demon in you!
+    Camera: 12
+    audioClipToPlay: {fileID: 0}
+  - sentence: I promise its not me
+    Camera: 5
+    audioClipToPlay: {fileID: 0}
+  - sentence: Well I don't believe any of you
+    Camera: 7
     audioClipToPlay: {fileID: 0}
   responseNo: 
-  responseYes: ok stop
+  responseYes: lets just keep practicing
   NoEventToCall: 1
   YesEventToCall: 1

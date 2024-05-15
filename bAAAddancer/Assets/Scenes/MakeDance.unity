@@ -9446,7 +9446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1515078368
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13773,6 +13773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueSwitcher: {fileID: 2245521104709598112}
   dialoguePlayer: {fileID: 2245521104424477908}
+  cameraManager: {fileID: 0}
   dialogueState: 0
   button0: {fileID: 441383403}
   button1: {fileID: 506954543}
@@ -13979,6 +13980,7 @@ MonoBehaviour:
   currentDialogueSequence: []
   currentDialogue: {fileID: 0}
   dialoguePlayer: {fileID: 2245521104424477908}
+  cameraManager: {fileID: 0}
   button1: {fileID: 506954543}
 --- !u!4 &2245521104709598113
 Transform:
@@ -14133,7 +14135,7 @@ PrefabInstance:
     - target: {fileID: 2444027865858116415, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2747345127598480292, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}

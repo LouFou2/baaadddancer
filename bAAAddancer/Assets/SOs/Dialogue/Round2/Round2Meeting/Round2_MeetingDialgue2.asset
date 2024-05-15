@@ -10,16 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
-  m_Name: IntroCopyDance1
+  m_Name: Round2_MeetingDialgue2
   m_EditorClassIdentifier: 
-  sentences:
-  - ok cool, thats one sequence...
-  - oh no... someone looks a bit bugged
+  sentences: []
   dialogueUnits:
-  - sentence: oh yeah, these moves are hot
-    Camera: 0
+  - sentence: I think I know who it might be
+    Camera: 4
+    audioClipToPlay: {fileID: 0}
+  - sentence: well I suspect it might be YOU
+    Camera: 8
+    audioClipToPlay: {fileID: 0}
+  - sentence: oh you're quick to point the finger
+    Camera: 4
+    audioClipToPlay: {fileID: 0}
+  - sentence: yeah that's a bit supicious
+    Camera: 6
     audioClipToPlay: {fileID: 0}
   responseNo: 
-  responseYes: ok stop
+  responseYes: listen, let's just debug
   NoEventToCall: 1
   YesEventToCall: 1

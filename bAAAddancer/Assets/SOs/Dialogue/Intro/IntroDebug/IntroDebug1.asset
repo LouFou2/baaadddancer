@@ -15,8 +15,20 @@ MonoBehaviour:
   sentences:
   - YoU think I'm BUgged?
   - I       FFFFFFFFFFFeel   % fiiii  N  e e  {  "  '  3. #
-  responseNo: just a quick debug
-  responseYes: dont worry it doesnt hurt
-  YesEventToCall: 0
+  dialogueUnits:
+  - sentence: Listen, I trust you
+    Camera: 0
+    audioClipToPlay: {fileID: 0}
+  - sentence: I dont believe you are the Rave Demon
+    Camera: 0
+    audioClipToPlay: {fileID: 0}
+  - sentence: But you have to figure out who is
+    Camera: 0
+    audioClipToPlay: {fileID: 0}
+  - sentence: Or we might all get cursed
+    Camera: 0
+    audioClipToPlay: {fileID: 0}
+  responseNo: 
+  responseYes: I'll try to figure it out, promise!
   NoEventToCall: 0
-  CustomEventToCall: 2
+  YesEventToCall: 0

@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
-  m_Name: IntroDialogue1
+  m_Name: IntroMeetingDialogue2
   m_EditorClassIdentifier: 
-  sentences:
-  - You all ready for Rumble at the Rave?
-  - Do we need to practice our moves?
-  - Hey newbie, how about you show us some moves?
+  sentences: []
   dialogueUnits:
-  - sentence: You all ready for Rumble at the Rave?
-    Camera: 0
+  - sentence: It's the curse of the Rave Demon
+    Camera: 7
     audioClipToPlay: {fileID: 0}
-  - sentence: I'm ready to swallow the competion!
-    Camera: 3
-    audioClipToPlay: {fileID: 0}
-  - sentence: 'Listen, we better have some killer moves '
+  - sentence: Someone on this team
     Camera: 5
     audioClipToPlay: {fileID: 0}
+  - sentence: Has been possessed by the Rave Demon!
+    Camera: 6
+    audioClipToPlay: {fileID: 0}
+  - sentence: And they have cursed me!
+    Camera: 12
+    audioClipToPlay: {fileID: 0}
   responseNo: 
-  responseYes: um, I'll give it a go...
-  NoEventToCall: 1
-  YesEventToCall: 1
+  responseYes: can we do something about it?
+  NoEventToCall: 0
+  YesEventToCall: 0

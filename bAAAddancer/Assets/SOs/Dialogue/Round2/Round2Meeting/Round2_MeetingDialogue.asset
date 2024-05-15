@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
-  m_Name: IntroCopyDance1
+  m_Name: Round2_MeetingDialogue
   m_EditorClassIdentifier: 
-  sentences:
-  - ok cool, thats one sequence...
-  - oh no... someone looks a bit bugged
+  sentences: []
   dialogueUnits:
-  - sentence: oh yeah, these moves are hot
-    Camera: 0
+  - sentence: i kinda like this feeling
+    Camera: 11
     audioClipToPlay: {fileID: 0}
-  responseNo: 
-  responseYes: ok stop
-  NoEventToCall: 1
-  YesEventToCall: 1
+  - sentence: don't say that!
+    Camera: 5
+    audioClipToPlay: {fileID: 0}
+  - sentence: it's like a strange kind of power...
+    Camera: 12
+    audioClipToPlay: {fileID: 0}
+  responseNo: hm yeah like rave-bending
+  responseYes: no, it looks weird
+  NoEventToCall: 0
+  YesEventToCall: 0
