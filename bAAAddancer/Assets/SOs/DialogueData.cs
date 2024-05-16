@@ -12,16 +12,9 @@ public class DialogueData : ScriptableObject
         public CameraToSwitch Camera;
         public AudioClip audioClipToPlay; // this might not work, the SO is not an object in the scene so
     }
-    //*** This bit will be replaced with new DialogueUnit above
-    [TextArea(3, 10)]
-    public string[] sentences;
-    //***
-    //Like this:
+    
     public DialogueUnit[] dialogueUnits;
-     /* 
-        * which means all scripts referring to the old sentences array 
-        * will have to get sentences from the DialogueUnit somehow
-     */
+    
     public string responseNo;
     public string responseYes;
 

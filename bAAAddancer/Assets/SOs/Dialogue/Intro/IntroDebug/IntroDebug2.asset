@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: IntroDebug2
   m_EditorClassIdentifier: 
-  sentences:
-  - just tell me when its over
   dialogueUnits:
-  - sentence: and please debug me, or the others might want to kick me off the team
+  - sentence: and please debug me
+    Camera: 0
+    audioClipToPlay: {fileID: 0}
+  - sentence: or the others might want to kick me off the team
     Camera: 0
     audioClipToPlay: {fileID: 0}
   responseNo: 

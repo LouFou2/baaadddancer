@@ -34,6 +34,13 @@ public class CopyDanceSceneSetup : MonoBehaviour
                 character.transform.position = npcSetupTransforms[npcIndex].transform.position;
                 character.transform.rotation = npcSetupTransforms[npcIndex].transform.rotation;
                 npcIndex++;
+                //set character as left screen, center screen, or right screen:
+                if(npcIndex < 3) // 3 is the center character
+                    copyDanceScript.charLeftScreen = true;
+                else if(npcIndex == 3)
+                    copyDanceScript.charCenterScreen = true;
+                else
+                    copyDanceScript.charRightScreen = true;
             }
         }
     }

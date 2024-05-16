@@ -16,6 +16,10 @@ public class CopyDance : MonoBehaviour
     private ClockCounter clockCounter;
     private PlayerControls playerControls;
 
+    public bool charLeftScreen;
+    public bool charCenterScreen;
+    public bool charRightScreen;
+
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -56,15 +60,7 @@ public class CopyDance : MonoBehaviour
         }
         
     }
-    private void Update()
-    {
-        //check for player input to stop dance
-    }
-
-    void FixedUpdate() // Fixed Update for objects using physics
-    {
-        //extra logic to influence moving physics objects
-    }
+    
     private void On_Q_BeatHandler() 
     {
         GameObject copyCharacter = gameObject;

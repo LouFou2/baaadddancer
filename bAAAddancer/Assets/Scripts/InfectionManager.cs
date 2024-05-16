@@ -4,6 +4,7 @@ using UnityEngine;
 public class InfectionManager : MonoBehaviour
 {
     private CharacterManager characterManager;
+    
     void Start()
     {
         // Get reference to CharacterManager
@@ -48,6 +49,7 @@ public class InfectionManager : MonoBehaviour
 
         // Infect the selected character
         selectedCharacter.infectionLevel += 0.25f;
+        if(selectedCharacter.infectionLevel > 1) selectedCharacter.infectionLevel = 1;
         selectedCharacter.lastBuggedCharacter = true;
         Debug.Log(selectedCharacter.name + " was infected");
     }

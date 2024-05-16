@@ -26,19 +26,6 @@ public class DialoguePlayback : MonoBehaviour
         StartDialogue(currentDialogue);
     }
     
-    /* public void StartDialogue(DialogueData newDialogue) 
-    {
-        sentences.Clear();
-        currentDialogue = newDialogue;
-        dialogueManager.NpcSpeaks();
-        foreach (string sentence in currentDialogue.sentences)
-        {
-            sentences.Enqueue(sentence);
-        }
-        DisplayNextSentence();
-    } */
-    //*** the above method should become this:
-    
     public void StartDialogue(DialogueData newDialogue) 
     {
         sentences.Clear();
@@ -80,9 +67,10 @@ public class DialoguePlayback : MonoBehaviour
             dialogueManager.DialoguePaused();
         else 
         {
-            yield return new WaitForSeconds(1f); // would be cool if this went in time with the music/sound
+            yield return new WaitForSeconds (2f);
             EndDialogue(); 
         }
+        yield break;
     }
 
     void EndDialogue() 

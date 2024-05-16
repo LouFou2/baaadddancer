@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: IntroDialogue1
   m_EditorClassIdentifier: 
-  sentences:
-  - You all ready for Rumble at the Rave?
-  - Do we need to practice our moves?
-  - Hey newbie, how about you show us some moves?
   dialogueUnits:
   - sentence: You all ready for Rumble at the Rave?
     Camera: 0
@@ -26,7 +22,10 @@ MonoBehaviour:
   - sentence: 'Listen, we better have some killer moves '
     Camera: 5
     audioClipToPlay: {fileID: 0}
+  - sentence: Who wants to do the choreography?
+    Camera: 5
+    audioClipToPlay: {fileID: 0}
   responseNo: 
-  responseYes: um, I'll give it a go...
+  responseYes: I'll give it a go...
   NoEventToCall: 1
   YesEventToCall: 1

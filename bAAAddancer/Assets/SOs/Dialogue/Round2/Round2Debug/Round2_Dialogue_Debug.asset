@@ -12,18 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round2_Dialogue_Debug
   m_EditorClassIdentifier: 
-  sentences:
-  - at least you know i'm not the bug
-  - you'd better figure out who it is
-  - or we will look like fools at the dance-off
   dialogueUnits:
   - sentence: I think I want to keep this curse
     Camera: 0
     audioClipToPlay: {fileID: 0}
-  - sentence: Can we just tell the others you did it?
+  - sentence: Can we just TELL the others you did the debug?
     Camera: 0
     audioClipToPlay: {fileID: 0}
   responseNo: no we need to fix this
-  responseYes: I'm not sure...
+  responseYes: should we see what happens?
   NoEventToCall: 2
   YesEventToCall: 2
