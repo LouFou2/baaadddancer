@@ -12,8 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round4_Meeting_Dialogue5
   m_EditorClassIdentifier: 
-  dialogueUnits: []
+  dialogueUnits:
+  - sentence: So you must think it's me?!
+    Camera: 11
+    audioClipToPlay: {fileID: 0}
+  - sentence: It's not ME!!
+    Camera: 12
+    audioClipToPlay: {fileID: 0}
+  - sentence: Listen, we have to GO
+    Camera: 4
+    audioClipToPlay: {fileID: 0}
+  - sentence: Time to VOTE
+    Camera: 6
+    audioClipToPlay: {fileID: 0}
   responseNo: 
-  responseYes: 
-  NoEventToCall: 0
-  YesEventToCall: 0
+  responseYes: let's vote
+  NoEventToCall: 1
+  YesEventToCall: 1

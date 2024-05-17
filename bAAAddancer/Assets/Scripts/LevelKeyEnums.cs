@@ -27,5 +27,7 @@ public enum LevelKey
     Round4MakeDance,
     Round4CopyDance,
     Round4Meeting,
-    Round4Debug
+    Round4Vote,
+
+    RaveScene
 }

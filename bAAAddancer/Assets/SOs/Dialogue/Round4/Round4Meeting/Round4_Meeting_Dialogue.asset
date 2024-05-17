@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round4_Meeting_Dialogue
   m_EditorClassIdentifier: 
-  sentences: []
   dialogueUnits:
   - sentence: It's time to go to the rave
     Camera: 0
     audioClipToPlay: {fileID: 0}
   - sentence: We can't go with a Rave Demon in our midst
     Camera: 11
+    audioClipToPlay: {fileID: 0}
+  - sentence: or can we?
+    Camera: 4
+    audioClipToPlay: {fileID: 0}
+  - sentence: Well it's clear who the RaveDemon is right?
+    Camera: 5
     audioClipToPlay: {fileID: 0}
   responseNo: 
   responseYes: let's do a vote

@@ -12,8 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round4_Meeting_Dialogue4
   m_EditorClassIdentifier: 
-  dialogueUnits: []
-  responseNo: 
-  responseYes: 
+  dialogueUnits:
+  - sentence: Well I'm definately not the Rave Demon
+    Camera: 8
+    audioClipToPlay: {fileID: 0}
+  - sentence: They are the Rave Demon I'm telling you
+    Camera: 3
+    audioClipToPlay: {fileID: 0}
+  - sentence: I'm so confused
+    Camera: 11
+    audioClipToPlay: {fileID: 0}
+  - sentence: they are not the Rave Demon
+    Camera: 5
+    audioClipToPlay: {fileID: 0}
+  responseNo: I also don't think it's you
+  responseYes: I'm gonna say you  ARE
   NoEventToCall: 0
   YesEventToCall: 0
