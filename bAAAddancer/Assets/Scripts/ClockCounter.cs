@@ -19,7 +19,7 @@ public class ClockCounter : MonoBehaviour
     void Start()
     {
         SetTempo(beatsPerMinute);
-        StartClock();
+        StartClock(); // *** Maybe we will call this method another way, to time with scene events
     }
 
     void Update()

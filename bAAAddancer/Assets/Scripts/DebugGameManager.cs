@@ -15,8 +15,27 @@ public class DebugGameManager : MonoBehaviour
 
     private DialogueManager dialogueManager;
 
+    private CharacterManager characterManager;
+    private CharacterData debuggedCharacterData;
+
     private void Start()
     {
+        characterManager = FindObjectOfType<CharacterManager>();
+
+        for (int i = 0; i < characterManager.characters.Length; i++)
+        {
+            GameObject character = characterManager.characters[i];
+            CharacterData characterData = characterManager.characterDataSOs[i];
+            character.SetActive(false);
+
+            if (characterData.infectionLevel > 0 && !characterData.wasDebuggedLastRound)
+            {
+                character.SetActive(true);
+                characterData.wasDebuggedLastRound = true;
+                debuggedCharacterData = characterManager.characterDataSOs[i];
+            }
+        }
+
         dialogueManager = FindObjectOfType<DialogueManager>();
 
         bugSpawnerScript = FindObjectOfType<BugSpawner>();
@@ -34,6 +53,9 @@ public class DebugGameManager : MonoBehaviour
         int bugsZapped = zapperScript.GetBugZappedAmount();
 
         slider.value = 1- ( (float)bugsZapped / bugsRemain );
+
+        debuggedCharacterData.infectionLevel = slider.value; // DEBGUGGING THE CHARACTER
+
         bool endGame = bugSpawnerScript.DebugHasEnded();
         if (endGame) EndDebugGame();
     }

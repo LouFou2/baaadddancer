@@ -3,6 +3,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 
+// THIS SCRIPT IS FOR DIALOGUE SCENE and MEETING SCENE
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] private DialogueSwitcher dialogueSwitcher;
