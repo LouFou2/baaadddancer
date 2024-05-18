@@ -11,4 +11,5 @@ public class CharacterData : ScriptableObject
 
     public bool wasDebuggedLastRound;
     public bool lastBuggedCharacter;
+    public bool wasEliminated;
 }
