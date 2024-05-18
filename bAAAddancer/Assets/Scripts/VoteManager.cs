@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VoteManager : MonoBehaviour
 {
     private CharacterManager characterManager;
+
+    [SerializeField] private Button[] buttons;
 
     void Start()
     {

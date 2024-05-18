@@ -39,15 +39,6 @@ public class VoteSceneSetup : MonoBehaviour
             {
                 // Set the button to non-interactable
                 buttons[i].interactable = false;
-
-                // Option 1: Change the color of the button to grey it out
-                ColorBlock colors = buttons[i].colors;
-                colors.normalColor = Color.gray;
-                colors.highlightedColor = Color.gray;
-                colors.pressedColor = Color.gray;
-                colors.selectedColor = Color.gray;
-                colors.disabledColor = Color.gray;
-                buttons[i].colors = colors;
             }
         }
     }
