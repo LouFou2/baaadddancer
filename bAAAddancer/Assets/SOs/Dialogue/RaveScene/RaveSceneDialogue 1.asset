@@ -10,19 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
-  m_Name: Round4_Meeting_Dialogue2
+  m_Name: RaveSceneDialogue 1
   m_EditorClassIdentifier: 
   dialogueUnits:
-  - sentence: what, you think its me?
-    Camera: 6
+  - sentence: 
+    Camera: 0
     audioClipToPlay: {fileID: 0}
-  - sentence: I don't believe you are
-    Camera: 7
-    audioClipToPlay: {fileID: 0}
-  - sentence: I'm actually not sure now...
-    Camera: 11
-    audioClipToPlay: {fileID: 0}
-  responseNo: no of course not
-  responseYes: I'm pretty sure you are
-  NoEventToCall: 0
-  YesEventToCall: 0
+  responseNo: 
+  responseYes: 
+  NoEventToCall: 2
+  YesEventToCall: 2

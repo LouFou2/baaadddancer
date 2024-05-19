@@ -7,6 +7,7 @@ using TMPro;
 public class VoteManager : MonoBehaviour
 {
     private CharacterManager characterManager;
+    private SceneSwitcher sceneSwitcher;
 
     [SerializeField] private Button[] buttons;
     [SerializeField] private TextMeshProUGUI[] voteTexts;
@@ -16,6 +17,7 @@ public class VoteManager : MonoBehaviour
     void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
+        sceneSwitcher = FindObjectOfType<SceneSwitcher>();
 
         foreach (CharacterData characterData in characterManager.characterDataSOs)
         {
@@ -126,8 +128,7 @@ public class VoteManager : MonoBehaviour
 
     private void EndScene()
     {
-        // Implement your scene ending logic here
-        Debug.Log("Ending scene...");
+        sceneSwitcher.LoadNextScene();
     }
 
 }
