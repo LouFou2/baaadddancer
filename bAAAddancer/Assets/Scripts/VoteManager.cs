@@ -121,9 +121,31 @@ public class VoteManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         voteTexts[randomNPC_Index].text = voteTexts[randomNPC_Index].text + "XX";
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
+
+        // Lerp shader float value (for the "burn" effect)
+        Material playerMaterial = buttons[playerVoteIndex].image.material;
+        string shaderProperty = "_NoiseFade";
+        float targetValue = 1.0f;
+        float duration = 1.0f;
+
+        yield return LerpShaderFloat(playerMaterial, shaderProperty, targetValue, duration);
 
         EndScene();
+    }
+    private IEnumerator LerpShaderFloat(Material material, string property, float targetValue, float duration)
+    {
+        float time = 0;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float value = Mathf.Lerp(0, targetValue, time / duration);
+            material.SetFloat(property, value);
+            yield return null;
+        }
+
+        material.SetFloat(property, targetValue); // Ensure the final value is set
     }
 
     private void EndScene()

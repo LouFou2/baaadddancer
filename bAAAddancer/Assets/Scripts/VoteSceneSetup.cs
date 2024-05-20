@@ -8,7 +8,10 @@ public class VoteSceneSetup : MonoBehaviour
     private CharacterManager characterManager;
     private CharacterData[] characterDataSOs;
     [SerializeField] private Button[] buttons;
-    
+
+    // Define the shader property name as a constant
+    private const string burnShaderEffect = "_NoiseFade"; 
+
     void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
@@ -33,7 +36,12 @@ public class VoteSceneSetup : MonoBehaviour
         for (int i = 0; i < characterManager.characterDataSOs.Length; i++)
         {
             characterDataSOs[i] = characterManager.characterDataSOs[i];
-            Debug.Log($"Character {i} Role: {characterDataSOs[i].characterRoleSelect}");
+
+            Material buttonMaterial = buttons[i].image.material;
+            if (buttonMaterial != null)
+            {
+                buttonMaterial.SetFloat(burnShaderEffect, 0f);
+            }
 
             if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player)
             {
