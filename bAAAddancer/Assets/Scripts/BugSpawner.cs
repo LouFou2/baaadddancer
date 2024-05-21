@@ -24,6 +24,8 @@ public class BugSpawner : MonoBehaviour
 
     [SerializeField] private Zapper zapper;
 
+    [SerializeField] private AudioSource bugCrawlAudio;
+
     private void Start()
     {
         gameSurfacePlane.SetActive(true);
@@ -68,6 +70,7 @@ public class BugSpawner : MonoBehaviour
     private void MoveBug(GameObject bug)
     {
         StartCoroutine(MoveBugCoroutine(bug));
+        bugCrawlAudio.Play();
     }
 
     private IEnumerator MoveBugCoroutine(GameObject bug)
@@ -97,7 +100,7 @@ public class BugSpawner : MonoBehaviour
             // Check if the bug has reached the bottom of the screen
             if (bug.transform.position.y < bottomY)
             {
-                // Handle what happens when the bug reaches the bottom (e.g., return to pool)
+                bugCrawlAudio.Stop();
                 bug.SetActive(false);
                 bugsOffBottomCount++;
                 yield break;
@@ -106,11 +109,7 @@ public class BugSpawner : MonoBehaviour
             yield return null;
         }
     }
-    /*private void BugOffBottom(GameObject bug)
-    {
-        bugsOffBottomCount++;
-        CheckAllBugsHandled();
-    }*/
+
     private void Update() 
     {
         CheckAllBugsHandled();

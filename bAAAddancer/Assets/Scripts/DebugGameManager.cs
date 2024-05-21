@@ -10,6 +10,9 @@ public class DebugGameManager : MonoBehaviour
     [SerializeField] private BugSpawner bugSpawnerScript;
     [SerializeField] private Zapper zapperScript;
 
+    [SerializeField] private AudioSource enterSceneAudio;
+    [SerializeField] private AudioSource ambience;
+
     private Slider slider;
     private int bugsRemain;
 
@@ -66,6 +69,8 @@ public class DebugGameManager : MonoBehaviour
         zapper.SetActive(true);
         debugSliderObject.SetActive(true);
         bugSpawnerScript.StartCoroutine(bugSpawnerScript.SpawnBugsSequentially());
+        enterSceneAudio.Play();
+        ambience.Play();
     }
 
     public void EndDebugGame() 
@@ -74,5 +79,6 @@ public class DebugGameManager : MonoBehaviour
         zapper.SetActive(false);
         debugSliderObject.SetActive(false);
         dialogueManager.switchSceneEvent.Invoke();
+        ambience.Stop();
     }
 }

@@ -524,6 +524,13 @@ MonoBehaviour:
   - {fileID: 52349689}
   - {fileID: 1946010483}
   - {fileID: 1163840319}
+  buttonMaterials:
+  - {fileID: 2100000, guid: 8e520c9fc3c373b46940251e45e115af, type: 2}
+  - {fileID: 2100000, guid: 2113db22b84db3d46ab1100162458534, type: 2}
+  - {fileID: 2100000, guid: d062a1a37f84d9b40898887df747141d, type: 2}
+  - {fileID: 2100000, guid: ae67298f027029d4088bfa03e7106b7d, type: 2}
+  - {fileID: 2100000, guid: 874313b7523d4be4ea717736231996c4, type: 2}
+  - {fileID: 2100000, guid: c2617bbc77080b344ba54c2687162e48, type: 2}
   voteTexts:
   - {fileID: 1918429108}
   - {fileID: 842487738}
@@ -1904,8 +1911,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 960, y: 0}
-  m_SizeDelta: {x: 1910, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305542908
 MonoBehaviour:
@@ -2426,7 +2433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 8e520c9fc3c373b46940251e45e115af, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}

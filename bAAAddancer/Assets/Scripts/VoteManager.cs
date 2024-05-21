@@ -10,6 +10,7 @@ public class VoteManager : MonoBehaviour
     private SceneSwitcher sceneSwitcher;
 
     [SerializeField] private Button[] buttons;
+    [SerializeField] private Material[] buttonMaterials;
     [SerializeField] private TextMeshProUGUI[] voteTexts;
 
     private int playerVoteIndex = -1;
@@ -26,6 +27,10 @@ public class VoteManager : MonoBehaviour
         foreach (TextMeshProUGUI voteText in voteTexts) 
         {
             voteText.text = string.Empty;
+        }
+        foreach (Button button in buttons)
+        {
+            button.image.material = null;
         }
     }
 
@@ -122,6 +127,9 @@ public class VoteManager : MonoBehaviour
 
         voteTexts[randomNPC_Index].text = voteTexts[randomNPC_Index].text + "XX";
         yield return new WaitForSeconds(0.5f);
+
+        // use shader material for selected character
+        buttons[playerVoteIndex].image.material = buttonMaterials[playerVoteIndex];
 
         // Lerp shader float value (for the "burn" effect)
         Material playerMaterial = buttons[playerVoteIndex].image.material;

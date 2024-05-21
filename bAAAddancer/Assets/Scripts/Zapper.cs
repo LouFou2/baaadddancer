@@ -14,6 +14,11 @@ public class Zapper : MonoBehaviour
 
     private HashSet<GameObject> zappedBugs = new HashSet<GameObject>(); // Set to track zapped bugs
 
+    [SerializeField] private AudioSource zapperMoveSound;
+    [SerializeField] private AudioSource zapSound;
+    [SerializeField] private AudioSource bugDeathSound;
+
+
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -36,6 +41,16 @@ public class Zapper : MonoBehaviour
     {
         MeshCollider planeCollider = gameSurfacePlane.GetComponent<MeshCollider>();
         Vector2 moveInput = playerControls.DanceControls.MoveR.ReadValue<Vector2>();
+        
+        // the zap move sound
+        if (moveInput.magnitude > 0.01 && !zapperMoveSound.isPlaying)
+            zapperMoveSound.Play();
+        else
+            zapperMoveSound.Stop();
+
+        // the zap sound
+        if (playerControls.GenericInput.RTrigger.triggered || playerControls.GenericInput.AButton.triggered)
+            zapSound.Play();
 
         // Calculate the desired movement direction based on input
         Vector3 moveDirection = new Vector3(-moveInput.x, moveInput.y, 0f).normalized;
@@ -61,15 +76,7 @@ public class Zapper : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        /*if (other.CompareTag("Bug"))
-        {
-            //wait for player trigger pewpew
-            if (playerControls.GenericInput.RTrigger.IsPressed() || playerControls.GenericInput.AButton.IsPressed())
-            {
-                Instantiate(zapEffectPrefab, transform.position, Quaternion.identity);
-                DestroyBug(other.gameObject);
-            }
-        }*/
+        
         bool zapButtonPressed = (playerControls.GenericInput.RTrigger.IsPressed() || playerControls.GenericInput.AButton.IsPressed()) ? true : false;
 
         if (other.CompareTag("Bug") && !zappedBugs.Contains(other.gameObject) && zapButtonPressed)
@@ -105,6 +112,7 @@ public class Zapper : MonoBehaviour
 
         zapMesh1.SetActive(true); // just ensuring the colours swap back
         zapMesh2.SetActive(false);*/
+        bugDeathSound.Play();
         Destroy(rootParent);
         bugsZapped++;
         zapMesh1.SetActive(true); // Ensuring the colors swap back
