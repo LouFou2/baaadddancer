@@ -47,7 +47,7 @@ public class CopyDanceSceneSetup : MonoBehaviour
             }
         }
 
-        clock.StartClock();
+        //clock.StartClock();
     }
 
 }

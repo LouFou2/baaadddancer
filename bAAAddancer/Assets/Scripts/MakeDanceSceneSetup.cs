@@ -42,7 +42,7 @@ public class MakeDanceSceneSetup : MonoBehaviour
                 copyProxyRig.enabled = true;
             }
         }
-        clock.StartClock();
+        //clock.StartClock();
     }
     void Update()
     {
