@@ -24,6 +24,8 @@ public class ObjectControls : MonoBehaviour
     [SerializeField] private float z_RangeMax = 0.5f;
     [SerializeField] private float moveSpeed = 2f;
 
+    [SerializeField] private bool newControls = false;
+
     private Vector2 moveInput;
 
     public bool isActive = false;
@@ -136,35 +138,41 @@ public class ObjectControls : MonoBehaviour
                     // swap the range max and min values so object movement in world space corresponds with controller input:
                     // also, if input is negative, we lerp from object default to object min position using negated input value
                     // (lerp uses 0-1 range) so if input value is nagative, we make it positive (-input)
-
-                    /* rangedX = (moveInput.x <= 0) ? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
-                    rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
-
-                    rangedPosition = new Vector3(rangedX + initialPosition.x, rangedY + initialPosition.y, currentRecordedPosition.z); // note: we use the current position for the uncontrolled axis
-
-                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax); // but: initial position to set the clamp range
-                    clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
-
-                    finalUpdatePosition = new Vector3(clampedX, clampedY, currentRecordedPosition.z); // current position again for the uncontrolled axis */
-
-                    //---NEW MOVEMENT:
-                    controlObject.transform.position = new Vector3(controlObject.transform.position.x, controlObject.transform.position.y, currentRecordedPosition.z);
-
-                    // Calculate movement based on time and speed
-                    float moveX = moveInput.x * moveSpeed * Time.deltaTime;
-                    float moveY = moveInput.y * moveSpeed * Time.deltaTime;
-
-                    // Update object's position based on movement
-                    Vector3 newPosition = controlObject.transform.position + new Vector3(-moveX, moveY, 0f);
                     
-                    //Clamp in Min-Max Range
-                    float newX = Mathf.Clamp(newPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);
-                    float newY = Mathf.Clamp(newPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
+                    if(!newControls) //can remove this condition once controls are decided
+                    {
+                        rangedX = (moveInput.x <= 0) ? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
+                        rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
 
-                    Vector3 clampedPosition = new Vector3(newX, newY, currentRecordedPosition.z);
+                        rangedPosition = new Vector3(rangedX + initialPosition.x, rangedY + initialPosition.y, currentRecordedPosition.z); // note: we use the current position for the uncontrolled axis
 
-                    // Update object's position
-                    finalUpdatePosition = clampedPosition;
+                        clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax); // but: initial position to set the clamp range
+                        clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
+
+                        finalUpdatePosition = new Vector3(clampedX, clampedY, currentRecordedPosition.z); // current position again for the uncontrolled axis
+                    }
+                    else
+                    {
+                        //---NEW MOVEMENT:
+                        controlObject.transform.position = new Vector3(controlObject.transform.position.x, controlObject.transform.position.y, currentRecordedPosition.z);
+
+                        // Calculate movement based on time and speed
+                        float moveX = moveInput.x * moveSpeed * Time.deltaTime;
+                        float moveY = moveInput.y * moveSpeed * Time.deltaTime;
+
+                        // Update object's position based on movement
+                        Vector3 newPosition = controlObject.transform.position + new Vector3(-moveX, moveY, 0f);
+                        
+                        //Clamp in Min-Max Range
+                        float newX = Mathf.Clamp(newPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);
+                        float newY = Mathf.Clamp(newPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
+
+                        Vector3 clampedPosition = new Vector3(newX, newY, currentRecordedPosition.z);
+
+                        // Update object's position
+                        finalUpdatePosition = clampedPosition;
+                    }
+                    
 
                     break;
 
