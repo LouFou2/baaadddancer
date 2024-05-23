@@ -3015,8 +3015,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3687152578120138586}
-  m_LocalRotation: {x: 0.5914364, y: 0.00000009561793, z: -0.8063517, w: 0.00000018624463}
-  m_LocalPosition: {x: -0.14699775, y: 1.3526353, z: 0.03244683}
+  m_LocalRotation: {x: 0.59143656, y: 0.00000009561788, z: -0.8063516, w: 0.00000018624465}
+  m_LocalPosition: {x: -0.14699748, y: 1.3526353, z: 0.032446858}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5474,7 +5474,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3687152578591672835}
-  m_LocalRotation: {x: -0.0006741126, y: 0.00000018725348, z: 1.2622994e-10, w: 0.9999998}
+  m_LocalRotation: {x: -0.0006741126, y: -0, z: 0, w: 0.9999998}
   m_LocalPosition: {x: 0.3, y: 1.244, z: 0.009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6401,8 +6401,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3687152578871011501}
-  m_LocalRotation: {x: -0.67913795, y: 0.00000025434193, z: -0.7340107, w: 0.00000027489216}
-  m_LocalPosition: {x: 0.17867824, y: 1.2664039, z: -0.03281746}
+  m_LocalRotation: {x: -0.67913777, y: 0.00000025434184, z: -0.7340108, w: 0.0000002748922}
+  m_LocalPosition: {x: 0.17867827, y: 1.2664039, z: -0.03281748}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8984,8 +8984,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3687152579266705231}
-  m_LocalRotation: {x: -0.66555494, y: 0.00000035695567, z: 0.7463489, w: 0.00000044376074}
-  m_LocalPosition: {x: -0.17867893, y: 1.2664039, z: -0.032817297}
+  m_LocalRotation: {x: -0.6655551, y: 0.00000035695555, z: 0.74634874, w: 0.00000044376085}
+  m_LocalPosition: {x: -0.17867863, y: 1.2664039, z: -0.032817245}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10065,8 +10065,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3687152579536503369}
-  m_LocalRotation: {x: -0.57182205, y: 0.000000006994938, z: -0.8203777, w: 0.0000003375036}
-  m_LocalPosition: {x: 0.15794049, y: 1.3384335, z: 0.04974132}
+  m_LocalRotation: {x: -0.5718219, y: 0.000000006994881, z: -0.82037777, w: 0.0000003375036}
+  m_LocalPosition: {x: 0.15794061, y: 1.3384335, z: 0.04974127}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11730,8 +11730,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3687152579899432137}
-  m_LocalRotation: {x: -0.47996792, y: -0.00000008213745, z: 0.8772861, w: -0.00000004493784}
-  m_LocalPosition: {x: -0.08068346, y: -0.21783157, z: -0.21219394}
+  m_LocalRotation: {x: 0.47996777, y: 0.000000082137454, z: -0.87728614, w: 0.000000044937824}
+  m_LocalPosition: {x: -0.08068342, y: -0.21783157, z: -0.21219397}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12988,7 +12988,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3687152580203596826}
-  m_LocalRotation: {x: 0.9997499, y: 0.00000066359877, z: 0.00000038907024, w: -0.022363694}
+  m_LocalRotation: {x: 0.9997499, y: 0.00000066569254, z: 0.0000004826736, w: -0.022363693}
   m_LocalPosition: {x: 0.3, y: 0.833, z: -0.004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14248,33 +14248,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsAndMoveData:
   - copyObject: {fileID: 3687152578954641411}
+    recDataObjSequencer: {fileID: 11400000, guid: daad094e5dae26e4cb170fe214748990,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2e905e78a65ceba478a74ac0d007e44f, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3687152580203596826}
+    recDataObjSequencer: {fileID: 11400000, guid: cc815ad354b2dbc419182f52e00816f0,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: a8df1aca02d4f334aa6e807d0353dd2c, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3687152578309015546}
+    recDataObjSequencer: {fileID: 11400000, guid: f818ac50cca81aa4aa6b14b72e34764f,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2ad65a1a76abbe3488440caa8d3eb0b5, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3687152578516970159}
+    recDataObjSequencer: {fileID: 11400000, guid: cac328b5211fa7d4988cb51cd1dee90a,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 10bd87e33a3b8d04698b0e816573c2dc, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3687152579804073632}
+    recDataObjSequencer: {fileID: 11400000, guid: 6b3839844d4c805428f982c66cc9114d,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 0806166a0368b0046a462c765528d361, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3687152579104050169}
+    recDataObjSequencer: {fileID: 11400000, guid: 93b13063448af7e44ae11a71a31e30c0,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 357810fdb4bd9b145b14f92ed73b3507, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3687152579093083452}
+    recDataObjSequencer: {fileID: 11400000, guid: f6ff362c78975e34ba874df8e1f81264,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 91cc6a70b8dbc934b9376823941c4d3f, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3687152579036445451}
+    recDataObjSequencer: {fileID: 11400000, guid: 58f57d89047697740935f7b48245fb09,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: a12f6b44ccf8ae147a9fc168ba33ed8a, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3687152579623912524}
+    recDataObjSequencer: {fileID: 11400000, guid: d74fefd1e8dc47e40ab0a9993c1bbf08,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 11a0d09323df422498d40ab20065412d, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3687152578591672835}
+    recDataObjSequencer: {fileID: 11400000, guid: 6fbd8ede107eb45419a8f6b217cfdf73,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: d76d5375c9dfb564e88b636825c99f8c, type: 2}
     targetRecordedPositions: []
   charLeftScreen: 0

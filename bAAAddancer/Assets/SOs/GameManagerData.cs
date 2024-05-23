@@ -5,4 +5,5 @@ public class GameManagerData : ScriptableObject
 {
     //public GameManager.LevelKey currentLevelKey;
     public LevelKey currentLevelKey;
+    public int currentRound;
 }

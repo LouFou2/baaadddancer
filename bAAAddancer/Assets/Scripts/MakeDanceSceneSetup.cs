@@ -6,8 +6,6 @@ public class MakeDanceSceneSetup : MonoBehaviour
     private PlayerControls playerControls;
     private SceneSwitcher sceneSwitcher;
 
-    private ClockCounter clock;
-
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -22,9 +20,10 @@ public class MakeDanceSceneSetup : MonoBehaviour
     }
     void Start()
     {
+        GameManager.Instance.NewRound();
+
         sceneSwitcher = FindObjectOfType<SceneSwitcher>();
         characterManager = FindObjectOfType<CharacterManager>();
-        clock = FindObjectOfType<ClockCounter>();
 
         foreach (GameObject character in characterManager.characters) 
         {
@@ -42,7 +41,6 @@ public class MakeDanceSceneSetup : MonoBehaviour
                 copyProxyRig.enabled = true;
             }
         }
-        //clock.StartClock();
     }
     void Update()
     {

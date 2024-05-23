@@ -100,11 +100,11 @@ public class VoteManager : MonoBehaviour
         if (playerIndex != -1)
         {
             charDataList.RemoveAt(playerIndex);
-            // Adjust bugIndex if it was after playerIndex
+            /*// Adjust bugIndex if it was after playerIndex
             if (bugIndex > playerIndex)
             {
                 bugIndex--;
-            }
+            }*/
         }
 
         if (bugIndex != -1)
@@ -112,7 +112,7 @@ public class VoteManager : MonoBehaviour
             charDataList.RemoveAt(bugIndex);
         }
 
-        // Optionally, find a random NPC index from the remaining list
+        // Find a random NPC index from the remaining list
         if (charDataList.Count > 0)
         {
             randomNPC_Index = Random.Range(0, charDataList.Count);
@@ -158,6 +158,7 @@ public class VoteManager : MonoBehaviour
 
     private void EndScene()
     {
+        sceneSwitcher.SwitchToNextLevelKey();
         sceneSwitcher.LoadNextScene();
     }
 

@@ -8,6 +8,7 @@ public class CopyDance : MonoBehaviour
     public class CopyTransforms
     {
         public GameObject copyObject;
+        public RoundsRecData recDataObjSequencer;
         public RecordingData recordingDataSO;
         public Vector3[] targetRecordedPositions;
     }
@@ -19,6 +20,9 @@ public class CopyDance : MonoBehaviour
     public bool charLeftScreen;
     public bool charCenterScreen;
     public bool charRightScreen;
+
+    int roundSwitcherIndex = -1;
+    [SerializeField] bool updatingRoundSequence = false;
 
     private void Awake()
     {
@@ -41,9 +45,12 @@ public class CopyDance : MonoBehaviour
         if (clockCounter == null ) 
             Debug.LogError("no clock counter in scene");
 
+        roundSwitcherIndex = 0;
+
         // Adjust Vector3 positions according to offsets
         for(int i = 0; i < objectsAndMoveData.Length; i++) // for each object referenced in the script
         {
+            objectsAndMoveData[i].recordingDataSO = objectsAndMoveData[i].recDataObjSequencer.currentRoundRecData;
             objectsAndMoveData[i].targetRecordedPositions = new Vector3[objectsAndMoveData[i].recordingDataSO.recordedPositions.Length];
 
             for (int j = 0; j < objectsAndMoveData[i].targetRecordedPositions.Length; j++) // for each recorded Vector3 position
@@ -63,7 +70,44 @@ public class CopyDance : MonoBehaviour
         }
         
     }
-    
+    private void Update()
+    {
+        if (playerControls.GenericInput.AButton.triggered) //replace this with correct input logic
+        {
+            UpdateDanceSequence();
+        }
+            
+    }
+    private void UpdateDanceSequence() 
+    {
+        updatingRoundSequence = true;
+        roundSwitcherIndex += 1;
+        if (roundSwitcherIndex > 3) roundSwitcherIndex = 0; // loop 
+
+        // Adjust Vector3 positions according to offsets
+        for (int i = 0; i < objectsAndMoveData.Length; i++) // for each object referenced in the script
+        {
+            objectsAndMoveData[i].recordingDataSO = objectsAndMoveData[i].recDataObjSequencer.recordingDataOfRounds[roundSwitcherIndex];
+            objectsAndMoveData[i].targetRecordedPositions = new Vector3[objectsAndMoveData[i].recordingDataSO.recordedPositions.Length];
+
+            for (int j = 0; j < objectsAndMoveData[i].targetRecordedPositions.Length; j++) // for each recorded Vector3 position
+            {
+                // Calculate the offset between the control character objects and the dancer character objects:
+                float offsetX = objectsAndMoveData[i].copyObject.transform.position.x - objectsAndMoveData[i].recordingDataSO.initialPositions[j].x;
+                float offsetY = objectsAndMoveData[i].copyObject.transform.position.y - objectsAndMoveData[i].recordingDataSO.initialPositions[j].y;
+                float offsetZ = objectsAndMoveData[i].copyObject.transform.position.z - objectsAndMoveData[i].recordingDataSO.initialPositions[j].z;
+
+                // introduce "noise" to offsets?
+
+                float adjustedX = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].x + offsetX;
+                float adjustedY = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].y + offsetY; ;
+                float adjustedZ = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].z + offsetZ; ;
+                objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ);
+            }
+        }
+        updatingRoundSequence = false;
+    }
+
     private void On_Q_BeatHandler() 
     {
         GameObject copyCharacter = gameObject;

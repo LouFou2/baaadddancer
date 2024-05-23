@@ -9,6 +9,8 @@ public class ObjectControls : MonoBehaviour
 
     private GameObject controlObject; // the actual control object
     [SerializeField] GameObject controlGizmoObject; // the gizmo of the control object (to visualise if its active)
+
+    [SerializeField] private RoundsRecData recordingDataOfRounds;
     [SerializeField] private RecordingData recordingDataSO;
 
     [SerializeField] private bool leftObject = true;
@@ -35,9 +37,9 @@ public class ObjectControls : MonoBehaviour
     private Vector3 initialPosition;
     private Quaternion initialRotation;
     private Vector3 currentRecordedPosition;
-    private Quaternion currentRecordedRotation;
+    //private Quaternion currentRecordedRotation;
     private Vector3 finalUpdatePosition;
-    private Quaternion finalUpdateRotation;
+    //private Quaternion finalUpdateRotation;
 
     private void Awake()
     {
@@ -62,10 +64,13 @@ public class ObjectControls : MonoBehaviour
         initialPosition = controlObject.transform.position;
         initialRotation = controlObject.transform.rotation;
         currentRecordedPosition = initialPosition;
-        currentRecordedRotation = initialRotation;
+        //currentRecordedRotation = initialRotation;
 
         if (controlGizmoObject != null)
             controlGizmoObject.SetActive(false);
+
+        int currentRound = GameManager.Instance.GetCurrentRound();
+        recordingDataSO = recordingDataOfRounds.currentRoundRecData;
     }
     private void Update()
     {
@@ -251,10 +256,10 @@ public class ObjectControls : MonoBehaviour
     {
         return finalUpdatePosition;
     }
-    public Quaternion GetRotationToRecord()
+    /*public Quaternion GetRotationToRecord()
     {
         return finalUpdateRotation;
-    }
+    }*/
     void On_Q_BeatHandler()
     {
         int currentPositionIndex = clockCounter.GetCurrent_Q_Beat(); //the indexes of the positions corresponds to the beats (the beats are used to record them)

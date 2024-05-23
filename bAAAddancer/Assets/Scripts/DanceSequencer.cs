@@ -4,7 +4,8 @@ public class DanceSequencer : MonoBehaviour
 {
     private ClockCounter clockCounter;
     private int beatCount = 0;
-    [SerializeField] private RecordingData[] recordingDataArray; // Array to store recording data for each GameObject
+    [SerializeField] private RoundsRecData[] recDataObjSequencers; // Arrays (representing the game rounds) that hold Rec Data SO's
+    [SerializeField] private RecordingData[] recordingDataObjects; // Array to store recording data for each GameObject
     [SerializeField] private ObjectControls[] objControlScripts;
     [SerializeField] private PlayerControls playerControls;
 
@@ -27,17 +28,23 @@ public class DanceSequencer : MonoBehaviour
     {
         clockCounter = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
 
+        int currentRound = GameManager.Instance.GetCurrentRound();
+
         // For each Control Object:
         // Initialize the array of Vector3 positions and fill each element with the starting position
         for (int i = 0; i < objControlScripts.Length; i++)
         {
-            recordingDataArray[i].recordedPositions = new Vector3[64];
+            //setting the currentRound RecData SO in the array that represents rounds (for the current iterated control object)
+            recDataObjSequencers[i].currentRoundRecData = recDataObjSequencers[i].recordingDataOfRounds[currentRound];
+
+            recordingDataObjects[i] = recDataObjSequencers[i].currentRoundRecData;
+            recordingDataObjects[i].recordedPositions = new Vector3[64];
             Vector3 startingPosition = objControlScripts[i].gameObject.transform.position;
 
-            for (int j = 0; j < recordingDataArray[i].recordedPositions.Length; j++)
+            for (int j = 0; j < recordingDataObjects[i].recordedPositions.Length; j++)
             {
-                recordingDataArray[i].initialPositions[j] = startingPosition;
-                recordingDataArray[i].recordedPositions[j] = startingPosition;
+                recordingDataObjects[i].initialPositions[j] = startingPosition;
+                recordingDataObjects[i].recordedPositions[j] = startingPosition;
             }
         }
     }
@@ -65,8 +72,8 @@ public class DanceSequencer : MonoBehaviour
             {
                 objControlScripts[i].useRecordedPositions = false;
                 // Record the position + rotation for the current GameObject for the current beat
-                recordingDataArray[i].recordedPositions[beatCount] = objControlScripts[i].GetPositionToRecord();
-                recordingDataArray[i].recordedRotations[beatCount] = objControlScripts[i].GetRotationToRecord();
+                recordingDataObjects[i].recordedPositions[beatCount] = objControlScripts[i].GetPositionToRecord();
+                //recordingDataObjects[i].recordedRotations[beatCount] = objControlScripts[i].GetRotationToRecord();
             }
         }
     }

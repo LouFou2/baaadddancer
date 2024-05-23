@@ -11,5 +11,6 @@ public class DialogueSceneSetup : MonoBehaviour
         {
             character.SetActive(true);
         }
+        
     }
 }

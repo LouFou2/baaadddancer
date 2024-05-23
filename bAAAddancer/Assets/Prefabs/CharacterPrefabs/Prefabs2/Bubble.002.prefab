@@ -2438,33 +2438,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsAndMoveData:
   - copyObject: {fileID: 3254844366621409294}
+    recDataObjSequencer: {fileID: 11400000, guid: daad094e5dae26e4cb170fe214748990,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2e905e78a65ceba478a74ac0d007e44f, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3254844365359088394}
+    recDataObjSequencer: {fileID: 11400000, guid: cc815ad354b2dbc419182f52e00816f0,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: a8df1aca02d4f334aa6e807d0353dd2c, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3254844365346344412}
+    recDataObjSequencer: {fileID: 11400000, guid: f818ac50cca81aa4aa6b14b72e34764f,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2ad65a1a76abbe3488440caa8d3eb0b5, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3254844365164287318}
+    recDataObjSequencer: {fileID: 11400000, guid: cac328b5211fa7d4988cb51cd1dee90a,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 10bd87e33a3b8d04698b0e816573c2dc, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3254844365021726835}
+    recDataObjSequencer: {fileID: 11400000, guid: 6b3839844d4c805428f982c66cc9114d,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 0806166a0368b0046a462c765528d361, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3254844367044408935}
+    recDataObjSequencer: {fileID: 11400000, guid: 93b13063448af7e44ae11a71a31e30c0,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 357810fdb4bd9b145b14f92ed73b3507, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3254844365395326767}
+    recDataObjSequencer: {fileID: 11400000, guid: f6ff362c78975e34ba874df8e1f81264,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 91cc6a70b8dbc934b9376823941c4d3f, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3254844366222893053}
+    recDataObjSequencer: {fileID: 11400000, guid: 58f57d89047697740935f7b48245fb09,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: a12f6b44ccf8ae147a9fc168ba33ed8a, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3254844366566263148}
+    recDataObjSequencer: {fileID: 11400000, guid: d74fefd1e8dc47e40ab0a9993c1bbf08,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: 11a0d09323df422498d40ab20065412d, type: 2}
     targetRecordedPositions: []
   - copyObject: {fileID: 3254844365489322139}
+    recDataObjSequencer: {fileID: 11400000, guid: 6fbd8ede107eb45419a8f6b217cfdf73,
+      type: 2}
     recordingDataSO: {fileID: 11400000, guid: d76d5375c9dfb564e88b636825c99f8c, type: 2}
     targetRecordedPositions: []
   charLeftScreen: 0
@@ -3016,6 +3036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
@@ -3028,6 +3049,7 @@ MonoBehaviour:
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 2
+  newControls: 0
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -3195,8 +3217,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3254844365059708793}
-  m_LocalRotation: {x: -0.99999994, y: 2.6297908e-10, z: 0.00000074901396, w: 0.00035110035}
-  m_LocalPosition: {x: 0.000000074505806, y: 1.5219127, z: -0.30642128}
+  m_LocalRotation: {x: -0.99999994, y: 2.301067e-10, z: 0.0000006553873, w: 0.00035110035}
+  m_LocalPosition: {x: 0.000000012635049, y: 1.5219127, z: -0.30642125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4246,6 +4268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
@@ -4258,6 +4281,7 @@ MonoBehaviour:
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 2
+  newControls: 0
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5027,6 +5051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
@@ -5039,6 +5064,7 @@ MonoBehaviour:
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 2
+  newControls: 0
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5154,7 +5180,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3254844365359088394}
-  m_LocalRotation: {x: 0.9997499, y: 0.000000478486, z: 0.000000478486, w: -0.02236388}
+  m_LocalRotation: {x: 0.9997499, y: 0.00000066569254, z: 0.0000004826736, w: -0.022363693}
   m_LocalPosition: {x: 0.3, y: 0.833, z: -0.004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5199,6 +5225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
@@ -5211,6 +5238,7 @@ MonoBehaviour:
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 2
+  newControls: 0
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5398,6 +5426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
@@ -5410,6 +5439,7 @@ MonoBehaviour:
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 2
+  newControls: 0
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5723,7 +5753,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3254844365489322139}
-  m_LocalRotation: {x: -0.0006741126, y: 0.00000009362674, z: 6.311497e-11, w: 0.9999998}
+  m_LocalRotation: {x: -0.0006741126, y: -0, z: 0, w: 0.9999998}
   m_LocalPosition: {x: 0.3, y: 1.287, z: 0.009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5768,6 +5798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
@@ -5780,6 +5811,7 @@ MonoBehaviour:
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 2
+  newControls: 0
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -8698,7 +8730,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3254844366222893053}
-  m_LocalRotation: {x: -0.010874908, y: 0.00000009362122, z: 0.0000000010181824, w: 0.9999409}
+  m_LocalRotation: {x: -0.010874908, y: -0, z: 0, w: 0.9999409}
   m_LocalPosition: {x: 0.3, y: 0.995, z: 0.005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8743,6 +8775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
@@ -8755,6 +8788,7 @@ MonoBehaviour:
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 2
+  newControls: 0
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10586,6 +10620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
@@ -10598,6 +10633,7 @@ MonoBehaviour:
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 2
+  newControls: 0
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10729,6 +10765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
   recordingDataSO: {fileID: 0}
   leftObject: 1
   rightObject: 0
@@ -10741,6 +10778,7 @@ MonoBehaviour:
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 2
+  newControls: 0
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -12241,6 +12279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
   recordingDataSO: {fileID: 0}
   leftObject: 0
   rightObject: 1
@@ -12253,6 +12292,7 @@ MonoBehaviour:
   z_RangeMin: -0.5
   z_RangeMax: 0.5
   moveSpeed: 2
+  newControls: 0
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0

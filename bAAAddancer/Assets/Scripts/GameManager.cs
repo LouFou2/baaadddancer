@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
         {
             // If this is the first loading of the game, reset the currentLevelKey
             ResetCurrentLevelKey();
+            gameData.currentRound = -1; // it will get set to 0 in the first dialogue scene
             gameStarted = true;
         }
     }
@@ -62,5 +63,13 @@ public class GameManager : MonoBehaviour
         int nextLevelIndex = (currentLevelIndex + 1) % Enum.GetNames(typeof(LevelKey)).Length;
         LevelKey nextLevel = (LevelKey)nextLevelIndex;
         SetCurrentLevelKey(nextLevel);
+    }
+    public int GetCurrentRound() 
+    {
+        return gameData.currentRound;
+    }
+    public void NewRound() 
+    {
+        gameData.currentRound += 1;
     }
 }
