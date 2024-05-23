@@ -7,6 +7,7 @@ public class CurseManager : MonoBehaviour
     [SerializeField] private Animator characterAnimator;
     [SerializeField] private CharacterProfile characterProfile;
     private CharacterData charData;
+    
     void Start()
     {
         characterAnimator = GetComponent<Animator>();

@@ -18,6 +18,10 @@ public class InfectionManager : MonoBehaviour
 
         // Generate a list of eligible characters (excluding player and bug characters)
         List<CharacterData> eligibleCharacters = new List<CharacterData>();
+
+        // Temporary list to track characters that have had their infection level increased
+        List<CharacterData> infectedCharacters = new List<CharacterData>();
+
         foreach (CharacterData characterData in characterManager.characterDataSOs)
         {
             characterData.lastBuggedCharacter = false;
@@ -30,9 +34,12 @@ public class InfectionManager : MonoBehaviour
                 eligibleCharacters.Add(characterData);
             }
             //increase current infection level
-            if(characterData.infectionLevel > 0)
+            if(characterData.infectionLevel > 0  && !infectedCharacters.Contains(characterData) )
             {
                 characterData.infectionLevel += Random.Range(0.1f,0.25f);
+
+                // Add character to the list of processed characters
+                infectedCharacters.Add(characterData);
             }
         }
 

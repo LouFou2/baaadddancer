@@ -52,6 +52,9 @@ public class CopyDance : MonoBehaviour
                 float offsetX = objectsAndMoveData[i].copyObject.transform.position.x - objectsAndMoveData[i].recordingDataSO.initialPositions[j].x;
                 float offsetY = objectsAndMoveData[i].copyObject.transform.position.y - objectsAndMoveData[i].recordingDataSO.initialPositions[j].y;
                 float offsetZ = objectsAndMoveData[i].copyObject.transform.position.z - objectsAndMoveData[i].recordingDataSO.initialPositions[j].z;
+
+                // introduce "noise" to offsets?
+
                 float adjustedX = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].x + offsetX;
                 float adjustedY = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].y + offsetY; ;
                 float adjustedZ = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].z + offsetZ; ;

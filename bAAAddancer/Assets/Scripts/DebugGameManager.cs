@@ -55,9 +55,10 @@ public class DebugGameManager : MonoBehaviour
     {
         int bugsZapped = zapperScript.GetBugZappedAmount();
 
-        slider.value = 1- ( (float)bugsZapped / bugsRemain );
+        float debuggedFactor = 1- ( (float)bugsZapped / bugsRemain );
+        slider.value = debuggedFactor;
 
-        debuggedCharacterData.infectionLevel = slider.value; // DEBGUGGING THE CHARACTER
+        debuggedCharacterData.infectionLevel *= debuggedFactor; // DEBGUGGING THE CHARACTER
 
         bool endGame = bugSpawnerScript.DebugHasEnded();
         if (endGame) EndDebugGame();

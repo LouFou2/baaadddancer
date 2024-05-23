@@ -19,9 +19,12 @@ public class StopDance : MonoBehaviour
         while (music.pitch > 0f)
         {
             music.pitch -= pitchDecreaseSpeed;
+            music.volume -= pitchDecreaseSpeed;
+
             if (music.pitch < 0f)
             {
                 music.pitch = 0f;
+                music.volume = 0f;
             }
             yield return new WaitForSeconds(yieldDuration);
         }
