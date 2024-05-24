@@ -4,13 +4,30 @@ using UnityEngine;
 
 public class StopDance : MonoBehaviour
 {
+    [SerializeField] private CharacterManager characterManager;
     [SerializeField] private SceneSwitcher sceneSwitcher;
     [SerializeField] private AudioSource music;
     [SerializeField] private float pitchDecreaseSpeed = 0.1f;
     [SerializeField] private float yieldDuration = 0.1f;
 
+    private void Start()
+    {
+        characterManager = FindObjectOfType<CharacterManager>();
+    }
     public void StopTheDance()
     {
+        foreach (GameObject character in characterManager.characters) 
+        {
+            Animator animator = character.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetBool("Dance", false);
+            }
+            else
+            {
+                Debug.LogWarning("Animator not found on character: " + character.name);
+            }
+        }
         StartCoroutine(EndDance());
     }
 

@@ -11,6 +11,7 @@ public class CopyDance : MonoBehaviour
         public RoundsRecData recDataObjSequencer;
         public RecordingData recordingDataSO;
         public Vector3[] targetRecordedPositions;
+        public Vector3[] offset;
     }
     [SerializeField] private CopyTransforms[] objectsAndMoveData;
     
@@ -52,6 +53,7 @@ public class CopyDance : MonoBehaviour
         {
             objectsAndMoveData[i].recordingDataSO = objectsAndMoveData[i].recDataObjSequencer.currentRoundRecData;
             objectsAndMoveData[i].targetRecordedPositions = new Vector3[objectsAndMoveData[i].recordingDataSO.recordedPositions.Length];
+            objectsAndMoveData[i].offset = new Vector3[objectsAndMoveData[i].recordingDataSO.recordedPositions.Length];
 
             for (int j = 0; j < objectsAndMoveData[i].targetRecordedPositions.Length; j++) // for each recorded Vector3 position
             {
@@ -59,6 +61,8 @@ public class CopyDance : MonoBehaviour
                 float offsetX = objectsAndMoveData[i].copyObject.transform.position.x - objectsAndMoveData[i].recordingDataSO.initialPositions[j].x;
                 float offsetY = objectsAndMoveData[i].copyObject.transform.position.y - objectsAndMoveData[i].recordingDataSO.initialPositions[j].y;
                 float offsetZ = objectsAndMoveData[i].copyObject.transform.position.z - objectsAndMoveData[i].recordingDataSO.initialPositions[j].z;
+
+                objectsAndMoveData[i].offset[j] = new Vector3(offsetX, offsetY, offsetZ); //store the offset so we can use it in UpdateDanceSequence
 
                 // introduce "noise" to offsets?
 
@@ -72,7 +76,7 @@ public class CopyDance : MonoBehaviour
     }
     private void Update()
     {
-        if (playerControls.GenericInput.AButton.triggered) //replace this with correct input logic
+        if (Input.GetKeyDown(KeyCode.Space) && !updatingRoundSequence) //replace this with correct input logic
         {
             UpdateDanceSequence();
         }
@@ -92,17 +96,19 @@ public class CopyDance : MonoBehaviour
 
             for (int j = 0; j < objectsAndMoveData[i].targetRecordedPositions.Length; j++) // for each recorded Vector3 position
             {
-                // Calculate the offset between the control character objects and the dancer character objects:
+                /*// Calculate the offset between the control character objects and the dancer character objects:
                 float offsetX = objectsAndMoveData[i].copyObject.transform.position.x - objectsAndMoveData[i].recordingDataSO.initialPositions[j].x;
                 float offsetY = objectsAndMoveData[i].copyObject.transform.position.y - objectsAndMoveData[i].recordingDataSO.initialPositions[j].y;
-                float offsetZ = objectsAndMoveData[i].copyObject.transform.position.z - objectsAndMoveData[i].recordingDataSO.initialPositions[j].z;
+                float offsetZ = objectsAndMoveData[i].copyObject.transform.position.z - objectsAndMoveData[i].recordingDataSO.initialPositions[j].z;*/
 
                 // introduce "noise" to offsets?
 
-                float adjustedX = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].x + offsetX;
-                float adjustedY = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].y + offsetY; ;
-                float adjustedZ = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].z + offsetZ; ;
+                float adjustedX = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].x + objectsAndMoveData[i].offset[j].x; //using offsets stored in Start
+                float adjustedY = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].y + objectsAndMoveData[i].offset[j].y;
+                float adjustedZ = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].z + objectsAndMoveData[i].offset[j].z;
                 objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ);
+
+                //objectsAndMoveData[i].targetRecordedPositions[j] = objectsAndMoveData[i].recordingDataSO.recordedPositions[j];
             }
         }
         updatingRoundSequence = false;
