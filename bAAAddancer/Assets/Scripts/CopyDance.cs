@@ -85,8 +85,9 @@ public class CopyDance : MonoBehaviour
     private void UpdateDanceSequence() 
     {
         updatingRoundSequence = true;
+        int currentRoundIndex = GameManager.Instance.GetCurrentRound();
         roundSwitcherIndex += 1;
-        if (roundSwitcherIndex > 3) roundSwitcherIndex = 0; // loop 
+        if (roundSwitcherIndex > currentRoundIndex) roundSwitcherIndex = 0; // loop, also limit switch index to amount of rounds
 
         // Adjust Vector3 positions according to offsets
         for (int i = 0; i < objectsAndMoveData.Length; i++) // for each object referenced in the script

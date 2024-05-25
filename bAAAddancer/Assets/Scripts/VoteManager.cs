@@ -100,11 +100,11 @@ public class VoteManager : MonoBehaviour
         if (playerIndex != -1)
         {
             charDataList.RemoveAt(playerIndex);
-            /*// Adjust bugIndex if it was after playerIndex
+            // Adjust bugIndex if it was after playerIndex
             if (bugIndex > playerIndex)
             {
                 bugIndex--;
-            }*/
+            }
         }
 
         if (bugIndex != -1)
