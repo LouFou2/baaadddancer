@@ -12,22 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: IntroDebug1
   m_EditorClassIdentifier: 
-  sentences:
-  - YoU think I'm BUgged?
-  - I       FFFFFFFFFFFeel   % fiiii  N  e e  {  "  '  3. #
   dialogueUnits:
   - sentence: Listen, I trust you
     Camera: 0
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: I dont believe you are the Rave Demon
     Camera: 0
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: But you have to figure out who is
     Camera: 0
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: Or we might all get cursed
     Camera: 0
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
+  musicTrackToPlay: {fileID: 8300000, guid: bbb353e1009ba834e809f9dabc55fb05, type: 3}
   responseNo: 
   responseYes: I'll try to figure it out, promise!
   NoEventToCall: 0

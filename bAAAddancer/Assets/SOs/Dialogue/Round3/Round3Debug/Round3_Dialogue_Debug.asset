@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round3_Dialogue_Debug
   m_EditorClassIdentifier: 
-  sentences:
-  - i think i know who is bugging our team
   dialogueUnits:
   - sentence: please get rid of this curse
     Camera: 0
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
+  musicTrackToPlay: {fileID: 8300000, guid: f400f2ed39d324f49bc82ea7f7d7b2e9, type: 3}
   responseNo: 
   responseYes: I've got you
   NoEventToCall: 2

@@ -12,24 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round3_Dialogue_Dialogue
   m_EditorClassIdentifier: 
-  sentences:
-  - we need to identify the bug
-  - what if we get bugged at the rave?
-  - well we know its not me
-  - or me
   dialogueUnits:
   - sentence: We pretty much have to leave for the rave
     Camera: 0
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: We need at least two more moves
     Camera: 7
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: Are we just going to the rave all cursed?!
     Camera: 11
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: Yeah, and with a ravedemon among us?
     Camera: 3
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
+  musicTrackToPlay: {fileID: 8300000, guid: 2ab89d8acb4af4942bccf5c7aae512b2, type: 3}
   responseNo: we'll figure it out
   responseYes: let's just focus on our dance
   NoEventToCall: 1

@@ -815,7 +815,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: db3ac864e30a243449fd13047b6fb8e4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a09523ec713fcfd47a78b9704f771ba2, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.39
   m_Pitch: 1
@@ -1469,7 +1469,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1e611949955b5a94fbe907272be2e587,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e611949955b5a94fbe907272be2e587,
         type: 3}
@@ -1594,7 +1594,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1e611949955b5a94fbe907272be2e587,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 1e611949955b5a94fbe907272be2e587,
         type: 3}
@@ -2107,7 +2107,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1075359428
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2324,7 +2324,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 410a680d6ef042647a67a8b5ad2e250e, type: 2}
+  - {fileID: 2100000, guid: cfd28365618dd1e46b84458fe68298b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3808,10 +3808,10 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620810601}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 97c7f4806db0de941b35ce8a0cc66c12, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 124f664f6c504e9478613dda89e02860, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3949,7 +3949,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845960040}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.73, z: 6.42}
+  m_LocalPosition: {x: 0, y: 0.9, z: 6.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4074,7 +4074,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878149976}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.73, z: 3.7180102}
+  m_LocalPosition: {x: 0, y: 0.9, z: 3.8680103}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -50,8 +50,10 @@ public class DialoguePlayback : MonoBehaviour
         }
         dialoguePanel.transform.DOScale(1, 0.3f).SetEase(Ease.OutBounce);
         string sentence = sentences.Dequeue();
+        
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
+
     }
 
     IEnumerator TypeSentence(string sentence) 

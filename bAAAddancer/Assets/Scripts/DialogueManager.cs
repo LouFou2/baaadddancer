@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private DialogueSwitcher dialogueSwitcher;
     [SerializeField] private DialoguePlayback dialoguePlayer;
     [SerializeField] private CameraManager cameraManager;
+    [SerializeField] private CutscenesAudioManager cutscenesAudioManager;
     public enum DialogueState { NoDialogue, NPCSpeaks, PauseOrContinue, PlayerResponse }
     public DialogueState dialogueState;
 
@@ -34,6 +35,8 @@ public class DialogueManager : MonoBehaviour
         button0Text = button0.GetComponentInChildren<TextMeshProUGUI>();
         button1Text = button1.GetComponentInChildren<TextMeshProUGUI>();
 
+        cutscenesAudioManager = FindObjectOfType<CutscenesAudioManager>();
+
         dialogueState = DialogueState.NoDialogue;
     }
     void Update()
@@ -56,6 +59,8 @@ public class DialogueManager : MonoBehaviour
                 {
                     dialoguePlayer.DisplayNextSentence();
                     cameraManager.SelectNewCamera();
+                    cutscenesAudioManager.PlayMusic();
+                    cutscenesAudioManager.PlayOneShot();
                     dialogueState = DialogueState.NPCSpeaks;
                     button1clicked = false;
                 }
@@ -67,7 +72,6 @@ public class DialogueManager : MonoBehaviour
                 {
                     button0.gameObject.SetActive(true);
                     cameraManager.SelectPlayerCamera(); // adding it here because sometimes it is only the Yes response
-                    
                 }
                 else 
                 {

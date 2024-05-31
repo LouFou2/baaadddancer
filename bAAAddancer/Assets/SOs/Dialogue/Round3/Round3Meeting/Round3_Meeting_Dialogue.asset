@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round3_Meeting_Dialogue
   m_EditorClassIdentifier: 
-  sentences: []
   dialogueUnits:
   - sentence: listen, there are only 3 of you who haven't been cursed
     Camera: 11
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: yeah, one of you is the Rave Demon
     Camera: 7
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
+  musicTrackToPlay: {fileID: 8300000, guid: ef83d7472635d2f4baf1b8cd21dd5fe3, type: 3}
   responseNo: it's not me
   responseYes: why would I debug everyone if it was me?
   NoEventToCall: 0

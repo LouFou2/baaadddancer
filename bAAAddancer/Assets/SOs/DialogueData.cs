@@ -10,11 +10,15 @@ public class DialogueData : ScriptableObject
         [TextArea(3, 10)]
         public string sentence;
         public CameraToSwitch Camera;
-        public AudioClip audioClipToPlay; // this might not work, the SO is not an object in the scene so
+        public AudioClip oneshotClipToPlay;
+        public AudioClip newMusicTrackToPlay;
+        public AudioClip voxClipToPlay;
     }
     
     public DialogueUnit[] dialogueUnits;
-    
+
+    public AudioClip musicTrackToPlay;
+
     public string responseNo;
     public string responseYes;
 

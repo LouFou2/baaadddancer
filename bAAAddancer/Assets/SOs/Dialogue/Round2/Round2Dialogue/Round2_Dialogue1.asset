@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round2_Dialogue1
   m_EditorClassIdentifier: 
-  sentences:
-  - lets keep working on this dance
   dialogueUnits:
   - sentence: did you get rid of the curse?
     Camera: 5
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: i'm fine! all better
     Camera: 11
-    audioClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
+  musicTrackToPlay: {fileID: 8300000, guid: e6c7af2849e00b6428e2e59025010433, type: 3}
   responseNo: 
   responseYes: all better
   NoEventToCall: 0
