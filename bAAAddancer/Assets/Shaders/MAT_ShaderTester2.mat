@@ -35,11 +35,28 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _NoiseBlendAmount: 0
+    - _NoiseXDensity: 10
+    - _NoiseXScale: 10
+    - _NoiseYDensity: 10
+    - _NoiseYScale: 10
     - _QueueControl: 0
     - _QueueOffset: 0
     - _VertexNoiseAmount: 0.44
     - _VertexNoiseX: 0.32
     - _VertexNoiseY: 0.126
+    - _XNoiseBlend: 0
+    - _X_Multiplier: 1.5
+    - _X_NoiseDensity: 50
+    - _X_Noise_Offset: 0
+    - _YNoiseBlend: 0.12
+    - _Y_Multiplier: 1
+    - _Y_NoiseDensity: 50
+    - _Y_Noise_Offset: 0
+    - _ZNoiseBlend: 0.24
+    - _Z_Multiplier: 7.6
+    - _Z_NoiseDensity: 50
+    - _Z_Noise_Offset: -0.44
     m_Colors:
     - _Color: {r: 0.21444462, g: 0.745283, b: 0.6001405, a: 0}
   m_BuildTextureStacks: []
