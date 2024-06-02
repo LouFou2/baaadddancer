@@ -27,18 +27,6 @@ public class GlobalVolumeCurse : MonoBehaviour
         float qBeatDuration = clockCounter.Get_Q_BeatInterval();
 
         colorAdjustments.hueShift.value = -138f;
-        yield return new WaitForSeconds(qBeatDuration * 4);
-
-        colorAdjustments.hueShift.value = 0f;
-        yield return new WaitForSeconds(qBeatDuration * 4);
-
-        colorAdjustments.hueShift.value = 47f;
-        yield return new WaitForSeconds(qBeatDuration * 2);
-
-        colorAdjustments.hueShift.value = 0f;
-        yield return new WaitForSeconds(qBeatDuration * 2);
-
-        colorAdjustments.hueShift.value = -138f;
         yield return new WaitForSeconds(qBeatDuration);
 
         colorAdjustments.hueShift.value = 47f;
