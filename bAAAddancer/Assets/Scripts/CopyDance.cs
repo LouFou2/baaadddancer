@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class CopyDance : MonoBehaviour
 {
+    [SerializeField] private bool raveDemonReveal = false;
     [Serializable]
     public class CopyTransforms
     {
         public GameObject copyObject;
+        public GameObject copyDemonObject;
+        public bool demonTransitioning = false;
         public RoundsRecData recDataObjSequencer;
         public RecordingData recordingDataSO;
         public Vector3[] targetRecordedPositions;
@@ -42,6 +45,8 @@ public class CopyDance : MonoBehaviour
 
     void Start()
     {
+        raveDemonReveal = false;
+
         clockCounter = FindObjectOfType<ClockCounter>();
         if (clockCounter == null ) 
             Debug.LogError("no clock counter in scene");
@@ -54,6 +59,8 @@ public class CopyDance : MonoBehaviour
             objectsAndMoveData[i].recordingDataSO = objectsAndMoveData[i].recDataObjSequencer.currentRoundRecData;
             objectsAndMoveData[i].targetRecordedPositions = new Vector3[objectsAndMoveData[i].recordingDataSO.recordedPositions.Length];
             objectsAndMoveData[i].offset = new Vector3[objectsAndMoveData[i].recordingDataSO.recordedPositions.Length];
+
+            objectsAndMoveData[i].demonTransitioning = false;
 
             for (int j = 0; j < objectsAndMoveData[i].targetRecordedPositions.Length; j++) // for each recorded Vector3 position
             {
@@ -117,39 +124,51 @@ public class CopyDance : MonoBehaviour
 
     private void On_Q_BeatHandler() 
     {
-        GameObject copyCharacter = gameObject;
-        CharacterProfile characterProfile = copyCharacter.GetComponent<CharacterProfile>();
-
-        for (int objectsIndex = 0; objectsIndex < objectsAndMoveData.Length; objectsIndex++)
+        if (!raveDemonReveal)
         {
-            GameObject copyingObject = objectsAndMoveData[objectsIndex].copyObject;
-            Vector3[] targetRecordedPositions = objectsAndMoveData[objectsIndex].targetRecordedPositions;
-
-            int currentBeatIndex = clockCounter.GetCurrent_Q_Beat(); //the indexes of the positions corresponds to the beats (the beats are used to record them)
-            int targetBeatIndex = currentBeatIndex + 1;
-
-            // make the beat + target count loop:
-            if (targetBeatIndex > objectsAndMoveData[objectsIndex].recordingDataSO.recordedPositions.Length - 1) targetBeatIndex = 0;
-            if (targetBeatIndex < 0) targetBeatIndex = 0;
-            float tweenDuration = clockCounter.Get_Q_BeatInterval();
-
-            //OLD FRAME DROP LOGIC:
-            /* if (characterProfile.characterDataSO.infectionLevel > 0) // if the character is infected
+            for (int objectsIndex = 0; objectsIndex < objectsAndMoveData.Length; objectsIndex++)
             {
-                // call infection behaviours
-                int frameRateDivider = 1; // change how much to divide the frame rate
-                int glitchedBeatIndex = 0;
-                if (currentBeatIndex % frameRateDivider == 0) glitchedBeatIndex = currentBeatIndex;
-                copyingObject.transform.position = targetRecordedPositions[glitchedBeatIndex];
+                GameObject copyingObject = objectsAndMoveData[objectsIndex].copyObject;
+                Vector3[] targetRecordedPositions = objectsAndMoveData[objectsIndex].targetRecordedPositions;
 
-            }
-            else
-            { // Tween the object's position to the next recorded position
+                int currentBeatIndex = clockCounter.GetCurrent_Q_Beat(); //the indexes of the positions corresponds to the beats (the beats are used to record them)
+                int targetBeatIndex = currentBeatIndex + 1;
+
+                // make the beat + target count loop:
+                if (targetBeatIndex > objectsAndMoveData[objectsIndex].recordingDataSO.recordedPositions.Length - 1) targetBeatIndex = 0;
+                if (targetBeatIndex < 0) targetBeatIndex = 0;
+                float tweenDuration = clockCounter.Get_Q_BeatInterval();
+
                 copyingObject.transform.DOMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
-            } */
-            
-            copyingObject.transform.DOMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
+            }
         }
+        else 
+        {
+            for (int objectsIndex = 0; objectsIndex < objectsAndMoveData.Length; objectsIndex++)
+            {
+                GameObject copyingObject = objectsAndMoveData[objectsIndex].copyObject;
+                GameObject objectToCopy = objectsAndMoveData[objectsIndex].copyDemonObject;
+                bool isDemonTransitionInProgress = objectsAndMoveData[objectsIndex].demonTransitioning;
 
+                if (objectToCopy != null && !isDemonTransitionInProgress) 
+                {
+                    objectsAndMoveData[objectsIndex].demonTransitioning = true;
+                    TweenDemonTransition(copyingObject, objectToCopy);
+                }
+                    
+                    //copyingObject.transform.DOMove(objectToCopy.transform.position, tweenDuration).SetEase(Ease.InElastic);
+                    //copyingObject.transform.position = objectToCopy.transform.position;
+            }
+        }
+    }
+    public void CharacterBecomeDemon() 
+    {
+        raveDemonReveal = true;
+    }
+
+    private void TweenDemonTransition(GameObject copyObject, GameObject objectToCopy) 
+    {
+        float tweenDuration = clockCounter.Get_Q_BeatInterval() * 4;
+        copyObject.transform.DOMove(objectToCopy.transform.position, tweenDuration).SetEase(Ease.InOutElastic);
     }
 }
