@@ -155,9 +155,6 @@ public class CopyDance : MonoBehaviour
                     objectsAndMoveData[objectsIndex].demonTransitioning = true;
                     TweenDemonTransition(copyingObject, objectToCopy);
                 }
-                    
-                    //copyingObject.transform.DOMove(objectToCopy.transform.position, tweenDuration).SetEase(Ease.InElastic);
-                    //copyingObject.transform.position = objectToCopy.transform.position;
             }
         }
     }
