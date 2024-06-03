@@ -35,6 +35,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _FresnelPower: 1
     - _NoiseBlendAmount: 0
     - _NoiseXDensity: 10
     - _NoiseXScale: 10
@@ -45,15 +46,15 @@ Material:
     - _VertexNoiseAmount: 0.44
     - _VertexNoiseX: 0.32
     - _VertexNoiseY: 0.126
-    - _XNoiseBlend: 0
+    - _XNoiseBlend: 0.015
     - _X_Multiplier: 1.5
     - _X_NoiseDensity: 50
     - _X_Noise_Offset: 0
-    - _YNoiseBlend: 0.12
+    - _YNoiseBlend: 0.015
     - _Y_Multiplier: 1
     - _Y_NoiseDensity: 50
     - _Y_Noise_Offset: 0
-    - _ZNoiseBlend: 0.24
+    - _ZNoiseBlend: 0.015
     - _Z_Multiplier: 7.6
     - _Z_NoiseDensity: 50
     - _Z_Noise_Offset: -0.44

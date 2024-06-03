@@ -37,11 +37,13 @@ public class GlobalVolumeCurse : MonoBehaviour
 
         colorAdjustments.hueShift.value = 47f;
         yield return new WaitForSeconds(qBeatDuration);
+
+        colorAdjustments.hueShift.value = 0f; //return to default
     }
 
     private void OnDestroy()
     {
-        colorAdjustments.hueShift.value = 0f;
+        colorAdjustments.hueShift.value = 0f; //ensure it returns to default
     }
 
 }

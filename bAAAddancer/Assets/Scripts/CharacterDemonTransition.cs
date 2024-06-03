@@ -28,8 +28,8 @@ public class CharacterDemonTransition : MonoBehaviour
     public void CharacterTransitionToDemon()  //this is the method to be called from RevealDemon script (UnityEvent in Inspector)
     {
         transform.position = new Vector3(0,0,0); // snap character to world 0,0,0
-
-        StartCoroutine(TransitionMaterials());
+        if(gameObject.activeSelf == true)
+            StartCoroutine(TransitionMaterials());
     }
     private IEnumerator TransitionMaterials() 
     {
