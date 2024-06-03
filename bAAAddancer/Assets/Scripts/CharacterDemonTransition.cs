@@ -33,7 +33,7 @@ public class CharacterDemonTransition : MonoBehaviour
     }
     private IEnumerator TransitionMaterials() 
     {
-        float transitionDuration = clock.Get_Q_BeatInterval() * 4; //this amounts to 1 count/beat
+        float transitionDuration = clock.Get_Q_BeatInterval() * 8; //q beat interval is 1/16 measure
         float elapsedTime = 0f;
 
         while (elapsedTime < transitionDuration)
