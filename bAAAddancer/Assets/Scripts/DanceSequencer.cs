@@ -60,15 +60,15 @@ public class DanceSequencer : MonoBehaviour
     {
         // === CHECKING INPUT === //
         //bool record = playerControls.DanceControls.Record.IsPressed(); //***currently removed the record flag
-        //bool record = false;
+        bool record = false;
 
-        //Vector2 inputVector2 = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
+        Vector2 inputVector2 = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
 
-        //if(inputVector2.magnitude > 0.01f) record = true;
+        if(inputVector2.magnitude > 0.01f) record = true;
 
         for (int i = 0; i < objControlScripts.Length; i++)
         {
-            if (objControlScripts[i].isActive)// && record)
+            if (objControlScripts[i].isActive && record)
             {
                 objControlScripts[i].useRecordedPositions = false;
                 // Record the position + rotation for the current GameObject for the current beat
