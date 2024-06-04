@@ -41,6 +41,8 @@ public class DemonFaceRevealer : MonoBehaviour
 
         raveDemonFace.SetActive(true);
 
+        yield return new WaitForSeconds(transitionDuration);
+
         raveDemonAnimator.SetBool("DemonSmile", true);
     }
 }

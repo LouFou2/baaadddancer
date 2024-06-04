@@ -786,7 +786,7 @@ Transform:
   - {fileID: 922479033}
   - {fileID: 188286180}
   m_Father: {fileID: 1984879767}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &666852123
 GameObject:
@@ -2462,75 +2462,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1001 &1182767370
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1984879767}
-    m_Modifications:
-    - target: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3612356307558578565, guid: 1cf43c46b95d2994bacaca36d83729d7,
-        type: 3}
-      propertyPath: m_Name
-      value: AudioCutscenes
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1cf43c46b95d2994bacaca36d83729d7, type: 3}
 --- !u!1 &1211069587
 GameObject:
   m_ObjectHideFlags: 0
@@ -2703,6 +2634,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AudioCutscenes
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612356307795122275, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: Loop
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cf43c46b95d2994bacaca36d83729d7, type: 3}
@@ -3942,24 +3878,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1986560895}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1927437843 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3612356307558578562, guid: 1cf43c46b95d2994bacaca36d83729d7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1182767370}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1927437844 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1182767370}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ad83b059e0096459bb3d6989807c82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1937349420 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3995588869438704865, guid: d1b196c8865e16c4b84c89f03af98c48,
@@ -3998,7 +3916,6 @@ Transform:
   - {fileID: 63112978}
   - {fileID: 1627657669}
   - {fileID: 1211069588}
-  - {fileID: 1927437843}
   - {fileID: 630551897}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -4609,7 +4526,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1927437844}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CutscenesAudioManager, Assembly-CSharp
         m_MethodName: PlayNewMusicTrack
         m_Mode: 1
@@ -4621,7 +4538,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1927437844}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CutscenesAudioManager, Assembly-CSharp
         m_MethodName: QueueMusicClips
         m_Mode: 1
@@ -4633,7 +4550,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1927437844}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CutscenesAudioManager, Assembly-CSharp
         m_MethodName: QueueOneShots
         m_Mode: 1

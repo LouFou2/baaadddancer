@@ -191,6 +191,9 @@
         },
         {
             "m_Id": "8fd43f631ca949fb93d901a360d08d7c"
+        },
+        {
+            "m_Id": "d8a9dd3839a84e9c99a18ca631792c18"
         }
     ],
     "m_GroupDatas": [
@@ -823,6 +826,9 @@
             },
             {
                 "m_Id": "14e05ff9671e46319bd3b4ab1cb8283a"
+            },
+            {
+                "m_Id": "d8a9dd3839a84e9c99a18ca631792c18"
             }
         ]
     },
@@ -1129,7 +1135,7 @@
     "m_ActiveSubTarget": {
         "m_Id": "70f1fb22bbd642038ff1d66209606554"
     },
-    "m_AllowMaterialOverride": false,
+    "m_AllowMaterialOverride": true,
     "m_SurfaceType": 1,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
@@ -1760,6 +1766,21 @@
     },
     "m_Labels": [],
     "m_Space": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "32177f8cdcc2452680773fd768f11bb9",
+    "m_Id": 0,
+    "m_DisplayName": "Alpha Clip Threshold",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "AlphaClipThreshold",
+    "m_StageCapability": 2,
+    "m_Value": 0.5,
+    "m_DefaultValue": 0.5,
+    "m_Labels": []
 }
 
 {
@@ -4932,6 +4953,39 @@
         "x": 0.0,
         "y": 1.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "d8a9dd3839a84e9c99a18ca631792c18",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.AlphaClipThreshold",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "32177f8cdcc2452680773fd768f11bb9"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.AlphaClipThreshold"
 }
 
 {

@@ -77,26 +77,29 @@ public class DemonMover : MonoBehaviour
     {
         time += Time.deltaTime;
         float sinValue = Mathf.Sin((time / (countDuration*4)) * 2 * Mathf.PI);
+        float sinTimes2 = Mathf.Sin((time / (countDuration * 8)) * 2 * Mathf.PI);
+        float sinTimes3 = Mathf.Sin((time / (countDuration * 12)) * 2 * Mathf.PI);
+        float sinTimes4 = Mathf.Sin((time / (countDuration * 16)) * 2 * Mathf.PI);
 
-        float newDemHeadX = demHeadX + (sinValue * demonHead.xRange);
-        float newDemHeadY = demHeadY + (sinValue * demonHead.yRange);
-        float newDemHeadZ = demHeadZ + (sinValue * demonHead.zRange);
+        float newDemHeadX = demHeadX + (sinTimes4 * demonHead.xRange);
+        float newDemHeadY = demHeadY + (sinTimes4 * demonHead.yRange);
+        float newDemHeadZ = demHeadZ + (sinTimes4 * demonHead.zRange);
 
         float newDemHandLX = demHandLX + (sinValue * handL.xRange);
         float newDemHandLY = demHandLY + (sinValue * handL.yRange);
         float newDemHandLZ = demHandLZ + (sinValue * handL.zRange);
 
-        float newDemHandRX = demHandRX + (sinValue * handR.xRange);
-        float newDemHandRY = demHandRY + (sinValue * handR.yRange);
-        float newDemHandRZ = demHandRZ + (sinValue * handR.zRange);
+        float newDemHandRX = demHandRX + (-sinValue * handR.xRange);
+        float newDemHandRY = demHandRY + (-sinValue * handR.yRange);
+        float newDemHandRZ = demHandRZ + (-sinValue * handR.zRange);
 
-        float newDemLegLX = demLegLX + (sinValue * handR.xRange);
-        float newDemLegLY = demLegLY + (sinValue * handR.yRange);
-        float newDemLegLZ = demLegLZ + (sinValue * handR.zRange);
+        float newDemLegLX = demLegLX + (sinTimes2 * handR.xRange);
+        float newDemLegLY = demLegLY + (Mathf.Clamp(sinTimes2, 0, 1) * handR.yRange); // feet cant go through floor
+        float newDemLegLZ = demLegLZ + (sinTimes2 * handR.zRange);
 
-        float newDemLegRX = demLegRX + (sinValue * handR.xRange);
-        float newDemLegRY = demLegRY + (sinValue * handR.yRange);
-        float newDemLegRZ = demLegRZ + (sinValue * handR.zRange);
+        float newDemLegRX = demLegRX + (-sinTimes2 * handR.xRange);
+        float newDemLegRY = demLegRY + (Mathf.Clamp(-sinTimes2, 0, 1) * handR.yRange);
+        float newDemLegRZ = demLegRZ + (-sinTimes2 * handR.zRange);
 
         demonHead.demControlObject.transform.position = new Vector3(newDemHeadX, newDemHeadY, newDemHeadZ);
         handL.demControlObject.transform.position = new Vector3(newDemHandLX, newDemHandLY, newDemHandLZ);
