@@ -22,11 +22,7 @@ public class DemonMover : MonoBehaviour
     }
 
     private ClockCounter clock;
-    private float sixteenth;
-    private float eighth;
-    private float quarter;
-    private float half;
-    private float count;
+    private float countDuration;
 
     float demHeadX;
     float demHeadY;
@@ -53,12 +49,8 @@ public class DemonMover : MonoBehaviour
     void Start()
     {
         clock = FindObjectOfType<ClockCounter>();
-
-        sixteenth = clock.Get_Q_BeatInterval();
-        eighth = sixteenth * 2;
-        quarter = eighth * 2;
-        half = quarter * 2;
-        count = half * 2;
+        countDuration = clock.Get_Q_BeatInterval();
+        Debug.Log(countDuration);
 
         demHeadX = demonHead.demControlObject.transform.position.x;
         demHeadY = demonHead.demControlObject.transform.position.y;
@@ -84,7 +76,7 @@ public class DemonMover : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        float sinValue = Mathf.Sin(time);
+        float sinValue = Mathf.Sin((time / (countDuration*4)) * 2 * Mathf.PI);
 
         float newDemHeadX = demHeadX + (sinValue * demonHead.xRange);
         float newDemHeadY = demHeadY + (sinValue * demonHead.yRange);
