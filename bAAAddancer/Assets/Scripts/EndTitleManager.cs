@@ -10,8 +10,12 @@ public class EndTitleManager : MonoBehaviour
     [SerializeField] private GameObject demonWinsTitle;
     [SerializeField] private GameObject playerWinsTitle;
 
+    private ClockCounter clock;
+
     void Start()
     {
+        clock = FindObjectOfType<ClockCounter>();
+
         raveDemonEliminated = true;
 
         demonWinsTitle.SetActive(false);
@@ -32,5 +36,21 @@ public class EndTitleManager : MonoBehaviour
     {
         if (raveDemonEliminated) playerWinsTitle.SetActive(true);
         else demonWinsTitle.SetActive(true);
+        StartCoroutine(DisableWinnerTitles());
     }
+
+    private IEnumerator DisableWinnerTitles() 
+    {
+        float winnerTitleDuration = clock.GetBeatInterval() * 16;
+        yield return new WaitForSeconds(winnerTitleDuration);
+
+        playerWinsTitle.SetActive(false);
+        demonWinsTitle.SetActive(false);
+    }
+
+    public void QuitGame() 
+    {
+        Application.Quit();
+    }
+
 }
