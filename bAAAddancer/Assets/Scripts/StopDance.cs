@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class StopDance : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class StopDance : MonoBehaviour
     [SerializeField] private float pitchDecreaseSpeed = 0.1f;
     [SerializeField] private float yieldDuration = 0.1f;
 
+    public UnityEvent StopDanceEvent;
     private void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
@@ -49,8 +51,9 @@ public class StopDance : MonoBehaviour
     }
     void SwitchScene() 
     {
-        sceneSwitcher.SwitchToNextLevelKey();
-        sceneSwitcher.LoadNextScene();
+        StopDanceEvent.Invoke();
+        //sceneSwitcher.SwitchToNextLevelKey();
+        //sceneSwitcher.LoadNextScene();
     }
 
 }

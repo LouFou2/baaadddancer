@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MakeDanceSceneSetup : MonoBehaviour
 {
     private CharacterManager characterManager;
     private PlayerControls playerControls;
     private SceneSwitcher sceneSwitcher;
+
+    public UnityEvent yButtonEndSceneEvent;
 
     private void Awake()
     {
@@ -46,8 +49,9 @@ public class MakeDanceSceneSetup : MonoBehaviour
     {
         if (playerControls.GenericInput.YButton.triggered) 
         {
-            sceneSwitcher.SwitchToNextLevelKey();
-            sceneSwitcher.LoadNextScene();
+            yButtonEndSceneEvent.Invoke();
+            //sceneSwitcher.SwitchToNextLevelKey();
+            //sceneSwitcher.LoadNextScene();
         }
     }
 }
