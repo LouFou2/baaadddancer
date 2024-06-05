@@ -63,12 +63,14 @@ public class DanceSequencer : MonoBehaviour
         bool record = false;
 
         Vector2 inputVector2 = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
+        Vector2 inputVector2b = playerControls.DanceControls.MoveR.ReadValue<Vector2>();
 
-        if(inputVector2.magnitude > 0.01f) record = true;
+        if (inputVector2.magnitude > 0.01f) record = true;
 
         for (int i = 0; i < objControlScripts.Length; i++)
         {
-            if (objControlScripts[i].isActive && record)
+            //if (objControlScripts[i].isActive && record)
+            if (objControlScripts[i].isActive && objControlScripts[i].isRecording)
             {
                 objControlScripts[i].useRecordedPositions = false;
                 // Record the position + rotation for the current GameObject for the current beat

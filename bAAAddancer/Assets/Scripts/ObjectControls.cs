@@ -83,6 +83,7 @@ public class ObjectControls : MonoBehaviour
         }
         else 
         {
+            useRecordedPositions = false; //*** TRYING IT HERE
             if (controlGizmoObject != null)
                 controlGizmoObject.SetActive(true);
         }
