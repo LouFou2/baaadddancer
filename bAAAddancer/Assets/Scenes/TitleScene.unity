@@ -1738,6 +1738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 3309d3c6b81c34b4382fc6b1fd78a061, type: 2}
+  dataResetter: {fileID: 0}
 --- !u!1 &666619051 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e611949955b5a94fbe907272be2e587,
@@ -1977,6 +1978,33 @@ MonoBehaviour:
   charSelectAudioSource: {fileID: 155264511}
   titleAnimator: {fileID: 666619057}
   camAnimator: {fileID: 117999778}
+  titleSceneEndEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 299929338}
+        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
+        m_MethodName: LoadNextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 299929338}
+        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToNextMakeDanceLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &938581986 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6631851765770614766, guid: c2f38aca245f47f4d9b41b6fb6f365c4,

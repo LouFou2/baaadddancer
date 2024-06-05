@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -31,6 +32,8 @@ public class TitleSceneDirector : MonoBehaviour
     [SerializeField] private AudioSource charSelectAudioSource;
     [SerializeField] private Animator titleAnimator;
     [SerializeField] private Animator camAnimator;
+
+    public UnityEvent titleSceneEndEvent;
 
     private void Awake()
     {
@@ -175,7 +178,8 @@ public class TitleSceneDirector : MonoBehaviour
     }
     void HandleSceneEnd() 
     {
-        sceneSwitcher.SwitchToNextLevelKey();
-        sceneSwitcher.LoadNextScene();
+        titleSceneEndEvent.Invoke();
+        //sceneSwitcher.SwitchToNextLevelKey();
+        //sceneSwitcher.LoadNextScene();
     }
 }

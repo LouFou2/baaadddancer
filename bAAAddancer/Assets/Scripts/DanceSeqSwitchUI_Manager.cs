@@ -37,11 +37,16 @@ public class DanceSeqSwitchUI_Manager : MonoBehaviour
 
     private void Start()
     {
-        skipPrevNextButtons.SetActive(false);
+        if (skipPrevNextButtons != null)
+            skipPrevNextButtons.SetActive(false);
         int currentRoundIndex = GameManager.Instance.GetCurrentRound();
         imageSwitcherIndex = currentRoundIndex;
 
-        if(currentRoundIndex >= 1) skipPrevNextButtons.SetActive(true); // only need this visual if there are more than 1 option
+        if (skipPrevNextButtons != null) 
+        {
+            if (currentRoundIndex >= 1) skipPrevNextButtons.SetActive(true); // only need this visual if there are more than 1 option
+        }
+        
 
         for (int i = 0; i < seqSwitchImages.Length; i++) 
         {

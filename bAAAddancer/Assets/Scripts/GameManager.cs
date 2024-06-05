@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     // Reference to the GameManagerData scriptable object
     public GameManagerData gameData;
 
+    [SerializeField] private DataResetter dataResetter;
+
     // Singleton instance of the GameManager
     public static GameManager Instance { get; private set; }
 
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentLevelKey = gameData.currentLevelKey;
+        dataResetter = FindObjectOfType<DataResetter>();
         if (!gameStarted && SceneManager.GetActiveScene().buildIndex == 0)
         {
             // If this is the first loading of the game, reset the currentLevelKey
@@ -83,6 +86,8 @@ public class GameManager : MonoBehaviour
         gameStarted = false;
         ResetCurrentLevelKey();
         ResetRoundNr();
+        if(dataResetter != null)
+            dataResetter.ResetAllData();
         SceneManager.LoadScene("TitleScene");
     }
 }

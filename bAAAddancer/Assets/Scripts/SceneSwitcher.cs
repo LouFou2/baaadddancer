@@ -39,4 +39,44 @@ public class SceneSwitcher : MonoBehaviour
         LevelKey nextLevel = (LevelKey)nextLevelIndex;
         GameManager.Instance.SetCurrentLevelKey(nextLevel);
     }
+    public void SwitchToNextMakeDanceLevel() 
+    {
+        int currentRound = GameManager.Instance.GetCurrentRound();
+        if (currentRound == -1)
+        {
+            GameManager.Instance.SetCurrentLevelKey(LevelKey.IntroMakeDance);
+        }
+        if (currentRound == 0) 
+        {
+            GameManager.Instance.SetCurrentLevelKey(LevelKey.IntroMakeDance);
+        }
+        if (currentRound == 1)
+        {
+            GameManager.Instance.SetCurrentLevelKey(LevelKey.Round2MakeDance);
+        }
+        if (currentRound == 2)
+        {
+            GameManager.Instance.SetCurrentLevelKey(LevelKey.Round3MakeDance);
+        }
+        if (currentRound == 3)
+        {
+            GameManager.Instance.SetCurrentLevelKey(LevelKey.Round4MakeDance);
+        }
+    }
+    public void SwitchToNextCopyDanceLevel()
+    {
+        int currentRound = GameManager.Instance.GetCurrentRound();
+        if (currentRound == 0)
+        {
+            GameManager.Instance.SetCurrentLevelKey(LevelKey.Round2CopyDance);
+        }
+        if (currentRound == 1)
+        {
+            GameManager.Instance.SetCurrentLevelKey(LevelKey.Round3CopyDance);
+        }
+        if (currentRound == 2)
+        {
+            GameManager.Instance.SetCurrentLevelKey(LevelKey.Round4CopyDance);
+        }
+    }
 }
