@@ -77,7 +77,7 @@ public class ObjectControls : MonoBehaviour
         // activating the gizmo/control/visualiser object
         if (!isActive)
         {
-            useRecordedPositions = true;
+            useRecordedPositions = true;  // *** MIGHT HAVE TO SET THIS FALSE IN OTHER CONDITION>> CHECK LATER
             if(controlGizmoObject != null)
                 controlGizmoObject.SetActive(false);
         }

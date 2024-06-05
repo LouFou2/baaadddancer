@@ -23,6 +23,8 @@ public class ControlObjectSwitcher : MonoBehaviour
 
     [SerializeField] private ControlObjectData[] controlObjectData;
 
+    [SerializeField] private GameObject finishedButton;
+
     private int currentObjectIndex = 0;
 
     private PlayerControls playerControls;
@@ -86,6 +88,12 @@ public class ControlObjectSwitcher : MonoBehaviour
                             controlObjectData[i].uiTextVisualiser.color = isActiveControl ? activeTextColor : inactiveTextColor;
                         }
                     }
+                }
+                // Activate button if the current control object is Head
+                if (finishedButton != null)
+                {
+                    if (currentObject == ControlObjects.Head) finishedButton.SetActive(true);
+                    else finishedButton.SetActive(false);
                 }
                 break;
             default:
