@@ -25,6 +25,7 @@ public class CopyDance : MonoBehaviour
     public bool charCenterScreen;
     public bool charRightScreen;
 
+    int currentRound = -1;
     int roundSwitcherIndex = -1;
     [SerializeField] bool updatingRoundSequence = false;
 
@@ -45,13 +46,16 @@ public class CopyDance : MonoBehaviour
 
     void Start()
     {
+        updatingRoundSequence = false;
+
         raveDemonReveal = false;
 
         clockCounter = FindObjectOfType<ClockCounter>();
         if (clockCounter == null ) 
             Debug.LogError("no clock counter in scene");
 
-        roundSwitcherIndex = 0;
+        currentRound = GameManager.Instance.GetCurrentRound();
+        roundSwitcherIndex = GameManager.Instance.GetCurrentRound();
 
         // Adjust Vector3 positions according to offsets
         for(int i = 0; i < objectsAndMoveData.Length; i++) // for each object referenced in the script
@@ -83,18 +87,34 @@ public class CopyDance : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !updatingRoundSequence) //replace this with correct input logic
+        /*if (Input.GetKeyDown(KeyCode.Space) && !updatingRoundSequence) //replace this with correct input logic
         {
             UpdateDanceSequence();
+        }*/
+        if (currentRound >= 1) 
+        {
+            if (playerControls.GenericInput.LBumper.triggered && !updatingRoundSequence)
+            {
+                UpdateDanceSequence(-1);
+                Debug.Log("left bumper");
+            }
+            if (playerControls.GenericInput.RBumper.triggered && !updatingRoundSequence) 
+            {
+                UpdateDanceSequence(1);
+                Debug.Log("right bumper");
+
+            }
         }
-            
+        
+
     }
-    private void UpdateDanceSequence() 
+    private void UpdateDanceSequence(int posOrNegInt) 
     {
         updatingRoundSequence = true;
-        int currentRoundIndex = GameManager.Instance.GetCurrentRound();
-        roundSwitcherIndex += 1;
-        if (roundSwitcherIndex > currentRoundIndex) roundSwitcherIndex = 0; // loop, also limit switch index to amount of rounds
+        Debug.Log("Updating round sequence");
+        roundSwitcherIndex += posOrNegInt;
+        if (roundSwitcherIndex > currentRound) roundSwitcherIndex = 0; // loop, also limit switch index to amount of rounds
+        if (roundSwitcherIndex < 0) roundSwitcherIndex = currentRound; // loop, also limit switch index to amount of rounds
 
         // Adjust Vector3 positions according to offsets
         for (int i = 0; i < objectsAndMoveData.Length; i++) // for each object referenced in the script

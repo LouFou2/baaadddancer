@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
             // If this is the first loading of the game, reset the currentLevelKey
             ResetCurrentLevelKey();
             ResetRoundNr();
-            gameData.currentRound = -1; // it will get set to 0 in the first dialogue scene
             gameStarted = true;
         }
     }
@@ -48,7 +47,7 @@ public class GameManager : MonoBehaviour
     }
     private void ResetRoundNr() 
     {
-        gameData.currentRound = 0;
+        gameData.currentRound = -1;
     }
 
     // Method to set the current level key

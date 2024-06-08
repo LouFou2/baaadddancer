@@ -350,6 +350,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LBumper"",
+                    ""type"": ""Button"",
+                    ""id"": ""333049e5-9d4e-4afc-98bd-d92cf6e9d946"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RBumper"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d193968-ca9f-4faa-96e1-510022c9eb66"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -357,6 +375,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""afcbae49-f90a-47c5-a4a2-97c5e41a4e3c"",
                     ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""YButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6ad294b-814b-4815-9054-c8b1c156515a"",
+                    ""path"": ""<XInputController>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -377,8 +406,30 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""4cda9cce-25ca-4005-8465-766d2458d838"",
+                    ""path"": ""<XInputController>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""15d63802-c048-43eb-915d-7d3c798b454b"",
                     ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77cb2902-925c-404e-9371-56107c09c3c8"",
+                    ""path"": ""<XInputController>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -394,6 +445,61 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""AButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""acd5aacf-f6c4-4299-9a08-4561e034712e"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1981a123-66b3-4cf4-a27c-5f570c8a19e6"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LBumper"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2f7ab254-e83e-4216-b742-701667af4fe6"",
+                    ""path"": ""<XInputController>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LBumper"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40e42e7a-fafa-4a58-8426-96d0e21ee07c"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RBumper"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e694968c-356e-4084-afa5-84d24ad34f5f"",
+                    ""path"": ""<XInputController>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RBumper"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -424,6 +530,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_GenericInput_LTrigger = m_GenericInput.FindAction("LTrigger", throwIfNotFound: true);
         m_GenericInput_RTrigger = m_GenericInput.FindAction("RTrigger", throwIfNotFound: true);
         m_GenericInput_AButton = m_GenericInput.FindAction("AButton", throwIfNotFound: true);
+        m_GenericInput_LBumper = m_GenericInput.FindAction("LBumper", throwIfNotFound: true);
+        m_GenericInput_RBumper = m_GenericInput.FindAction("RBumper", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -639,6 +747,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_GenericInput_LTrigger;
     private readonly InputAction m_GenericInput_RTrigger;
     private readonly InputAction m_GenericInput_AButton;
+    private readonly InputAction m_GenericInput_LBumper;
+    private readonly InputAction m_GenericInput_RBumper;
     public struct GenericInputActions
     {
         private @PlayerControls m_Wrapper;
@@ -647,6 +757,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @LTrigger => m_Wrapper.m_GenericInput_LTrigger;
         public InputAction @RTrigger => m_Wrapper.m_GenericInput_RTrigger;
         public InputAction @AButton => m_Wrapper.m_GenericInput_AButton;
+        public InputAction @LBumper => m_Wrapper.m_GenericInput_LBumper;
+        public InputAction @RBumper => m_Wrapper.m_GenericInput_RBumper;
         public InputActionMap Get() { return m_Wrapper.m_GenericInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -668,6 +780,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @AButton.started += instance.OnAButton;
             @AButton.performed += instance.OnAButton;
             @AButton.canceled += instance.OnAButton;
+            @LBumper.started += instance.OnLBumper;
+            @LBumper.performed += instance.OnLBumper;
+            @LBumper.canceled += instance.OnLBumper;
+            @RBumper.started += instance.OnRBumper;
+            @RBumper.performed += instance.OnRBumper;
+            @RBumper.canceled += instance.OnRBumper;
         }
 
         private void UnregisterCallbacks(IGenericInputActions instance)
@@ -684,6 +802,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @AButton.started -= instance.OnAButton;
             @AButton.performed -= instance.OnAButton;
             @AButton.canceled -= instance.OnAButton;
+            @LBumper.started -= instance.OnLBumper;
+            @LBumper.performed -= instance.OnLBumper;
+            @LBumper.canceled -= instance.OnLBumper;
+            @RBumper.started -= instance.OnRBumper;
+            @RBumper.performed -= instance.OnRBumper;
+            @RBumper.canceled -= instance.OnRBumper;
         }
 
         public void RemoveCallbacks(IGenericInputActions instance)
@@ -724,5 +848,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnLTrigger(InputAction.CallbackContext context);
         void OnRTrigger(InputAction.CallbackContext context);
         void OnAButton(InputAction.CallbackContext context);
+        void OnLBumper(InputAction.CallbackContext context);
+        void OnRBumper(InputAction.CallbackContext context);
     }
 }

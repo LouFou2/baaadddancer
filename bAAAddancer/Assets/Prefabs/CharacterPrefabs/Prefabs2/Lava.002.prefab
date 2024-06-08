@@ -531,7 +531,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899365989893133221}
-  m_LocalRotation: {x: -0.075716235, y: 0.70002055, z: -0.009009179, w: 0.7100402}
+  m_LocalRotation: {x: 0.035180096, y: 0.69017637, z: -0.11733094, w: 0.71319866}
   m_LocalPosition: {x: -0.006556429, y: 0.11738195, z: -0.00917839}
   m_LocalScale: {x: 1, y: 1.0000001, z: 1}
   m_ConstrainProportionsScale: 0
@@ -542,7 +542,7 @@ Transform:
   - {fileID: 4252451545296655651}
   m_Father: {fileID: 3078604002713374412}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 12.248, y: 87.37, z: -6.983}
 --- !u!1 &1033117352547288028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3037,7 +3037,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4620087031167177882}
-  m_LocalRotation: {x: -0.07571623, y: -0.7000205, z: 0.009009172, w: 0.7100403}
+  m_LocalRotation: {x: 0.04886833, y: -0.68779606, z: 0.13056192, w: 0.7123918}
   m_LocalPosition: {x: 0.006556427, y: 0.11738195, z: -0.009178152}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3048,7 +3048,7 @@ Transform:
   - {fileID: 3468828058356947685}
   m_Father: {fileID: 1039434168012503128}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 14.432, y: -87.094, z: 7.046}
 --- !u!1 &4698206370117233551
 GameObject:
   m_ObjectHideFlags: 0
@@ -5216,7 +5216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9183213052882148689
 Transform:
   m_ObjectHideFlags: 0
@@ -5737,7 +5737,7 @@ MonoBehaviour:
     FABRIKPass: 1
     rootNode: {fileID: 3647517816599126520}
     spineStiffness: 0.5
-    pullBodyVertical: 0.5
+    pullBodyVertical: 0.1
     pullBodyHorizontal: 0
 --- !u!114 &8717819754857785306
 MonoBehaviour:
@@ -6015,60 +6015,92 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1899ad49bcf6a4b87642a998e60ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raveDemonReveal: 0
   objectsAndMoveData:
   - copyObject: {fileID: 8717819754800356467}
+    copyDemonObject: {fileID: 0}
+    demonTransitioning: 0
     recDataObjSequencer: {fileID: 11400000, guid: daad094e5dae26e4cb170fe214748990,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2e905e78a65ceba478a74ac0d007e44f, type: 2}
     targetRecordedPositions: []
+    offset: []
   - copyObject: {fileID: 8717819755592437481}
+    copyDemonObject: {fileID: 0}
+    demonTransitioning: 0
     recDataObjSequencer: {fileID: 11400000, guid: cc815ad354b2dbc419182f52e00816f0,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: a8df1aca02d4f334aa6e807d0353dd2c, type: 2}
     targetRecordedPositions: []
+    offset: []
   - copyObject: {fileID: 8717819755728600290}
+    copyDemonObject: {fileID: 0}
+    demonTransitioning: 0
     recDataObjSequencer: {fileID: 11400000, guid: f818ac50cca81aa4aa6b14b72e34764f,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2ad65a1a76abbe3488440caa8d3eb0b5, type: 2}
     targetRecordedPositions: []
+    offset: []
   - copyObject: {fileID: 8717819754436051597}
+    copyDemonObject: {fileID: 0}
+    demonTransitioning: 0
     recDataObjSequencer: {fileID: 11400000, guid: cac328b5211fa7d4988cb51cd1dee90a,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 10bd87e33a3b8d04698b0e816573c2dc, type: 2}
     targetRecordedPositions: []
+    offset: []
   - copyObject: {fileID: 8717819754544527942}
+    copyDemonObject: {fileID: 0}
+    demonTransitioning: 0
     recDataObjSequencer: {fileID: 11400000, guid: 6b3839844d4c805428f982c66cc9114d,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 0806166a0368b0046a462c765528d361, type: 2}
     targetRecordedPositions: []
+    offset: []
   - copyObject: {fileID: 8717819755744009993}
+    copyDemonObject: {fileID: 0}
+    demonTransitioning: 0
     recDataObjSequencer: {fileID: 11400000, guid: 93b13063448af7e44ae11a71a31e30c0,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 357810fdb4bd9b145b14f92ed73b3507, type: 2}
     targetRecordedPositions: []
+    offset: []
   - copyObject: {fileID: 8717819755241754957}
+    copyDemonObject: {fileID: 0}
+    demonTransitioning: 0
     recDataObjSequencer: {fileID: 11400000, guid: f6ff362c78975e34ba874df8e1f81264,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 91cc6a70b8dbc934b9376823941c4d3f, type: 2}
     targetRecordedPositions: []
+    offset: []
   - copyObject: {fileID: 8717819755781936907}
+    copyDemonObject: {fileID: 0}
+    demonTransitioning: 0
     recDataObjSequencer: {fileID: 11400000, guid: 58f57d89047697740935f7b48245fb09,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: a12f6b44ccf8ae147a9fc168ba33ed8a, type: 2}
     targetRecordedPositions: []
+    offset: []
   - copyObject: {fileID: 8717819755568784666}
+    copyDemonObject: {fileID: 0}
+    demonTransitioning: 0
     recDataObjSequencer: {fileID: 11400000, guid: d74fefd1e8dc47e40ab0a9993c1bbf08,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 11a0d09323df422498d40ab20065412d, type: 2}
     targetRecordedPositions: []
+    offset: []
   - copyObject: {fileID: 8717819753739251113}
+    copyDemonObject: {fileID: 0}
+    demonTransitioning: 0
     recDataObjSequencer: {fileID: 11400000, guid: 6fbd8ede107eb45419a8f6b217cfdf73,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: d76d5375c9dfb564e88b636825c99f8c, type: 2}
     targetRecordedPositions: []
+    offset: []
   charLeftScreen: 0
   charCenterScreen: 0
   charRightScreen: 0
+  updatingRoundSequence: 0
 --- !u!114 &919132148340544334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6403,7 +6435,7 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
-    m_MaintainOffset: 1
+    m_MaintainOffset: 0
 --- !u!1 &8717819753686141663
 GameObject:
   m_ObjectHideFlags: 0
@@ -6906,8 +6938,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819753729051137}
-  m_LocalRotation: {x: 0.02254158, y: 0.022223009, z: 0.7072625, w: 0.7062421}
-  m_LocalPosition: {x: -0.36115065, y: 1.2328295, z: -0.01371634}
+  m_LocalRotation: {x: 0.14543611, y: 0.14435263, z: 0.69131625, w: 0.6928872}
+  m_LocalPosition: {x: -0.3513377, y: 1.2336282, z: 0.06562364}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6981,6 +7013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8717819753739251112}
   - component: {fileID: 8717819753739251127}
+  - component: {fileID: 668093559}
   m_Layer: 0
   m_Name: Head_R_Gizmo
   m_TagString: Untagged
@@ -7027,6 +7060,36 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 8717819755568784665}
     weight: 1
+--- !u!114 &668093559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717819753739251113}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
+  recordingDataSO: {fileID: 0}
+  leftObject: 0
+  rightObject: 1
+  opposingObject: {fileID: 8717819755568784666}
+  useMovementLimit: 0
+  x_RangeMin: -0.5
+  x_RangeMax: 0.5
+  y_RangeMin: -0.5
+  y_RangeMax: 0.5
+  z_RangeMin: -0.5
+  z_RangeMax: 0.5
+  moveSpeed: 2
+  newControls: 0
+  isActive: 0
+  isRecording: 0
+  useRecordedPositions: 0
 --- !u!1 &8717819753741164401
 GameObject:
   m_ObjectHideFlags: 0
@@ -7221,7 +7284,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819753753687550}
-  m_LocalRotation: {x: -0.049058944, y: 0.018264635, z: 0.70587945, w: 0.70639503}
+  m_LocalRotation: {x: 0.074678235, y: 0.14061016, z: 0.7023987, w: 0.6937493}
   m_LocalPosition: {x: -0.13150647, y: 1.2324122, z: -0.0018341541}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7328,7 +7391,7 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
-    m_MaintainOffset: 0
+    m_MaintainOffset: 1
 --- !u!54 &8717819753768238897
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7465,8 +7528,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819753786641547}
-  m_LocalRotation: {x: -0.4822772, y: 0.5098318, z: 0.49783003, w: 0.5095542}
-  m_LocalPosition: {x: -0.5653726, y: 1.2324455, z: -0.0002490282}
+  m_LocalRotation: {x: 0.00036382672, y: 0.17383087, z: -0.0017923189, w: 0.9847739}
+  m_LocalPosition: {x: -0.53860754, y: 1.2339224, z: 0.14819539}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8364,7 +8427,7 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
-    m_MaintainOffset: 0
+    m_MaintainOffset: 1
 --- !u!54 &8717819753978747037
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9471,8 +9534,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819754198271764}
-  m_LocalRotation: {x: -0.47078392, y: -0.52080876, z: -0.48518288, w: 0.52126616}
-  m_LocalPosition: {x: 0.5653727, y: 1.2324449, z: -0.00024914742}
+  m_LocalRotation: {x: 0.00032448772, y: -0.15489039, z: 0.0015965106, w: 0.98793036}
+  m_LocalPosition: {x: 0.54406804, y: 1.2337706, z: 0.13245416}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10434,8 +10497,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819754422452625}
-  m_LocalRotation: {x: -0.02440083, y: 0.0152875325, z: -0.70557225, w: 0.70805275}
-  m_LocalPosition: {x: 0.2851003, y: 1.2325467, z: -0.009486556}
+  m_LocalRotation: {x: 0.08538213, y: -0.09437685, z: -0.69969875, w: 0.70301116}
+  m_LocalPosition: {x: 0.2800715, y: 1.2330252, z: 0.037886143}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10561,6 +10624,7 @@ GameObject:
   - component: {fileID: 8717819754436051596}
   - component: {fileID: 8717819754436051594}
   - component: {fileID: 8717819754436051595}
+  - component: {fileID: 1594915024}
   m_Layer: 0
   m_Name: IKLegRCntrl
   m_TagString: Untagged
@@ -10613,6 +10677,36 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1594915024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717819754436051597}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
+  recordingDataSO: {fileID: 0}
+  leftObject: 0
+  rightObject: 1
+  opposingObject: {fileID: 8717819755728600290}
+  useMovementLimit: 0
+  x_RangeMin: -0.5
+  x_RangeMax: 0.5
+  y_RangeMin: -0.5
+  y_RangeMax: 0.5
+  z_RangeMin: -0.5
+  z_RangeMax: 0.5
+  moveSpeed: 2
+  newControls: 0
+  isActive: 0
+  isRecording: 0
+  useRecordedPositions: 0
 --- !u!1 &8717819754449061299
 GameObject:
   m_ObjectHideFlags: 0
@@ -10940,6 +11034,7 @@ GameObject:
   - component: {fileID: 8717819754544527941}
   - component: {fileID: 8717819754544527939}
   - component: {fileID: 8717819754544527940}
+  - component: {fileID: 1594915023}
   m_Layer: 0
   m_Name: IKArmLCntrl
   m_TagString: Untagged
@@ -10954,8 +11049,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819754544527942}
-  m_LocalRotation: {x: 0.0000012516975, y: 0.000002902428, z: 0.0000025466793, w: 1}
-  m_LocalPosition: {x: -0.5653726, y: 1.2324455, z: -0.0002490282}
+  m_LocalRotation: {x: 0.00036382672, y: 0.17383087, z: -0.0017923189, w: 0.9847739}
+  m_LocalPosition: {x: -0.53860754, y: 1.2339224, z: 0.14819539}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10991,6 +11086,36 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1594915023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717819754544527942}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
+  recordingDataSO: {fileID: 0}
+  leftObject: 1
+  rightObject: 0
+  opposingObject: {fileID: 8717819755744009993}
+  useMovementLimit: 0
+  x_RangeMin: -0.5
+  x_RangeMax: 0.5
+  y_RangeMin: -0.5
+  y_RangeMax: 0.5
+  z_RangeMin: -0.5
+  z_RangeMax: 0.5
+  moveSpeed: 2
+  newControls: 0
+  isActive: 0
+  isRecording: 0
+  useRecordedPositions: 0
 --- !u!1 &8717819754549294266
 GameObject:
   m_ObjectHideFlags: 0
@@ -11244,7 +11369,7 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
-    m_MaintainOffset: 1
+    m_MaintainOffset: 0
 --- !u!1 &8717819754596895534
 GameObject:
   m_ObjectHideFlags: 0
@@ -11569,8 +11694,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819754659404090}
-  m_LocalRotation: {x: -0.48227715, y: -0.5098317, z: -0.49782997, w: 0.5095545}
-  m_LocalPosition: {x: 0.56537265, y: 1.2324449, z: -0.00024914742}
+  m_LocalRotation: {x: 0.00032448772, y: -0.15489039, z: 0.0015965106, w: 0.98793036}
+  m_LocalPosition: {x: 0.54406804, y: 1.2337706, z: 0.13245416}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12047,7 +12172,7 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
-    m_MaintainOffset: 1
+    m_MaintainOffset: 0
 --- !u!1 &8717819754732316065
 GameObject:
   m_ObjectHideFlags: 0
@@ -12130,7 +12255,7 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
-    m_MaintainOffset: 0
+    m_MaintainOffset: 1
 --- !u!54 &8717819754732316078
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12310,8 +12435,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819754798538519}
-  m_LocalRotation: {x: 0.025259078, y: 0.02490212, z: 0.7076167, w: 0.70570576}
-  m_LocalPosition: {x: -0.49768025, y: 1.2326301, z: -0.0050600767}
+  m_LocalRotation: {x: 0.1481784, y: 0.14689277, z: 0.69119465, w: 0.69189286}
+  m_LocalPosition: {x: -0.47665274, y: 1.2338827, z: 0.12049961}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12346,6 +12471,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717819754800356466}
+  - component: {fileID: 1594915027}
   m_Layer: 0
   m_Name: Hip_L_Gizmo
   m_TagString: Untagged
@@ -12368,6 +12494,36 @@ Transform:
   m_Father: {fileID: 8717819754113150500}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1594915027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717819754800356467}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
+  recordingDataSO: {fileID: 0}
+  leftObject: 1
+  rightObject: 0
+  opposingObject: {fileID: 8717819755592437481}
+  useMovementLimit: 0
+  x_RangeMin: -0.5
+  x_RangeMax: 0.5
+  y_RangeMin: -0.5
+  y_RangeMax: 0.5
+  z_RangeMin: -0.5
+  z_RangeMax: 0.5
+  moveSpeed: 2
+  newControls: 0
+  isActive: 0
+  isRecording: 0
+  useRecordedPositions: 0
 --- !u!1 &8717819754803440554
 GameObject:
   m_ObjectHideFlags: 0
@@ -13305,8 +13461,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819755061594250}
-  m_LocalRotation: {x: 0.022542031, y: 0.022222446, z: 0.70726377, w: 0.70624083}
-  m_LocalPosition: {x: -0.42941543, y: 1.2327298, z: -0.009388208}
+  m_LocalRotation: {x: 0.14543669, y: 0.14435199, z: 0.69131726, w: 0.69288605}
+  m_LocalPosition: {x: -0.41399527, y: 1.2337555, z: 0.09306157}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13356,7 +13512,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819755074835881}
-  m_LocalRotation: {x: -0.049058914, y: -0.018264519, z: -0.70587945, w: 0.70639503}
+  m_LocalRotation: {x: 0.061122358, y: -0.12730645, z: -0.703835, w: 0.696185}
   m_LocalPosition: {x: 0.13150625, y: 1.232412, z: -0.0018341541}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13523,8 +13679,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819755198327254}
-  m_LocalRotation: {x: -0.024400832, y: -0.015287446, z: 0.7055718, w: 0.7080533}
-  m_LocalPosition: {x: -0.20913857, y: 1.2323077, z: -0.005216241}
+  m_LocalRotation: {x: 0.09884781, y: 0.107813135, z: 0.6977943, w: 0.70120513}
+  m_LocalPosition: {x: -0.20560488, y: 1.2325768, z: 0.02156663}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13711,6 +13867,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717819755241754956}
+  - component: {fileID: 1177455240}
   m_Layer: 0
   m_Name: Torso_L_Gizmo
   m_TagString: Untagged
@@ -13734,6 +13891,36 @@ Transform:
   m_Father: {fileID: 8717819754113150500}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1177455240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717819755241754957}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
+  recordingDataSO: {fileID: 0}
+  leftObject: 1
+  rightObject: 0
+  opposingObject: {fileID: 8717819755781936907}
+  useMovementLimit: 0
+  x_RangeMin: -0.5
+  x_RangeMax: 0.5
+  y_RangeMin: -0.5
+  y_RangeMax: 0.5
+  z_RangeMin: -0.5
+  z_RangeMax: 0.5
+  moveSpeed: 2
+  newControls: 0
+  isActive: 0
+  isRecording: 0
+  useRecordedPositions: 0
 --- !u!1 &8717819755255402465
 GameObject:
   m_ObjectHideFlags: 0
@@ -13841,8 +14028,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819755264812938}
-  m_LocalRotation: {x: 0.025259078, y: -0.024901941, z: -0.70761675, w: 0.7057056}
-  m_LocalPosition: {x: 0.49768, y: 1.2326294, z: -0.005060196}
+  m_LocalRotation: {x: 0.13482288, y: -0.13363768, z: -0.69404364, w: 0.6944546}
+  m_LocalPosition: {x: 0.48109564, y: 1.2337537, z: 0.10715747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14115,7 +14302,7 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
-    m_MaintainOffset: 0
+    m_MaintainOffset: 1
 --- !u!54 &8717819755274025014
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14910,8 +15097,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819755488513908}
-  m_LocalRotation: {x: -0.4707839, y: 0.5208088, z: 0.48518285, w: 0.5212661}
-  m_LocalPosition: {x: -0.5653726, y: 1.2324454, z: -0.0002490282}
+  m_LocalRotation: {x: 0.00036382672, y: 0.17383087, z: -0.0017923189, w: 0.9847739}
+  m_LocalPosition: {x: -0.53860754, y: 1.2339224, z: 0.14819539}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15254,6 +15441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717819755568784665}
+  - component: {fileID: 1835652600}
   m_Layer: 0
   m_Name: Head_L_Gizmo
   m_TagString: Untagged
@@ -15276,6 +15464,36 @@ Transform:
   m_Father: {fileID: 8717819754113150500}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1835652600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717819755568784666}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
+  recordingDataSO: {fileID: 0}
+  leftObject: 1
+  rightObject: 0
+  opposingObject: {fileID: 8717819753739251113}
+  useMovementLimit: 0
+  x_RangeMin: -0.5
+  x_RangeMax: 0.5
+  y_RangeMin: -0.5
+  y_RangeMax: 0.5
+  z_RangeMin: -0.5
+  z_RangeMax: 0.5
+  moveSpeed: 2
+  newControls: 0
+  isActive: 0
+  isRecording: 0
+  useRecordedPositions: 0
 --- !u!1 &8717819755577739134
 GameObject:
   m_ObjectHideFlags: 0
@@ -15300,8 +15518,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819755577739134}
-  m_LocalRotation: {x: -0.024400802, y: -0.015287356, z: 0.7055723, w: 0.7080527}
-  m_LocalPosition: {x: -0.28510052, y: 1.232547, z: -0.009486556}
+  m_LocalRotation: {x: 0.09884793, y: 0.10781302, z: 0.69779485, w: 0.7012046}
+  m_LocalPosition: {x: -0.27843687, y: 1.2330809, z: 0.04356098}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15440,6 +15658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8717819755592437480}
   - component: {fileID: 8717819755592437495}
+  - component: {fileID: 1594915026}
   m_Layer: 0
   m_Name: Hip_R_Gizmo
   m_TagString: Untagged
@@ -15486,6 +15705,36 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 8717819754800356466}
     weight: 1
+--- !u!114 &1594915026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717819755592437481}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
+  recordingDataSO: {fileID: 0}
+  leftObject: 0
+  rightObject: 1
+  opposingObject: {fileID: 8717819754800356467}
+  useMovementLimit: 0
+  x_RangeMin: -0.5
+  x_RangeMax: 0.5
+  y_RangeMin: -0.5
+  y_RangeMax: 0.5
+  z_RangeMin: -0.5
+  z_RangeMax: 0.5
+  moveSpeed: 2
+  newControls: 0
+  isActive: 0
+  isRecording: 0
+  useRecordedPositions: 0
 --- !u!1 &8717819755593120724
 GameObject:
   m_ObjectHideFlags: 0
@@ -15510,8 +15759,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819755593120724}
-  m_LocalRotation: {x: 0.022541557, y: -0.022222776, z: -0.7072625, w: 0.706242}
-  m_LocalPosition: {x: 0.36115047, y: 1.232829, z: -0.01371634}
+  m_LocalRotation: {x: 0.13207926, y: -0.13107827, z: -0.69411284, w: 0.6953998}
+  m_LocalPosition: {x: 0.3537659, y: 1.2335452, z: 0.057133555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15619,8 +15868,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819755608354994}
-  m_LocalRotation: {x: 0.022542063, y: -0.0222223, z: -0.7072637, w: 0.7062408}
-  m_LocalPosition: {x: 0.42941523, y: 1.2327293, z: -0.009388208}
+  m_LocalRotation: {x: 0.13207987, y: -0.1310777, z: -0.694114, w: 0.6953986}
+  m_LocalPosition: {x: 0.41743076, y: 1.2336495, z: 0.08214545}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16068,8 +16317,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819755707866705}
-  m_LocalRotation: {x: -0.0244008, y: 0.015287562, z: -0.7055718, w: 0.70805323}
-  m_LocalPosition: {x: 0.2091384, y: 1.2323074, z: -0.00521636}
+  m_LocalRotation: {x: 0.08538211, y: -0.094376884, z: -0.6996982, w: 0.7030117}
+  m_LocalPosition: {x: 0.2064486, y: 1.2325487, z: 0.018704295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16157,6 +16406,7 @@ GameObject:
   - component: {fileID: 8717819755728600289}
   - component: {fileID: 8717819755728600303}
   - component: {fileID: 8717819755728600288}
+  - component: {fileID: 1594915025}
   m_Layer: 0
   m_Name: IKLegLCntrl
   m_TagString: Untagged
@@ -16209,6 +16459,36 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1594915025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717819755728600290}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
+  recordingDataSO: {fileID: 0}
+  leftObject: 1
+  rightObject: 0
+  opposingObject: {fileID: 8717819754436051597}
+  useMovementLimit: 0
+  x_RangeMin: -0.5
+  x_RangeMax: 0.5
+  y_RangeMin: -0.5
+  y_RangeMax: 0.5
+  z_RangeMin: -0.5
+  z_RangeMax: 0.5
+  moveSpeed: 2
+  newControls: 0
+  isActive: 0
+  isRecording: 0
+  useRecordedPositions: 0
 --- !u!1 &8717819755744009993
 GameObject:
   m_ObjectHideFlags: 0
@@ -16220,6 +16500,7 @@ GameObject:
   - component: {fileID: 8717819755744009992}
   - component: {fileID: 8717819755744010006}
   - component: {fileID: 8717819755744010007}
+  - component: {fileID: 1932187598}
   m_Layer: 0
   m_Name: IKArmRCntrl
   m_TagString: Untagged
@@ -16234,9 +16515,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717819755744009993}
-  m_LocalRotation: {x: 0.0000013709068, y: -0.0000029038417, z: -0.0000027870872,
-    w: 1}
-  m_LocalPosition: {x: 0.56537265, y: 1.2324449, z: -0.00024914742}
+  m_LocalRotation: {x: 0.00032448772, y: -0.15489039, z: 0.0015965106, w: 0.98793036}
+  m_LocalPosition: {x: 0.54406804, y: 1.2337706, z: 0.13245416}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16272,6 +16552,36 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1932187598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717819755744009993}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
+  recordingDataSO: {fileID: 0}
+  leftObject: 0
+  rightObject: 1
+  opposingObject: {fileID: 8717819754544527942}
+  useMovementLimit: 0
+  x_RangeMin: -0.5
+  x_RangeMax: 0.5
+  y_RangeMin: -0.5
+  y_RangeMax: 0.5
+  z_RangeMin: -0.5
+  z_RangeMax: 0.5
+  moveSpeed: 2
+  newControls: 0
+  isActive: 0
+  isRecording: 0
+  useRecordedPositions: 0
 --- !u!1 &8717819755768846107
 GameObject:
   m_ObjectHideFlags: 0
@@ -16407,6 +16717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8717819755771657934}
   - component: {fileID: 8717819755771657933}
+  - component: {fileID: 2046771518}
   m_Layer: 0
   m_Name: HipParent
   m_TagString: Untagged
@@ -16475,7 +16786,61 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
+    m_MaintainOffset: 0
+--- !u!114 &2046771518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717819755771657935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 1
+  m_Data:
+    m_ConstrainedObject: {fileID: 6727313628648314615}
+    m_SourceObjects:
+      m_Length: 1
+      m_Item0:
+        transform: {fileID: 8717819755592437480}
+        weight: 1
+      m_Item1:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item2:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item3:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item4:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item5:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item6:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item7:
+        transform: {fileID: 0}
+        weight: 0
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_MinLimit: -180
+    m_MaxLimit: 180
+    m_AimAxis: 0
+    m_UpAxis: 3
+    m_WorldUpType: 0
+    m_WorldUpObject: {fileID: 0}
+    m_WorldUpAxis: 2
     m_MaintainOffset: 1
+    m_ConstrainedAxes:
+      x: 0
+      y: 0
+      z: 1
 --- !u!1 &8717819755781936907
 GameObject:
   m_ObjectHideFlags: 0
@@ -16486,6 +16851,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8717819755781936906}
   - component: {fileID: 8717819755781936905}
+  - component: {fileID: 831695840}
   m_Layer: 0
   m_Name: Torso_R_Gizmo
   m_TagString: Untagged
@@ -16532,6 +16898,36 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 8717819755241754956}
     weight: 1
+--- !u!114 &831695840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8717819755781936907}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlGizmoObject: {fileID: 0}
+  recordingDataOfRounds: {fileID: 0}
+  recordingDataSO: {fileID: 0}
+  leftObject: 0
+  rightObject: 1
+  opposingObject: {fileID: 8717819755241754957}
+  useMovementLimit: 0
+  x_RangeMin: -0.5
+  x_RangeMax: 0.5
+  y_RangeMin: -0.5
+  y_RangeMax: 0.5
+  z_RangeMin: -0.5
+  z_RangeMax: 0.5
+  moveSpeed: 2
+  newControls: 0
+  isActive: 0
+  isRecording: 0
+  useRecordedPositions: 0
 --- !u!1 &8726834545281884740
 GameObject:
   m_ObjectHideFlags: 0

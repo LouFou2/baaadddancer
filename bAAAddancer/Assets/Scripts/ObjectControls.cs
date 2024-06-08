@@ -27,6 +27,7 @@ public class ObjectControls : MonoBehaviour
     [SerializeField] private float moveSpeed = 2f;
 
     [SerializeField] private bool newControls = false;
+    [SerializeField] private float dampingFactor = 0.1f; // Adjust the damping factor as needed
 
     private Vector2 moveInput;
 
@@ -147,8 +148,11 @@ public class ObjectControls : MonoBehaviour
                     
                     if(!newControls) //can remove this condition once controls are decided
                     {
-                        rangedX = (moveInput.x <= 0) ? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
-                        rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);
+                        /*rangedX = (moveInput.x <= 0) ? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
+                        rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);*/
+
+                        rangedX = Mathf.Clamp(-moveInput.x, x_RangeMin, x_RangeMax); // Assuming x_RangeMax is positive
+                        rangedY = Mathf.Clamp(moveInput.y, y_RangeMin, y_RangeMax); // Assuming y_RangeMax is positive
 
                         rangedPosition = new Vector3(rangedX + initialPosition.x, rangedY + initialPosition.y, currentRecordedPosition.z); // note: we use the current position for the uncontrolled axis
 

@@ -18,6 +18,7 @@ public class DanceSeqSwitchUI_Manager : MonoBehaviour
     Color textEnabledColor = new(0.5f, 1f, 0f, 1f);
 
     bool switchingUI_Image = false;
+    int currentRoundIndex = -1;
     int imageSwitcherIndex = -1;
 
     [SerializeField] private GameObject skipPrevNextButtons;
@@ -39,7 +40,7 @@ public class DanceSeqSwitchUI_Manager : MonoBehaviour
     {
         if (skipPrevNextButtons != null)
             skipPrevNextButtons.SetActive(false);
-        int currentRoundIndex = GameManager.Instance.GetCurrentRound();
+        currentRoundIndex = GameManager.Instance.GetCurrentRound();
         imageSwitcherIndex = currentRoundIndex;
 
         if (skipPrevNextButtons != null) 
@@ -63,21 +64,31 @@ public class DanceSeqSwitchUI_Manager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !switchingUI_Image) //replace this with correct input logic
+        /*if (Input.GetKeyDown(KeyCode.Space) && !switchingUI_Image) //replace this with correct input logic
         {
             SwitchUI_Image();
+        }*/
+        if (playerControls.GenericInput.LBumper.triggered && !switchingUI_Image)
+        {
+            SwitchUI_Image(-1);
+            Debug.Log("left bumper");
+        }
+        if (playerControls.GenericInput.RBumper.triggered && !switchingUI_Image)
+        {
+            SwitchUI_Image(1);
+            Debug.Log("right bumper");
+
         }
     }
 
-    void SwitchUI_Image() 
+    void SwitchUI_Image(int posOrNegInt) 
     {
         switchingUI_Image = true;
-        int currentRoundIndex = GameManager.Instance.GetCurrentRound();
-
         seqSwitchImages[imageSwitcherIndex].color = imageEnabledColor; // current index "selected" goes back to "enabled"
 
-        imageSwitcherIndex++;
+        imageSwitcherIndex += posOrNegInt;
         if (imageSwitcherIndex > currentRoundIndex) imageSwitcherIndex = 0; // loop, also limit switch index to amount of rounds
+        if (imageSwitcherIndex < 0) imageSwitcherIndex = currentRoundIndex;
 
         seqSwitchImages[imageSwitcherIndex].color = imageSelectedColor;
 
