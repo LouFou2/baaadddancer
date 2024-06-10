@@ -23,54 +23,6 @@ public class CutscenesAudioManager : MonoBehaviour
 
         QueueOneShots();
         QueueMusicClips();
-/*
-        switch (currentLevelKey)  // can cueue the tracks that need to play at start of scene
-        {
-            case LevelKey.IntroDialogue:
-                {
-                    musicTrack = musicTracks[0];
-                    break;
-                }
-            case LevelKey.IntroMeeting:
-                {
-                    musicTrack = musicTracks[1];
-                    break;
-                }
-            case LevelKey.Round2Dialogue:
-                {
-                    musicTrack = musicTracks[2];
-                    break;
-                }
-            case LevelKey.Round2Meeting:
-                {
-                    musicTrack = musicTracks[3];
-                    break;
-                }
-            case LevelKey.Round3Dialogue:
-                {
-                    musicTrack = musicTracks[4];
-                    break;
-                }
-            case LevelKey.Round3Meeting:
-                {
-                    musicTrack = musicTracks[5];
-                    break;
-                }
-            case LevelKey.Round4Dialogue:
-                {
-                    musicTrack = musicTracks[6];
-                    break;
-                }
-            case LevelKey.Round4Meeting:
-                {
-                    musicTrack = musicTracks[7];
-                    break;
-                }
-            default:
-                currentLevelKey = LevelKey.IntroDialogue;
-                break;
-        }
-        music.clip = musicTrack;*/
         PlayNewMusicTrack();
     }
     public void QueueMusicClips()
