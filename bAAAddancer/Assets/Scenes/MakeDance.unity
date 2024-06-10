@@ -176,6 +176,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -264,6 +265,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -440,6 +442,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c36af76ca726d46a533974db5bd80c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yButtonEndSceneEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2245521104881636358}
+        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToNextLevelKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2245521104881636358}
+        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
+        m_MethodName: LoadNextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &36771051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1072,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 3309d3c6b81c34b4382fc6b1fd78a061, type: 2}
+  dataResetter: {fileID: 0}
 --- !u!4 &125800076
 Transform:
   m_ObjectHideFlags: 0
@@ -1456,6 +1486,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 4
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -2110,6 +2141,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -2140,6 +2172,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -2170,6 +2203,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -2200,6 +2234,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -2230,6 +2265,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -3308,6 +3344,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 4
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -3396,6 +3433,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -3559,6 +3597,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -3952,6 +3991,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5427,6 +5467,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 4
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5703,6 +5744,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5733,6 +5775,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5763,6 +5806,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5793,6 +5837,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5823,6 +5868,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -5859,6 +5905,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -6335,6 +6382,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 4
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -6579,6 +6627,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -6609,6 +6658,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -6639,6 +6689,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -6669,6 +6720,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -6699,6 +6751,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -6763,6 +6816,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 4
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -6793,6 +6847,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -7806,6 +7861,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -8106,6 +8162,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -8154,6 +8211,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 4
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -8577,6 +8635,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 4
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -8631,6 +8690,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -8737,6 +8797,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -8843,6 +8904,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -9260,6 +9322,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -9469,6 +9532,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -9684,6 +9748,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -9866,6 +9931,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10207,6 +10273,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10497,6 +10564,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10527,6 +10595,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10557,6 +10626,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10587,6 +10657,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10617,6 +10688,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10843,6 +10915,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10873,6 +10946,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10903,6 +10977,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10933,6 +11008,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -10963,6 +11039,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -11151,6 +11228,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -11258,6 +11336,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -11538,6 +11617,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -12266,6 +12346,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -12296,6 +12377,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -12984,6 +13066,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -13014,6 +13097,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -13245,6 +13329,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 4
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -13967,6 +14052,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -13997,6 +14083,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
@@ -14027,6 +14114,7 @@ MonoBehaviour:
   z_RangeMax: 0.5
   moveSpeed: 2
   newControls: 0
+  dampingFactor: 0.1
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0

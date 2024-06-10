@@ -1983,7 +1983,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 299929338}
         m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
-        m_MethodName: LoadNextScene
+        m_MethodName: SwitchToNextLevelKey
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1995,7 +1995,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 299929338}
         m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
-        m_MethodName: SwitchToNextMakeDanceLevel
+        m_MethodName: LoadNextScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
