@@ -5199,12 +5199,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3687152578574491148}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.08899999, z: 0}
+  m_LocalPosition: {x: 0, y: 1.3429999, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3687152579879528947}
-  m_RootOrder: 0
+  m_Children:
+  - {fileID: 3687152579879528947}
+  m_Father: {fileID: 3687152578710460487}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3687152578585303807
 GameObject:
@@ -5955,7 +5956,7 @@ Transform:
   - {fileID: 3687152579086340197}
   - {fileID: 3687152579340385623}
   - {fileID: 3687152579270508922}
-  - {fileID: 3687152579879528947}
+  - {fileID: 3687152578574491149}
   m_Father: {fileID: 3687152578542244122}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7598,7 +7599,7 @@ MonoBehaviour:
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
-    m_MaintainOffset: 1
+    m_MaintainOffset: 0
     m_ConstrainedAxes:
       x: 1
       y: 1
@@ -9544,7 +9545,7 @@ MonoBehaviour:
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
-    m_MaintainOffset: 1
+    m_MaintainOffset: 0
     m_ConstrainedAxes:
       x: 1
       y: 1
@@ -11296,7 +11297,7 @@ MonoBehaviour:
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
-    m_MaintainOffset: 1
+    m_MaintainOffset: 0
     m_ConstrainedAxes:
       x: 1
       y: 1
@@ -11680,13 +11681,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3687152579879528946}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.254, z: 1}
+  m_LocalPosition: {x: 0, y: -0.08899999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3687152578574491149}
-  m_Father: {fileID: 3687152578710460487}
-  m_RootOrder: 4
+  m_Children: []
+  m_Father: {fileID: 3687152578574491149}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3687152579884834562
 GameObject:
@@ -13619,13 +13619,14 @@ GameObject:
   - component: {fileID: 5866666021161656257}
   - component: {fileID: 5866666021161656258}
   - component: {fileID: 3319224741930002206}
+  - component: {fileID: 3400282442283268853}
   m_Layer: 0
   m_Name: Sharkey.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3792555083311728394
 Transform:
   m_ObjectHideFlags: 0
@@ -14478,6 +14479,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnimator: {fileID: 0}
   characterProfile: {fileID: 0}
+--- !u!114 &3400282442283268853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4605507234340117936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f11a1764154a34bbc121e4a62a49fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  blinkInterval: 0
+  blinkDuration: 0.06
 --- !u!1 &4631354613306108777
 GameObject:
   m_ObjectHideFlags: 0
@@ -14568,7 +14584,7 @@ SkinnedMeshRenderer:
   - {fileID: 2100000, guid: 72978fd8a2366774eb1d62a6fd813e62, type: 2}
   - {fileID: 2100000, guid: ef866f1519053ce4b812e3af8e9d0c4f, type: 2}
   - {fileID: 2100000, guid: ff4e8756fbdc91742b95d3071c1dbf8c, type: 2}
-  - {fileID: -8769964544065690872, guid: 8a3961be70194874b8fb914730bf1265, type: 3}
+  - {fileID: 2100000, guid: 878d393578eb7cc4885fca18858765f4, type: 2}
   - {fileID: 2100000, guid: 15995eda244c88743a864c1bee0a39d2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

@@ -2516,13 +2516,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4817037886056247872}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3794447, z: 1}
+  m_LocalPosition: {x: 0, y: -0.08899999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4817037887142592760}
-  m_Father: {fileID: 4817037887506138851}
-  m_RootOrder: 4
+  m_Children: []
+  m_Father: {fileID: 4817037887142592760}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4817037886064727481
 GameObject:
@@ -2739,7 +2738,7 @@ MonoBehaviour:
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
-    m_MaintainOffset: 1
+    m_MaintainOffset: 0
     m_ConstrainedAxes:
       x: 1
       y: 1
@@ -7847,12 +7846,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4817037887142592759}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.08899999, z: 0}
+  m_LocalPosition: {x: 0, y: 1.4684447, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4817037886056247873}
-  m_RootOrder: 0
+  m_Children:
+  - {fileID: 4817037886056247873}
+  m_Father: {fileID: 4817037887506138851}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4817037887162320481
 GameObject:
@@ -8189,7 +8189,7 @@ MonoBehaviour:
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
-    m_MaintainOffset: 1
+    m_MaintainOffset: 0
     m_ConstrainedAxes:
       x: 1
       y: 1
@@ -10112,7 +10112,7 @@ MonoBehaviour:
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
-    m_MaintainOffset: 1
+    m_MaintainOffset: 0
     m_ConstrainedAxes:
       x: 1
       y: 1
@@ -10149,7 +10149,7 @@ Transform:
   - {fileID: 4817037887493341548}
   - {fileID: 4817037886085948045}
   - {fileID: 4817037886088775814}
-  - {fileID: 4817037886056247873}
+  - {fileID: 4817037887142592760}
   m_Father: {fileID: 4817037886859608552}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13457,13 +13457,14 @@ GameObject:
   - component: {fileID: 5866666020564149847}
   - component: {fileID: 5866666020564149848}
   - component: {fileID: 2814620202588051660}
+  - component: {fileID: 3992857523759099885}
   m_Layer: 0
   m_Name: Wonky.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4995396964648918972
 Transform:
   m_ObjectHideFlags: 0
@@ -14312,6 +14313,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnimator: {fileID: 0}
   characterProfile: {fileID: 0}
+--- !u!114 &3992857523759099885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5627502537885533446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f11a1764154a34bbc121e4a62a49fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  blinkInterval: 0
+  blinkDuration: 0.06
 --- !u!1 &5647672067134429355
 GameObject:
   m_ObjectHideFlags: 0
