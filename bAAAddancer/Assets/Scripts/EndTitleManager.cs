@@ -48,9 +48,9 @@ public class EndTitleManager : MonoBehaviour
         demonWinsTitle.SetActive(false);
     }
 
-    public void QuitGame() 
+    public void EndGame() 
     {
-        Application.Quit();
+        GameManager.Instance.RestartGame();
     }
 
 }

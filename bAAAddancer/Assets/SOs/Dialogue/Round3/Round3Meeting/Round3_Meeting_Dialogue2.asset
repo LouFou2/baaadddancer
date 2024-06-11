@@ -12,14 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round3_Meeting_Dialogue2
   m_EditorClassIdentifier: 
-  sentences: []
   dialogueUnits:
   - sentence: it's honestly not me
     Camera: 5
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 2
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: hm, "honestly".. sure
     Camera: 3
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 1
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
+  musicTrackToPlay: {fileID: 0}
   responseNo: time's running out
   responseYes: i'll try to debug
   NoEventToCall: 1

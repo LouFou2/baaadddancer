@@ -15,16 +15,29 @@ MonoBehaviour:
   dialogueUnits:
   - sentence: You can vote for me
     Camera: 11
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 5
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: but I PROMISE its not me
     Camera: 12
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 5
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: Listen, we have to GO
     Camera: 4
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 1
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: Time to VOTE
     Camera: 6
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 6
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
+  musicTrackToPlay: {fileID: 0}
   responseNo: 
   responseYes: let's vote
   NoEventToCall: 2

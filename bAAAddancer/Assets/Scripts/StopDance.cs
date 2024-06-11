@@ -52,10 +52,7 @@ public class StopDance : MonoBehaviour
     void SwitchScene() 
     {
         int currentRound = GameManager.Instance.GetCurrentRound();
-        if (currentRound >= 3)
-            GameManager.Instance.RestartGame();
-        else
-            StopDanceEvent.Invoke();
+        StopDanceEvent.Invoke();
 
         //sceneSwitcher.SwitchToNextLevelKey();
         //sceneSwitcher.LoadNextScene();

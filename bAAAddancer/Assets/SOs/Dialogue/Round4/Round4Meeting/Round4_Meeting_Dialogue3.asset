@@ -15,13 +15,23 @@ MonoBehaviour:
   dialogueUnits:
   - sentence: C'mon you don't think its me right?
     Camera: 4
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 1
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: I don't think it's you no
     Camera: 11
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 1
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: I think you're the most suspicous
     Camera: 7
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 1
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
+  musicTrackToPlay: {fileID: 0}
   responseNo: i don't agree they are suspicious
   responseYes: oh for sure you're the rave demon
   NoEventToCall: 0
