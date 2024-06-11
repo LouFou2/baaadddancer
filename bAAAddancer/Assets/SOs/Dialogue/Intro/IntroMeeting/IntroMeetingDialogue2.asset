@@ -12,20 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: IntroMeetingDialogue2
   m_EditorClassIdentifier: 
-  sentences: []
   dialogueUnits:
   - sentence: It's the curse of the Rave Demon
     Camera: 7
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 3
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: Someone on this team
     Camera: 5
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 2
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: Has been possessed by the Rave Demon!
     Camera: 6
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 2
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   - sentence: And they have cursed me!
     Camera: 12
-    audioClipToPlay: {fileID: 0}
+    lookPosition: 5
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
+  musicTrackToPlay: {fileID: 0}
   responseNo: 
   responseYes: can we do something about it?
   NoEventToCall: 0

@@ -64,7 +64,8 @@ public class DialogueSwitcher : MonoBehaviour
         
         dialoguePlayer.StartDialogue(currentDialogue);
         cameraManager.QueueNewDialogueUnitsForCamera(currentDialogue);
-        lookManager.QueueNewDialogueUnitsForLookTargets(currentDialogue);
+        if(lookManager != null)
+            lookManager.QueueNewDialogueUnitsForLookTargets(currentDialogue);
 
         // Select button1 after restarting the dialogue
         EventSystem.current.SetSelectedGameObject(button1.gameObject);

@@ -3019,7 +3019,6 @@ GameObject:
   - component: {fileID: 3254844365021726832}
   - component: {fileID: 3254844365021726830}
   - component: {fileID: 3254844365021726833}
-  - component: {fileID: 62038530021686245}
   m_Layer: 0
   m_Name: IKArmLCntrl
   m_TagString: Untagged
@@ -3071,37 +3070,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &62038530021686245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844365021726835}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 1
-  rightObject: 0
-  opposingObject: {fileID: 3254844367044408935}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  moveSpeed: 2
-  newControls: 0
-  dampingFactor: 0.1
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &3254844365042042546
 GameObject:
   m_ObjectHideFlags: 0
@@ -4252,7 +4220,6 @@ GameObject:
   - component: {fileID: 3254844365164287319}
   - component: {fileID: 3254844365164287317}
   - component: {fileID: 3254844365164287316}
-  - component: {fileID: 8249811682818784745}
   m_Layer: 0
   m_Name: IKLegRCntrl
   m_TagString: Untagged
@@ -4305,37 +4272,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8249811682818784745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844365164287318}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 0
-  rightObject: 1
-  opposingObject: {fileID: 3254844365164287318}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  moveSpeed: 2
-  newControls: 0
-  dampingFactor: 0.1
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &3254844365178843944
 GameObject:
   m_ObjectHideFlags: 0
@@ -5036,7 +4972,6 @@ GameObject:
   - component: {fileID: 3254844365346344413}
   - component: {fileID: 3254844365346344411}
   - component: {fileID: 3254844365346344410}
-  - component: {fileID: 2747345127598480292}
   m_Layer: 0
   m_Name: IKLegLCntrl
   m_TagString: Untagged
@@ -5089,37 +5024,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2747345127598480292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844365346344412}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 1
-  rightObject: 0
-  opposingObject: {fileID: 3254844365164287318}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  moveSpeed: 2
-  newControls: 0
-  dampingFactor: 0.1
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &3254844365346633093
 GameObject:
   m_ObjectHideFlags: 0
@@ -5217,7 +5121,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3254844365359088395}
   - component: {fileID: 3254844365359088392}
-  - component: {fileID: 6728900498185362553}
   m_Layer: 0
   m_Name: Hip_R_Gizmo
   m_TagString: Untagged
@@ -5264,37 +5167,6 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 3254844366621409295}
     weight: 1
---- !u!114 &6728900498185362553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844365359088394}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 0
-  rightObject: 1
-  opposingObject: {fileID: 3254844366621409294}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  moveSpeed: 2
-  newControls: 0
-  dampingFactor: 0.1
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &3254844365359106289
 GameObject:
   m_ObjectHideFlags: 0
@@ -5442,7 +5314,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3254844365395326764}
-  - component: {fileID: 6697312968452481245}
   m_Layer: 0
   m_Name: Torso_L_Gizmo
   m_TagString: Untagged
@@ -5466,37 +5337,6 @@ Transform:
   m_Father: {fileID: 3254844366287145213}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6697312968452481245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844365395326767}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 1
-  rightObject: 0
-  opposingObject: {fileID: 3254844366222893053}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  moveSpeed: 2
-  newControls: 0
-  dampingFactor: 0.1
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &3254844365402486264
 GameObject:
   m_ObjectHideFlags: 0
@@ -5792,7 +5632,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3254844365489322136}
   - component: {fileID: 3254844365489322137}
-  - component: {fileID: 8745057201382012355}
   m_Layer: 0
   m_Name: Head_R_Gizmo
   m_TagString: Untagged
@@ -5839,37 +5678,6 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 3254844366566263149}
     weight: 1
---- !u!114 &8745057201382012355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844365489322139}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 0
-  rightObject: 1
-  opposingObject: {fileID: 3254844366566263148}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  moveSpeed: 2
-  newControls: 0
-  dampingFactor: 0.1
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &3254844365545798981
 GameObject:
   m_ObjectHideFlags: 0
@@ -8770,7 +8578,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3254844366222893050}
   - component: {fileID: 3254844366222893051}
-  - component: {fileID: 7012833371590456524}
   m_Layer: 0
   m_Name: Torso_R_Gizmo
   m_TagString: Untagged
@@ -8817,37 +8624,6 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 3254844365395326764}
     weight: 1
---- !u!114 &7012833371590456524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844366222893053}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 0
-  rightObject: 1
-  opposingObject: {fileID: 3254844365395326767}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  moveSpeed: 2
-  newControls: 0
-  dampingFactor: 0.1
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &3254844366234916429
 GameObject:
   m_ObjectHideFlags: 0
@@ -10641,7 +10417,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3254844366566263149}
-  - component: {fileID: 8003579725615039660}
   m_Layer: 0
   m_Name: Head_L_Gizmo
   m_TagString: Untagged
@@ -10664,37 +10439,6 @@ Transform:
   m_Father: {fileID: 3254844366287145213}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8003579725615039660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844366566263148}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 1
-  rightObject: 0
-  opposingObject: {fileID: 3254844365489322139}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  moveSpeed: 2
-  newControls: 0
-  dampingFactor: 0.1
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &3254844366618863558
 GameObject:
   m_ObjectHideFlags: 0
@@ -10787,7 +10531,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3254844366621409295}
-  - component: {fileID: 696047978452290646}
   m_Layer: 0
   m_Name: Hip_L_Gizmo
   m_TagString: Untagged
@@ -10810,37 +10553,6 @@ Transform:
   m_Father: {fileID: 3254844366287145213}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &696047978452290646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844366621409294}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 1
-  rightObject: 0
-  opposingObject: {fileID: 3254844365359088394}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  moveSpeed: 2
-  newControls: 0
-  dampingFactor: 0.1
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &3254844366696179473
 GameObject:
   m_ObjectHideFlags: 0
@@ -12273,7 +11985,6 @@ GameObject:
   - component: {fileID: 3254844367044408932}
   - component: {fileID: 3254844367044408930}
   - component: {fileID: 3254844367044408933}
-  - component: {fileID: 9001972108911360259}
   m_Layer: 0
   m_Name: IKArmRCntrl
   m_TagString: Untagged
@@ -12325,37 +12036,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9001972108911360259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844367044408935}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 0
-  rightObject: 1
-  opposingObject: {fileID: 3254844365021726835}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  moveSpeed: 2
-  newControls: 0
-  dampingFactor: 0.1
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &3254844367044984439
 GameObject:
   m_ObjectHideFlags: 0

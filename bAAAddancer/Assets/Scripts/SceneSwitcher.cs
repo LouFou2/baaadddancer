@@ -39,7 +39,11 @@ public class SceneSwitcher : MonoBehaviour
         LevelKey nextLevel = (LevelKey)nextLevelIndex;
         GameManager.Instance.SetCurrentLevelKey(nextLevel);
     }
-    public void SwitchToNextMakeDanceLevel() 
+    public void SwitchToNextRound() 
+    {
+        GameManager.Instance.NewRound();
+    }
+    /*public void SwitchToNextMakeDanceLevel() 
     {
         int currentRound = GameManager.Instance.GetCurrentRound();
         if (currentRound == -1)
@@ -78,5 +82,5 @@ public class SceneSwitcher : MonoBehaviour
         {
             GameManager.Instance.SetCurrentLevelKey(LevelKey.Round4CopyDance);
         }
-    }
+    }*/
 }

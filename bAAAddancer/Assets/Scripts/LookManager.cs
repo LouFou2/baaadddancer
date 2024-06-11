@@ -84,7 +84,6 @@ public class LookManager : MonoBehaviour
         foreach (DialogueData.DialogueUnit unit in newDialogue.dialogueUnits)
         {
             dialogueUnitQueue.Enqueue(unit);
-            Debug.Log("1 looktarget dialogue unit queued");
         }
         SelectNewLookPosition();
     }
@@ -96,10 +95,6 @@ public class LookManager : MonoBehaviour
             DialogueData.DialogueUnit unit = dialogueUnitQueue.Dequeue();
             currentDialogueUnit = unit;
             SwitchLookPositions(unit.lookPosition);
-        }
-        else
-        {
-            Debug.LogWarning("No more dialogue units in queue.");
         }
     }
     public void SetLooksToPlayer() 
@@ -165,69 +160,6 @@ public class LookManager : MonoBehaviour
         if (!gazePositionChange) 
         {
             StartCoroutine(ChangeGazePosition());
-        }
-
-        
-
-        if (Input.GetKeyDown(KeyCode.Alpha1)) 
-        {
-            for(int i = 0; i < lookTargets.Length; i++) 
-            {
-                if (i != 0)
-                    lookTargets[i].transform.position = lookTargetPositioners[0].transform.position;
-                else
-                    lookTargets[i].transform.position = randomLookPosition.transform.position;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) 
-        {
-            for (int i = 0; i < lookTargets.Length; i++)
-            {
-                if (i != 1)
-                    lookTargets[i].transform.position = lookTargetPositioners[1].transform.position;
-                else
-                    lookTargets[i].transform.position = randomLookPosition.transform.position;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) 
-        {
-            for (int i = 0; i < lookTargets.Length; i++)
-            {
-                if (i != 2)
-                    lookTargets[i].transform.position = lookTargetPositioners[2].transform.position;
-                else
-                    lookTargets[i].transform.position = randomLookPosition.transform.position;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) 
-        {
-            for (int i = 0; i < lookTargets.Length; i++)
-            {
-                if (i != 3)
-                    lookTargets[i].transform.position = lookTargetPositioners[3].transform.position;
-                else
-                    lookTargets[i].transform.position = randomLookPosition.transform.position;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5)) 
-        {
-            for (int i = 0; i < lookTargets.Length; i++)
-            {
-                if (i != 4)
-                    lookTargets[i].transform.position = lookTargetPositioners[4].transform.position;
-                else
-                    lookTargets[i].transform.position = randomLookPosition.transform.position;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6)) 
-        {
-            for (int i = 0; i < lookTargets.Length; i++)
-            {
-                if (i != 5)
-                    lookTargets[i].transform.position = lookTargetPositioners[5].transform.position;
-                else
-                    lookTargets[i].transform.position = randomLookPosition.transform.position;
-            }
         }
     }
     private IEnumerator ChangeGazePosition() 

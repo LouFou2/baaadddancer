@@ -60,7 +60,8 @@ public class DialogueManager : MonoBehaviour
                 {
                     dialoguePlayer.DisplayNextSentence();
                     cameraManager.SelectNewCamera();
-                    lookManager.SelectNewLookPosition();
+                    if(lookManager != null)
+                        lookManager.SelectNewLookPosition();
                     cutscenesAudioManager.PlayMusic();
                     cutscenesAudioManager.PlayOneShot();
                     dialogueState = DialogueState.NPCSpeaks;
@@ -74,7 +75,8 @@ public class DialogueManager : MonoBehaviour
                 {
                     button0.gameObject.SetActive(true);
                     cameraManager.SelectPlayerCamera(); // adding it here because sometimes it is only the Yes response
-                    lookManager.SetLooksToPlayer();
+                    if (lookManager != null)
+                        lookManager.SetLooksToPlayer();
                 }
                 else 
                 {
@@ -84,7 +86,8 @@ public class DialogueManager : MonoBehaviour
                 {
                     button1.gameObject.SetActive(true);
                     cameraManager.SelectPlayerCamera(); // adding it here because sometimes it is only the Yes response
-                    lookManager.SetLooksToPlayer();
+                    if(lookManager != null)
+                        lookManager.SetLooksToPlayer();
                 }
                 else
                 {

@@ -84,7 +84,6 @@ public class CameraManager : MonoBehaviour
         foreach (DialogueData.DialogueUnit unit in newDialogue.dialogueUnits)
         {
             dialogueUnitQueue.Enqueue(unit);
-            Debug.Log("1 dialogue unit queued");
         }
         SelectNewCamera();
     }
@@ -96,10 +95,6 @@ public class CameraManager : MonoBehaviour
             DialogueData.DialogueUnit unit = dialogueUnitQueue.Dequeue();
             currentDialogueUnit = unit;
             SwitchCamera(unit.Camera);
-        }
-        else
-        {
-            Debug.LogWarning("No more dialogue units in queue.");
         }
     }
     public void SelectPlayerCamera()
