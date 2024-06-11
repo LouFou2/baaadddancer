@@ -10,6 +10,7 @@ public class DialogueData : ScriptableObject
         [TextArea(3, 10)]
         public string sentence;
         public CameraToSwitch Camera;
+        public LookPosition lookPosition;
         public AudioClip oneshotClipToPlay;
         public AudioClip newMusicTrackToPlay;
         public AudioClip voxClipToPlay;
@@ -34,6 +35,10 @@ public class DialogueData : ScriptableObject
         npc03CamM, npc03CamC,
         npc04CamM, npc04CamC,
         lastBuggedCamM, lastBuggedCamC
+    }
+    public enum LookPosition
+    {
+        LookatPlayer, LookatDemon, LookatNPC2, LookatNPC3, LookatNPC4, LookatLastBuggedNPC, LookatCamera
     }
     
 }

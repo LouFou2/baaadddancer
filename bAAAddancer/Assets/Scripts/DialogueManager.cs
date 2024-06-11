@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private DialogueSwitcher dialogueSwitcher;
     [SerializeField] private DialoguePlayback dialoguePlayer;
     [SerializeField] private CameraManager cameraManager;
+    [SerializeField] private LookManager lookManager;
     [SerializeField] private CutscenesAudioManager cutscenesAudioManager;
     public enum DialogueState { NoDialogue, NPCSpeaks, PauseOrContinue, PlayerResponse }
     public DialogueState dialogueState;
@@ -59,6 +60,7 @@ public class DialogueManager : MonoBehaviour
                 {
                     dialoguePlayer.DisplayNextSentence();
                     cameraManager.SelectNewCamera();
+                    lookManager.SelectNewLookPosition();
                     cutscenesAudioManager.PlayMusic();
                     cutscenesAudioManager.PlayOneShot();
                     dialogueState = DialogueState.NPCSpeaks;
@@ -72,6 +74,7 @@ public class DialogueManager : MonoBehaviour
                 {
                     button0.gameObject.SetActive(true);
                     cameraManager.SelectPlayerCamera(); // adding it here because sometimes it is only the Yes response
+                    lookManager.SetLooksToPlayer();
                 }
                 else 
                 {
@@ -81,6 +84,7 @@ public class DialogueManager : MonoBehaviour
                 {
                     button1.gameObject.SetActive(true);
                     cameraManager.SelectPlayerCamera(); // adding it here because sometimes it is only the Yes response
+                    lookManager.SetLooksToPlayer();
                 }
                 else
                 {

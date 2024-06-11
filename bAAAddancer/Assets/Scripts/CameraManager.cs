@@ -32,7 +32,7 @@ public class CameraManager : MonoBehaviour
 
         // the camera flags are the bool names in the Animator
         cameraFlags[0] = "CharCam1"; // the caracters these cameras are aimed at are arranged in same order as in Character Manager
-        cameraFlags[1] = "CharCam2"; // which is why we need logic below to figire out which indexes are the player, ravedemon, and last bugged character
+        cameraFlags[1] = "CharCam2"; // which is why we need logic below to figure out which indexes are the player, ravedemon, and last bugged character
         cameraFlags[2] = "CharCam3"; // (for the sake of the dialogue moments)
         cameraFlags[3] = "CharCam4";
         cameraFlags[4] = "CharCam5";
@@ -75,10 +75,10 @@ public class CameraManager : MonoBehaviour
         // Get the current dialogue data
         DialogueData currentDialogue = dialogueSwitcher.GetCurrentDialogue();
         //make a queue of the dialogue units
-        QueueNewDialogueUnits(currentDialogue);
+        QueueNewDialogueUnitsForCamera(currentDialogue);
     }
 
-    public void QueueNewDialogueUnits(DialogueData newDialogue)
+    public void QueueNewDialogueUnitsForCamera(DialogueData newDialogue)
     {
         dialogueUnitQueue.Clear();
         foreach (DialogueData.DialogueUnit unit in newDialogue.dialogueUnits)

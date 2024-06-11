@@ -1639,6 +1639,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterManager: {fileID: 6372104692362033166}
+  dialogueSwitcher: {fileID: 1709227249}
+  mainCamera: {fileID: 367885176}
   lookTargets:
   - {fileID: 1342916681}
   - {fileID: 1186662053}
@@ -1653,6 +1655,7 @@ MonoBehaviour:
   - {fileID: 2085789484}
   - {fileID: 767547901}
   - {fileID: 377482884}
+  changeLookDuration: 0.2
   randomLookPosition: {fileID: 807412807}
 --- !u!1 &1182487286
 GameObject:
@@ -1701,6 +1704,7 @@ MonoBehaviour:
   dialogueSwitcher: {fileID: 1709227249}
   dialoguePlayer: {fileID: 1424368517}
   cameraManager: {fileID: 2097008799}
+  lookManager: {fileID: 1149589821}
   cutscenesAudioManager: {fileID: 0}
   dialogueState: 0
   button0: {fileID: 66719756}
@@ -3450,6 +3454,7 @@ MonoBehaviour:
   currentDialogue: {fileID: 0}
   dialoguePlayer: {fileID: 1424368517}
   cameraManager: {fileID: 2097008799}
+  lookManager: {fileID: 1149589821}
   button1: {fileID: 1742261221}
 --- !u!1 &1742261219 stripped
 GameObject:
