@@ -13,6 +13,11 @@ public class VoteManager : MonoBehaviour
     [SerializeField] private Material[] buttonMaterials;
     [SerializeField] private TextMeshProUGUI[] voteTexts;
 
+    [SerializeField] private AudioSource switchSelectAudio;
+    [SerializeField] private AudioSource selectAudio;
+    [SerializeField] private AudioSource x_Audio;
+    [SerializeField] private AudioSource eliminateAudio;
+
     private int playerVoteIndex = -1;
 
     void Start()

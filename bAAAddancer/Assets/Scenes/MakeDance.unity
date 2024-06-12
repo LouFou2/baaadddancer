@@ -14258,6 +14258,7 @@ MonoBehaviour:
   dialogueSwitcher: {fileID: 2245521104709598112}
   dialoguePlayer: {fileID: 2245521104424477908}
   cameraManager: {fileID: 0}
+  lookManager: {fileID: 0}
   cutscenesAudioManager: {fileID: 0}
   dialogueState: 0
   button0: {fileID: 441383403}
@@ -14467,6 +14468,7 @@ MonoBehaviour:
   currentDialogue: {fileID: 0}
   dialoguePlayer: {fileID: 2245521104424477908}
   cameraManager: {fileID: 0}
+  lookManager: {fileID: 0}
   button1: {fileID: 506954543}
 --- !u!4 &2245521104709598113
 Transform:
@@ -14643,6 +14645,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2658773492327158851, guid: 676a15ed8c0799f4282da511607a3139,
+        type: 3}
+      propertyPath: countInClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: a9dde5d3cd521a54596b9af9753b7d01, type: 3}
+    - target: {fileID: 2658773492327158851, guid: 676a15ed8c0799f4282da511607a3139,
+        type: 3}
+      propertyPath: countInClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 65476300daed77a448a9fd556894ef5e, type: 3}
     - target: {fileID: 2658773492327158853, guid: 676a15ed8c0799f4282da511607a3139,
         type: 3}
       propertyPath: m_Name

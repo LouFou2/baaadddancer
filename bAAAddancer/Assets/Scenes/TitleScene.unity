@@ -828,6 +828,7 @@ Transform:
   - {fileID: 820384479}
   - {fileID: 1301790475}
   - {fileID: 299929337}
+  - {fileID: 430485803}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1344,6 +1345,68 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1406522376}
+--- !u!1 &430485802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 430485803}
+  - component: {fileID: 430485804}
+  m_Layer: 0
+  m_Name: DataResetter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &430485803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430485802}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 238173833}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &430485804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430485802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705b4c8d01055484da8f645a6fcfcc21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterDataSOs:
+  - {fileID: 11400000, guid: fa6a3b99d944a024ca560ab340bd20af, type: 2}
+  - {fileID: 11400000, guid: 74058c245c16f7444afbfad598cfec5e, type: 2}
+  - {fileID: 11400000, guid: db1d2a1ab36d2c14f8fe1f98eff04b20, type: 2}
+  - {fileID: 11400000, guid: 63de5d6dc0e29ff4eb1df8904c4a63dd, type: 2}
+  - {fileID: 11400000, guid: 18485facb075edd40be3a0605845f3c8, type: 2}
+  - {fileID: 11400000, guid: 8a9370ba4b2c97a46bdc597c7b267f29, type: 2}
+  roundsRecDataSOs:
+  - {fileID: 11400000, guid: 6b3839844d4c805428f982c66cc9114d, type: 2}
+  - {fileID: 11400000, guid: 93b13063448af7e44ae11a71a31e30c0, type: 2}
+  - {fileID: 11400000, guid: d74fefd1e8dc47e40ab0a9993c1bbf08, type: 2}
+  - {fileID: 11400000, guid: 6fbd8ede107eb45419a8f6b217cfdf73, type: 2}
+  - {fileID: 11400000, guid: f818ac50cca81aa4aa6b14b72e34764f, type: 2}
+  - {fileID: 11400000, guid: cac328b5211fa7d4988cb51cd1dee90a, type: 2}
+  - {fileID: 11400000, guid: daad094e5dae26e4cb170fe214748990, type: 2}
+  - {fileID: 11400000, guid: cc815ad354b2dbc419182f52e00816f0, type: 2}
+  - {fileID: 11400000, guid: f6ff362c78975e34ba874df8e1f81264, type: 2}
+  - {fileID: 11400000, guid: 58f57d89047697740935f7b48245fb09, type: 2}
 --- !u!1001 &479627962
 PrefabInstance:
   m_ObjectHideFlags: 0
