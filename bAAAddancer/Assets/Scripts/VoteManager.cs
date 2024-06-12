@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class VoteManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class VoteManager : MonoBehaviour
     [SerializeField] private Button[] buttons;
     [SerializeField] private Material[] buttonMaterials;
     [SerializeField] private TextMeshProUGUI[] voteTexts;
+
+    private GameObject lastSelectedGameObject;
 
     [SerializeField] private AudioSource switchSelectAudio;
     [SerializeField] private AudioSource selectAudio;
@@ -37,41 +40,66 @@ public class VoteManager : MonoBehaviour
         {
             button.image.material = null;
         }
+
+        // Initialize lastSelectedGameObject with the currently selected GameObject
+        lastSelectedGameObject = EventSystem.current.currentSelectedGameObject;
+    }
+    void Update() //literally just handling the change selection sound
+    {
+        GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
+
+        if (currentSelectedGameObject != lastSelectedGameObject)
+        {
+            switchSelectAudio.Play();
+            lastSelectedGameObject = currentSelectedGameObject;
+        }
     }
 
     public void VoteChar1() 
     {
         characterManager.characterDataSOs[0].wasEliminated = true;
+        selectAudio.Play();
+        x_Audio.Play();
         voteTexts[0].text = "X";
         playerVoteIndex = 0;
     }
     public void VoteChar2()
     {
         characterManager.characterDataSOs[1].wasEliminated = true;
+        selectAudio.Play();
+        x_Audio.Play();
         voteTexts[1].text = "X";
         playerVoteIndex = 1;
     }
     public void VoteChar3()
     {
         characterManager.characterDataSOs[2].wasEliminated = true;
+        selectAudio.Play();
+        x_Audio.Play();
         voteTexts[2].text = "X";
         playerVoteIndex = 2;
     }
     public void VoteChar4()
     {
         characterManager.characterDataSOs[3].wasEliminated = true;
+        selectAudio.Play();
+        x_Audio.Play();
         voteTexts[3].text = "X";
         playerVoteIndex = 3;
     }
     public void VoteChar5()
     {
         characterManager.characterDataSOs[4].wasEliminated = true;
+        selectAudio.Play();
+        x_Audio.Play();
         voteTexts[4].text = "X";
         playerVoteIndex = 4;
     }
     public void VoteChar6()
     {
         characterManager.characterDataSOs[5].wasEliminated = true;
+        selectAudio.Play();
+        x_Audio.Play();
         voteTexts[5].text = "X";
         playerVoteIndex = 5;
     }
@@ -125,13 +153,26 @@ public class VoteManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
+        x_Audio.Play();
+        voteTexts[playerVoteIndex].text = "XX";
+
+        yield return new WaitForSeconds(0.2f);
+        x_Audio.Play();
         voteTexts[playerVoteIndex].text = "XXX";
 
+        yield return new WaitForSeconds(0.4f);
+
         voteTexts[playerIndex].text = "X";
+        x_Audio.Play();
         yield return new WaitForSeconds(0.2f);
 
+        voteTexts[randomNPC_Index].text = voteTexts[randomNPC_Index].text + "X";
+        x_Audio.Play();
+        yield return new WaitForSeconds(0.3f);
+
         voteTexts[randomNPC_Index].text = voteTexts[randomNPC_Index].text + "XX";
-        yield return new WaitForSeconds(0.5f);
+        x_Audio.Play();
+        yield return new WaitForSeconds(0.2f);
 
         // use shader material for selected character
         buttons[playerVoteIndex].image.material = buttonMaterials[playerVoteIndex];
@@ -142,6 +183,7 @@ public class VoteManager : MonoBehaviour
         float targetValue = 1.0f;
         float duration = 1.0f;
 
+        eliminateAudio.Play();
         yield return LerpShaderFloat(playerMaterial, shaderProperty, targetValue, duration);
 
         EndScene();

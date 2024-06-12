@@ -29,6 +29,8 @@ public class TitleSceneDirector : MonoBehaviour
     private PlayerControls playerControls;
     private SceneSwitcher sceneSwitcher;
     [SerializeField] private AudioSource titleAudioSource;
+    [SerializeField] private AudioSource charSelectTrackAudioSource;
+    [SerializeField] private AudioSource charSelectSwitchAudioSource;
     [SerializeField] private AudioSource charSelectAudioSource;
     [SerializeField] private Animator titleAnimator;
     [SerializeField] private Animator camAnimator;
@@ -86,7 +88,7 @@ public class TitleSceneDirector : MonoBehaviour
                 if (titleEnd != null && titleEnd.isTitleFinished)
                 {
                     titleAudioSource.Stop();
-                    charSelectAudioSource.Play();
+                    charSelectTrackAudioSource.Play();
                     titleSceneState = TitleSceneState.ChoosingCharacter;
                 }
                 break;
@@ -123,10 +125,12 @@ public class TitleSceneDirector : MonoBehaviour
     {
         if (playerControls.DanceControls.SwitchObjectL.triggered) 
         {
+            charSelectSwitchAudioSource.Play();
             currentCharacterIndex --;
         }
         if (playerControls.DanceControls.SwitchObjectR.triggered)
         {
+            charSelectSwitchAudioSource.Play();
             currentCharacterIndex ++;
         }
         if (currentCharacterIndex > charactersSelection.Length - 1) 
@@ -153,6 +157,7 @@ public class TitleSceneDirector : MonoBehaviour
         }
         if (playerControls.DanceControls.AButton.triggered) 
         {
+            charSelectAudioSource.Play();
             // this is probably a bad way to do this, but oh well:
             characterManager.characterDataSOs[currentCharacterIndex].characterRoleSelect = CharacterData.CharacterRole.Player;
             currentCharacter.SetActive(false);
