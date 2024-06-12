@@ -12,21 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round3_Meeting_Dialogue2
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 0}
   dialogueUnits:
   - sentence: it's honestly not me
     Camera: 5
     lookPosition: 2
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 49beaa5414cde014c8cec2e2bd24dc0e, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: hm, "honestly".. sure
     Camera: 3
     lookPosition: 1
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 910954a4711738a4c827caf1036d4bdc, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 0}
   responseNo: time's running out
   responseYes: i'll try to debug
+  responseOneshotClip: {fileID: 8300000, guid: 9688a62516bf2d04ba36af88f44f86a3, type: 3}
   NoEventToCall: 1
   YesEventToCall: 1

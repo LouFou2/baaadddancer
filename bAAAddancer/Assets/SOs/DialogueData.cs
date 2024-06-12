@@ -4,7 +4,6 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue System/Dialogue Data")]
 public class DialogueData : ScriptableObject
 {
-    //public string name; // *** here I might set up a condition dictionary
     [System.Serializable]
     public class DialogueUnit {
         [TextArea(3, 10)]
@@ -15,13 +14,14 @@ public class DialogueData : ScriptableObject
         public AudioClip newMusicTrackToPlay;
         public AudioClip voxClipToPlay;
     }
-    
-    public DialogueUnit[] dialogueUnits;
 
-    public AudioClip musicTrackToPlay;
+    public AudioClip musicTrackToPlay; // the main track of the dialogue unit (different from newMusicTrackToPlay that can be timed with dialogue beats)
+
+    public DialogueUnit[] dialogueUnits;
 
     public string responseNo;
     public string responseYes;
+    public AudioClip responseOneshotClip;
 
     public enum EventsToCall { triggerNextDialogue, switchScene, customEvent }
     public EventsToCall NoEventToCall;

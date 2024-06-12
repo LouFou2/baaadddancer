@@ -12,27 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round4_Meeting_Dialogue3
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 0}
   dialogueUnits:
   - sentence: C'mon you don't think its me right?
     Camera: 4
     lookPosition: 1
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 72d9431e5b3e4da4b8b77c8a3a3495a2, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: I don't think it's you no
     Camera: 11
     lookPosition: 1
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: df43b1d1cf7b8f848a6eaf05a1a24e16, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: I think you're the most suspicous
     Camera: 7
     lookPosition: 1
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 2bc97147170376843b3beefef835c364, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 0}
   responseNo: i don't agree they are suspicious
   responseYes: oh for sure you're the rave demon
+  responseOneshotClip: {fileID: 8300000, guid: d22f9a3744f44aa45b52f18df9fa8181, type: 3}
   NoEventToCall: 0
   YesEventToCall: 0

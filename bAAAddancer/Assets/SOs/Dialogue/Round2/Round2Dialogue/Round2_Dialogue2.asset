@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round2_Dialogue2
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 0}
   dialogueUnits:
   - sentence: Well, time is ticking, we need more moves
     Camera: 3
     lookPosition: 1
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 9f65fbbcfd59e924bb49d27dbe6e48fe, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: I'm just a bit freaked out
@@ -34,17 +35,17 @@ MonoBehaviour:
   - sentence: I promise its not me
     Camera: 5
     lookPosition: 2
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 4f249781ead83da4c80b95d91b4477f6, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: Well I don't believe any of you
     Camera: 7
     lookPosition: 3
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 1fd8be282a445da4fa9b786f84a22849, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 0}
   responseNo: 
   responseYes: lets just keep practicing
+  responseOneshotClip: {fileID: 8300000, guid: 17c3602637744d744b70987a159661f9, type: 3}
   NoEventToCall: 1
   YesEventToCall: 1

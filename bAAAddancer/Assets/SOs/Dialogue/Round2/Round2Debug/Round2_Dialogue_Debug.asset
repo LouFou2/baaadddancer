@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round2_Dialogue_Debug
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 8300000, guid: b3a5bf5290d21644993afd5ab147b5cc, type: 3}
   dialogueUnits:
   - sentence: I think I want to keep this curse
     Camera: 0
     lookPosition: 0
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 5644eb7b71ae2e544bf01f3254c1dbfa, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: Can we just TELL the others you did the debug?
@@ -25,8 +26,8 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 8300000, guid: b3a5bf5290d21644993afd5ab147b5cc, type: 3}
   responseNo: no we need to fix this
   responseYes: should we see what happens?
+  responseOneshotClip: {fileID: 0}
   NoEventToCall: 2
   YesEventToCall: 2

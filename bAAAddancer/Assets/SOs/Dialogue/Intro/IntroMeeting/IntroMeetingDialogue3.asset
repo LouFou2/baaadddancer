@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: IntroMeetingDialogue3
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 0}
   dialogueUnits:
   - sentence: Can you try to debug me please?
     Camera: 11
     lookPosition: 5
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 13d5b0b23193ac74d8e94c74b63771e7, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 0}
   responseNo: 
   responseYes: I'll try my best...
+  responseOneshotClip: {fileID: 8300000, guid: 5340d019f3cd97d43bb6e8d071a69460, type: 3}
   NoEventToCall: 1
   YesEventToCall: 1

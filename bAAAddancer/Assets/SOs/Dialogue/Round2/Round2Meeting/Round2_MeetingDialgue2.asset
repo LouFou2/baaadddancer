@@ -12,33 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round2_MeetingDialgue2
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 0}
   dialogueUnits:
   - sentence: I think I know who it might be
     Camera: 4
     lookPosition: 1
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 7f9d8fa8eeb10404285147252c83492a, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: well I suspect it might be YOU
     Camera: 8
     lookPosition: 3
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: f0423928ce7dc0f45a54f11911fb7630, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: oh you're quick to point the finger
     Camera: 4
     lookPosition: 3
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 5f5887f31f30b7f41b94456e5d44ef1f, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: yeah that's a bit supicious
     Camera: 6
     lookPosition: 2
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 5035676825a580a4e84ce34e57e49ec5, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 0}
   responseNo: 
   responseYes: listen, let's just debug
+  responseOneshotClip: {fileID: 8300000, guid: 66ec720f80677cd4b9588c707011e535, type: 3}
   NoEventToCall: 1
   YesEventToCall: 1

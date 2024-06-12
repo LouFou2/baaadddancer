@@ -7,12 +7,13 @@ public class CutscenesAudioManager : MonoBehaviour
     [SerializeField] private AudioSource music;
     [SerializeField] private AudioSource oneShot;
     [SerializeField] private AudioSource vox;
-    [SerializeField] private AudioClip[] musicTracks = new AudioClip[8];
 
     [SerializeField] private Queue<AudioClip> oneshotClips =  new Queue<AudioClip>();
     [SerializeField] private Queue<AudioClip> newMusicClips = new Queue<AudioClip>();
 
     [SerializeField] private DialogueSwitcher dialogueSwitcher;
+
+    private HashSet<AudioClip> playedResponseClips = new HashSet<AudioClip>();
 
     void Start()
     {
@@ -25,6 +26,46 @@ public class CutscenesAudioManager : MonoBehaviour
         QueueMusicClips();
         PlayNewMusicTrack();
     }
+
+    // ---------------------
+    // PlayMusicTrack method handles the "musicTrackToPlay" from DialogueData:
+    public void PlayNewMusicTrack() // I call this with TriggerNextDialogue Event in DialogueManager (UnityEvent: set in Inspector)
+    {
+        AudioClip musicToPlay = dialogueSwitcher.GetCurrentDialogue().musicTrackToPlay;
+
+        if (musicToPlay != null) // It will only play a new track if a track is added to the new Dialogue Data
+        {
+            music.Stop();
+            music.clip = musicToPlay;
+            music.Play();
+        }
+        else return;
+    }
+    public void PlayResponseOneShot() 
+    {
+        AudioClip currentClip = dialogueSwitcher.GetCurrentDialogue().responseOneshotClip;
+
+        // Check if the current clip is not null and hasn't been played yet
+        if (currentClip != null && !playedResponseClips.Contains(currentClip))
+        {
+            oneShot.clip = currentClip;
+            oneShot.Play();
+            playedResponseClips.Add(currentClip);
+        }
+    }
+    //---------------------------
+    // QUEUES:
+    public void QueueOneShots() // Also UnityEvent on Dialogue Manager (in inspector)
+    {
+        DialogueData currentDialogueData = dialogueSwitcher.GetCurrentDialogue();
+        oneshotClips.Clear();
+
+        foreach (DialogueData.DialogueUnit unit in currentDialogueData.dialogueUnits)
+        {
+            oneshotClips.Enqueue(unit.oneshotClipToPlay); // *** NB it also enqueues the null audioclips
+        }
+        PlayOneShot(); //will only play if there is an audioClip to play //*** it skips the null clips, but still "dequeues" it on the call
+    }
     public void QueueMusicClips()
     {
         DialogueData currentDialogueData = dialogueSwitcher.GetCurrentDialogue();
@@ -32,11 +73,13 @@ public class CutscenesAudioManager : MonoBehaviour
 
         foreach (DialogueData.DialogueUnit unit in currentDialogueData.dialogueUnits)
         {
-            newMusicClips.Enqueue(unit.oneshotClipToPlay);
+            newMusicClips.Enqueue(unit.newMusicTrackToPlay); // *** NB it also enqueues the null audioclips
         }
-        PlayMusic(); //will only play if there is an audioClip to play
+        PlayMusic(); //will only play if there is an audioClip to play //*** it skips the null clips, but still "dequeues" it on the call
     }
-    public void PlayMusic()
+    //--------------------------------------
+    // PLAYS:
+    public void PlayMusic() // this method handles the queue of "newMusicTrackToPlay" clips from Dialogue units
     {
         if (newMusicClips.Count > 0) 
         {
@@ -49,31 +92,7 @@ public class CutscenesAudioManager : MonoBehaviour
             }
         }
     }
-    public void PlayNewMusicTrack() // I call this with TriggerNextDialogue Event in DialogueManager (UnityEvent: set in Inspector)
-    {
-        AudioClip musicToPlay = null; 
-        musicToPlay = dialogueSwitcher.GetCurrentDialogue().musicTrackToPlay;
-
-        if (musicToPlay != null) // It will only play a new track if a track is added to the new Dialogue Data
-        {
-            music.Stop();
-            music.clip = musicToPlay;
-            music.Play();
-        }
-        else return;
-    }
     
-    public void QueueOneShots() // Also UnityEvent on Dialogue Manager (in inspector)
-    {
-        DialogueData currentDialogueData = dialogueSwitcher.GetCurrentDialogue();
-        oneshotClips.Clear();
-
-        foreach (DialogueData.DialogueUnit unit in currentDialogueData.dialogueUnits) 
-        {
-            oneshotClips.Enqueue(unit.oneshotClipToPlay);
-        }
-        PlayOneShot(); //will only play if there is an audioClip to play
-    }
     public void PlayOneShot() //will only play if there is an audioClip to play *
     {
         if (oneshotClips.Count > 0)
@@ -88,7 +107,7 @@ public class CutscenesAudioManager : MonoBehaviour
         }
     }
 
-    public void playVox(AudioClip voxClipToPlay)
+    public void PlayVox(AudioClip voxClipToPlay)
     {
         vox.clip = voxClipToPlay;
         vox.Stop();

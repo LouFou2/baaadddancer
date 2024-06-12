@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round3_Meeting_Dialogue
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 8300000, guid: 19cc1b589bf7fd64e95840046192f31d, type: 3}
   dialogueUnits:
   - sentence: listen, there are only 3 of you who haven't been cursed
     Camera: 11
@@ -22,11 +23,11 @@ MonoBehaviour:
   - sentence: yeah, one of you is the Rave Demon
     Camera: 7
     lookPosition: 3
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 8a1a71acbf947a940b97899d3488619a, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 8300000, guid: 19cc1b589bf7fd64e95840046192f31d, type: 3}
   responseNo: it's not me
   responseYes: why would I debug everyone if it was me?
+  responseOneshotClip: {fileID: 8300000, guid: e2f934fe50dc1914e9a299fac98fd49c, type: 3}
   NoEventToCall: 0
   YesEventToCall: 0

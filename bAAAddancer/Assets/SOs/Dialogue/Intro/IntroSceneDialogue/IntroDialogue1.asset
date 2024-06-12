@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: IntroDialogue1
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 8300000, guid: 87dbff484690a3c42ad44c6df53ce715, type: 3}
   dialogueUnits:
   - sentence: You all ready for Rumble at the Rave?
     Camera: 0
@@ -22,23 +23,23 @@ MonoBehaviour:
   - sentence: I'm ready to swallow the competion!
     Camera: 3
     lookPosition: 1
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: dbd2083d88ccea04c9238cc19d65159a, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: 'Listen, we better have some killer moves '
     Camera: 5
     lookPosition: 2
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 483099014ce551145957cd58510b14f9, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: Who wants to do the choreography?
     Camera: 7
     lookPosition: 3
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: d85a9b01ad7f72b439f3ea972b33be94, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 8300000, guid: 87dbff484690a3c42ad44c6df53ce715, type: 3}
   responseNo: 
   responseYes: I'll give it a go...
+  responseOneshotClip: {fileID: 8300000, guid: 1c0b7c70f75603147867fb817c9b2309, type: 3}
   NoEventToCall: 1
   YesEventToCall: 1

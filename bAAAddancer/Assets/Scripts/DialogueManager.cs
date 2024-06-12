@@ -71,6 +71,8 @@ public class DialogueManager : MonoBehaviour
 
             case DialogueState.PlayerResponse:
 
+                cutscenesAudioManager.PlayResponseOneShot();
+
                 if (!string.IsNullOrEmpty(button0Text.text))
                 {
                     button0.gameObject.SetActive(true);

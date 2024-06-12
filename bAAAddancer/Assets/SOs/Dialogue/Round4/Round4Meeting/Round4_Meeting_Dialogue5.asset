@@ -12,27 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round4_Meeting_Dialogue5
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 0}
   dialogueUnits:
   - sentence: You can vote for me
     Camera: 11
     lookPosition: 5
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 419957eaab433354ba9a0fb34cbcf84a, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: but I PROMISE its not me
     Camera: 12
     lookPosition: 5
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: d0be40d3158672047a80258160dd1d8c, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: Listen, we have to GO
     Camera: 4
     lookPosition: 1
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 304fd30635bb786459dc145396971f3c, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 0}
   responseNo: 
   responseYes: time to VOTE
+  responseOneshotClip: {fileID: 8300000, guid: 227e4762200b0e24a8d91d1e92e44b30, type: 3}
   NoEventToCall: 2
   YesEventToCall: 2

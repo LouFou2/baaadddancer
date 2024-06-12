@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round4_Meeting_Dialogue
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 8300000, guid: 53e1d083c4b6e3342b9c337c52d0ab65, type: 3}
   dialogueUnits:
   - sentence: It's time to go to the rave
     Camera: 0
@@ -22,25 +23,25 @@ MonoBehaviour:
   - sentence: We can't go with a Rave Demon in our midst
     Camera: 11
     lookPosition: 5
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 24cc27f0553b52a4aac00521c7cdca3f, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: or can we?
     Camera: 4
     lookPosition: 6
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 909d15b509fa2bc479af4ca01b4e3549, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: Well it's clear who the RaveDemon is right?
     Camera: 7
     lookPosition: 3
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 4d8163ef2a2d50249ba6e255bb1c8ab1, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: what, you think its me?
     Camera: 6
     lookPosition: 0
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 505e6b3edd64d5e4a9012df1f71bbc71, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: no, not you...
@@ -52,11 +53,11 @@ MonoBehaviour:
   - sentence: I'm actually not sure now...
     Camera: 11
     lookPosition: 5
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 121f047f244408c4bb571c068e9feae4, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 8300000, guid: 53e1d083c4b6e3342b9c337c52d0ab65, type: 3}
   responseNo: no of course not
   responseYes: I'm pretty sure you are
+  responseOneshotClip: {fileID: 8300000, guid: ceea805cbf460e4468e2aef479c4217d, type: 3}
   NoEventToCall: 0
   YesEventToCall: 0

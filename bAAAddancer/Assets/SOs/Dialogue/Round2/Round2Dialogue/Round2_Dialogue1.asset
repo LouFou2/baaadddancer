@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round2_Dialogue1
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 8300000, guid: 6ab1702a6067538419252b256e5ed866, type: 3}
   dialogueUnits:
   - sentence: did you get rid of the curse?
     Camera: 5
     lookPosition: 2
-    oneshotClipToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: 0acb6e431f40ff645bdd9cd25f67f090, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   - sentence: i'm fine! all better
@@ -25,8 +26,8 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 8300000, guid: 6ab1702a6067538419252b256e5ed866, type: 3}
   responseNo: 
   responseYes: all better
+  responseOneshotClip: {fileID: 8300000, guid: 087233b664ef5764590f43e53b599255, type: 3}
   NoEventToCall: 0
   YesEventToCall: 0
