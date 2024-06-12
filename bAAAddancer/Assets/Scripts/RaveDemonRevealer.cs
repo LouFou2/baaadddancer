@@ -28,4 +28,8 @@ public class RaveDemonRevealer : MonoBehaviour
         if(!raveDemonEliminated)
             revealRaveDemon.Invoke();
     }
+    public bool CheckIfPlayerWins() 
+    {
+        return raveDemonEliminated;
+    }
 }

@@ -15,6 +15,7 @@ public class DataResetter : MonoBehaviour
             characterDataSOs[i].infectionLevel = 0f;
             characterDataSOs[i].wasDebuggedLastRound = false;
             characterDataSOs[i].lastBuggedCharacter = false;
+            characterDataSOs[i].wasEliminated = false;
         }
         for (int j = 0; j < roundsRecDataSOs.Length; j++) 
         {

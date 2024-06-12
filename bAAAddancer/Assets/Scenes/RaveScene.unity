@@ -5522,6 +5522,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[7]
       value: 
+      objectReference: {fileID: 2100000, guid: 5e4af18d67d7e7b40970504a7a83f831, type: 2}
+    - target: {fileID: 3392475997213451452, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[8]
+      value: 
       objectReference: {fileID: 2100000, guid: ddfafef5c5bfccb48a58d34a73fea9b4, type: 2}
     - target: {fileID: 3687152578120138587, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,
         type: 3}
@@ -6055,6 +6060,55 @@ MonoBehaviour:
       z: 1
     m_MaintainPositionOffset: 0
     m_MaintainRotationOffset: 1
+--- !u!1 &391153141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 391153142}
+  - component: {fileID: 391153143}
+  m_Layer: 0
+  m_Name: MegaMixTrackSwitcher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &391153142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391153141}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2245521104985211499}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &391153143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391153141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca02da1597c0e314a88324f83b8f70d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raveDemonRevealerScript: {fileID: 2021791717}
+  demonWinsTrack: {fileID: 8300000, guid: 3aaae66b80c8af74681f701f8ea15e67, type: 3}
+  playerWinsTrack: {fileID: 8300000, guid: 1a014a61744d43f4ab76ce40e1db273c, type: 3}
+  playableDirector: {fileID: 1422052224}
+  timelineAsset: {fileID: 11400000, guid: a667d8eabc14238468c7828c5c10163a, type: 2}
 --- !u!1 &391485620
 GameObject:
   m_ObjectHideFlags: 0
@@ -15376,6 +15430,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[6]
       value: 
       objectReference: {fileID: 2100000, guid: 949660aca7541f542a7a62c0352e2fa9, type: 2}
+    - target: {fileID: 1170144921232173779, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[7]
+      value: 
+      objectReference: {fileID: 2100000, guid: c3900d7a32a1c664c94a34fd7905a540, type: 2}
     - target: {fileID: 2444027865858116415, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
       propertyPath: m_Name
@@ -22049,7 +22108,7 @@ GameObject:
   - component: {fileID: 1422052223}
   - component: {fileID: 1422052224}
   m_Layer: 0
-  m_Name: TIMELINE
+  m_Name: RAVETIMELINE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23660,6 +23719,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[6]
       value: 
       objectReference: {fileID: 2100000, guid: c6e397eac83dabb4c82ea32353c7ac64, type: 2}
+    - target: {fileID: 474617413224845427, guid: 16b7a2a336056a54593cf9292a17ca1b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[7]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7b3207343e83e794290f17da526bbd0c, type: 2}
     - target: {fileID: 575849373253436524, guid: 16b7a2a336056a54593cf9292a17ca1b,
         type: 3}
       propertyPath: m_IsActive
@@ -28727,6 +28791,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[6]
       value: 
+      objectReference: {fileID: 2100000, guid: 985929eb3293ecd459f05b8a5de7ac2c, type: 2}
+    - target: {fileID: 8569115961611011698, guid: d6205e1c08d675c4ead561695434af55,
+        type: 3}
+      propertyPath: m_Materials.Array.data[7]
+      value: 
+      objectReference: {fileID: 2100000, guid: e473f9fd91e211a42822777d056eaa32, type: 2}
+    - target: {fileID: 8569115961611011698, guid: d6205e1c08d675c4ead561695434af55,
+        type: 3}
+      propertyPath: m_Materials.Array.data[8]
+      value: 
       objectReference: {fileID: 2100000, guid: 4ffc8f905fc552944bc14bfa69ce9bf2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6205e1c08d675c4ead561695434af55, type: 3}
@@ -29072,37 +29146,42 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8734c2d4bcfd6c54c94ab038f4390e11, type: 2}
+      objectReference: {fileID: 2100000, guid: cb41ba8e1905e4549b4faaa377e8ee12, type: 2}
     - target: {fileID: 1277776657765877396, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: cb41ba8e1905e4549b4faaa377e8ee12, type: 2}
+      objectReference: {fileID: 2100000, guid: cd9814b7f43a35740adebdc5110fcb06, type: 2}
     - target: {fileID: 1277776657765877396, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: cd9814b7f43a35740adebdc5110fcb06, type: 2}
+      objectReference: {fileID: 2100000, guid: 07f1f2a7a011de24e9864feb02c71567, type: 2}
     - target: {fileID: 1277776657765877396, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 2100000, guid: 07f1f2a7a011de24e9864feb02c71567, type: 2}
+      objectReference: {fileID: 2100000, guid: f9f64624c45a8ca4b80afa4e4ba42042, type: 2}
     - target: {fileID: 1277776657765877396, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
       propertyPath: m_Materials.Array.data[4]
       value: 
-      objectReference: {fileID: 2100000, guid: f9f64624c45a8ca4b80afa4e4ba42042, type: 2}
+      objectReference: {fileID: 2100000, guid: 4fa2cc5d9154e7244a2dcc321063000a, type: 2}
     - target: {fileID: 1277776657765877396, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
       propertyPath: m_Materials.Array.data[5]
       value: 
-      objectReference: {fileID: 2100000, guid: 4fa2cc5d9154e7244a2dcc321063000a, type: 2}
+      objectReference: {fileID: 2100000, guid: 6da83b4d1ff56954d9812b399e9d8ee9, type: 2}
     - target: {fileID: 1277776657765877396, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
       propertyPath: m_Materials.Array.data[6]
       value: 
-      objectReference: {fileID: 2100000, guid: 6da83b4d1ff56954d9812b399e9d8ee9, type: 2}
+      objectReference: {fileID: 2100000, guid: 79437ac36c5bc1246b0bb92f01f4f915, type: 2}
+    - target: {fileID: 1277776657765877396, guid: 4d0f9f92e028ed34c84dc80208a80523,
+        type: 3}
+      propertyPath: m_Materials.Array.data[7]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8734c2d4bcfd6c54c94ab038f4390e11, type: 2}
     - target: {fileID: 1668030088081865234, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -31589,7 +31668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67159bd99f2137144b33a10f3f34e415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raveDemonEliminated: 0
+  raveDemonEliminated: 1
   revealRaveDemon:
     m_PersistentCalls:
       m_Calls:
@@ -41011,6 +41090,7 @@ Transform:
   - {fileID: 2021791716}
   - {fileID: 1520991655}
   - {fileID: 1314743034}
+  - {fileID: 391153142}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60253,7 +60333,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 810428b72788f0d419835d82274f0ed4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3aaae66b80c8af74681f701f8ea15e67, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -64342,7 +64422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8804588295332999749}
   m_Layer: 0
-  m_Name: Music
+  m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65746,7 +65826,7 @@ GameObject:
   - component: {fileID: 9211418632983946135}
   - component: {fileID: 9211418632983946136}
   m_Layer: 0
-  m_Name: Track
+  m_Name: MegaMixTrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
