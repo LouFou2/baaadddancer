@@ -11,16 +11,65 @@ public class CutscenesAudioManager : MonoBehaviour
     [SerializeField] private Queue<AudioClip> oneshotClips =  new Queue<AudioClip>();
     [SerializeField] private Queue<AudioClip> newMusicClips = new Queue<AudioClip>();
 
+    private Queue<DialogueData.DialogueUnit> dialogueUnitQueue = new Queue<DialogueData.DialogueUnit>();
+
     [SerializeField] private DialogueSwitcher dialogueSwitcher;
+    [SerializeField] private CharacterManager characterManager;
+
+    [SerializeField] private CharVOXManager[] charVOXManagers; // add in inspector, in same order as Character Manager char data SO's
+
+    // Indexes to use, same as CameraManager, according to dialogue data + character data
+    private CharacterData[] characterDataSOs;
+    private List<int> availableIndexes = new List<int>();
+    private int playerIndex;
+    private int bugIndex;
+    private int lastBuggedCharacterIndex;
+    private int npc1_Index, npc2_Index, npc3_Index; //remaining npcs
+
+    private int speakingCharacter = -1;
 
     private HashSet<AudioClip> playedResponseClips = new HashSet<AudioClip>();
+    private bool playerResponseVoxPlayed = false;
 
     void Start()
     {
         LevelKey currentLevelKey = GameManager.Instance.GetCurrentLevelKey();
         dialogueSwitcher = FindObjectOfType<DialogueSwitcher>();
 
-        //AudioClip musicTrack = null;
+        characterDataSOs = new CharacterData[6];
+
+        availableIndexes.Clear();
+        // Populate available indexes
+        for (int i = 0; i < characterManager.characterDataSOs.Length; i++)
+        {
+            availableIndexes.Add(i);
+        }
+        for (int i = 0; i < characterManager.characterDataSOs.Length; i++)
+        {
+            characterDataSOs[i] = characterManager.characterDataSOs[i];
+            if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player)
+            {
+                playerIndex = i;
+                availableIndexes.Remove(i); // Remove player index
+            }
+            if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Bug)
+            {
+                bugIndex = i;
+                availableIndexes.Remove(i); // Remove bug index
+            }
+            if (characterDataSOs[i].lastBuggedCharacter == true)
+            {
+                lastBuggedCharacterIndex = i;
+                availableIndexes.Remove(i); // Remove last bugged character index
+            }
+        }
+        // Assign remaining indexes to NPC characters
+        npc1_Index = availableIndexes[0];
+        npc2_Index = availableIndexes[1];
+        npc3_Index = availableIndexes[2];
+
+        DialogueData currentDialogue = dialogueSwitcher.GetCurrentDialogue();
+        QueueDialogueUnits(currentDialogue);
 
         QueueOneShots();
         QueueMusicClips();
@@ -53,8 +102,117 @@ public class CutscenesAudioManager : MonoBehaviour
             playedResponseClips.Add(currentClip);
         }
     }
+    public void PlayResponseVOX()
+    {
+        if (playerResponseVoxPlayed) 
+        {
+            return;
+        }
+        
+        DialogueData.VoxEmote responseEmote = dialogueSwitcher.GetCurrentDialogue().responseEmote;
+
+        switch (responseEmote)
+        {
+            case DialogueData.VoxEmote.casual:
+                charVOXManagers[playerIndex].PlayCasualVox();
+                break;
+            case DialogueData.VoxEmote.confused:
+                charVOXManagers[playerIndex].PlayConfusedVox();
+                break;
+            case DialogueData.VoxEmote.happy:
+                charVOXManagers[playerIndex].PlayHappyVox();
+                break;
+            case DialogueData.VoxEmote.mad:
+                charVOXManagers[playerIndex].PlayMadVox();
+                break;
+            case DialogueData.VoxEmote.pleading:
+                charVOXManagers[playerIndex].PlayPleadingVox();
+                break;
+            case DialogueData.VoxEmote.worried:
+                charVOXManagers[playerIndex].PlayWorriedVox();
+                break;
+
+            default:
+                charVOXManagers[playerIndex].PlayCasualVox();
+                break;
+        }
+        playerResponseVoxPlayed = true;
+    }
+    //-------------------
+    // SWITCHES:
+    // speaker
+    void SwitchCurrentSpeaker(DialogueData.SpeakingCharacter currentSpeaker)
+    {
+        switch (currentSpeaker)
+        {
+            case DialogueData.SpeakingCharacter.playerSpeaking:
+                speakingCharacter = playerIndex;
+                break;
+            case DialogueData.SpeakingCharacter.demonSpeaking:
+                speakingCharacter = bugIndex;
+                break;
+            case DialogueData.SpeakingCharacter.lastBuggedSpeaking:
+                speakingCharacter = lastBuggedCharacterIndex;
+                break;
+            case DialogueData.SpeakingCharacter.npc02Speaking:
+                speakingCharacter = npc1_Index;
+                break;
+            case DialogueData.SpeakingCharacter.npc03Speaking:
+                speakingCharacter = npc2_Index;
+                break;
+            case DialogueData.SpeakingCharacter.npc04Speaking:
+                speakingCharacter = npc3_Index;
+                break;
+            default:
+                speakingCharacter = playerIndex;
+                break;
+        }
+    }
+    // vox emotes
+    void SwitchVoxEmote(DialogueData.VoxEmote currentVoxEmote) 
+    {
+        switch (currentVoxEmote) 
+        {
+            case DialogueData.VoxEmote.casual:
+                charVOXManagers[speakingCharacter].PlayCasualVox();
+                break;
+            case DialogueData.VoxEmote.confused:
+                charVOXManagers[speakingCharacter].PlayConfusedVox();
+                break;
+            case DialogueData.VoxEmote.happy:
+                charVOXManagers[speakingCharacter].PlayHappyVox();
+                break;
+            case DialogueData.VoxEmote.mad:
+                charVOXManagers[speakingCharacter].PlayMadVox();
+                break;
+            case DialogueData.VoxEmote.pleading:
+                charVOXManagers[speakingCharacter].PlayPleadingVox();
+                break;
+            case DialogueData.VoxEmote.worried:
+                charVOXManagers[speakingCharacter].PlayWorriedVox();
+                break;
+
+            default:
+                charVOXManagers[speakingCharacter].PlayCasualVox();
+                break;
+        }
+
+    }
     //---------------------------
     // QUEUES:
+    public void QueueDialogueUnits(DialogueData newDialogue)
+    {
+        DialogueData currentDialogueData = dialogueSwitcher.GetCurrentDialogue();
+        dialogueUnitQueue.Clear();
+
+        playerResponseVoxPlayed = false;
+
+        foreach (DialogueData.DialogueUnit unit in newDialogue.dialogueUnits)
+        {
+            dialogueUnitQueue.Enqueue(unit);
+        }
+        ChangeSpeakerAndPlayVOX();
+    }
     public void QueueOneShots() // Also UnityEvent on Dialogue Manager (in inspector)
     {
         DialogueData currentDialogueData = dialogueSwitcher.GetCurrentDialogue();
@@ -79,6 +237,17 @@ public class CutscenesAudioManager : MonoBehaviour
     }
     //--------------------------------------
     // PLAYS:
+    //--------------------------------------
+    // set up speaker:
+    public void ChangeSpeakerAndPlayVOX()  // *** HAS to be called from DialogueManager, same as "lookManager.SelectNewLookPosition() line 64"
+    {
+        if (dialogueUnitQueue.Count > 0)
+        {
+            DialogueData.DialogueUnit unit = dialogueUnitQueue.Dequeue();
+            SwitchCurrentSpeaker(unit.speakingCharacter);
+            SwitchVoxEmote(unit.voxEmote);
+        }
+    }
     public void PlayMusic() // this method handles the queue of "newMusicTrackToPlay" clips from Dialogue units
     {
         if (newMusicClips.Count > 0) 
@@ -106,11 +275,5 @@ public class CutscenesAudioManager : MonoBehaviour
             }
         }
     }
-
-    public void PlayVox(AudioClip voxClipToPlay)
-    {
-        vox.clip = voxClipToPlay;
-        vox.Stop();
-        vox.Play();
-    }
+    
 }

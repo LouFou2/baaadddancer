@@ -14511,12 +14511,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   voxAudioSource: {fileID: 2143487384615033443}
-  casualVoxClip: {fileID: 0}
-  confusedVoxClip: {fileID: 0}
-  happyVoxClip: {fileID: 0}
-  madVoxClip: {fileID: 0}
-  pleadingVoxClip: {fileID: 0}
-  worriedVoxClip: {fileID: 0}
+  casualVoxClip: {fileID: 8300000, guid: 30b4cce7ffa8bbb43a0c06aee99611c4, type: 3}
+  confusedVoxClip: {fileID: 8300000, guid: 3c5ee5d929679d24f8039fe9145233fa, type: 3}
+  happyVoxClip: {fileID: 8300000, guid: bd01c0a6021da2b468a5a0a823a89b52, type: 3}
+  madVoxClip: {fileID: 8300000, guid: 5cb03a0baddbf5142a9cb48f23064cd2, type: 3}
+  pleadingVoxClip: {fileID: 8300000, guid: df4384d5802003d4fa87733b3f7ee776, type: 3}
+  worriedVoxClip: {fileID: 8300000, guid: 74bbc60393abcff4d910bea6b36caa8b, type: 3}
 --- !u!82 &2143487384615033443
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14528,7 +14528,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

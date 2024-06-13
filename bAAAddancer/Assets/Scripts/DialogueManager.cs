@@ -62,6 +62,7 @@ public class DialogueManager : MonoBehaviour
                     cameraManager.SelectNewCamera();
                     if(lookManager != null)
                         lookManager.SelectNewLookPosition();
+                    cutscenesAudioManager.ChangeSpeakerAndPlayVOX();
                     cutscenesAudioManager.PlayMusic();
                     cutscenesAudioManager.PlayOneShot();
                     dialogueState = DialogueState.NPCSpeaks;
@@ -72,6 +73,7 @@ public class DialogueManager : MonoBehaviour
             case DialogueState.PlayerResponse:
 
                 cutscenesAudioManager.PlayResponseOneShot();
+                cutscenesAudioManager.PlayResponseVOX();
 
                 if (!string.IsNullOrEmpty(button0Text.text))
                 {
@@ -149,6 +151,8 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueData currentDialogue = dialogueSwitcher.GetCurrentDialogue();
 
+        //cutscenesAudioManager.PlayResponseVOX();
+
         switch (currentDialogue.NoEventToCall)
         {
             case EventsToCall.triggerNextDialogue: 
@@ -171,8 +175,8 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueData currentDialogue = dialogueSwitcher.GetCurrentDialogue();
 
-        //here we can use case-switching logic, using the enums from the SO
-        //and making it call PossibleEvent1/2/3/etc
+        //cutscenesAudioManager.PlayResponseVOX();
+
         switch (currentDialogue.YesEventToCall)
         {
             case EventsToCall.triggerNextDialogue:

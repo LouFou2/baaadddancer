@@ -15,6 +15,7 @@ public class DialogueData : ScriptableObject
         public AudioClip oneshotClipToPlay;
         public AudioClip newMusicTrackToPlay;
         public AudioClip voxClipToPlay;
+        public VoxEmote voxEmote;
     }
 
     public AudioClip musicTrackToPlay; // the main track of the dialogue unit (different from newMusicTrackToPlay that can be timed with dialogue beats)
@@ -25,6 +26,7 @@ public class DialogueData : ScriptableObject
     public string responseYes;
     public LookPosition playerLookPosition;
     public AudioClip responseOneshotClip;
+    public VoxEmote responseEmote;
 
     public enum EventsToCall { triggerNextDialogue, switchScene, customEvent }
     public EventsToCall NoEventToCall;
@@ -34,6 +36,11 @@ public class DialogueData : ScriptableObject
     public enum SpeakingCharacter 
     {
         playerSpeaking, demonSpeaking, lastBuggedSpeaking, npc02Speaking, npc03Speaking, npc04Speaking
+    }
+
+    public enum VoxEmote 
+    {
+        casual, confused, happy, mad, pleading, worried
     }
 
     public enum CameraToSwitch {
