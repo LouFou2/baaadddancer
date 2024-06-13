@@ -14,26 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicTrackToPlay: {fileID: 0}
   dialogueUnits:
-  - sentence: You can vote for me
+  - speakingCharacter: 2
+    sentence: You can vote for me
     Camera: 11
-    lookPosition: 5
+    charsLookPosition: 3
+    speakerLookPosition: 4
     oneshotClipToPlay: {fileID: 8300000, guid: 419957eaab433354ba9a0fb34cbcf84a, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: but I PROMISE its not me
+  - speakingCharacter: 2
+    sentence: but I PROMISE its not me
     Camera: 12
-    lookPosition: 5
+    charsLookPosition: 3
+    speakerLookPosition: 1
     oneshotClipToPlay: {fileID: 8300000, guid: d0be40d3158672047a80258160dd1d8c, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: Listen, we have to GO
+  - speakingCharacter: 1
+    sentence: Listen, we have to GO
     Camera: 4
-    lookPosition: 1
+    charsLookPosition: 2
+    speakerLookPosition: 3
     oneshotClipToPlay: {fileID: 8300000, guid: 304fd30635bb786459dc145396971f3c, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   responseNo: 
   responseYes: time to VOTE
+  playerLookPosition: 0
   responseOneshotClip: {fileID: 8300000, guid: 227e4762200b0e24a8d91d1e92e44b30, type: 3}
   NoEventToCall: 2
   YesEventToCall: 2
