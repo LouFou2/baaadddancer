@@ -224,14 +224,14 @@ public class LookManager : MonoBehaviour
             lookTargets[speakingCharacter].transform.DOMove(mainCamera.transform.position, changeLookDuration);
     }
 
-    void Update()
+    /*void Update()  // *** not using this currently, save on processing...
     {
         if (!gazePositionChange) 
         {
             StartCoroutine(ChangeGazePosition());
         }
-    }
-    private IEnumerator ChangeGazePosition() 
+    }*/
+    private IEnumerator ChangeGazePosition() // Use Something like this for future... change look aims to random positions
     {
         gazePositionChange = true;
 
