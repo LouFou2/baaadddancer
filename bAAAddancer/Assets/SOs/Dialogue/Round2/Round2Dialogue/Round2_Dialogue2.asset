@@ -22,6 +22,7 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 8300000, guid: 9f65fbbcfd59e924bb49d27dbe6e48fe, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 0
   - speakingCharacter: 2
     sentence: I'm just a bit freaked out
     Camera: 11
@@ -30,6 +31,7 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 1
   - speakingCharacter: 2
     sentence: It was one of you...
     Camera: 12
@@ -38,6 +40,7 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 3
   - speakingCharacter: 3
     sentence: I promise its not me
     Camera: 5
@@ -46,6 +49,7 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 8300000, guid: 4f249781ead83da4c80b95d91b4477f6, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 0
   - speakingCharacter: 4
     sentence: Well I don't believe any of you
     Camera: 7
@@ -54,9 +58,11 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 8300000, guid: 1fd8be282a445da4fa9b786f84a22849, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 0
   responseNo: 
   responseYes: lets just keep practicing
   playerLookPosition: 5
   responseOneshotClip: {fileID: 8300000, guid: 17c3602637744d744b70987a159661f9, type: 3}
+  responseEmote: 0
   NoEventToCall: 1
   YesEventToCall: 1

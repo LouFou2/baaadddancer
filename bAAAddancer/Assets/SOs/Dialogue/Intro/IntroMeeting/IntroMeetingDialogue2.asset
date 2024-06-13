@@ -22,6 +22,7 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 8300000, guid: 869b4b84b73fa9a4583251a60977ae0e, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 5
   - speakingCharacter: 3
     sentence: Someone on this team
     Camera: 5
@@ -30,14 +31,16 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 8300000, guid: 7ac75a9a99b2bc945aa179b393303ead, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 5
   - speakingCharacter: 3
-    sentence: Has been possessed by the Rave Demon!
+    sentence: Is possessed by the Rave Demon!
     Camera: 6
     charsLookPosition: 4
     speakerLookPosition: 1
     oneshotClipToPlay: {fileID: 8300000, guid: 6c7e0e44592e89941a9265446984cdec, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 3
   - speakingCharacter: 2
     sentence: And they have cursed me!
     Camera: 12
@@ -46,9 +49,11 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 8300000, guid: 7ed6c0dcf80f6954fad2b51b9729a30b, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 5
   responseNo: 
   responseYes: can we do something about it?
   playerLookPosition: 3
   responseOneshotClip: {fileID: 8300000, guid: dbf26bd887dc2004b888b335537a6fca, type: 3}
+  responseEmote: 1
   NoEventToCall: 0
   YesEventToCall: 0

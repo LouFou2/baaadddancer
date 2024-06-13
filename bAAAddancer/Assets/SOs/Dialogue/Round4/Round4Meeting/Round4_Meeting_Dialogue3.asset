@@ -22,6 +22,7 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 8300000, guid: 72d9431e5b3e4da4b8b77c8a3a3495a2, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 0
   - speakingCharacter: 2
     sentence: I don't think it's you no
     Camera: 11
@@ -30,6 +31,7 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 8300000, guid: df43b1d1cf7b8f848a6eaf05a1a24e16, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 0
   - speakingCharacter: 4
     sentence: I think you're the most suspicous
     Camera: 7
@@ -38,9 +40,11 @@ MonoBehaviour:
     oneshotClipToPlay: {fileID: 8300000, guid: 2bc97147170376843b3beefef835c364, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 0
   responseNo: i don't agree they are suspicious
   responseYes: oh for sure you're the rave demon
   playerLookPosition: 2
   responseOneshotClip: {fileID: 8300000, guid: d22f9a3744f44aa45b52f18df9fa8181, type: 3}
+  responseEmote: 1
   NoEventToCall: 0
   YesEventToCall: 0
