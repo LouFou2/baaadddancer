@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class CharVOXManager : MonoBehaviour
 {
-    [SerializeField] private DialogueSwitcher dialogueSwitcher;
-
-    void Start()
+    /// <summary>
+    /// Will use this script to organise and manage voice clips for each character
+    /// </summary>
+    [System.Serializable]
+    public class VoxUnit 
     {
-        
+        public DialogueData.SpeakingCharacter speakingCharacter;
+        public VoxExpression expression;
+        public AudioClip voxClip;
     }
+    public enum VoxExpression { Casual, Excited, Worried, Shady, Mad }
 
-    void Update()
-    {
-        
-    }
+    public VoxUnit[] voxUnits;
 }
