@@ -200,7 +200,7 @@ public class CutscenesAudioManager : MonoBehaviour
     }
     //---------------------------
     // QUEUES:
-    public void QueueDialogueUnits(DialogueData newDialogue)
+    public void QueueDialogueUnits(DialogueData newDialogue) // this gets called from DialogueSwitcher.TriggerNextDialogue()
     {
         DialogueData currentDialogueData = dialogueSwitcher.GetCurrentDialogue();
         dialogueUnitQueue.Clear();

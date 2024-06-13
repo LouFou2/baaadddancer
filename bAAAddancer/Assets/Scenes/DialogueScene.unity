@@ -1762,18 +1762,6 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 3612356306812758735}
         m_TargetAssemblyTypeName: CutscenesAudioManager, Assembly-CSharp
-        m_MethodName: QueueDialogueUnits
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: DialogueData, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3612356306812758735}
-        m_TargetAssemblyTypeName: CutscenesAudioManager, Assembly-CSharp
         m_MethodName: QueueMusicClips
         m_Mode: 1
         m_Arguments:
@@ -3542,6 +3530,7 @@ MonoBehaviour:
   dialoguePlayer: {fileID: 1424368517}
   cameraManager: {fileID: 2097008799}
   lookManager: {fileID: 1149589821}
+  cutscenesAudioManager: {fileID: 3612356306812758735}
   button1: {fileID: 1742261221}
 --- !u!1 &1742261219 stripped
 GameObject:

@@ -1033,6 +1033,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2f38aca245f47f4d9b41b6fb6f365c4, type: 3}
+--- !u!114 &824577402 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 364242913056961226, guid: c2f38aca245f47f4d9b41b6fb6f365c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 824577401}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909792286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194afeb412db74846b4ae57899cb2526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &864034893
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1412,6 +1424,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16b7a2a336056a54593cf9292a17ca1b, type: 3}
+--- !u!114 &864034894 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6802256752637198788, guid: 16b7a2a336056a54593cf9292a17ca1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 864034893}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713780073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194afeb412db74846b4ae57899cb2526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &909792286 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6631851765770614766, guid: c2f38aca245f47f4d9b41b6fb6f365c4,
@@ -1971,6 +1995,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d0f9f92e028ed34c84dc80208a80523, type: 3}
+--- !u!114 &1074027032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6585617526594089696, guid: 4d0f9f92e028ed34c84dc80208a80523,
+    type: 3}
+  m_PrefabInstance: {fileID: 1074027031}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277171044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194afeb412db74846b4ae57899cb2526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1151575241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2335,6 +2371,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3, type: 3}
+--- !u!114 &1151575242 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5168068146810315187, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1151575241}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989432529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194afeb412db74846b4ae57899cb2526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1180020867
 GameObject:
   m_ObjectHideFlags: 0
@@ -2632,6 +2680,51 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: characterManager
+      value: 
+      objectReference: {fileID: 5136341049213950410}
+    - target: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: dialogueSwitcher
+      value: 
+      objectReference: {fileID: 2245521104436305205}
+    - target: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: charVOXManagers.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: charVOXManagers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1401961897}
+    - target: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: charVOXManagers.Array.data[1]
+      value: 
+      objectReference: {fileID: 824577402}
+    - target: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: charVOXManagers.Array.data[2]
+      value: 
+      objectReference: {fileID: 864034894}
+    - target: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: charVOXManagers.Array.data[3]
+      value: 
+      objectReference: {fileID: 1151575242}
+    - target: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: charVOXManagers.Array.data[4]
+      value: 
+      objectReference: {fileID: 1074027032}
+    - target: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: charVOXManagers.Array.data[5]
+      value: 
+      objectReference: {fileID: 1411045324}
     - target: {fileID: 3612356307558578565, guid: 1cf43c46b95d2994bacaca36d83729d7,
         type: 3}
       propertyPath: m_Name
@@ -2644,6 +2737,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cf43c46b95d2994bacaca36d83729d7, type: 3}
+--- !u!114 &1238232364 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1238232363}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77ad83b059e0096459bb3d6989807c82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1277171044 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5627502537885533446, guid: 4d0f9f92e028ed34c84dc80208a80523,
@@ -3075,6 +3180,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1, type: 3}
+--- !u!114 &1401961897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3290293521196980247, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1401961896}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701333659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194afeb412db74846b4ae57899cb2526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1411045323
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3429,6 +3546,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6205e1c08d675c4ead561695434af55, type: 3}
+--- !u!114 &1411045324 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5017538785588304381, guid: d6205e1c08d675c4ead561695434af55,
+    type: 3}
+  m_PrefabInstance: {fileID: 1411045323}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181165823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194afeb412db74846b4ae57899cb2526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1436003795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4540,6 +4669,7 @@ MonoBehaviour:
   dialoguePlayer: {fileID: 2245521104688316993}
   cameraManager: {fileID: 4718493156396122188}
   lookManager: {fileID: 0}
+  cutscenesAudioManager: {fileID: 1238232364}
   button1: {fileID: 1227797231}
 --- !u!4 &2245521104688316992
 Transform:
@@ -4658,19 +4788,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CutscenesAudioManager, Assembly-CSharp
-        m_MethodName: PlayNewMusicTrack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1238232364}
         m_TargetAssemblyTypeName: CutscenesAudioManager, Assembly-CSharp
         m_MethodName: QueueMusicClips
         m_Mode: 1
@@ -4682,7 +4800,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1238232364}
         m_TargetAssemblyTypeName: CutscenesAudioManager, Assembly-CSharp
         m_MethodName: QueueOneShots
         m_Mode: 1

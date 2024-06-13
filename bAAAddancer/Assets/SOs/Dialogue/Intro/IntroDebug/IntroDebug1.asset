@@ -14,32 +14,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicTrackToPlay: {fileID: 8300000, guid: bb8ec6494f0753544b0e03d120cf1832, type: 3}
   dialogueUnits:
-  - sentence: Listen, I trust you
+  - speakingCharacter: 2
+    sentence: Listen, I trust you
     Camera: 0
-    lookPosition: 0
+    charsLookPosition: 0
+    speakerLookPosition: 0
     oneshotClipToPlay: {fileID: 8300000, guid: 0a9d497e45e40b6499fd30fc4ab1b9d3, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: I dont believe you are the Rave Demon
+    voxEmote: 5
+  - speakingCharacter: 2
+    sentence: I dont believe you are the Rave Demon
     Camera: 0
-    lookPosition: 0
+    charsLookPosition: 0
+    speakerLookPosition: 0
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: But you have to figure out who is
+    voxEmote: 0
+  - speakingCharacter: 2
+    sentence: But you have to figure out who is
     Camera: 0
-    lookPosition: 0
+    charsLookPosition: 0
+    speakerLookPosition: 0
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: Or we might all get cursed
+    voxEmote: 1
+  - speakingCharacter: 2
+    sentence: Or we might all get cursed
     Camera: 0
-    lookPosition: 0
+    charsLookPosition: 0
+    speakerLookPosition: 0
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
+    voxEmote: 3
   responseNo: 
   responseYes: I'll try to figure it out, promise!
+  playerLookPosition: 0
   responseOneshotClip: {fileID: 0}
+  responseEmote: 5
   NoEventToCall: 0
   YesEventToCall: 0

@@ -12,15 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round3_Dialogue_Debug
   m_EditorClassIdentifier: 
+  musicTrackToPlay: {fileID: 8300000, guid: 7f0e1dd6592a4334dbd1080644f886ee, type: 3}
   dialogueUnits:
-  - sentence: please get rid of this curse
+  - speakingCharacter: 2
+    sentence: please get rid of this curse
     Camera: 0
-    lookPosition: 0
+    charsLookPosition: 0
+    speakerLookPosition: 0
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  musicTrackToPlay: {fileID: 8300000, guid: 7f0e1dd6592a4334dbd1080644f886ee, type: 3}
+    voxEmote: 4
   responseNo: 
   responseYes: I've got you
+  playerLookPosition: 0
+  responseOneshotClip: {fileID: 0}
+  responseEmote: 0
   NoEventToCall: 2
   YesEventToCall: 2

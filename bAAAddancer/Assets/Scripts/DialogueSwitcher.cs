@@ -14,6 +14,7 @@ public class DialogueSwitcher : MonoBehaviour
     [SerializeField] private DialoguePlayback dialoguePlayer; // the dialogue "player" (just types out the sentences)
     [SerializeField] private CameraManager cameraManager; // cinematography (using Cinemachine State Driven Cameras) 
     [SerializeField] private LookManager lookManager;
+    [SerializeField] private CutscenesAudioManager cutscenesAudioManager;
 
     [SerializeField] private Button button1; // Reference to your yes button (the game needs a default selected button)
 
@@ -66,6 +67,8 @@ public class DialogueSwitcher : MonoBehaviour
         cameraManager.QueueNewDialogueUnitsForCamera(currentDialogue);
         if(lookManager != null)
             lookManager.QueueNewDialogueUnitsForLookTargets(currentDialogue);
+        if (cutscenesAudioManager != null)
+            cutscenesAudioManager.QueueDialogueUnits(currentDialogue);
 
         // Select button1 after restarting the dialogue
         EventSystem.current.SetSelectedGameObject(button1.gameObject);
