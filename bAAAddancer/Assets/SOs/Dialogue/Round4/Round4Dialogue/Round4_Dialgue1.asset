@@ -12,12 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37344dfd5559c4b9c4d20bcd881be4, type: 3}
   m_Name: Round4_Dialgue1
   m_EditorClassIdentifier: 
-  sentences: []
+  musicTrackToPlay: {fileID: 0}
   dialogueUnits:
-  - sentence: Do we have time to learn for one more move?
+  - speakingCharacter: 0
+    sentence: Do we have time to learn for one more move?
     Camera: 0
-    audioClipToPlay: {fileID: 0}
+    charsLookPosition: 1
+    speakerLookPosition: 3
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxClipToPlay: {fileID: 0}
   responseNo: 
   responseYes: We need one more move
+  playerLookPosition: 0
+  responseOneshotClip: {fileID: 0}
   NoEventToCall: 1
   YesEventToCall: 1

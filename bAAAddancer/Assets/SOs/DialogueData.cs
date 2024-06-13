@@ -6,10 +6,12 @@ public class DialogueData : ScriptableObject
 {
     [System.Serializable]
     public class DialogueUnit {
+        public SpeakingCharacter speakingCharacter;
         [TextArea(3, 10)]
         public string sentence;
         public CameraToSwitch Camera;
-        public LookPosition lookPosition;
+        public LookPosition charsLookPosition;
+        public LookPosition speakerLookPosition;
         public AudioClip oneshotClipToPlay;
         public AudioClip newMusicTrackToPlay;
         public AudioClip voxClipToPlay;
@@ -21,11 +23,18 @@ public class DialogueData : ScriptableObject
 
     public string responseNo;
     public string responseYes;
+    public LookPosition playerLookPosition;
     public AudioClip responseOneshotClip;
 
     public enum EventsToCall { triggerNextDialogue, switchScene, customEvent }
     public EventsToCall NoEventToCall;
     public EventsToCall YesEventToCall;
+
+    
+    public enum SpeakingCharacter 
+    {
+        playerSpeaking, demonSpeaking, lastBuggedSpeaking, npc02Speaking, npc03Speaking, npc04Speaking
+    }
 
     public enum CameraToSwitch {
         longCam,
@@ -38,7 +47,7 @@ public class DialogueData : ScriptableObject
     }
     public enum LookPosition
     {
-        LookatPlayer, LookatDemon, LookatNPC2, LookatNPC3, LookatNPC4, LookatLastBuggedNPC, LookatCamera
+        LookatCamera, LookatPlayer, LookatDemon, LookatLastBuggedNPC, LookatNPC2, LookatNPC3, LookatNPC4
     }
     
 }

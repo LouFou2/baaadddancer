@@ -14,20 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicTrackToPlay: {fileID: 0}
   dialogueUnits:
-  - sentence: it's honestly not me
+  - speakingCharacter: 3
+    sentence: it's honestly not me
     Camera: 5
-    lookPosition: 2
+    charsLookPosition: 4
+    speakerLookPosition: 3
     oneshotClipToPlay: {fileID: 8300000, guid: 49beaa5414cde014c8cec2e2bd24dc0e, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: hm, "honestly".. sure
+  - speakingCharacter: 1
+    sentence: hm, "honestly".. sure
     Camera: 3
-    lookPosition: 1
+    charsLookPosition: 2
+    speakerLookPosition: 4
     oneshotClipToPlay: {fileID: 8300000, guid: 910954a4711738a4c827caf1036d4bdc, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   responseNo: time's running out
   responseYes: i'll try to debug
+  playerLookPosition: 3
   responseOneshotClip: {fileID: 8300000, guid: 9688a62516bf2d04ba36af88f44f86a3, type: 3}
   NoEventToCall: 1
   YesEventToCall: 1

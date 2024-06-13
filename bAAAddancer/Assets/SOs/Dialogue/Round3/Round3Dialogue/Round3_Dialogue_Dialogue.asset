@@ -14,32 +14,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicTrackToPlay: {fileID: 8300000, guid: 22537b8bd967ba746a921671459ff672, type: 3}
   dialogueUnits:
-  - sentence: We pretty much have to leave for the rave
+  - speakingCharacter: 3
+    sentence: We pretty much have to leave for the rave
     Camera: 0
-    lookPosition: 0
+    charsLookPosition: 4
+    speakerLookPosition: 1
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: We need at least two more moves
+  - speakingCharacter: 4
+    sentence: We need at least two more moves
     Camera: 7
-    lookPosition: 3
+    charsLookPosition: 5
+    speakerLookPosition: 4
     oneshotClipToPlay: {fileID: 8300000, guid: 66b880c22efe81b4bbc4d114d812d868, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: Are we just going to the rave all cursed?!
+  - speakingCharacter: 2
+    sentence: Are we just going to the rave all cursed?!
     Camera: 11
-    lookPosition: 6
+    charsLookPosition: 3
+    speakerLookPosition: 0
     oneshotClipToPlay: {fileID: 8300000, guid: 42fe5ec24b333be43b373966684bb93e, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: Yeah, and with a ravedemon among us?
+  - speakingCharacter: 1
+    sentence: Yeah, and with a ravedemon among us?
     Camera: 3
-    lookPosition: 1
+    charsLookPosition: 2
+    speakerLookPosition: 3
     oneshotClipToPlay: {fileID: 8300000, guid: 233869e0e8fcac2458b735ed000bca9b, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   responseNo: we'll figure it out
   responseYes: let's just focus on our dance
+  playerLookPosition: 3
   responseOneshotClip: {fileID: 8300000, guid: 1ede58fd6e1cf9e48b206df9892c175c, type: 3}
   NoEventToCall: 1
   YesEventToCall: 1

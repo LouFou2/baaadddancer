@@ -14,38 +14,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicTrackToPlay: {fileID: 0}
   dialogueUnits:
-  - sentence: Well, time is ticking, we need more moves
+  - speakingCharacter: 1
+    sentence: Well, time is ticking, we need more moves
     Camera: 3
-    lookPosition: 1
+    charsLookPosition: 2
+    speakerLookPosition: 0
     oneshotClipToPlay: {fileID: 8300000, guid: 9f65fbbcfd59e924bb49d27dbe6e48fe, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: I'm just a bit freaked out
+  - speakingCharacter: 2
+    sentence: I'm just a bit freaked out
     Camera: 11
-    lookPosition: 5
+    charsLookPosition: 3
+    speakerLookPosition: 2
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: It was one of you...
+  - speakingCharacter: 2
+    sentence: It was one of you...
     Camera: 12
-    lookPosition: 5
+    charsLookPosition: 3
+    speakerLookPosition: 4
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: I promise its not me
+  - speakingCharacter: 3
+    sentence: I promise its not me
     Camera: 5
-    lookPosition: 2
+    charsLookPosition: 4
+    speakerLookPosition: 3
     oneshotClipToPlay: {fileID: 8300000, guid: 4f249781ead83da4c80b95d91b4477f6, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: Well I don't believe any of you
+  - speakingCharacter: 4
+    sentence: Well I don't believe any of you
     Camera: 7
-    lookPosition: 3
+    charsLookPosition: 5
+    speakerLookPosition: 4
     oneshotClipToPlay: {fileID: 8300000, guid: 1fd8be282a445da4fa9b786f84a22849, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   responseNo: 
   responseYes: lets just keep practicing
+  playerLookPosition: 5
   responseOneshotClip: {fileID: 8300000, guid: 17c3602637744d744b70987a159661f9, type: 3}
   NoEventToCall: 1
   YesEventToCall: 1

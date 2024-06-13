@@ -25,6 +25,8 @@ public class LookManager : MonoBehaviour
     private int lastBuggedCharacterIndex;
     private int npc1_Index, npc2_Index, npc3_Index; //remaining npcs
 
+    private int speakingCharacter = -1;
+
     private Queue<DialogueData.DialogueUnit> dialogueUnitQueue = new Queue<DialogueData.DialogueUnit>();
     private DialogueData.DialogueUnit currentDialogueUnit;
 
@@ -36,7 +38,7 @@ public class LookManager : MonoBehaviour
 
         float xPosition = Random.Range(-0.5f, 0.5f);
         float yPosition = Random.Range(1.2f, 1.7f);
-        float zPosition = Random.Range(0.5f, 2.5f);
+        float zPosition = Random.Range(1.5f, 3.5f);
 
         randomLookPosition.transform.position = new Vector3(xPosition, yPosition, zPosition);
 
@@ -94,17 +96,45 @@ public class LookManager : MonoBehaviour
         {
             DialogueData.DialogueUnit unit = dialogueUnitQueue.Dequeue();
             currentDialogueUnit = unit;
-            SwitchLookPositions(unit.lookPosition);
+            SwitchCurrentSpeaker(unit.speakingCharacter);
+            SwitchCharsLookPositions(unit.charsLookPosition);
+            SwitchSpeakerLookPositions(unit.speakerLookPosition);
         }
     }
     public void SetLooksToPlayer() 
     {
-        SwitchLookPositions(DialogueData.LookPosition.LookatPlayer);
+        SwitchCharsLookPositions(DialogueData.LookPosition.LookatPlayer);
     }
-    void SwitchLookPositions(DialogueData.LookPosition lookPositionToSwitch)
+    void SwitchCurrentSpeaker(DialogueData.SpeakingCharacter currentSpeaker) 
+    {
+        switch (currentSpeaker) 
+        {
+            case DialogueData.SpeakingCharacter.playerSpeaking:
+                speakingCharacter = playerIndex;
+                break;
+            case DialogueData.SpeakingCharacter.demonSpeaking:
+                speakingCharacter = bugIndex;
+                break;
+            case DialogueData.SpeakingCharacter.lastBuggedSpeaking:
+                speakingCharacter = lastBuggedCharacterIndex;
+                break;
+            case DialogueData.SpeakingCharacter.npc02Speaking:
+                speakingCharacter = npc1_Index;
+                break;
+            case DialogueData.SpeakingCharacter.npc03Speaking:
+                speakingCharacter = npc2_Index;
+                break;
+            case DialogueData.SpeakingCharacter.npc04Speaking:
+                speakingCharacter = npc3_Index;
+                break;
+            default:
+                speakingCharacter = playerIndex;
+                break;
+        }
+    }
+    void SwitchCharsLookPositions(DialogueData.LookPosition lookPositionToSwitch)
     {
         
-        // Perform camera switching logic based on the provided enum value
         switch (lookPositionToSwitch)
         {
             case DialogueData.LookPosition.LookatPlayer:
@@ -126,13 +156,45 @@ public class LookManager : MonoBehaviour
                 TweenLookTargets(lastBuggedCharacterIndex);
                 break;
             case DialogueData.LookPosition.LookatCamera:
-                TweenLookatCamera();
+                TweenCharsLookatCamera();
                 break;
             default:
                 TweenLookTargets(playerIndex);
                 break;
         }
     }
+    void SwitchSpeakerLookPositions(DialogueData.LookPosition lookPositionToSwitch)
+    {
+        // Perform camera switching logic based on the provided enum value
+        switch (lookPositionToSwitch)
+        {
+            case DialogueData.LookPosition.LookatPlayer:
+                TweenSpeakerLookTarget(playerIndex);
+                break;
+            case DialogueData.LookPosition.LookatDemon:
+                TweenSpeakerLookTarget(bugIndex);
+                break;
+            case DialogueData.LookPosition.LookatNPC2:
+                TweenSpeakerLookTarget(npc1_Index);
+                break;
+            case DialogueData.LookPosition.LookatNPC3:
+                TweenSpeakerLookTarget(npc2_Index);
+                break;
+            case DialogueData.LookPosition.LookatNPC4:
+                TweenSpeakerLookTarget(npc3_Index);
+                break;
+            case DialogueData.LookPosition.LookatLastBuggedNPC:
+                TweenSpeakerLookTarget(lastBuggedCharacterIndex);
+                break;
+            case DialogueData.LookPosition.LookatCamera:
+                TweenSpeakerLookatCamera();
+                break;
+            default:
+                TweenSpeakerLookatCamera();
+                break;
+        }
+    }
+    
     void TweenLookTargets(int speakingCharacterIndex) 
     {
         for (int i = 0; i < lookTargets.Length; i++) 
@@ -141,18 +203,25 @@ public class LookManager : MonoBehaviour
             {
                 lookTargets[i].transform.DOMove(lookTargetPositioners[speakingCharacterIndex].transform.position, changeLookDuration);
             }
-            else // if i is the speaking character:
-            {
-                lookTargets[i].transform.position = randomLookPosition.transform.position;
-            }
         }
     }
-    void TweenLookatCamera() 
+    void TweenSpeakerLookTarget(int speakerLookAtIndex)
+    {
+        if (speakingCharacter > -1)
+            lookTargets[speakingCharacter].transform.DOMove(lookTargetPositioners[speakerLookAtIndex].transform.position, changeLookDuration);
+    }
+    void TweenCharsLookatCamera() 
     {
         for (int i = 0; i < lookTargets.Length; i++)
         {
-            lookTargets[i].transform.DOMove(mainCamera.transform.position, changeLookDuration);
+            if(i != speakingCharacter)
+                lookTargets[i].transform.DOMove(mainCamera.transform.position, changeLookDuration);
         }
+    }
+    void TweenSpeakerLookatCamera()
+    {
+        if(speakingCharacter > -1)
+            lookTargets[speakingCharacter].transform.DOMove(mainCamera.transform.position, changeLookDuration);
     }
 
     void Update()
@@ -173,14 +242,9 @@ public class LookManager : MonoBehaviour
         Vector3 newRandomLookPosition = new Vector3(xPosition, yPosition, zPosition);
 
         float changeGazeDuration = Random.Range(0.4f, 1.5f);
-        float timePassed = 0f;
-
-        while (timePassed < changeGazeDuration) 
-        {
-            timePassed += Time.deltaTime;
-            randomLookPosition.transform.DOMove(newRandomLookPosition, changeGazeDuration).SetEase(Ease.InOutBack);
-        }
-        timePassed = changeGazeDuration;
+        
+        randomLookPosition.transform.DOMove(newRandomLookPosition, changeGazeDuration).SetEase(Ease.InOutBack);
+        yield return new WaitForSeconds(changeGazeDuration);
 
         yield return new WaitForSeconds(gazePositionDuration);
 

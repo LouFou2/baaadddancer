@@ -14,20 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicTrackToPlay: {fileID: 8300000, guid: 6ab1702a6067538419252b256e5ed866, type: 3}
   dialogueUnits:
-  - sentence: did you get rid of the curse?
+  - speakingCharacter: 3
+    sentence: did you get rid of the curse?
     Camera: 5
-    lookPosition: 2
+    charsLookPosition: 1
+    speakerLookPosition: 1
     oneshotClipToPlay: {fileID: 8300000, guid: 0acb6e431f40ff645bdd9cd25f67f090, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: i'm fine! all better
+  - speakingCharacter: 2
+    sentence: i'm fine! all better
     Camera: 11
-    lookPosition: 5
+    charsLookPosition: 3
+    speakerLookPosition: 4
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   responseNo: 
   responseYes: all better
+  playerLookPosition: 4
   responseOneshotClip: {fileID: 8300000, guid: 087233b664ef5764590f43e53b599255, type: 3}
   NoEventToCall: 0
   YesEventToCall: 0

@@ -14,20 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicTrackToPlay: {fileID: 8300000, guid: 19cc1b589bf7fd64e95840046192f31d, type: 3}
   dialogueUnits:
-  - sentence: listen, there are only 3 of you who haven't been cursed
+  - speakingCharacter: 2
+    sentence: listen, there are only 3 of you who haven't been cursed
     Camera: 11
-    lookPosition: 5
+    charsLookPosition: 3
+    speakerLookPosition: 1
     oneshotClipToPlay: {fileID: 0}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
-  - sentence: yeah, one of you is the Rave Demon
+  - speakingCharacter: 4
+    sentence: yeah, one of you is the Rave Demon
     Camera: 7
-    lookPosition: 3
+    charsLookPosition: 5
+    speakerLookPosition: 1
     oneshotClipToPlay: {fileID: 8300000, guid: 8a1a71acbf947a940b97899d3488619a, type: 3}
     newMusicTrackToPlay: {fileID: 0}
     voxClipToPlay: {fileID: 0}
   responseNo: it's not me
   responseYes: why would I debug everyone if it was me?
+  playerLookPosition: 5
   responseOneshotClip: {fileID: 8300000, guid: e2f934fe50dc1914e9a299fac98fd49c, type: 3}
   NoEventToCall: 0
   YesEventToCall: 0
