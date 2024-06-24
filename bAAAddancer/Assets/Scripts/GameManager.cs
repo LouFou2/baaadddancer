@@ -85,10 +85,6 @@ public class GameManager : MonoBehaviour
     public void RestartGame() 
     {
         gameStarted = false;
-        /*ResetCurrentLevelKey();
-        ResetRoundNr();
-        if(dataResetter != null)
-            dataResetter.ResetAllData();*/  //***Doing the same thing in Title Scene, just need to reset gameStarted?
         SceneManager.LoadScene("TitleScene");
     }
 }

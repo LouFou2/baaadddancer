@@ -50,7 +50,6 @@ public class DemonMover : MonoBehaviour
     {
         clock = FindObjectOfType<ClockCounter>();
         countDuration = clock.Get_Q_BeatInterval();
-        Debug.Log(countDuration);
 
         demHeadX = demonHead.demControlObject.transform.position.x;
         demHeadY = demonHead.demControlObject.transform.position.y;

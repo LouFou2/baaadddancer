@@ -64,20 +64,14 @@ public class DanceSeqSwitchUI_Manager : MonoBehaviour
     }
     private void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Space) && !switchingUI_Image) //replace this with correct input logic
-        {
-            SwitchUI_Image();
-        }*/
+        
         if (playerControls.GenericInput.LBumper.triggered && !switchingUI_Image)
         {
             SwitchUI_Image(-1);
-            Debug.Log("left bumper");
         }
         if (playerControls.GenericInput.RBumper.triggered && !switchingUI_Image)
         {
             SwitchUI_Image(1);
-            Debug.Log("right bumper");
-
         }
     }
 
@@ -93,7 +87,6 @@ public class DanceSeqSwitchUI_Manager : MonoBehaviour
         seqSwitchImages[imageSwitcherIndex].color = imageSelectedColor;
 
         switchingUI_Image = false;
-
     }
 
 }

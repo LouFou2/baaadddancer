@@ -36,11 +36,8 @@ public class ObjectControls : MonoBehaviour
     public bool useRecordedPositions = false;
 
     private Vector3 initialPosition;
-    private Quaternion initialRotation;
     private Vector3 currentRecordedPosition;
-    //private Quaternion currentRecordedRotation;
     private Vector3 finalUpdatePosition;
-    //private Quaternion finalUpdateRotation;
 
     private void Awake()
     {
@@ -63,7 +60,6 @@ public class ObjectControls : MonoBehaviour
         viewSwitcher = FindObjectOfType<ViewSwitcher>();
 
         initialPosition = controlObject.transform.position;
-        initialRotation = controlObject.transform.rotation;
         currentRecordedPosition = initialPosition;
         //currentRecordedRotation = initialRotation;
 
@@ -122,9 +118,6 @@ public class ObjectControls : MonoBehaviour
         }
 
         controlObject.transform.position = currentRecordedPosition;
-        //controlObject.transform.rotation = currentRecordedRotation;
-
-        //finalUpdateRotation = currentRecordedRotation; // *** MIGHT USE ROTATION, IN WHICH CASE ADD INTO LOGIC BELOW (instead of this line)
 
         if (isActive && isRecording)
         {
@@ -182,8 +175,6 @@ public class ObjectControls : MonoBehaviour
                         // Update object's position
                         finalUpdatePosition = clampedPosition;
                     }
-                    
-
                     break;
 
                 case ViewSwitcher.ViewSwitch.top:
@@ -229,7 +220,6 @@ public class ObjectControls : MonoBehaviour
             if (!useMovementLimit) // logic below: stop objects from crossing over each other
             {
                 controlObject.transform.position = finalUpdatePosition;
-                //controlObject.transform.rotation = finalUpdateRotation;
             }
             else 
             {
@@ -239,19 +229,16 @@ public class ObjectControls : MonoBehaviour
 
                     finalUpdatePosition = new Vector3(limitedX, finalUpdatePosition.y, finalUpdatePosition.z);
                     controlObject.transform.position = finalUpdatePosition;
-                    //controlObject.transform.rotation = finalUpdateRotation;
                 }
                 else if (rightObject && opposingObject != null) 
                 { 
                     float limitedX = Mathf.Clamp(finalUpdatePosition.x, opposingObject.transform.position.x, x_RangeMax);
                     finalUpdatePosition = new Vector3(limitedX, finalUpdatePosition.y, finalUpdatePosition.z);
                     controlObject.transform.position = finalUpdatePosition;
-                    //controlObject.transform.rotation = finalUpdateRotation;
                 }
                 else 
                 {
                     controlObject.transform.position = finalUpdatePosition;
-                    //controlObject.transform.rotation = finalUpdateRotation;
                 }
             }
             
@@ -261,10 +248,6 @@ public class ObjectControls : MonoBehaviour
     {
         return finalUpdatePosition;
     }
-    /*public Quaternion GetRotationToRecord()
-    {
-        return finalUpdateRotation;
-    }*/
     void On_Q_BeatHandler()
     {
         int currentPositionIndex = clockCounter.GetCurrent_Q_Beat(); //the indexes of the positions corresponds to the beats (the beats are used to record them)
@@ -290,6 +273,4 @@ public class ObjectControls : MonoBehaviour
         DOTween.To(() => currentRecordedPosition, x => currentRecordedPosition = x, new Vector3(xTarget, yTarget, zTarget), tweenDuration).SetEase(Ease.Linear);
 
     }
-
-
 }
