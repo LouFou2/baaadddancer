@@ -50,45 +50,78 @@ public class CharacterManager2 : MonoBehaviour
 
     private void AssignCharacterStats()
     {
+        List<int> indices = new List<int>();
+        for (int i = 0; i < characters.Length; i++)
+        {
+            indices.Add(i);
+        }
+
+        // Shuffle the indices list
+        for (int i = 0; i < indices.Count; i++)
+        {
+            int temp = indices[i];
+            int randomIndex = Random.Range(i, indices.Count);
+            indices[i] = indices[randomIndex];
+            indices[randomIndex] = temp;
+        }
+
         List<int> goodPerceptionCandidates = new List<int>();
         List<int> goodInfluenceCandidates = new List<int>();
+        List<int> badPerceptionCandidates = new List<int>();
+        List<int> badInfluenceCandidates = new List<int>();
 
         for (int i = 0; i < characters.Length; i++)
         {
-            if (i == playerIndex)
+            int index = indices[i];
+
+            if (index == playerIndex)
             {
-                characterStats[i].stats[CharacterStat.IsPlayer] = 1;
+                characterStats[index].stats[CharacterStat.IsPlayer] = 1;
             }
-            if (i == demonIndex)
+            if (index == demonIndex)
             {
-                characterStats[i].stats[CharacterStat.IsDemon] = 1;
+                characterStats[index].stats[CharacterStat.IsDemon] = 1;
             }
 
             int perception = 0;
             int influence = 0;
 
-            if (goodPerceptionCandidates.Count < 2)
+            // Assign good perception if not already assigned to bad perception
+            if (goodPerceptionCandidates.Count < 2 && !badPerceptionCandidates.Contains(index))
             {
                 perception = 2;
-                goodPerceptionCandidates.Add(i);
+                goodPerceptionCandidates.Add(index);
+            }
+            // Assign bad perception if not already assigned to good perception
+            else if (badPerceptionCandidates.Count < 2 && !goodPerceptionCandidates.Contains(index))
+            {
+                perception = 0;
+                badPerceptionCandidates.Add(index);
             }
             else
             {
-                perception = Random.Range(0, 2);
+                perception = 1;
             }
 
-            if (goodInfluenceCandidates.Count < 2 && perception != 2)
+            // Assign good influence if not already assigned to bad influence and not in good perception
+            if (goodInfluenceCandidates.Count < 2 && !badInfluenceCandidates.Contains(index) && !goodPerceptionCandidates.Contains(index))
             {
                 influence = 2;
-                goodInfluenceCandidates.Add(i);
+                goodInfluenceCandidates.Add(index);
+            }
+            // Assign bad influence if not already assigned to good influence and not in bad perception
+            else if (badInfluenceCandidates.Count < 2 && !goodInfluenceCandidates.Contains(index) && !badPerceptionCandidates.Contains(index))
+            {
+                influence = 0;
+                badInfluenceCandidates.Add(index);
             }
             else
             {
-                influence = Random.Range(0, 2);
+                influence = 1; // Default random assignment if no specific criteria
             }
 
-            characterStats[i].stats[CharacterStat.Influence] = influence;
-            characterStats[i].stats[CharacterStat.Perception] = perception;
+            characterStats[index].stats[CharacterStat.Influence] = influence;
+            characterStats[index].stats[CharacterStat.Perception] = perception;
         }
     }
 
