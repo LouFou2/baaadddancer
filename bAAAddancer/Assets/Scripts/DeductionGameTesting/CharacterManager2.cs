@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class CharacterManager2 : MonoBehaviour
 {
     public GameObject[] characters;
@@ -10,84 +9,119 @@ public class CharacterManager2 : MonoBehaviour
     public int demonIndex = -1;
     public int playerIndex = -1;
 
-
     [System.Serializable]
-    public class CharacterStats 
+    public class CharacterStats
     {
-        public int isPlayer = 0;
-        public int isDemon = 0;
-        public int cursed = 0;
-        public int influence = 0;
-        public int perception = 0;
+        public Dictionary<CharacterStat, int> stats = new Dictionary<CharacterStat, int>
+        {
+            { CharacterStat.IsPlayer, 0 },
+            { CharacterStat.IsDemon, 0 },
+            { CharacterStat.Cursed, 0 },
+            { CharacterStat.Influence, 0 },
+            { CharacterStat.Perception, 0 }
+        };
     }
+
     private void Start()
     {
+        characterStats = new CharacterStats[characters.Length];
+        for (int i = 0; i < characters.Length; i++)
+        {
+            characterStats[i] = new CharacterStats();
+        }
+
         SetPlayerIndex();
         SetDemonIndex();
+        AssignCharacterStats();
+    }
 
-        // Lists to track characters with good perception and good influence
+    private void SetPlayerIndex()
+    {
+        playerIndex = Random.Range(0, characters.Length);
+    }
+
+    private void SetDemonIndex()
+    {
+        do
+        {
+            demonIndex = Random.Range(0, characters.Length);
+        } while (demonIndex == playerIndex);
+    }
+
+    private void AssignCharacterStats()
+    {
         List<int> goodPerceptionCandidates = new List<int>();
         List<int> goodInfluenceCandidates = new List<int>();
 
-        // Update isPlayer and isDemon flags and assign influence and perception stats to each character
         for (int i = 0; i < characters.Length; i++)
         {
-            // Update isPlayer and isDemon flags
             if (i == playerIndex)
             {
-                characterStats[i].isPlayer = 1;
+                characterStats[i].stats[CharacterStat.IsPlayer] = 1;
             }
             if (i == demonIndex)
             {
-                characterStats[i].isDemon = 1;
+                characterStats[i].stats[CharacterStat.IsDemon] = 1;
             }
 
-            // Assign influence and perception stats to each character
-            // 0 bad, 1 neutral, 2 good
-            // Can't have good perception as well as good influence
             int perception = 0;
             int influence = 0;
 
-            // Assign perception stat
             if (goodPerceptionCandidates.Count < 2)
             {
-                // Ensure there are exactly two characters with good perception
                 perception = 2;
                 goodPerceptionCandidates.Add(i);
             }
             else
             {
-                perception = Random.Range(0, 2); // Random perception value (0, 1, or 2)
+                perception = Random.Range(0, 2);
             }
 
-            // Assign influence stat
             if (goodInfluenceCandidates.Count < 2 && perception != 2)
             {
-                // Ensure there are exactly two characters with good influence and not good perception
                 influence = 2;
                 goodInfluenceCandidates.Add(i);
             }
             else
             {
-                influence = Random.Range(0, 2); // Random influence value (0, 1, or 2)
+                influence = Random.Range(0, 2);
             }
 
-            // Update character stats
-            characterStats[i].influence = influence;
-            characterStats[i].perception = perception;
+            characterStats[i].stats[CharacterStat.Influence] = influence;
+            characterStats[i].stats[CharacterStat.Perception] = perception;
         }
     }
 
-    private void SetPlayerIndex() 
+    public Dictionary<CharacterStat, int> GetCharacterStats(int index)
     {
-        playerIndex = Random.Range(0, characters.Length);
-    }
-    private void SetDemonIndex() 
-    {
-        // choose a random index for demon and make sure it is not the same as player index
-        do
+        if (index >= 0 && index < characterStats.Length)
         {
-            demonIndex = Random.Range(0, characters.Length);
-        } while (demonIndex == playerIndex);
+            return characterStats[index].stats;
+        }
+        return null;
+    }
+
+    public List<int> GetMatchingCharacterIndices(Dictionary<CharacterStat, int> queryCriteria)
+    {
+        List<int> matchingIndices = new List<int>();
+
+        for (int i = 0; i < characterStats.Length; i++)
+        {
+            bool match = true;
+            foreach (var criterion in queryCriteria)
+            {
+                if (!characterStats[i].stats.ContainsKey(criterion.Key) || characterStats[i].stats[criterion.Key] != criterion.Value)
+                {
+                    match = false;
+                    break;
+                }
+            }
+            if (match)
+            {
+                matchingIndices.Add(i);
+            }
+        }
+
+        return matchingIndices;
     }
 }

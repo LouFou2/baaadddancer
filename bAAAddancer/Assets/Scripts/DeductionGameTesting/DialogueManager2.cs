@@ -6,20 +6,58 @@ public class DialogueManager2 : MonoBehaviour
 {
     [SerializeField] private DynamicDialogueUnits dialogueUnitsScript;
     [SerializeField] private CharacterManager2 characterManager;
+    [SerializeField] private DialogueQueryCriteria queryCriteriaScriptableObject;
 
     public TextMeshProUGUI[] characterTextDisplay; // inject in inspector, make sure indexes match character indexes
 
+    private Queue<DialogueQueryCriteria.Query> queryQueue = new Queue<DialogueQueryCriteria.Query>();
+
     private void Start()
     {
-        // Example criteria to query dialogue units
-        Dictionary<string, int> queryCriteria = new Dictionary<string, int>
+        InitializeQueryQueue();
+        RunNextQuery();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            { "Who", 0 }
-        };
+            RunNextQuery();
+        }
+    }
+
+    private void InitializeQueryQueue()
+    {
+        foreach (var query in queryCriteriaScriptableObject.queries)
+        {
+            queryQueue.Enqueue(query);
+        }
+    }
+
+    private void RunNextQuery()
+    {
+        if (queryQueue.Count > 0)
+        {
+            var query = queryQueue.Dequeue();
+            RunQuery(query);
+        }
+        else
+        {
+            Debug.Log("No more queries in the queue.");
+        }
+    }
+
+    public void RunQuery(DialogueQueryCriteria.Query query)
+    {
+        Dictionary<CharacterStat, int> queryCriteria = new Dictionary<CharacterStat, int>();
+        foreach (var criterion in query.criteria)
+        {
+            queryCriteria.Add(criterion.key, criterion.value);
+        }
         DialogueQuery(queryCriteria);
     }
 
-    public void DialogueQuery(Dictionary<string, int> queryCriteria)
+    public void DialogueQuery(Dictionary<CharacterStat, int> queryCriteria)
     {
         List<DynamicDialogueUnits.DialogueUnit> matchingUnits = new List<DynamicDialogueUnits.DialogueUnit>();
 
@@ -58,20 +96,33 @@ public class DialogueManager2 : MonoBehaviour
         {
             DynamicDialogueUnits.DialogueUnit selectedUnit = highestScoringMatches[Random.Range(0, highestScoringMatches.Count)];
 
-            // Display dialogue text on the character's text display
-            int characterIndex = queryCriteria["Who"];
-            if (characterIndex >= 0 && characterIndex < characterTextDisplay.Length)
+            // Find a character that matches the selected unit's criteria
+            Dictionary<CharacterStat, int> selectedCriteria = new Dictionary<CharacterStat, int>();
+            foreach (var criterion in selectedUnit.criteria)
             {
-                characterTextDisplay[characterIndex].text = selectedUnit.dialogueText;
+                selectedCriteria.Add(criterion.key, criterion.value);
             }
-            else
+
+            List<int> matchingCharacterIndices = characterManager.GetMatchingCharacterIndices(selectedCriteria);
+
+            if (matchingCharacterIndices.Count > 0)
             {
-                Debug.LogWarning("Invalid character index: " + characterIndex);
+                int selectedCharacterIndex = matchingCharacterIndices[Random.Range(0, matchingCharacterIndices.Count)];
+
+                // Display dialogue text on the selected character's text display
+                if (selectedCharacterIndex >= 0 && selectedCharacterIndex < characterTextDisplay.Length)
+                {
+                    characterTextDisplay[selectedCharacterIndex].text = selectedUnit.dialogueText;
+                }
+                else
+                {
+                    Debug.LogWarning("Invalid character index: " + selectedCharacterIndex);
+                }
             }
         }
     }
 
-    private bool IsMatch(DynamicDialogueUnits.DialogueUnit unit, Dictionary<string, int> queryCriteria)
+    private bool IsMatch(DynamicDialogueUnits.DialogueUnit unit, Dictionary<CharacterStat, int> queryCriteria)
     {
         foreach (var criterion in queryCriteria)
         {

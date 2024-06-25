@@ -309,37 +309,7 @@ MonoBehaviour:
   - {fileID: 545120760}
   - {fileID: 590081763}
   - {fileID: 104479305}
-  characterStats:
-  - isPlayer: 0
-    isDemon: 0
-    cursed: 0
-    influence: 0
-    perception: 0
-  - isPlayer: 0
-    isDemon: 0
-    cursed: 0
-    influence: 0
-    perception: 0
-  - isPlayer: 0
-    isDemon: 0
-    cursed: 0
-    influence: 0
-    perception: 0
-  - isPlayer: 0
-    isDemon: 0
-    cursed: 0
-    influence: 0
-    perception: 0
-  - isPlayer: 0
-    isDemon: 0
-    cursed: 0
-    influence: 0
-    perception: 0
-  - isPlayer: 0
-    isDemon: 0
-    cursed: 0
-    influence: 0
-    perception: 0
+  characterStats: []
   demonIndex: -1
   playerIndex: -1
 --- !u!1 &104479305
@@ -1838,6 +1808,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueUnitsScript: {fileID: 1628891134}
   characterManager: {fileID: 25028872}
+  queryCriteriaScriptableObject: {fileID: 11400000, guid: 719fca062e48e074c9e8b688b7f3ded4,
+    type: 2}
   characterTextDisplay:
   - {fileID: 564420130}
   - {fileID: 24418335}
@@ -2010,9 +1982,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneDialogueUnits:
-  - dialogueText: You all ready for Rumble at the Rave?
+  - dialogueText: I am the smort one
     criteria:
-    - key: Who
+    - key: 4
+      value: 2
+  - dialogueText: Everyone listens to me
+    criteria:
+    - key: 3
+      value: 2
+  - dialogueText: I'll do whatever you say
+    criteria:
+    - key: 3
+      value: 0
+  - dialogueText: I don't know WHATS going on hey
+    criteria:
+    - key: 4
       value: 0
 --- !u!4 &1628891135
 Transform:

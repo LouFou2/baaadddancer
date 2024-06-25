@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ public class DynamicDialogueUnits : MonoBehaviour
     [System.Serializable]
     public class Criterion
     {
-        public string key;
+        public CharacterStat key;
         public int value;
     }
 
@@ -25,5 +24,4 @@ public class DynamicDialogueUnits : MonoBehaviour
     }
 
     public DialogueUnit[] sceneDialogueUnits;
-
 }
