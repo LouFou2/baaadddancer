@@ -46,41 +46,54 @@ public class DialogueManager2 : MonoBehaviour
             Debug.Log("No more queries in the queue.");
         }
     }
-
+    public void RunQueryByIdentifier(string identifier)
+    {
+        var query = queryCriteriaScriptableObject.queries.Find(q => q.identifier == identifier);
+        if (query != null)
+        {
+            RunQuery(query);
+        }
+        else
+        {
+            Debug.LogWarning($"Query with identifier {identifier} not found.");
+        }
+    }
     public void RunQuery(DialogueQueryCriteria.Query query)
     {
-        Dictionary<CharacterStat, int> queryCriteria = new Dictionary<CharacterStat, int>();
-        foreach (var criterion in query.criteria)
+        Dictionary<CharacterStat, int> speakerQueryCriteria = new Dictionary<CharacterStat, int>();
+        foreach (var criterion in query.speakerCriteria)
         {
-            queryCriteria.Add(criterion.key, criterion.value);
+            speakerQueryCriteria.Add(criterion.key, criterion.value);
         }
-        DialogueQuery(queryCriteria);
+
+        DialogueQuery(speakerQueryCriteria);
     }
 
-    public void DialogueQuery(Dictionary<CharacterStat, int> queryCriteria)
+    public void DialogueQuery(Dictionary<CharacterStat, int> speakerQueryCriteria)
     {
-        List<DynamicDialogueUnits.DialogueUnit> matchingUnits = new List<DynamicDialogueUnits.DialogueUnit>();
+        List<DynamicDialogueUnits.DialogueUnit> speakerMatchingUnits = new List<DynamicDialogueUnits.DialogueUnit>();
+        List<DynamicDialogueUnits.DialogueUnit> spokenToMatchingUnits = new List<DynamicDialogueUnits.DialogueUnit>();
 
         // Find all matching units
         foreach (var unit in dialogueUnitsScript.sceneDialogueUnits)
         {
-            if (IsMatch(unit, queryCriteria))
+            if (IsMatch(unit, speakerQueryCriteria))
             {
-                matchingUnits.Add(unit);
+                speakerMatchingUnits.Add(unit);
             }
         }
 
         // Sort matching units by score (number of matched criteria)
-        matchingUnits.Sort((a, b) => b.criteria.Count.CompareTo(a.criteria.Count));
+        speakerMatchingUnits.Sort((a, b) => b.speakerCriteria.Count.CompareTo(a.speakerCriteria.Count));
 
         // Select highest scoring matches
         List<DynamicDialogueUnits.DialogueUnit> highestScoringMatches = new List<DynamicDialogueUnits.DialogueUnit>();
-        if (matchingUnits.Count > 0)
+        if (speakerMatchingUnits.Count > 0)
         {
-            int highestScore = matchingUnits[0].criteria.Count;
-            foreach (var unit in matchingUnits)
+            int highestScore = speakerMatchingUnits[0].speakerCriteria.Count;
+            foreach (var unit in speakerMatchingUnits)
             {
-                if (unit.criteria.Count == highestScore)
+                if (unit.speakerCriteria.Count == highestScore)
                 {
                     highestScoringMatches.Add(unit);
                 }
@@ -98,7 +111,7 @@ public class DialogueManager2 : MonoBehaviour
 
             // Find a character that matches the selected unit's criteria
             Dictionary<CharacterStat, int> selectedCriteria = new Dictionary<CharacterStat, int>();
-            foreach (var criterion in selectedUnit.criteria)
+            foreach (var criterion in selectedUnit.speakerCriteria)
             {
                 selectedCriteria.Add(criterion.key, criterion.value);
             }
@@ -109,7 +122,6 @@ public class DialogueManager2 : MonoBehaviour
             {
                 int selectedCharacterIndex = matchingCharacterIndices[Random.Range(0, matchingCharacterIndices.Count)];
 
-                // Display dialogue text on the selected character's text display
                 if (selectedCharacterIndex >= 0 && selectedCharacterIndex < characterTextDisplay.Length)
                 {
                     characterTextDisplay[selectedCharacterIndex].text = selectedUnit.dialogueText;
@@ -118,6 +130,9 @@ public class DialogueManager2 : MonoBehaviour
                 {
                     Debug.LogWarning("Invalid character index: " + selectedCharacterIndex);
                 }
+
+                // Trigger the UnityEvent
+                selectedUnit.onDialogueTriggered.Invoke();
             }
         }
     }
@@ -127,7 +142,7 @@ public class DialogueManager2 : MonoBehaviour
         foreach (var criterion in queryCriteria)
         {
             bool criterionMatch = false;
-            foreach (var unitCriterion in unit.criteria)
+            foreach (var unitCriterion in unit.speakerCriteria)
             {
                 if (unitCriterion.key == criterion.Key && unitCriterion.value == criterion.Value)
                 {

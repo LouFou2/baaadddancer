@@ -13,19 +13,35 @@ MonoBehaviour:
   m_Name: DialogueQueryCriteria
   m_EditorClassIdentifier: 
   queries:
-  - identifier: IntroPerceiver
+  - identifier: IntroGoodPerception
     criteria:
     - key: 4
       value: 2
-  - identifier: IntroInfluencer
+  - identifier: IntroGoodInfluence
     criteria:
     - key: 3
       value: 2
-  - identifier: IntroFollower
+  - identifier: IntroNeutralPerception
+    criteria:
+    - key: 4
+      value: 1
+  - identifier: IntroNeutralInfluence
     criteria:
     - key: 3
-      value: 0
-  - identifier: IntroClueless
+      value: 1
+  - identifier: IntroBadPerception
     criteria:
     - key: 4
       value: 0
+  - identifier: IntroBadInfluence
+    criteria:
+    - key: 3
+      value: 0
+  - identifier: GoodPerception2
+    criteria:
+    - key: 4
+      value: 2
+  - identifier: GoodInfluence2
+    criteria:
+    - key: 3
+      value: 2

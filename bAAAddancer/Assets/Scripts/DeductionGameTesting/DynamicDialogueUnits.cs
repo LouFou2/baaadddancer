@@ -1,25 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DynamicDialogueUnits : MonoBehaviour
 {
     [System.Serializable]
-    public class Criterion
-    {
-        public CharacterStat key;
-        public int value;
-    }
-
-    [System.Serializable]
     public class DialogueUnit
     {
         public string dialogueText;
-        public List<Criterion> criteria;
+        public List<Criterion> speakerCriteria;
+        public List<Criterion> spokenToCriteria;
+        public UnityEvent onDialogueTriggered;
 
-        public DialogueUnit(string dialogueText, List<Criterion> criteria)
+        public DialogueUnit(string dialogueText, List<Criterion> speakerCriteria, List<Criterion> spokenToCriteria)
         {
             this.dialogueText = dialogueText;
-            this.criteria = criteria;
+            this.speakerCriteria = speakerCriteria;
+            this.spokenToCriteria = spokenToCriteria;
+            this.onDialogueTriggered = new UnityEvent();
         }
     }
 

@@ -571,6 +571,7 @@ Transform:
   - {fileID: 1628891135}
   - {fileID: 1511210399}
   - {fileID: 25028871}
+  - {fileID: 2128317340}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1982,22 +1983,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneDialogueUnits:
-  - dialogueText: I am the smort one
-    criteria:
+  - dialogueText: Perception 2
+    speakerCriteria:
     - key: 4
       value: 2
-  - dialogueText: Everyone listens to me
-    criteria:
-    - key: 3
-      value: 2
-  - dialogueText: I'll do whatever you say
-    criteria:
-    - key: 3
-      value: 0
-  - dialogueText: I don't know WHATS going on hey
-    criteria:
-    - key: 4
-      value: 0
+    spokenToCriteria: []
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: Influence 2
+    speakerCriteria: []
+    spokenToCriteria: []
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: Perception 1
+    speakerCriteria: []
+    spokenToCriteria: []
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: Influence 1
+    speakerCriteria: []
+    spokenToCriteria: []
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: Perception 0
+    speakerCriteria: []
+    spokenToCriteria: []
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: Influence 0
+    speakerCriteria: []
+    spokenToCriteria: []
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!4 &1628891135
 Transform:
   m_ObjectHideFlags: 0
@@ -2412,6 +2435,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008912864}
   m_CullTransparentMesh: 1
+--- !u!1 &2128317339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2128317340}
+  - component: {fileID: 2128317341}
+  m_Layer: 0
+  m_Name: DialogueResponseHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2128317340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128317339}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 251573883}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2128317341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128317339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f087bb0b58f187b42aa68d8e2136f5cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 1511210400}
 --- !u!1 &2143998998
 GameObject:
   m_ObjectHideFlags: 0
