@@ -8,7 +8,8 @@ public class DialogueQueryCriteria : ScriptableObject
     public class Query
     {
         public string identifier; // Unique identifier for the query
-        public List<Criterion> speakerCriteria = new List<Criterion>(); // Criteria for selecting the speaker
+        public List<CharCriterion> speakerCriteria = new List<CharCriterion>(); // Criteria for selecting the speaker
+        public List<GameCriterion> gameCriteria = new List<GameCriterion>(); // New criteria for game conditions
     }
 
     public List<Query> queries = new List<Query>();

@@ -14,11 +14,12 @@ public class CharacterManager2 : MonoBehaviour
     {
         public Dictionary<CharacterStat, int> stats = new Dictionary<CharacterStat, int>
         {
-            { CharacterStat.IsPlayer, 0 },
+            { CharacterStat.IsPlayer, 0 }, // player and demon: 0 false, 1 true
             { CharacterStat.IsDemon, 0 },
-            { CharacterStat.Cursed, 0 },
-            { CharacterStat.Influence, 0 },
-            { CharacterStat.Perception, 0 }
+            { CharacterStat.Cursed, 0 }, // cursed: t.b.d useful index range... 0-15? (4 for each round?)
+            { CharacterStat.Influence, 0 }, // influence and perception: 0 bad, 1 neutral, 2 good
+            { CharacterStat.Perception, 0 },
+            { CharacterStat.SpokenAmount, 0}
         };
     }
 
@@ -132,6 +133,20 @@ public class CharacterManager2 : MonoBehaviour
             return characterStats[index].stats;
         }
         return null;
+    }
+    public void ModifyCharacterStat(int characterIndex, CharacterStat characterStat, int newValue)
+    {
+        if (characterIndex >= 0 && characterIndex < characterStats.Length)
+        {
+            if (characterStats[characterIndex].stats.ContainsKey(characterStat))
+            {
+                characterStats[characterIndex].stats[characterStat] = newValue;
+            }
+            else
+            {
+                characterStats[characterIndex].stats.Add(characterStat, newValue);
+            }
+        }
     }
 
     public List<int> GetMatchingCharacterIndices(Dictionary<CharacterStat, int> queryCriteria)

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class Criterion
+public class CharCriterion
 {
     public CharacterStat key;
     public int value;

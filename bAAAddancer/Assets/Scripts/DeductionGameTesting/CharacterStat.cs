@@ -1,5 +1,3 @@
-using UnityEngine;
-
 [System.Serializable]
 public enum CharacterStat
 {
@@ -7,5 +5,6 @@ public enum CharacterStat
     IsDemon,
     Cursed,
     Influence,
-    Perception
+    Perception,
+    SpokenAmount,
 }

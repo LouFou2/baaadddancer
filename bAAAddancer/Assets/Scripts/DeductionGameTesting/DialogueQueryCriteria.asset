@@ -13,35 +13,47 @@ MonoBehaviour:
   m_Name: DialogueQueryCriteria
   m_EditorClassIdentifier: 
   queries:
-  - identifier: IntroGoodPerception
-    criteria:
-    - key: 4
-      value: 2
-  - identifier: IntroGoodInfluence
-    criteria:
+  - identifier: ReadyToRumble
+    speakerCriteria:
     - key: 3
       value: 2
-  - identifier: IntroNeutralPerception
-    criteria:
-    - key: 4
-      value: 1
-  - identifier: IntroNeutralInfluence
-    criteria:
-    - key: 3
-      value: 1
-  - identifier: IntroBadPerception
-    criteria:
-    - key: 4
+    gameCriteria:
+    - key: 1
       value: 0
-  - identifier: IntroBadInfluence
-    criteria:
+    - key: 0
+      value: 0
+  - identifier: SwallowComp
+    speakerCriteria:
+    - key: 3
+      value: 2
+    gameCriteria:
+    - key: 1
+      value: 1
+  - identifier: MeToo
+    speakerCriteria:
     - key: 3
       value: 0
-  - identifier: GoodPerception2
-    criteria:
+    gameCriteria:
+    - key: 1
+      value: 2
+  - identifier: MeThree
+    speakerCriteria:
+    - key: 3
+      value: 0
+    gameCriteria:
+    - key: 1
+      value: 3
+  - identifier: OnlyHour
+    speakerCriteria:
     - key: 4
       value: 2
-  - identifier: GoodInfluence2
-    criteria:
-    - key: 3
+    gameCriteria:
+    - key: 1
+      value: 4
+  - identifier: GetGood
+    speakerCriteria:
+    - key: 4
       value: 2
+    gameCriteria:
+    - key: 1
+      value: 5
