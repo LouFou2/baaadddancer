@@ -10,10 +10,6 @@ public class GameConditionsManager : MonoBehaviour
     {
         SetGameCondition(GameCondition.NewGame, 0); // need more sophisticated logic so this doesnt reset every new scene
         SetGameCondition(GameCondition.DialogueLine, 0);
-        int startNewGame = GetGameCondition(GameCondition.NewGame);
-        int startDialogueLine = GetGameCondition(GameCondition.DialogueLine);
-        Debug.Log("New Game:" + startNewGame);
-        Debug.Log("Dialogue line: " + startDialogueLine);
     }
 
     public void GameStart() 
@@ -36,6 +32,5 @@ public class GameConditionsManager : MonoBehaviour
         int currentLine = GetGameCondition(GameCondition.DialogueLine);
         currentLine += 1;
         SetGameCondition(GameCondition.DialogueLine, currentLine);
-        Debug.Log("Dialogue line: " + currentLine);
     }
 }

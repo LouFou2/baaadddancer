@@ -97,6 +97,7 @@ public class DialogueManager2 : MonoBehaviour
                 speakerMatchingUnits.Add(unit);
             }
         }
+        if (speakerMatchingUnits.Count == 0) RunNextQuery();
 
         // Sort matching units by score (number of matched criteria)
         speakerMatchingUnits.Sort((a, b) => b.speakerCriteria.Count.CompareTo(a.speakerCriteria.Count));
@@ -211,6 +212,13 @@ public class DialogueManager2 : MonoBehaviour
     {
         foreach (var criterion in gameQueryCriteria)
         {
+            // first check if the game condition is true
+            if (gameConditionsManager.GetGameCondition(criterion.Key) != criterion.Value)
+            {
+                return false; // This exits the method immediately, so no need for break;
+            }
+
+            // then check if the dialogue unit has a matching Game Condition specified
             bool criterionMatch = false;
             foreach (var unitCriterion in unit.gameCriteria)
             {
