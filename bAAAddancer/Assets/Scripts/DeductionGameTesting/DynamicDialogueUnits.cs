@@ -12,14 +12,6 @@ public class DynamicDialogueUnits : MonoBehaviour
         public List<CharCriterion> spokenToCriteria;
         public List<GameCriterion> gameCriteria;
         public UnityEvent onDialogueTriggered;
-
-        /*public DialogueUnit(string dialogueText, List<CharCriterion> speakerCriteria, List<CharCriterion> spokenToCriteria)
-        {
-            this.dialogueText = dialogueText;
-            this.speakerCriteria = speakerCriteria;
-            this.spokenToCriteria = spokenToCriteria;
-            this.onDialogueTriggered = new UnityEvent();
-        }*/
     }
 
     public DialogueUnit[] sceneDialogueUnits;
