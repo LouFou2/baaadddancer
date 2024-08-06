@@ -6,12 +6,12 @@ public class DialogueData : ScriptableObject
 {
     [System.Serializable]
     public class DialogueUnit {
-        public SpeakingCharacter speakingCharacter;
         [TextArea(3, 10)]
         public string sentence;
+        public SpeakingCharacter speakingCharacter;
         public CameraToSwitch Camera;
-        public LookPosition charsLookPosition;
         public LookPosition speakerLookPosition;
+        public LookPosition charsLookPosition;
         public AudioClip oneshotClipToPlay;
         public AudioClip newMusicTrackToPlay;
         public AudioClip voxClipToPlay;
@@ -28,33 +28,46 @@ public class DialogueData : ScriptableObject
     public AudioClip responseOneshotClip;
     public VoxEmote responseEmote;
 
-    public enum EventsToCall { triggerNextDialogue, switchScene, customEvent }
-    public EventsToCall NoEventToCall;
-    public EventsToCall YesEventToCall;
+    public enum ResponseEvents { triggerNextDialogue, switchScene, customEvent }
 
-    
-    public enum SpeakingCharacter 
+    public ResponseEvents NoEventToCall;
+    public ResponseEvents YesEventToCall;
+
+
+    public enum SpeakingCharacter
     {
-        playerSpeaking, demonSpeaking, lastBuggedSpeaking, npc02Speaking, npc03Speaking, npc04Speaking
+        playerSpeaking, demonSpeaking, lastBuggedSpeaking, npc01Speaking, npc02Speaking, npc03Speaking, npc04Speaking, npc05Speaking
     }
 
-    public enum VoxEmote 
+    public enum VoxEmote
     {
         casual, confused, happy, mad, pleading, worried
     }
 
-    public enum CameraToSwitch {
+    public enum AnimEmote
+    {
+        docile, afraid, exuberant, hostile,
+    }
+
+    public enum CameraToSwitch
+    {
         longCam,
         playerCamM, playerCamC,
         ravedemonCamM, ravedemonCamC,
+        lastBuggedCamM, lastBuggedCamC,
+        npc01CamM, npc01CamC,
         npc02CamM, npc02CamC,
         npc03CamM, npc03CamC,
         npc04CamM, npc04CamC,
-        lastBuggedCamM, lastBuggedCamC
+        npc05CamM, npc05CamC,
+
     }
     public enum LookPosition
     {
-        LookatCamera, LookatPlayer, LookatDemon, LookatLastBuggedNPC, LookatNPC2, LookatNPC3, LookatNPC4
+        LookatCamera,
+        LookatPlayer, LookatDemon, LookatLastBuggedNPC,
+        LookatNPC1, LookatNPC2, LookatNPC3, LookatNPC4, LookatNPC5,
+        LookAround,
     }
-    
+
 }

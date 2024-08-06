@@ -17,7 +17,7 @@ public class RaveDemonRevealer : MonoBehaviour
         for (int i = 0; i < characterManager.characterDataSOs.Length; i++) 
         {
             CharacterData characterData = characterManager.characterDataSOs[i];
-            if (characterData.characterRoleSelect == CharacterData.CharacterRole.Bug && !characterData.wasEliminated)
+            if (characterData.characterRoleSelect == CharacterData.CharacterRole.Demon && !characterData.wasEliminated)
             {
                 raveDemonEliminated = false;
             }

@@ -176,7 +176,7 @@ public class TitleSceneDirector : MonoBehaviour
             }
             while (randomIndex == currentCharacterIndex); // Check if the random index is the same as the player character index
 
-            characterManager.characterDataSOs[randomIndex].characterRoleSelect = CharacterData.CharacterRole.Bug;
+            characterManager.characterDataSOs[randomIndex].characterRoleSelect = CharacterData.CharacterRole.Demon;
             bugIsAssigned = true;
         }
         

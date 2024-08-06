@@ -123,7 +123,7 @@ public class VoteManager : MonoBehaviour
             {
                 playerIndex = i;
             }
-            else if (charDataList[i].characterRoleSelect == CharacterData.CharacterRole.Bug)
+            else if (charDataList[i].characterRoleSelect == CharacterData.CharacterRole.Demon)
             {
                 bugIndex = i;
             }

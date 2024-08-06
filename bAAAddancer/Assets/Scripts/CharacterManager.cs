@@ -6,7 +6,7 @@ public class CharacterManager : MonoBehaviour
     public GameObject[] characters;
     public CharacterData[] characterDataSOs;
     public int playerIndex;
-    public int bugIndex;
+    public int demonIndex;
 
     void Start()
     {
@@ -24,9 +24,9 @@ public class CharacterManager : MonoBehaviour
                 {
                     playerIndex = i;
                 }
-                if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Bug)
+                if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Demon)
                 {
-                    bugIndex = i;
+                    demonIndex = i;
                 }
             }
             else

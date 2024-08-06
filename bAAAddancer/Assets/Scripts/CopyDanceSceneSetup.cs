@@ -6,11 +6,9 @@ public class CopyDanceSceneSetup : MonoBehaviour
     [SerializeField] private GameObject playerSetupTransforms;
     [SerializeField] private GameObject[] npcSetupTransforms;
 
-    private ClockCounter clock;
     void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
-        clock = FindObjectOfType<ClockCounter>();
 
         int npcIndex = 0;
 
@@ -46,8 +44,6 @@ public class CopyDanceSceneSetup : MonoBehaviour
                     copyDanceScript.charRightScreen = true;
             }
         }
-
-        //clock.StartClock();
     }
 
 }

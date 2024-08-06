@@ -22,7 +22,7 @@ public class DemonFaceRevealer : MonoBehaviour
 
         for (int i = 0; i < characterManager.characterDataSOs.Length; i++) 
         {
-            if (characterManager.characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Bug) 
+            if (characterManager.characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Demon) 
             {
                 raveDemonFace = demonFaces[i];
             }

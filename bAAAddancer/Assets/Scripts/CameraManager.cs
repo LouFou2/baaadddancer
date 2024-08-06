@@ -53,7 +53,7 @@ public class CameraManager : MonoBehaviour
                 playerIndex = i;
                 availableIndexes.Remove(i); // Remove player index
             }
-            if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Bug)
+            if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Demon)
             {
                 bugIndex = i;
                 availableIndexes.Remove(i); // Remove bug index

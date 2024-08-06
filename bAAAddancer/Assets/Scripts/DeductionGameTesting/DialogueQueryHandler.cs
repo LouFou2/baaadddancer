@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DialogueManager2 : MonoBehaviour
+public class DialogueQueryHandler : MonoBehaviour
 {
     [SerializeField] private DynamicDialogueUnits dialogueUnitsScript;
-    [SerializeField] private CharacterManager2 characterManager;
+    [SerializeField] private CharacterStatsManager characterManager;
     [SerializeField] private GameConditionsManager gameConditionsManager;
     [SerializeField] private DialogueQueryCriteria queryCriteriaScriptableObject;
 
@@ -69,6 +69,14 @@ public class DialogueManager2 : MonoBehaviour
     }
     public void RunQuery(DialogueQueryCriteria.Query query)
     {
+        // Check game conditions first)
+        if (!IsGameMatch(query.gameCriteria))
+        {
+            Debug.Log("Game conditions do not match, skipping to the next query.");
+            RunNextQuery();
+            return;
+        }
+
         Dictionary<CharacterStat, int> speakerQueryCriteria = new Dictionary<CharacterStat, int>();
         foreach (var criterion in query.speakerCriteria)
         {
@@ -92,7 +100,7 @@ public class DialogueManager2 : MonoBehaviour
         // Find all matching units that haven't been used yet
         foreach (var unit in dialogueUnitsScript.sceneDialogueUnits)
         {
-            if (IsSpeakerMatch(unit, speakerQueryCriteria) && IsGameMatch(unit, gameQueryCriteria) && !usedDialogueUnits.Contains(unit))
+            if (IsGameCriteriaMatchInUnit(unit, gameQueryCriteria) && !usedDialogueUnits.Contains(unit) && IsSpeakerMatch(unit, speakerQueryCriteria))
             {
                 speakerMatchingUnits.Add(unit);
             }
@@ -208,17 +216,21 @@ public class DialogueManager2 : MonoBehaviour
         }
         return true;
     }
-    private bool IsGameMatch(DynamicDialogueUnits.DialogueUnit unit, Dictionary<GameCondition, int> gameQueryCriteria)
+    private bool IsGameMatch(List<GameCriterion> gameQueryCriteria)
     {
         foreach (var criterion in gameQueryCriteria)
         {
-            // first check if the game condition is true
-            if (gameConditionsManager.GetGameCondition(criterion.Key) != criterion.Value)
+            if (gameConditionsManager.GetGameCondition(criterion.key) != criterion.value)
             {
-                return false; // This exits the method immediately, so no need for break;
+                return false; // Exit immediately if any game condition does not match
             }
-
-            // then check if the dialogue unit has a matching Game Condition specified
+        }
+        return true;
+    }
+    private bool IsGameCriteriaMatchInUnit(DynamicDialogueUnits.DialogueUnit unit, Dictionary<GameCondition, int> gameQueryCriteria)
+    {
+        foreach (var criterion in gameQueryCriteria)
+        {
             bool criterionMatch = false;
             foreach (var unitCriterion in unit.gameCriteria)
             {

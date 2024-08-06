@@ -14,7 +14,7 @@ public class CharacterProfile : MonoBehaviour
         {
             isPlayer = (characterDataSO.characterRoleSelect == CharacterData.CharacterRole.Player) ? true : false;
             isNPC = (characterDataSO.characterRoleSelect == CharacterData.CharacterRole.NPC) ? true : false;
-            isBug = (characterDataSO.characterRoleSelect == CharacterData.CharacterRole.Bug) ? true : false;
+            isBug = (characterDataSO.characterRoleSelect == CharacterData.CharacterRole.Demon) ? true : false;
         }
     }
     public void SetCharacterAsPlayer()
@@ -30,6 +30,6 @@ public class CharacterProfile : MonoBehaviour
     public void SetCharacterAsBug()
     {
         isBug = true;
-        characterDataSO.characterRoleSelect = CharacterData.CharacterRole.Bug;
+        characterDataSO.characterRoleSelect = CharacterData.CharacterRole.Demon;
     }
 }

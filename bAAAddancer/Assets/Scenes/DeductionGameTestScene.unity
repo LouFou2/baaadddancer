@@ -2143,7 +2143,9 @@ MonoBehaviour:
     speakerCriteria:
     - key: 3
       value: 2
-    spokenToCriteria: []
+    spokenToCriteria:
+    - key: 0
+      value: 0
     gameCriteria:
     - key: 1
       value: 0
@@ -2197,7 +2199,7 @@ MonoBehaviour:
     spokenToCriteria: []
     gameCriteria:
     - key: 1
-      value: 1
+      value: 0
     onDialogueTriggered:
       m_PersistentCalls:
         m_Calls:

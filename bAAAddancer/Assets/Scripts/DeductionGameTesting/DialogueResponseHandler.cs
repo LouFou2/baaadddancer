@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DialogueResponseHandler : MonoBehaviour
 {
-    [SerializeField] private DialogueManager2 dialogueManager;
+    [SerializeField] private DialogueQueryHandler dialogueManager;
     public void CallQueryByName(string queryIdentifier) 
     {
         dialogueManager.RunQueryByIdentifier(queryIdentifier);

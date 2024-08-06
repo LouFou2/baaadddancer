@@ -28,7 +28,7 @@ public class InfectionManager : MonoBehaviour
 
             if (characterData != null 
                 && characterData.characterRoleSelect != CharacterData.CharacterRole.Player 
-                && characterData.characterRoleSelect != CharacterData.CharacterRole.Bug
+                && characterData.characterRoleSelect != CharacterData.CharacterRole.Demon
                 && !characterData.wasDebuggedLastRound)
             {
                 eligibleCharacters.Add(characterData);

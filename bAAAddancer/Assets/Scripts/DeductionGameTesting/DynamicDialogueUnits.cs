@@ -7,6 +7,7 @@ public class DynamicDialogueUnits : MonoBehaviour
     [System.Serializable]
     public class DialogueUnit
     {
+        [TextArea(3, 10)]
         public string dialogueText;
         public List<CharCriterion> speakerCriteria;
         public List<CharCriterion> spokenToCriteria;

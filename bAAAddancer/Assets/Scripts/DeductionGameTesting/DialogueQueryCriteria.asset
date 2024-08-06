@@ -14,46 +14,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   queries:
   - identifier: ReadyToRumble
-    speakerCriteria:
-    - key: 3
-      value: 2
     gameCriteria:
-    - key: 1
-      value: 0
     - key: 0
       value: 0
-  - identifier: SwallowComp
+    - key: 1
+      value: 0
     speakerCriteria:
     - key: 3
       value: 2
+  - identifier: SwallowComp
     gameCriteria:
     - key: 1
       value: 1
-  - identifier: MeToo
     speakerCriteria:
     - key: 3
-      value: 0
+      value: 2
+  - identifier: MeToo
     gameCriteria:
     - key: 1
       value: 2
-  - identifier: MeThree
     speakerCriteria:
     - key: 3
       value: 0
+  - identifier: MeThree
     gameCriteria:
     - key: 1
       value: 3
-  - identifier: OnlyHour
     speakerCriteria:
-    - key: 4
-      value: 2
+    - key: 3
+      value: 0
+  - identifier: OnlyHour
     gameCriteria:
     - key: 1
       value: 4
-  - identifier: GetGood
     speakerCriteria:
     - key: 4
       value: 2
+  - identifier: GetGood
     gameCriteria:
     - key: 1
       value: 5
+    speakerCriteria:
+    - key: 4
+      value: 2

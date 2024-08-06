@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterManager2 : MonoBehaviour
+public class CharacterStatsManager : MonoBehaviour
 {
+    // probably need to plug into the Character Manager
+    [SerializeField] private CharacterManager characterManager;
     public GameObject[] characters;
     public CharacterStats[] characterStats;
 
@@ -23,7 +25,7 @@ public class CharacterManager2 : MonoBehaviour
         };
     }
 
-    private void Start()
+    private void StartNewGame()
     {
         characterStats = new CharacterStats[characters.Length];
         for (int i = 0; i < characters.Length; i++)
@@ -38,15 +40,17 @@ public class CharacterManager2 : MonoBehaviour
 
     private void SetPlayerIndex()
     {
-        playerIndex = Random.Range(0, characters.Length);
+        //playerIndex = Random.Range(0, characters.Length);
+        playerIndex = characterManager.playerIndex;
     }
 
     private void SetDemonIndex()
     {
-        do
+        /*do
         {
             demonIndex = Random.Range(0, characters.Length);
-        } while (demonIndex == playerIndex);
+        } while (demonIndex == playerIndex);*/
+        demonIndex = characterManager.demonIndex;
     }
 
     private void AssignCharacterStats()
@@ -87,13 +91,13 @@ public class CharacterManager2 : MonoBehaviour
             int perception = 0;
             int influence = 0;
 
-            // Assign good perception if not already assigned to bad perception
+            // Assign good perception if not already assigned to bad perception (** this will probably be the first two indices)
             if (goodPerceptionCandidates.Count < 2 && !badPerceptionCandidates.Contains(index))
             {
                 perception = 2;
                 goodPerceptionCandidates.Add(index);
             }
-            // Assign bad perception if not already assigned to good perception
+            // Assign bad perception if not already assigned to good perception (** and the next two indices)
             else if (badPerceptionCandidates.Count < 2 && !goodPerceptionCandidates.Contains(index))
             {
                 perception = 0;
@@ -101,16 +105,16 @@ public class CharacterManager2 : MonoBehaviour
             }
             else
             {
-                perception = 1;
+                perception = 1; // (** the final two indices...)
             }
 
-            // Assign good influence if not already assigned to bad influence and not in good perception
+            // Assign good influence if not already assigned to bad influence and not in good perception (** so it will select the second pair of indices)
             if (goodInfluenceCandidates.Count < 2 && !badInfluenceCandidates.Contains(index) && !goodPerceptionCandidates.Contains(index))
             {
                 influence = 2;
                 goodInfluenceCandidates.Add(index);
             }
-            // Assign bad influence if not already assigned to good influence and not in bad perception
+            // Assign bad influence if not already assigned to good influence and not in bad perception (** and here the first pair again)
             else if (badInfluenceCandidates.Count < 2 && !goodInfluenceCandidates.Contains(index) && !badPerceptionCandidates.Contains(index))
             {
                 influence = 0;
@@ -118,7 +122,7 @@ public class CharacterManager2 : MonoBehaviour
             }
             else
             {
-                influence = 1; // Default random assignment if no specific criteria
+                influence = 1; // Default random assignment if no specific criteria (** so leaving the final pair again for "middle" stat)
             }
 
             characterStats[index].stats[CharacterStat.Influence] = influence;
