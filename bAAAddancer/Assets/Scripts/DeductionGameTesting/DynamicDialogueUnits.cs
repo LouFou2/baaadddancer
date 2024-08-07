@@ -23,4 +23,8 @@ public class DynamicDialogueUnits : ScriptableObject
     public string responseNo;
     public string responseYes;
     public CharCriterion spokenToCriterion;
+    public enum ResponseEvents { triggerNextDialogue, switchScene, customEvent }
+
+    public ResponseEvents NoEventToCall;
+    public ResponseEvents YesEventToCall;
 }

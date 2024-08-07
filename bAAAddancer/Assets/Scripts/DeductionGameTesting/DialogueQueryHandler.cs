@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DialogueQueryHandler : MonoBehaviour
 {
@@ -11,18 +13,30 @@ public class DialogueQueryHandler : MonoBehaviour
 
     [SerializeField] private DynamicDialogueUnits currentDialogueUnit;
     [SerializeField] private DialogueQueryCriteria currentQueryCriteria;
-
-    public TextMeshProUGUI characterTextDisplay; // inject in inspector, make sure indexes match character indexes
-
     private Queue<DialogueQueryCriteria.Query> queryQueue = new Queue<DialogueQueryCriteria.Query>();
+
+    private HashSet<DynamicDialogueUnits.DialogueUnit> usedDialogueUnits = new HashSet<DynamicDialogueUnits.DialogueUnit>();
+
+    [SerializeField] private TextMeshProUGUI characterTextDisplay; // inject in inspector, make sure indexes match character indexes
+    [SerializeField] private Button button0;
+    [SerializeField] private Button button1;
+    private TextMeshProUGUI button0Text;
+    private TextMeshProUGUI button1Text;
+    private bool button0clicked;
+    private bool button1clicked;
 
     public int currentSpeaker { get; private set; }
     public int previousSpeaker { get; private set; }
     public int currentSpokenTo { get; private set; }
     public int previousSpokenTo { get; private set; }
 
-    private HashSet<DynamicDialogueUnits.DialogueUnit> usedDialogueUnits = new HashSet<DynamicDialogueUnits.DialogueUnit>();
+    public enum DialogueState { PauseOrContinue, PlayerResponse }
+    public DialogueState dialogueState;
 
+    // Unity Events for responses
+    public UnityEvent triggerNextDialogueEvent; // set the event in the inspector (what method to call)
+    public UnityEvent switchSceneEvent;
+    public UnityEvent customDialogueEvent; //etc
 
     private void Start()
     {
@@ -42,27 +56,68 @@ public class DialogueQueryHandler : MonoBehaviour
                 currentQueryCriteria = queryCriteriaSOs;
             }
         }
-        
+
+        button0Text = button0.GetComponentInChildren<TextMeshProUGUI>();
+        button1Text = button1.GetComponentInChildren<TextMeshProUGUI>();
+
         InitializeQueryQueue();
         RunNextQuery();
     }
 
-    private void Update()
+    private void Update() // Update is mainly responsible for player UI interaction
     {
+        // - Debugging Input options - 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             RunNextQuery();
         }
-    }
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            queryQueue.Clear();
+            HandlePlayerResponse();
+        }
 
+        // == Case Switching for button inputs == //
+        switch (dialogueState)
+        {
+            case DialogueState.PauseOrContinue:
+                if (button1clicked)
+                {
+                    RunNextQuery();
+                }
+                break;
+
+            case DialogueState.PlayerResponse:
+                if (button0clicked)
+                {
+                    HandleNoResponse();
+                }
+                if (button1clicked)
+                {
+                    HandleYesResponse();
+                }
+                break;
+
+            default:
+                dialogueState = DialogueState.PauseOrContinue;
+                break;
+        }
+        button0clicked = false; // reset button click states
+        button1clicked = false;
+    }
+    public void Button0Clicked()
+    {
+        button0clicked = true;
+    }
+    public void Button1Clicked()
+    {
+        button1clicked = true;
+    }
     private void InitializeQueryQueue()
     {
-        int queryCount = 0;
         foreach (var query in currentQueryCriteria.queries)
         {
             queryQueue.Enqueue(query);
-            queryCount++;
-            Debug.Log("Queries in queue: " + queryCount);
         }
     }
 
@@ -76,6 +131,7 @@ public class DialogueQueryHandler : MonoBehaviour
         else
         {
             Debug.Log("No more queries in the queue.");
+            HandlePlayerResponse();
         }
     }
     public void RunQueryByIdentifier(string identifier)
@@ -100,6 +156,12 @@ public class DialogueQueryHandler : MonoBehaviour
             return;
         }
 
+        button0.gameObject.SetActive(false);
+        button0Text.text = string.Empty;
+
+        button1.gameObject.SetActive(false);
+        button1Text.text = string.Empty;
+
         Dictionary<CharacterStat, int> speakerQueryCriteria = new Dictionary<CharacterStat, int>();
         foreach (var criterion in query.speakerCriteria)
         {
@@ -117,7 +179,6 @@ public class DialogueQueryHandler : MonoBehaviour
 
     public void DialogueQuery(Dictionary<CharacterStat, int> speakerQueryCriteria, Dictionary<GameCondition, int> gameQueryCriteria)
     {
-        Debug.Log("Running query...");
         List<DynamicDialogueUnits.DialogueUnit> speakerMatchingUnits = new List<DynamicDialogueUnits.DialogueUnit>();
         List<DynamicDialogueUnits.DialogueUnit> spokenToMatchingUnits = new List<DynamicDialogueUnits.DialogueUnit>();
 
@@ -127,7 +188,6 @@ public class DialogueQueryHandler : MonoBehaviour
             if (IsGameCriteriaMatchInUnit(unit, gameQueryCriteria) && !usedDialogueUnits.Contains(unit) && IsSpeakerMatch(unit, speakerQueryCriteria))
             {
                 speakerMatchingUnits.Add(unit);
-                Debug.Log("Finding matching speakers");
             }
         }
         if (speakerMatchingUnits.Count == 0) RunNextQuery();
@@ -184,7 +244,6 @@ public class DialogueQueryHandler : MonoBehaviour
 
                 // DISPLAY TEXT *** REPLACE THIS WITH >> DialoguePlayer to play text...
                 characterTextDisplay.text = selectedUnit.dialogueText;
-                Debug.Log("Text should display");
 
                 // Increment Dialogue line
                 gameConditionsManager.IncrementDialogueLine();
@@ -217,7 +276,6 @@ public class DialogueQueryHandler : MonoBehaviour
                 int selectedSpokenToIndex = matchingSpokenToIndices[Random.Range(0, matchingSpokenToIndices.Count)];
                 previousSpokenTo = currentSpokenTo;
                 currentSpokenTo = selectedSpokenToIndex;
-
                 characterStatsManager.ModifyCharacterStat(previousSpokenTo, CharacterStat.CurrentSpokenTo, 0);
                 characterStatsManager.ModifyCharacterStat(previousSpokenTo, CharacterStat.PreviousSpokenTo, 1);
                 characterStatsManager.ModifyCharacterStat(currentSpokenTo, CharacterStat.CurrentSpokenTo, 1);
@@ -225,6 +283,8 @@ public class DialogueQueryHandler : MonoBehaviour
 
             // Trigger the UnityEvent
             selectedUnit.onDialogueTriggered.Invoke();
+
+            PauseContinueResponse();
         }
     }
     private bool IsGameMatch(List<GameCriterion> gameQueryCriteria)
@@ -279,5 +339,61 @@ public class DialogueQueryHandler : MonoBehaviour
             }
         }
         return true;
+    }
+
+    private void PauseContinueResponse() 
+    {
+        if (queryQueue.Count > 0)
+        {
+            dialogueState = DialogueState.PauseOrContinue;
+            button1.gameObject.SetActive(true);
+            button1.Select();
+            button1Text.text = ">";
+        }
+        else 
+        {
+            HandlePlayerResponse();
+        }
+    }
+    private void HandlePlayerResponse() 
+    {
+        dialogueState = DialogueState.PlayerResponse;
+        button0Text.text = currentDialogueUnit.responseNo;
+        button1Text.text = currentDialogueUnit.responseYes;
+        
+        button1.gameObject.SetActive(true);
+        button1.Select();
+        button0.gameObject.SetActive((string.IsNullOrEmpty(button0Text.text)) ? false : true); // button only active if it has text
+    }
+    private void HandleNoResponse() 
+    {
+        switch (currentDialogueUnit.NoEventToCall) 
+        {
+            case DynamicDialogueUnits.ResponseEvents.triggerNextDialogue:
+                triggerNextDialogueEvent.Invoke();
+                break;
+            case DynamicDialogueUnits.ResponseEvents.switchScene:
+                switchSceneEvent.Invoke();
+                break;
+            case DynamicDialogueUnits.ResponseEvents.customEvent:
+                customDialogueEvent.Invoke();
+                break;
+
+        }
+    }
+    private void HandleYesResponse() 
+    {
+        switch (currentDialogueUnit.YesEventToCall)
+        {
+            case DynamicDialogueUnits.ResponseEvents.triggerNextDialogue:
+                triggerNextDialogueEvent.Invoke();
+                break;
+            case DynamicDialogueUnits.ResponseEvents.switchScene:
+                switchSceneEvent.Invoke();
+                break;
+            case DynamicDialogueUnits.ResponseEvents.customEvent:
+                customDialogueEvent.Invoke();
+                break;
+        }
     }
 }
