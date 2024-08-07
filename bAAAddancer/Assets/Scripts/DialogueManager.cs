@@ -55,6 +55,7 @@ public class DialogueManager : MonoBehaviour
             case DialogueState.PauseOrContinue:
                 button0.gameObject.SetActive(false);
                 button1.gameObject.SetActive(true);
+                button1.Select();
 
                 if (button1clicked)
                 {
@@ -145,6 +146,8 @@ public class DialogueManager : MonoBehaviour
         dialogueState = DialogueState.PlayerResponse;
         button0Text.text = noResponse;
         button1Text.text = yesResponse;
+
+        button1.Select();
 
     }
     public void HandleNoResponse()

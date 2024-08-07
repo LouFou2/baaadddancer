@@ -15,7 +15,7 @@ public class LookManager : MonoBehaviour
 
     [SerializeField] private GameObject randomLookPosition;
     private float gazePositionDuration;
-    private bool gazePositionChange;
+    //private bool gazePositionChange;
 
     // Indexes to use, same as CameraManager, according to dialogue data + character data
     private CharacterData[] characterDataSOs;
@@ -32,7 +32,7 @@ public class LookManager : MonoBehaviour
 
     void Start()
     {
-        gazePositionChange = false;
+        //gazePositionChange = false;
 
         gazePositionDuration = Random.Range(1f, 3f);
 
@@ -231,7 +231,7 @@ public class LookManager : MonoBehaviour
             StartCoroutine(ChangeGazePosition());
         }
     }*/
-    private IEnumerator ChangeGazePosition() // Use Something like this for future... change look aims to random positions
+    /*private IEnumerator ChangeGazePosition() // Use Something like this for future... change look aims to random positions
     {
         gazePositionChange = true;
 
@@ -251,5 +251,5 @@ public class LookManager : MonoBehaviour
         gazePositionDuration = Random.Range(1f, 3f);
 
         gazePositionChange = false;
-    }
+    }*/
 }

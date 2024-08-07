@@ -22,9 +22,6 @@ public class VoteSceneSetup : MonoBehaviour
             return; // Exit early if characterManager is not found
         }
 
-        // Log the number of characterDataSOs
-        Debug.Log($"Number of characterDataSOs: {characterManager.characterDataSOs.Length}");
-
         characterDataSOs = new CharacterData[characterManager.characterDataSOs.Length];
 
         if (buttons == null || buttons.Length != characterManager.characterDataSOs.Length)
@@ -47,6 +44,10 @@ public class VoteSceneSetup : MonoBehaviour
             {
                 // Set the button to non-interactable
                 buttons[i].interactable = false;
+                if (i == 0) // meaning this is button for Char01: first selected in EventSystem
+                {
+                    buttons[1].Select(); // we select the second button 
+                }
             }
         }
     }

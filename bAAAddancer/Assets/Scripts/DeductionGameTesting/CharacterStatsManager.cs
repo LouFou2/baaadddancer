@@ -27,6 +27,7 @@ public class CharacterStatsManager : MonoBehaviour
 
     private void StartNewGame()
     {
+
         characterStats = new CharacterStats[characters.Length];
         for (int i = 0; i < characters.Length; i++)
         {

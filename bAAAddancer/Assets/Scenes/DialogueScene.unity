@@ -4482,9 +4482,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3995588868555646841, guid: d1b196c8865e16c4b84c89f03af98c48,
         type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3995588868555646841, guid: d1b196c8865e16c4b84c89f03af98c48,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1182487288}
+    - target: {fileID: 3995588868555646847, guid: d1b196c8865e16c4b84c89f03af98c48,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3995588868601532978, guid: d1b196c8865e16c4b84c89f03af98c48,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4683,7 +4693,7 @@ MonoBehaviour:
   - {fileID: 100890188}
   characterDataSOs: []
   playerIndex: 0
-  bugIndex: 0
+  demonIndex: 0
 --- !u!4 &6522463995895946350
 Transform:
   m_ObjectHideFlags: 0

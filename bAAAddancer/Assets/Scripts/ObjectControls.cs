@@ -27,7 +27,7 @@ public class ObjectControls : MonoBehaviour
     [SerializeField] private float moveSpeed = 2f;
 
     [SerializeField] private bool newControls = false;
-    [SerializeField] private float dampingFactor = 0.1f; // Adjust the damping factor as needed
+    //[SerializeField] private float dampingFactor = 0.1f; // Adjust the damping factor as needed
 
     private Vector2 moveInput;
 

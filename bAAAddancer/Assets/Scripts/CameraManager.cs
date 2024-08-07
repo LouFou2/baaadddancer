@@ -14,7 +14,7 @@ public class CameraManager : MonoBehaviour
     private CharacterData[] characterDataSOs;
     private List<int> availableIndexes = new List<int>();
     private int playerIndex;
-    private int bugIndex;
+    private int demonIndex;
     private int lastBuggedCharacterIndex;
     private int npc1_Index, npc2_Index, npc3_Index; //remaining npcs
 
@@ -55,7 +55,7 @@ public class CameraManager : MonoBehaviour
             }
             if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Demon)
             {
-                bugIndex = i;
+                demonIndex = i;
                 availableIndexes.Remove(i); // Remove bug index
             }
             if (characterDataSOs[i].lastBuggedCharacter == true)
@@ -124,11 +124,11 @@ public class CameraManager : MonoBehaviour
                 cameraAnimator.SetFloat("MedToClose", 1);
                 break;
             case DialogueData.CameraToSwitch.ravedemonCamM:
-                cameraAnimator.SetBool(cameraFlags[bugIndex], true); // *** bug is always npc1 cam, is there way to make this random?
+                cameraAnimator.SetBool(cameraFlags[demonIndex], true); // *** bug is always npc1 cam, is there way to make this random?
                 cameraAnimator.SetFloat("MedToClose", 0);
                 break;
             case DialogueData.CameraToSwitch.ravedemonCamC:
-                cameraAnimator.SetBool(cameraFlags[bugIndex], true);
+                cameraAnimator.SetBool(cameraFlags[demonIndex], true);
                 cameraAnimator.SetFloat("MedToClose", 1);
                 break;
             case DialogueData.CameraToSwitch.npc02CamM:
