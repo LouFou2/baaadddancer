@@ -12,19 +12,20 @@ public class GameConditionsManager : MonoBehaviour
         SetGameCondition(GameCondition.DialogueLine, 0);
     }
 
-    public void GameStart() 
+    public void GameStarted() 
     {
         SetGameCondition(GameCondition.NewGame, 1);
     } 
+    
+    public int GetGameCondition(GameCondition gameCondition)
+    {
+        return gameConditions.ContainsKey(gameCondition) ? gameConditions[gameCondition] : 0;
+    }
+
     // Methods to modify game conditions and events
     public void SetGameCondition(GameCondition condition, int value)
     {
         gameConditions[condition] = value;
-    }
-
-    public int GetGameCondition(GameCondition gameCondition)
-    {
-        return gameConditions.ContainsKey(gameCondition) ? gameConditions[gameCondition] : 0;
     }
 
     public void IncrementDialogueLine() 

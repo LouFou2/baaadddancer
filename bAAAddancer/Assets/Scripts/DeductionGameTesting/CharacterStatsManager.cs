@@ -11,6 +11,8 @@ public class CharacterStatsManager : MonoBehaviour
     public int demonIndex = -1;
     public int playerIndex = -1;
 
+    private bool gameStarted = false;
+
     [System.Serializable]
     public class CharacterStats
     {
@@ -24,12 +26,22 @@ public class CharacterStatsManager : MonoBehaviour
             { CharacterStat.SpokenAmount, 0}
         };
     }
-
-    private void StartNewGame()
+    private void Start()
     {
+        characterManager = FindObjectOfType<CharacterManager>();
 
-        characterStats = new CharacterStats[characters.Length];
-        for (int i = 0; i < characters.Length; i++)
+        if (GameManager.Instance.GetCurrentLevelKey() == LevelKey.IntroDialogue && !gameStarted) 
+        {
+            SetupNewGameStats();
+        }
+    }
+
+    private void SetupNewGameStats()
+    {
+        gameStarted = true;
+
+        characterStats = new CharacterStats[characterManager.characterDataSOs.Length];
+        for (int i = 0; i < characterStats.Length; i++)
         {
             characterStats[i] = new CharacterStats();
         }
@@ -57,7 +69,7 @@ public class CharacterStatsManager : MonoBehaviour
     private void AssignCharacterStats()
     {
         List<int> indices = new List<int>();
-        for (int i = 0; i < characters.Length; i++)
+        for (int i = 0; i < characterStats.Length; i++)
         {
             indices.Add(i);
         }
@@ -76,7 +88,7 @@ public class CharacterStatsManager : MonoBehaviour
         List<int> badPerceptionCandidates = new List<int>();
         List<int> badInfluenceCandidates = new List<int>();
 
-        for (int i = 0; i < characters.Length; i++)
+        for (int i = 0; i < characterStats.Length; i++)
         {
             int index = indices[i];
 
@@ -97,12 +109,14 @@ public class CharacterStatsManager : MonoBehaviour
             {
                 perception = 2;
                 goodPerceptionCandidates.Add(index);
+                Debug.Log("Character index " + index + " has good perception");
             }
             // Assign bad perception if not already assigned to good perception (** and the next two indices)
             else if (badPerceptionCandidates.Count < 2 && !goodPerceptionCandidates.Contains(index))
             {
                 perception = 0;
                 badPerceptionCandidates.Add(index);
+                Debug.Log("Character index " + index + " has bad perception");
             }
             else
             {
@@ -114,12 +128,14 @@ public class CharacterStatsManager : MonoBehaviour
             {
                 influence = 2;
                 goodInfluenceCandidates.Add(index);
+                Debug.Log("Character index " + index + " has good influence");
             }
             // Assign bad influence if not already assigned to good influence and not in bad perception (** and here the first pair again)
             else if (badInfluenceCandidates.Count < 2 && !goodInfluenceCandidates.Contains(index) && !badPerceptionCandidates.Contains(index))
             {
                 influence = 0;
                 badInfluenceCandidates.Add(index);
+                Debug.Log("Character index " + index + " has bad influence");
             }
             else
             {

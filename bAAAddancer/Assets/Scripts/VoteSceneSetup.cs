@@ -46,7 +46,7 @@ public class VoteSceneSetup : MonoBehaviour
                 buttons[i].interactable = false;
                 if (i == 0) // meaning this is button for Char01: first selected in EventSystem
                 {
-                    buttons[1].Select(); // we select the second button 
+                    buttons[1].Select(); // we select the second button (Char02) 
                 }
             }
         }

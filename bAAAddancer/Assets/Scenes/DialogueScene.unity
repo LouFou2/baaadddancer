@@ -171,18 +171,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 3309d3c6b81c34b4382fc6b1fd78a061, type: 2}
   dataResetter: {fileID: 0}
---- !u!114 &66719756 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3995588870235323536, guid: d1b196c8865e16c4b84c89f03af98c48,
-    type: 3}
-  m_PrefabInstance: {fileID: 3995588870205566108}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &100890187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -806,11 +794,11 @@ Transform:
   m_Children:
   - {fileID: 1881658198}
   - {fileID: 1182487287}
-  - {fileID: 1709227248}
   - {fileID: 1424368516}
   - {fileID: 1646604454}
   - {fileID: 6522463995895946350}
   - {fileID: 1149589820}
+  - {fileID: 681865256}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1617,6 +1605,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488492956}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &681865255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 681865256}
+  - component: {fileID: 681865257}
+  m_Layer: 0
+  m_Name: GameConditions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &681865256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681865255}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 208229229}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &681865257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681865255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25dfbd006c8dc044b1ca3b745ff9613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &767547901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1732,7 +1764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1149589820
 Transform:
   m_ObjectHideFlags: 0
@@ -1746,7 +1778,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 208229229}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1149589821
 MonoBehaviour:
@@ -1761,7 +1793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterManager: {fileID: 6372104692362033166}
-  dialogueSwitcher: {fileID: 1709227249}
+  dialogueSwitcher: {fileID: 0}
   mainCamera: {fileID: 367885176}
   lookTargets:
   - {fileID: 1342916681}
@@ -1820,98 +1852,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1182487286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aab5d81122c5a674dadfb6bbb2aa5cd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 528e0db275ca75749a8fb447f4147353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueSwitcher: {fileID: 1709227249}
-  dialoguePlayer: {fileID: 1424368517}
-  cameraManager: {fileID: 2097008799}
-  lookManager: {fileID: 1149589821}
-  cutscenesAudioManager: {fileID: 0}
-  dialogueState: 0
-  button0: {fileID: 66719756}
-  button1: {fileID: 1742261221}
-  triggerNextDialogueEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1709227249}
-        m_TargetAssemblyTypeName: DialogueSwitcher, Assembly-CSharp
-        m_MethodName: TriggerNextDialogue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3612356306812758735}
-        m_TargetAssemblyTypeName: CutscenesAudioManager, Assembly-CSharp
-        m_MethodName: PlayNewMusicTrack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3612356306812758735}
-        m_TargetAssemblyTypeName: CutscenesAudioManager, Assembly-CSharp
-        m_MethodName: QueueMusicClips
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3612356306812758735}
-        m_TargetAssemblyTypeName: CutscenesAudioManager, Assembly-CSharp
-        m_MethodName: QueueOneShots
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  switchSceneEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1881658199}
-        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
-        m_MethodName: SwitchToNextLevelKey
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1881658199}
-        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
-        m_MethodName: LoadSceneByName
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: MakeDance
-          m_BoolArgument: 0
-        m_CallState: 2
-  customDialogueEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  queryCriteriaSOs:
+  - {fileID: 11400000, guid: 719fca062e48e074c9e8b688b7f3ded4, type: 2}
+  dialogueUnits:
+  - {fileID: 11400000, guid: faa1877f492bd0a4caf1a7dc2dcb0d7f, type: 2}
+  characterStatsManager: {fileID: 6522463995895946351}
+  gameConditionsManager: {fileID: 681865257}
+  currentDialogueUnit: {fileID: 0}
+  currentQueryCriteria: {fileID: 0}
+  characterTextDisplay: {fileID: 1935358504}
 --- !u!1 &1184927651
 GameObject:
   m_ObjectHideFlags: 0
@@ -3000,7 +2952,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1424368516
 Transform:
   m_ObjectHideFlags: 0
@@ -3014,7 +2966,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 208229229}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1424368517
 MonoBehaviour:
@@ -3028,8 +2980,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e44837dec85d544bb1a1b592e3ab9e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueManager: {fileID: 1182487288}
-  dialogueSwitcher: {fileID: 1709227249}
+  dialogueManager: {fileID: 0}
+  dialogueSwitcher: {fileID: 0}
   currentDialogue: {fileID: 0}
   dialoguePanel: {fileID: 1383948413}
   dialogueText: {fileID: 1935358504}
@@ -3502,7 +3454,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 208229229}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1646604455
 MonoBehaviour:
@@ -3576,80 +3528,12 @@ Transform:
   m_Father: {fileID: 1490839046}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1709227247
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1709227248}
-  - component: {fileID: 1709227249}
-  m_Layer: 0
-  m_Name: DialogueSwitcher
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1709227248
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709227247}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21819764, y: 0.8897301, z: -0.018209368}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 208229229}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1709227249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709227247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d6701b321735449bd031d2ac2d7ba3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueSequences:
-  - {fileID: 11400000, guid: 04b644048e6471d4fb56ea08c712bb96, type: 2}
-  - {fileID: 11400000, guid: 426fa49bf2939ad498bb895b2be689c5, type: 2}
-  - {fileID: 11400000, guid: 696323c6f0281d646ad8e6b092e13e61, type: 2}
-  - {fileID: 11400000, guid: a4d4dfc063cba594780ff0dd32b9c572, type: 2}
-  currentDialogueSequence: []
-  currentDialogue: {fileID: 0}
-  dialoguePlayer: {fileID: 1424368517}
-  cameraManager: {fileID: 2097008799}
-  lookManager: {fileID: 1149589821}
-  cutscenesAudioManager: {fileID: 3612356306812758735}
-  button1: {fileID: 1742261221}
 --- !u!1 &1742261219 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3995588868555646847, guid: d1b196c8865e16c4b84c89f03af98c48,
     type: 3}
   m_PrefabInstance: {fileID: 3995588870205566108}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1742261221 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3995588868555646841, guid: d1b196c8865e16c4b84c89f03af98c48,
-    type: 3}
-  m_PrefabInstance: {fileID: 3995588870205566108}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742261219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1881658197
 GameObject:
   m_ObjectHideFlags: 0
@@ -4210,18 +4094,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6852680912765456338}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2097008799 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6852680913369816909, guid: 2fb9b9e11f7221e4da69957778db4a69,
-    type: 3}
-  m_PrefabInstance: {fileID: 6852680912765456338}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6715ee336e9ec448aef7e2545ab2110, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2104977790
 GameObject:
   m_ObjectHideFlags: 0
@@ -4330,6 +4202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6522463995895946350}
   - component: {fileID: 6372104692362033166}
+  - component: {fileID: 6522463995895946351}
   m_Layer: 0
   m_Name: CharacterManager
   m_TagString: Untagged
@@ -4408,7 +4281,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dialogueSwitcher
       value: 
-      objectReference: {fileID: 1709227249}
+      objectReference: {fileID: 0}
     - target: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
         type: 3}
       propertyPath: charVOXManagers.Array.size
@@ -4449,20 +4322,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioCutscenes
       objectReference: {fileID: 0}
+    - target: {fileID: 3612356307558578565, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cf43c46b95d2994bacaca36d83729d7, type: 3}
---- !u!114 &3612356306812758735 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3612356307558578563, guid: 1cf43c46b95d2994bacaca36d83729d7,
-    type: 3}
-  m_PrefabInstance: {fileID: 3612356306812758734}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ad83b059e0096459bb3d6989807c82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3995588870205566108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4489,7 +4355,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1182487288}
+      objectReference: {fileID: 0}
     - target: {fileID: 3995588868555646847, guid: d1b196c8865e16c4b84c89f03af98c48,
         type: 3}
       propertyPath: m_IsActive
@@ -4569,7 +4435,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1182487288}
+      objectReference: {fileID: 0}
     - target: {fileID: 3995588870235323543, guid: d1b196c8865e16c4b84c89f03af98c48,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -4707,8 +4573,25 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 208229229}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6522463995895946351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072658904776139644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024df188ae7c75a4da09310d014ccdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterManager: {fileID: 6372104692362033166}
+  characters: []
+  characterStats: []
+  demonIndex: -1
+  playerIndex: -1
 --- !u!1001 &6852680912765456338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4719,6 +4602,11 @@ PrefabInstance:
     - target: {fileID: 6852680913360360744, guid: 2fb9b9e11f7221e4da69957778db4a69,
         type: 3}
       propertyPath: m_ChildCameras.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6852680913369816909, guid: 2fb9b9e11f7221e4da69957778db4a69,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6852680913369816910, guid: 2fb9b9e11f7221e4da69957778db4a69,

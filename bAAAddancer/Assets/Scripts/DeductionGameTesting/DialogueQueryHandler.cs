@@ -4,12 +4,15 @@ using TMPro;
 
 public class DialogueQueryHandler : MonoBehaviour
 {
-    [SerializeField] private DynamicDialogueUnits dialogueUnitsScript;
-    [SerializeField] private CharacterStatsManager characterManager;
+    [SerializeField] private DialogueQueryCriteria[] queryCriteriaSOs;
+    [SerializeField] private DynamicDialogueUnits[] dialogueUnits;
+    [SerializeField] private CharacterStatsManager characterStatsManager;
     [SerializeField] private GameConditionsManager gameConditionsManager;
-    [SerializeField] private DialogueQueryCriteria queryCriteriaScriptableObject;
 
-    public TextMeshProUGUI[] characterTextDisplay; // inject in inspector, make sure indexes match character indexes
+    [SerializeField] private DynamicDialogueUnits currentDialogueUnit;
+    [SerializeField] private DialogueQueryCriteria currentQueryCriteria;
+
+    public TextMeshProUGUI characterTextDisplay; // inject in inspector, make sure indexes match character indexes
 
     private Queue<DialogueQueryCriteria.Query> queryQueue = new Queue<DialogueQueryCriteria.Query>();
 
@@ -23,6 +26,23 @@ public class DialogueQueryHandler : MonoBehaviour
 
     private void Start()
     {
+        // Check LevelKey and assign current Dialogue Unit
+        LevelKey levelKey = GameManager.Instance.GetCurrentLevelKey();
+        foreach (DynamicDialogueUnits dialogueUnit in dialogueUnits) 
+        {
+            if (dialogueUnit.levelKey == levelKey) 
+            {
+                currentDialogueUnit = dialogueUnit;
+            }
+        }
+        foreach (DialogueQueryCriteria queryCriteriaSOs in queryCriteriaSOs) 
+        {
+            if (queryCriteriaSOs.levelKey == levelKey) 
+            {
+                currentQueryCriteria = queryCriteriaSOs;
+            }
+        }
+        
         InitializeQueryQueue();
         RunNextQuery();
     }
@@ -37,9 +57,12 @@ public class DialogueQueryHandler : MonoBehaviour
 
     private void InitializeQueryQueue()
     {
-        foreach (var query in queryCriteriaScriptableObject.queries)
+        int queryCount = 0;
+        foreach (var query in currentQueryCriteria.queries)
         {
             queryQueue.Enqueue(query);
+            queryCount++;
+            Debug.Log("Queries in queue: " + queryCount);
         }
     }
 
@@ -57,7 +80,7 @@ public class DialogueQueryHandler : MonoBehaviour
     }
     public void RunQueryByIdentifier(string identifier)
     {
-        var query = queryCriteriaScriptableObject.queries.Find(q => q.identifier == identifier);
+        var query = currentQueryCriteria.queries.Find(q => q.identifier == identifier);
         if (query != null)
         {
             RunQuery(query);
@@ -94,15 +117,17 @@ public class DialogueQueryHandler : MonoBehaviour
 
     public void DialogueQuery(Dictionary<CharacterStat, int> speakerQueryCriteria, Dictionary<GameCondition, int> gameQueryCriteria)
     {
+        Debug.Log("Running query...");
         List<DynamicDialogueUnits.DialogueUnit> speakerMatchingUnits = new List<DynamicDialogueUnits.DialogueUnit>();
         List<DynamicDialogueUnits.DialogueUnit> spokenToMatchingUnits = new List<DynamicDialogueUnits.DialogueUnit>();
 
         // Find all matching units that haven't been used yet
-        foreach (var unit in dialogueUnitsScript.sceneDialogueUnits)
+        foreach (var unit in currentDialogueUnit.sceneDialogueUnits)
         {
             if (IsGameCriteriaMatchInUnit(unit, gameQueryCriteria) && !usedDialogueUnits.Contains(unit) && IsSpeakerMatch(unit, speakerQueryCriteria))
             {
                 speakerMatchingUnits.Add(unit);
+                Debug.Log("Finding matching speakers");
             }
         }
         if (speakerMatchingUnits.Count == 0) RunNextQuery();
@@ -137,14 +162,15 @@ public class DialogueQueryHandler : MonoBehaviour
             // Mark the selected unit as used
             usedDialogueUnits.Add(selectedUnit);
 
-            // Find a character that matches the selected unit's criteria
+            // == SPEAKER == //
+            // Find the speaker character that matches the selected unit's criteria
             Dictionary<CharacterStat, int> selectedCriteria = new Dictionary<CharacterStat, int>();
             foreach (var criterion in selectedUnit.speakerCriteria)
             {
                 selectedCriteria.Add(criterion.key, criterion.value);
             }
 
-            List<int> matchingCharacterIndices = characterManager.GetMatchingCharacterIndices(selectedCriteria);
+            List<int> matchingCharacterIndices = characterStatsManager.GetMatchingCharacterIndices(selectedCriteria);
 
             if (matchingCharacterIndices.Count > 0)
             {
@@ -152,29 +178,31 @@ public class DialogueQueryHandler : MonoBehaviour
 
                 previousSpeaker = currentSpeaker;
                 currentSpeaker = selectedSpeakerIndex;
+                characterStatsManager.ModifyCharacterStat(previousSpeaker, CharacterStat.CurrentSpeaker, 0); //first reset this stat on previous speaker
+                characterStatsManager.ModifyCharacterStat(previousSpeaker, CharacterStat.PreviousSpeaker, 1);
+                characterStatsManager.ModifyCharacterStat(currentSpeaker, CharacterStat.CurrentSpeaker, 1);
 
-                if (selectedSpeakerIndex >= 0 && selectedSpeakerIndex < characterTextDisplay.Length)
+                // DISPLAY TEXT *** REPLACE THIS WITH >> DialoguePlayer to play text...
+                characterTextDisplay.text = selectedUnit.dialogueText;
+                Debug.Log("Text should display");
+
+                // Increment Dialogue line
+                gameConditionsManager.IncrementDialogueLine();
+
+                // Increment the SpokenAmount stat
+                var characterStats = characterStatsManager.GetCharacterStats(selectedSpeakerIndex);
+                if (characterStats != null && characterStats.ContainsKey(CharacterStat.SpokenAmount))
                 {
-                    characterTextDisplay[selectedSpeakerIndex].text = selectedUnit.dialogueText;
-
-                    // Increment the SpokenAmount stat
-                    var characterStats = characterManager.GetCharacterStats(selectedSpeakerIndex);
-                    if (characterStats != null && characterStats.ContainsKey(CharacterStat.SpokenAmount))
-                    {
-                        characterManager.ModifyCharacterStat(selectedSpeakerIndex, CharacterStat.SpokenAmount, characterStats[CharacterStat.SpokenAmount] + 1);
-                    }
-                    else
-                    {
-                        characterManager.ModifyCharacterStat(selectedSpeakerIndex, CharacterStat.SpokenAmount, 1);
-                    }
+                    characterStatsManager.ModifyCharacterStat(selectedSpeakerIndex, CharacterStat.SpokenAmount, characterStats[CharacterStat.SpokenAmount] + 1);
                 }
                 else
                 {
-                    Debug.LogWarning("Invalid character index: " + selectedSpeakerIndex);
+                    characterStatsManager.ModifyCharacterStat(selectedSpeakerIndex, CharacterStat.SpokenAmount, 1);
                 }
 
             }
 
+            // == SPOKEN TO == //
             // Now find the spoken-to character based on the selected unit's spokenToCriteria
             Dictionary<CharacterStat, int> spokenToCriteria = new Dictionary<CharacterStat, int>();
             foreach (var criterion in selectedUnit.spokenToCriteria)
@@ -182,18 +210,33 @@ public class DialogueQueryHandler : MonoBehaviour
                 spokenToCriteria.Add(criterion.key, criterion.value);
             }
 
-            List<int> matchingSpokenToIndices = characterManager.GetMatchingCharacterIndices(spokenToCriteria);
+            List<int> matchingSpokenToIndices = characterStatsManager.GetMatchingCharacterIndices(spokenToCriteria);
 
             if (matchingSpokenToIndices.Count > 0)
             {
                 int selectedSpokenToIndex = matchingSpokenToIndices[Random.Range(0, matchingSpokenToIndices.Count)];
                 previousSpokenTo = currentSpokenTo;
                 currentSpokenTo = selectedSpokenToIndex;
+
+                characterStatsManager.ModifyCharacterStat(previousSpokenTo, CharacterStat.CurrentSpokenTo, 0);
+                characterStatsManager.ModifyCharacterStat(previousSpokenTo, CharacterStat.PreviousSpokenTo, 1);
+                characterStatsManager.ModifyCharacterStat(currentSpokenTo, CharacterStat.CurrentSpokenTo, 1);
             }
 
             // Trigger the UnityEvent
             selectedUnit.onDialogueTriggered.Invoke();
         }
+    }
+    private bool IsGameMatch(List<GameCriterion> gameQueryCriteria)
+    {
+        foreach (var criterion in gameQueryCriteria)
+        {
+            if (gameConditionsManager.GetGameCondition(criterion.key) != criterion.value)
+            {
+                return false; // Exit immediately if any game condition does not match
+            }
+        }
+        return true;
     }
 
     private bool IsSpeakerMatch(DynamicDialogueUnits.DialogueUnit unit, Dictionary<CharacterStat, int> speakerQueryCriteria)
@@ -216,17 +259,7 @@ public class DialogueQueryHandler : MonoBehaviour
         }
         return true;
     }
-    private bool IsGameMatch(List<GameCriterion> gameQueryCriteria)
-    {
-        foreach (var criterion in gameQueryCriteria)
-        {
-            if (gameConditionsManager.GetGameCondition(criterion.key) != criterion.value)
-            {
-                return false; // Exit immediately if any game condition does not match
-            }
-        }
-        return true;
-    }
+    
     private bool IsGameCriteriaMatchInUnit(DynamicDialogueUnits.DialogueUnit unit, Dictionary<GameCondition, int> gameQueryCriteria)
     {
         foreach (var criterion in gameQueryCriteria)

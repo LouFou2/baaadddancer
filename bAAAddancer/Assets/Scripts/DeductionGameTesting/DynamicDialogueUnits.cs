@@ -2,18 +2,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DynamicDialogueUnits : MonoBehaviour
+[CreateAssetMenu(fileName = "NewNew Dialogue", menuName = "NewDialogueSystem/Dialogue Data")]
+public class DynamicDialogueUnits : ScriptableObject
 {
     [System.Serializable]
     public class DialogueUnit
     {
         [TextArea(3, 10)]
         public string dialogueText;
+        public List<GameCriterion> gameCriteria;
         public List<CharCriterion> speakerCriteria;
         public List<CharCriterion> spokenToCriteria;
-        public List<GameCriterion> gameCriteria;
         public UnityEvent onDialogueTriggered;
     }
 
+    public LevelKey levelKey;
     public DialogueUnit[] sceneDialogueUnits;
+
+    // player response
+    public string responseNo;
+    public string responseYes;
+    public CharCriterion spokenToCriterion;
 }
