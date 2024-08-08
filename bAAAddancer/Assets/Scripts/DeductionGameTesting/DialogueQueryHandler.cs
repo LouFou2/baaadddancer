@@ -11,6 +11,8 @@ public class DialogueQueryHandler : MonoBehaviour
     [SerializeField] private CharacterStatsManager characterStatsManager;
     [SerializeField] private GameConditionsManager gameConditionsManager;
 
+    [SerializeField] private CamDirector camDirector;
+
     [SerializeField] private DynamicDialogueUnits currentDialogueUnit;
     [SerializeField] private DialogueQueryCriteria currentQueryCriteria;
     private Queue<DialogueQueryCriteria.Query> queryQueue = new Queue<DialogueQueryCriteria.Query>();
@@ -31,7 +33,7 @@ public class DialogueQueryHandler : MonoBehaviour
     public int previousSpokenTo { get; private set; }
 
     public enum DialogueState { PauseOrContinue, PlayerResponse }
-    public DialogueState dialogueState;
+    private DialogueState dialogueState;
 
     // Unity Events for responses
     public UnityEvent triggerNextDialogueEvent; // set the event in the inspector (what method to call)
@@ -130,7 +132,6 @@ public class DialogueQueryHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log("No more queries in the queue.");
             HandlePlayerResponse();
         }
     }
@@ -242,8 +243,8 @@ public class DialogueQueryHandler : MonoBehaviour
                 characterStatsManager.ModifyCharacterStat(previousSpeaker, CharacterStat.PreviousSpeaker, 1);
                 characterStatsManager.ModifyCharacterStat(currentSpeaker, CharacterStat.CurrentSpeaker, 1);
 
-                // DISPLAY TEXT *** REPLACE THIS WITH >> DialoguePlayer to play text...
-                characterTextDisplay.text = selectedUnit.dialogueText;
+                /*// DISPLAY TEXT *** REPLACE THIS WITH >> DialoguePlayer to play text...
+                characterTextDisplay.text = selectedUnit.dialogueText;*/
 
                 // Increment Dialogue line
                 gameConditionsManager.IncrementDialogueLine();
@@ -280,6 +281,11 @@ public class DialogueQueryHandler : MonoBehaviour
                 characterStatsManager.ModifyCharacterStat(previousSpokenTo, CharacterStat.PreviousSpokenTo, 1);
                 characterStatsManager.ModifyCharacterStat(currentSpokenTo, CharacterStat.CurrentSpokenTo, 1);
             }
+
+            // DISPLAY TEXT *** REPLACE THIS WITH >> DialoguePlayer to play text...
+            characterTextDisplay.text = selectedUnit.dialogueText;
+            // CINEMATOGRAPHY
+            HandleCinematography(selectedUnit.camera, selectedUnit.distance, selectedUnit.angle, selectedUnit.zoom, selectedUnit.shake);
 
             // Trigger the UnityEvent
             selectedUnit.onDialogueTriggered.Invoke();
@@ -340,7 +346,6 @@ public class DialogueQueryHandler : MonoBehaviour
         }
         return true;
     }
-
     private void PauseContinueResponse() 
     {
         if (queryQueue.Count > 0)
@@ -355,15 +360,26 @@ public class DialogueQueryHandler : MonoBehaviour
             HandlePlayerResponse();
         }
     }
+    private void HandleCinematography(CameraDirections camera, CameraDirections distance, CameraDirections angle, CameraDirections zoom, CameraDirections shake)
+    {
+        camDirector.SetCameraState(camera, currentSpeaker, currentSpokenTo, distance, angle, zoom, shake);
+    }
     private void HandlePlayerResponse() 
     {
         dialogueState = DialogueState.PlayerResponse;
         button0Text.text = currentDialogueUnit.responseNo;
         button1Text.text = currentDialogueUnit.responseYes;
-        
+
         button1.gameObject.SetActive(true);
         button1.Select();
         button0.gameObject.SetActive((string.IsNullOrEmpty(button0Text.text)) ? false : true); // button only active if it has text
+
+        HandleCinematography
+            (currentDialogueUnit.playerCamera,
+            currentDialogueUnit.playerCamDistance,
+            currentDialogueUnit.playerCamAngle,
+            currentDialogueUnit.playerCamZoom,
+            currentDialogueUnit.playerCamShake);
     }
     private void HandleNoResponse() 
     {
@@ -378,7 +394,6 @@ public class DialogueQueryHandler : MonoBehaviour
             case DynamicDialogueUnits.ResponseEvents.customEvent:
                 customDialogueEvent.Invoke();
                 break;
-
         }
     }
     private void HandleYesResponse() 

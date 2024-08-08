@@ -13,6 +13,7 @@ public class DynamicDialogueUnits : ScriptableObject
         public List<GameCriterion> gameCriteria;
         public List<CharCriterion> speakerCriteria;
         public List<CharCriterion> spokenToCriteria;
+        public CameraDirections camera, distance, angle, zoom, shake;
         public UnityEvent onDialogueTriggered;
     }
 
@@ -23,6 +24,7 @@ public class DynamicDialogueUnits : ScriptableObject
     public string responseNo;
     public string responseYes;
     public CharCriterion spokenToCriterion;
+    public CameraDirections playerCamera, playerCamDistance, playerCamAngle, playerCamZoom, playerCamShake;
     public enum ResponseEvents { triggerNextDialogue, switchScene, customEvent }
 
     public ResponseEvents NoEventToCall;
