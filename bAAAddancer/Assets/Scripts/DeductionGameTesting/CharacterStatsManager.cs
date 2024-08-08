@@ -186,11 +186,14 @@ public class CharacterStatsManager : MonoBehaviour
         for (int i = 0; i < characterStats.Length; i++)
         {
             bool match = true;
+            Debug.Log("Checking character index: " + i);
             foreach (var criterion in queryCriteria)
             {
+                Debug.Log("Checking criterion: " + criterion.Key + " with value: " + criterion.Value);
                 if (!characterStats[i].stats.ContainsKey(criterion.Key) || characterStats[i].stats[criterion.Key] != criterion.Value)
                 {
                     match = false;
+                    Debug.Log("Criterion does not match for character index: " + i);
                     break;
                 }
             }

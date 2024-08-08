@@ -189,7 +189,7 @@ public class DialogueQueryHandler : MonoBehaviour
         // Find all matching units that haven't been used yet
         foreach (var unit in currentDialogueUnit.sceneDialogueUnits)
         {
-            if (IsGameCriteriaMatchInUnit(unit, gameQueryCriteria) && !usedDialogueUnits.Contains(unit) && IsSpeakerMatch(unit, speakerQueryCriteria))
+            if (IsGameCriteriaMatchInUnit(unit, gameQueryCriteria) && !usedDialogueUnits.Contains(unit) && IsSpeakerCriteriaMatchInUnit(unit, speakerQueryCriteria))
             {
                 speakerMatchingUnits.Add(unit);
             }
@@ -322,7 +322,7 @@ public class DialogueQueryHandler : MonoBehaviour
         return true;
     }
 
-    private bool IsSpeakerMatch(DynamicDialogueUnits.DialogueUnit unit, Dictionary<CharacterStat, int> speakerQueryCriteria)
+    private bool IsSpeakerCriteriaMatchInUnit(DynamicDialogueUnits.DialogueUnit unit, Dictionary<CharacterStat, int> speakerQueryCriteria)
     {
         foreach (var criterion in speakerQueryCriteria)
         {
