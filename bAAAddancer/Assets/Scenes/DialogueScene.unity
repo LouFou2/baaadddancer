@@ -1949,12 +1949,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: faa1877f492bd0a4caf1a7dc2dcb0d7f, type: 2}
   characterStatsManager: {fileID: 6522463995895946351}
   gameConditionsManager: {fileID: 681865257}
-  camDirector: {fileID: 0}
+  camDirector: {fileID: 2097008799}
   currentDialogueUnit: {fileID: 0}
   currentQueryCriteria: {fileID: 0}
   characterTextDisplay: {fileID: 1935358504}
   button0: {fileID: 66719756}
   button1: {fileID: 1742261221}
+  playerIndex: 0
   triggerNextDialogueEvent:
     m_PersistentCalls:
       m_Calls:
@@ -4317,6 +4318,18 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 6852680912765456338}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2097008799 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7650322846758032891, guid: 2fb9b9e11f7221e4da69957778db4a69,
+    type: 3}
+  m_PrefabInstance: {fileID: 6852680912765456338}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899c1e026dd2f794cb58d70d04e4de2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2104977790
 GameObject:
   m_ObjectHideFlags: 0

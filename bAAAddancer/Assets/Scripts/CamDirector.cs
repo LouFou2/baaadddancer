@@ -14,7 +14,7 @@ public class CamDirector : MonoBehaviour
         switch (cam)
         {
             case CameraDirections.LongCam:
-                camAnimator.SetBool("Longcam", true);
+                camAnimator.SetBool("LongCam", true);
                 camAnimator.SetBool("CharCam1", false);
                 camAnimator.SetBool("CharCam2", false);
                 camAnimator.SetBool("CharCam3", false);
@@ -43,7 +43,7 @@ public class CamDirector : MonoBehaviour
     
     private void HandleSpeakerCam(int speakingChar) 
     {
-        camAnimator.SetBool("Longcam", false);
+        camAnimator.SetBool("LongCam", false);
         camAnimator.SetBool("CharCam1", false);
         camAnimator.SetBool("CharCam2", false);
         camAnimator.SetBool("CharCam3", false);
@@ -74,7 +74,7 @@ public class CamDirector : MonoBehaviour
     }
     private void HandleSpokenToCam(int spokenToChar) 
     {
-        camAnimator.SetBool("Longcam", false);
+        camAnimator.SetBool("LongCam", false);
         camAnimator.SetBool("CharCam1", false);
         camAnimator.SetBool("CharCam2", false);
         camAnimator.SetBool("CharCam3", false);

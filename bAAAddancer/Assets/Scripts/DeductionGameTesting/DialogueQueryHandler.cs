@@ -31,6 +31,7 @@ public class DialogueQueryHandler : MonoBehaviour
     public int previousSpeaker { get; private set; }
     public int currentSpokenTo { get; private set; }
     public int previousSpokenTo { get; private set; }
+    public int playerIndex;
 
     public enum DialogueState { PauseOrContinue, PlayerResponse }
     private DialogueState dialogueState;
@@ -61,6 +62,8 @@ public class DialogueQueryHandler : MonoBehaviour
 
         button0Text = button0.GetComponentInChildren<TextMeshProUGUI>();
         button1Text = button1.GetComponentInChildren<TextMeshProUGUI>();
+
+        playerIndex = characterStatsManager.playerIndex;
 
         InitializeQueryQueue();
         RunNextQuery();
@@ -229,25 +232,17 @@ public class DialogueQueryHandler : MonoBehaviour
             foreach (var criterion in selectedUnit.speakerCriteria)
             {
                 selectedCriteria.Add(criterion.key, criterion.value);
+                Debug.Log("Speakercritera:" + criterion.key + ": " + criterion.value);
             }
 
             List<int> matchingCharacterIndices = characterStatsManager.GetMatchingCharacterIndices(selectedCriteria);
-
+            
             if (matchingCharacterIndices.Count > 0)
             {
                 int selectedSpeakerIndex = matchingCharacterIndices[Random.Range(0, matchingCharacterIndices.Count)];
 
                 previousSpeaker = currentSpeaker;
                 currentSpeaker = selectedSpeakerIndex;
-                characterStatsManager.ModifyCharacterStat(previousSpeaker, CharacterStat.CurrentSpeaker, 0); //first reset this stat on previous speaker
-                characterStatsManager.ModifyCharacterStat(previousSpeaker, CharacterStat.PreviousSpeaker, 1);
-                characterStatsManager.ModifyCharacterStat(currentSpeaker, CharacterStat.CurrentSpeaker, 1);
-
-                /*// DISPLAY TEXT *** REPLACE THIS WITH >> DialoguePlayer to play text...
-                characterTextDisplay.text = selectedUnit.dialogueText;*/
-
-                // Increment Dialogue line
-                gameConditionsManager.IncrementDialogueLine();
 
                 // Increment the SpokenAmount stat
                 var characterStats = characterStatsManager.GetCharacterStats(selectedSpeakerIndex);
@@ -262,7 +257,7 @@ public class DialogueQueryHandler : MonoBehaviour
 
             }
 
-            // == SPOKEN TO == //
+            // == SPOKEN TO == // 
             // Now find the spoken-to character based on the selected unit's spokenToCriteria
             Dictionary<CharacterStat, int> spokenToCriteria = new Dictionary<CharacterStat, int>();
             foreach (var criterion in selectedUnit.spokenToCriteria)
@@ -270,20 +265,23 @@ public class DialogueQueryHandler : MonoBehaviour
                 spokenToCriteria.Add(criterion.key, criterion.value);
             }
 
-            List<int> matchingSpokenToIndices = characterStatsManager.GetMatchingCharacterIndices(spokenToCriteria);
+            List<int> matchingSpokenToIndices = (spokenToCriteria.Count > 0) ? characterStatsManager.GetMatchingCharacterIndices(spokenToCriteria) : new List<int>(); 
 
             if (matchingSpokenToIndices.Count > 0)
             {
                 int selectedSpokenToIndex = matchingSpokenToIndices[Random.Range(0, matchingSpokenToIndices.Count)];
                 previousSpokenTo = currentSpokenTo;
                 currentSpokenTo = selectedSpokenToIndex;
-                characterStatsManager.ModifyCharacterStat(previousSpokenTo, CharacterStat.CurrentSpokenTo, 0);
-                characterStatsManager.ModifyCharacterStat(previousSpokenTo, CharacterStat.PreviousSpokenTo, 1);
-                characterStatsManager.ModifyCharacterStat(currentSpokenTo, CharacterStat.CurrentSpokenTo, 1);
             }
+
+            UpdateSpeakerAndSpokenToDicts();
 
             // DISPLAY TEXT *** REPLACE THIS WITH >> DialoguePlayer to play text...
             characterTextDisplay.text = selectedUnit.dialogueText;
+
+            // Increment Dialogue line
+            gameConditionsManager.IncrementDialogueLine();
+
             // CINEMATOGRAPHY
             HandleCinematography(selectedUnit.camera, selectedUnit.distance, selectedUnit.angle, selectedUnit.zoom, selectedUnit.shake);
 
@@ -292,6 +290,25 @@ public class DialogueQueryHandler : MonoBehaviour
 
             PauseContinueResponse();
         }
+    }
+    private void UpdateSpeakerAndSpokenToDicts() 
+    {
+        // first reset the speaker stats
+        for (int i = 0; i < 6; i++) 
+        {
+            if(i != currentSpeaker)
+                characterStatsManager.ModifyCharacterStat(i, CharacterStat.CurrentSpeaker, 0);
+            if (i != previousSpeaker)
+                characterStatsManager.ModifyCharacterStat(i, CharacterStat.PreviousSpeaker, 0);
+            if(i != currentSpokenTo)
+                characterStatsManager.ModifyCharacterStat(i, CharacterStat.CurrentSpokenTo, 0);
+            if(i != previousSpokenTo)
+                characterStatsManager.ModifyCharacterStat(i, CharacterStat.PreviousSpokenTo, 0);
+        }
+        characterStatsManager.ModifyCharacterStat(currentSpeaker, CharacterStat.CurrentSpeaker, 1);
+        characterStatsManager.ModifyCharacterStat(previousSpeaker, CharacterStat.PreviousSpeaker, 1);
+        characterStatsManager.ModifyCharacterStat(currentSpokenTo, CharacterStat.CurrentSpokenTo, 1);
+        characterStatsManager.ModifyCharacterStat(previousSpokenTo, CharacterStat.PreviousSpokenTo, 1);
     }
     private bool IsGameMatch(List<GameCriterion> gameQueryCriteria)
     {
@@ -373,6 +390,12 @@ public class DialogueQueryHandler : MonoBehaviour
         button1.gameObject.SetActive(true);
         button1.Select();
         button0.gameObject.SetActive((string.IsNullOrEmpty(button0Text.text)) ? false : true); // button only active if it has text
+
+        previousSpeaker = currentSpeaker;
+        currentSpeaker = playerIndex;
+        characterStatsManager.ModifyCharacterStat(previousSpeaker, CharacterStat.CurrentSpeaker, 0); //first reset this stat on previous speaker
+        characterStatsManager.ModifyCharacterStat(previousSpeaker, CharacterStat.PreviousSpeaker, 1);
+        characterStatsManager.ModifyCharacterStat(currentSpeaker, CharacterStat.CurrentSpeaker, 1);
 
         HandleCinematography
             (currentDialogueUnit.playerCamera,
