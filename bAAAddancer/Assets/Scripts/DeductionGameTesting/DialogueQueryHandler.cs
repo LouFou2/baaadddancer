@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -243,6 +244,8 @@ public class DialogueQueryHandler : MonoBehaviour
 
                 previousSpeaker = currentSpeaker;
                 currentSpeaker = selectedSpeakerIndex;
+                Debug.Log("CURRENTSPEAKER: " + currentSpeaker);
+                Debug.Log("PREVIOUS: " + previousSpeaker);
 
                 // Increment the SpokenAmount stat
                 var characterStats = characterStatsManager.GetCharacterStats(selectedSpeakerIndex);
@@ -277,6 +280,7 @@ public class DialogueQueryHandler : MonoBehaviour
             UpdateSpeakerAndSpokenToDicts();
 
             // DISPLAY TEXT *** REPLACE THIS WITH >> DialoguePlayer to play text...
+            characterTextDisplay.transform.parent.gameObject.SetActive(true);
             characterTextDisplay.text = selectedUnit.dialogueText;
 
             // Increment Dialogue line
@@ -384,25 +388,27 @@ public class DialogueQueryHandler : MonoBehaviour
     private void HandlePlayerResponse() 
     {
         dialogueState = DialogueState.PlayerResponse;
-        button0Text.text = currentDialogueUnit.responseNo;
+
+        StartCoroutine(PlayerResponseCoroutine());
+
+        /*button0Text.text = currentDialogueUnit.responseNo;
         button1Text.text = currentDialogueUnit.responseYes;
 
         button1.gameObject.SetActive(true);
         button1.Select();
-        button0.gameObject.SetActive((string.IsNullOrEmpty(button0Text.text)) ? false : true); // button only active if it has text
+        button0.gameObject.SetActive((string.IsNullOrEmpty(button0Text.text)) ? false : true); // button0 only active if it has text
 
         previousSpeaker = currentSpeaker;
         currentSpeaker = playerIndex;
-        characterStatsManager.ModifyCharacterStat(previousSpeaker, CharacterStat.CurrentSpeaker, 0); //first reset this stat on previous speaker
-        characterStatsManager.ModifyCharacterStat(previousSpeaker, CharacterStat.PreviousSpeaker, 1);
-        characterStatsManager.ModifyCharacterStat(currentSpeaker, CharacterStat.CurrentSpeaker, 1);
+
+        UpdateSpeakerAndSpokenToDicts();
 
         HandleCinematography
             (currentDialogueUnit.playerCamera,
             currentDialogueUnit.playerCamDistance,
             currentDialogueUnit.playerCamAngle,
             currentDialogueUnit.playerCamZoom,
-            currentDialogueUnit.playerCamShake);
+            currentDialogueUnit.playerCamShake);*/
     }
     private void HandleNoResponse() 
     {
@@ -433,5 +439,32 @@ public class DialogueQueryHandler : MonoBehaviour
                 customDialogueEvent.Invoke();
                 break;
         }
+    }
+
+    private IEnumerator PlayerResponseCoroutine()
+    {
+        // Pause for a bit before changing buttons and cinematography
+        yield return new WaitForSeconds(2f); // Adjust the duration as needed
+
+        characterTextDisplay.transform.parent.gameObject.SetActive(false);
+
+        button0Text.text = currentDialogueUnit.responseNo;
+        button1Text.text = currentDialogueUnit.responseYes;
+
+        button1.gameObject.SetActive(true);
+        button1.Select();
+        button0.gameObject.SetActive((string.IsNullOrEmpty(button0Text.text)) ? false : true); // button0 only active if it has text
+
+        previousSpeaker = currentSpeaker;
+        currentSpeaker = playerIndex;
+
+        UpdateSpeakerAndSpokenToDicts();
+
+        HandleCinematography
+            (currentDialogueUnit.playerCamera,
+            currentDialogueUnit.playerCamDistance,
+            currentDialogueUnit.playerCamAngle,
+            currentDialogueUnit.playerCamZoom,
+            currentDialogueUnit.playerCamShake);
     }
 }

@@ -4844,7 +4844,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterManager: {fileID: 6372104692362033166}
-  characters: []
   characterStats: []
   demonIndex: -1
   playerIndex: -1
@@ -4877,8 +4876,13 @@ PrefabInstance:
       objectReference: {fileID: 6852680912765456339}
     - target: {fileID: 6852680913360360744, guid: 2fb9b9e11f7221e4da69957778db4a69,
         type: 3}
-      propertyPath: m_ChildCameras.Array.size
+      propertyPath: m_DefaultBlend.m_Style
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6852680913360360744, guid: 2fb9b9e11f7221e4da69957778db4a69,
+        type: 3}
+      propertyPath: m_ChildCameras.Array.size
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6852680913369816910, guid: 2fb9b9e11f7221e4da69957778db4a69,
         type: 3}
