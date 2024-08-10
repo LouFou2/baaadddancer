@@ -26,10 +26,8 @@ public class CharacterStatsManager : MonoBehaviour
             { CharacterStat.Perception, 0 },
 
             { CharacterStat.SpokenAmount, 0},
-            { CharacterStat.CurrentSpeaker, 0},
-            { CharacterStat.PreviousSpeaker, 0},
-            { CharacterStat.CurrentSpokenTo, 0},
-            { CharacterStat.PreviousSpokenTo, 0},
+            { CharacterStat.LastSpeaker, 0},
+            { CharacterStat.LastSpokenTo, 0},
 
             { CharacterStat.SpeakToGroup, 0},
             { CharacterStat.SpeakToCamera, 0},
@@ -186,21 +184,21 @@ public class CharacterStatsManager : MonoBehaviour
         for (int i = 0; i < characterStats.Length; i++)
         {
             bool match = true;
-            //Debug.Log("Checking character index: " + i);
+            Debug.Log("Checking character index: " + i);
             foreach (var criterion in queryCriteria)
             {
-                //Debug.Log("Checking criterion: " + criterion.Key + " with value: " + criterion.Value);
+                Debug.Log("Checking criterion: " + criterion.Key + " with value: " + criterion.Value);
                 if (!characterStats[i].stats.ContainsKey(criterion.Key) || characterStats[i].stats[criterion.Key] != criterion.Value)
                 {
                     match = false;
-                    //Debug.Log("Criterion does not match for character index: " + i);
+                    Debug.Log("Criterion does not match for character index: " + i);
                     break;
                 }
             }
             if (match)
             {
                 matchingIndices.Add(i);
-                //Debug.Log("Found match: " + i);
+                Debug.Log("Found match: " + i);
             }
         }
 

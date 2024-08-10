@@ -10,10 +10,8 @@ public enum CharacterStat
     Perception,
 
     SpokenAmount,
-    CurrentSpeaker,
-    PreviousSpeaker,
-    CurrentSpokenTo,
-    PreviousSpokenTo,
+    LastSpeaker,
+    LastSpokenTo,
 
     SpeakToGroup,
     SpeakToCamera,

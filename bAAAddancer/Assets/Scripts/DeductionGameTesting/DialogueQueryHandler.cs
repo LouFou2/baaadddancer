@@ -301,18 +301,12 @@ public class DialogueQueryHandler : MonoBehaviour
         for (int i = 0; i < 6; i++) 
         {
             if(i != currentSpeaker)
-                characterStatsManager.ModifyCharacterStat(i, CharacterStat.CurrentSpeaker, 0);
-            if (i != previousSpeaker)
-                characterStatsManager.ModifyCharacterStat(i, CharacterStat.PreviousSpeaker, 0);
+                characterStatsManager.ModifyCharacterStat(i, CharacterStat.LastSpeaker, 0);
             if(i != currentSpokenTo)
-                characterStatsManager.ModifyCharacterStat(i, CharacterStat.CurrentSpokenTo, 0);
-            if(i != previousSpokenTo)
-                characterStatsManager.ModifyCharacterStat(i, CharacterStat.PreviousSpokenTo, 0);
+                characterStatsManager.ModifyCharacterStat(i, CharacterStat.LastSpokenTo, 0);
         }
-        characterStatsManager.ModifyCharacterStat(currentSpeaker, CharacterStat.CurrentSpeaker, 1);
-        characterStatsManager.ModifyCharacterStat(previousSpeaker, CharacterStat.PreviousSpeaker, 1);
-        characterStatsManager.ModifyCharacterStat(currentSpokenTo, CharacterStat.CurrentSpokenTo, 1);
-        characterStatsManager.ModifyCharacterStat(previousSpokenTo, CharacterStat.PreviousSpokenTo, 1);
+        characterStatsManager.ModifyCharacterStat(currentSpeaker, CharacterStat.LastSpeaker, 1);
+        characterStatsManager.ModifyCharacterStat(currentSpokenTo, CharacterStat.LastSpokenTo, 1);
     }
     private bool IsGameMatch(List<GameCriterion> gameQueryCriteria)
     {
