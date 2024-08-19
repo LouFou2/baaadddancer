@@ -10,6 +10,8 @@ Shader "TestGeomShader"
 
         //My own hack properties:
         [HideInInspector] _ShadingMode("Shading Mode", Float) = 0
+        _DisplacementDistance("Displacement Distance", Float) = 0.3
+        _IsShadeFlat("Is Shading Flat", int) = 0
     }
     SubShader
     {
@@ -17,6 +19,8 @@ Shader "TestGeomShader"
 
         // Define uniform variable
         uniform float _ShadingMode;
+        uniform float _DisplacementDistance;
+        uniform int _IsShadeFlat;
 
         struct GeomData
         {
@@ -30,7 +34,6 @@ Shader "TestGeomShader"
             float3 sh : TEXCOORD6;           // Spherical Harmonics (interp6)
             float4 fogFactorAndVertexLight : TEXCOORD7; // Fog and vertex light (interp7)
             float4 shadowCoord : TEXCOORD8;  // Shadow coordinates (interp8)
-
         };
 
         [maxvertexcount(3)]
@@ -39,31 +42,30 @@ Shader "TestGeomShader"
             GeomData vert0 = input[0];
             GeomData vert1 = input[1];
             GeomData vert2 = input[2];
+
+            // Compute the flat normal for the triangle
+            float3 edge1 = normalize(vert1.positionWS - vert0.positionWS);
+            float3 edge2 = normalize(vert2.positionWS - vert0.positionWS);
+            float3 flatNormal = normalize(cross(edge1, edge2));
             
-            if (_ShadingMode > 0.5)
-            {
-                // Smooth shading
-                triStream.Append(vert0);
-                triStream.Append(vert1);
-                triStream.Append(vert2);
-            }
-            else
+            // = SMOOTH/FLAT SHADING == //
+            if (_ShadingMode < 0.5 || _IsShadeFlat == 1)
             {
                 // Flat shading: Flatten normals and positions
-                // Compute the flat normal for the triangle
-                float3 edge1 = normalize(vert1.positionWS - vert0.positionWS);
-                float3 edge2 = normalize(vert2.positionWS - vert0.positionWS);
-                float3 flatNormal = normalize(cross(edge1, edge2));
-    
-                // Assign the flat normal to all vertices
                 vert0.normalWS = flatNormal;
                 vert1.normalWS = flatNormal;
                 vert2.normalWS = flatNormal;
-        
-                triStream.Append(vert0);
-                triStream.Append(vert1);
-                triStream.Append(vert2);
             }
+
+            // Apply displacement along the flat normal
+            vert0.positionWS += flatNormal * _DisplacementDistance;
+            vert1.positionWS += flatNormal * _DisplacementDistance;
+            vert2.positionWS += flatNormal * _DisplacementDistance;
+
+            // === make the triangle === //
+            triStream.Append(vert0);
+            triStream.Append(vert1);
+            triStream.Append(vert2);
 
             triStream.RestartStrip();
         }
