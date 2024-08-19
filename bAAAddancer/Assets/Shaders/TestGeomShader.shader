@@ -7,23 +7,29 @@ Shader "TestGeomShader"
         [HideInInspector][NoScaleOffset]unity_Lightmaps("unity_Lightmaps", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_LightmapsInd("unity_LightmapsInd", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
+
+        //My own hack properties:
+        [HideInInspector] _ShadingMode("Shading Mode", Float) = 0
     }
     SubShader
     {
         HLSLINCLUDE
 
+        // Define uniform variable
+        uniform float _ShadingMode;
+
         struct GeomData
         {
-            float4 positionCS : SV_POSITION;
-             float3 interp0 : INTERP0;
-             float3 interp1 : INTERP1;
-             float4 interp2 : INTERP2;
-             float3 interp3 : INTERP3;
-             float2 interp4 : INTERP4;
-             float2 interp5 : INTERP5;
-             float3 interp6 : INTERP6;
-             float4 interp7 : INTERP7;
-             float4 interp8 : INTERP8;
+            float4 positionCS : SV_POSITION; // Clip space position
+            float3 positionWS : TEXCOORD0;   // World space position (interp0)
+            float3 normalWS : TEXCOORD1;     // World space normal (interp1)
+            float4 tangentWS : TEXCOORD2;    // World space tangent (interp2)
+            float3 viewDirectionWS : TEXCOORD3; // View direction (interp3)
+            float2 lightmapUV : TEXCOORD4;   // Lightmap UV (interp4)
+            float2 dynamicLightmapUV : TEXCOORD5; // Dynamic lightmap UV (interp5)
+            float3 sh : TEXCOORD6;           // Spherical Harmonics (interp6)
+            float4 fogFactorAndVertexLight : TEXCOORD7; // Fog and vertex light (interp7)
+            float4 shadowCoord : TEXCOORD8;  // Shadow coordinates (interp8)
 
         };
 
@@ -33,10 +39,32 @@ Shader "TestGeomShader"
             GeomData vert0 = input[0];
             GeomData vert1 = input[1];
             GeomData vert2 = input[2];
+            
+            if (_ShadingMode > 0.5)
+            {
+                // Smooth shading
+                triStream.Append(vert0);
+                triStream.Append(vert1);
+                triStream.Append(vert2);
+            }
+            else
+            {
+                // Flat shading: Flatten normals and positions
+                // Compute the flat normal for the triangle
+                float3 edge1 = normalize(vert1.positionWS - vert0.positionWS);
+                float3 edge2 = normalize(vert2.positionWS - vert0.positionWS);
+                float3 flatNormal = normalize(cross(edge1, edge2));
+    
+                // Assign the flat normal to all vertices
+                vert0.normalWS = flatNormal;
+                vert1.normalWS = flatNormal;
+                vert2.normalWS = flatNormal;
+        
+                triStream.Append(vert0);
+                triStream.Append(vert1);
+                triStream.Append(vert2);
+            }
 
-            triStream.Append(vert0);
-            triStream.Append(vert1);
-            triStream.Append(vert2);
             triStream.RestartStrip();
         }
 
