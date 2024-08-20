@@ -21,7 +21,7 @@ Shader "TestGeomShader3"
 
         // Define uniform variable
         uniform float _ShadingMode;
-        uniformfloat _DisplacementDistance;
+        uniform float _DisplacementDistance;
         int _IsShadeFlat;
 
         struct GeomData
