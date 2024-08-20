@@ -1,4 +1,4 @@
-Shader "TestGeomShader2"
+Shader "TestGeomShader3"
 {
     Properties
     {
@@ -17,28 +17,26 @@ Shader "TestGeomShader2"
     {
         HLSLINCLUDE
 
-        //#include "UnityCG.cginc" // Include Unity's common shader functions
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
         // Define uniform variable
         uniform float _ShadingMode;
-        float _DisplacementDistance;
+        uniformfloat _DisplacementDistance;
         int _IsShadeFlat;
-
-        
 
         struct GeomData
         {
-            float4 positionCS : SV_POSITION; // Clip space position
-            float3 positionWS : TEXCOORD0;   // World space position (interp0)
-            float3 normalWS : TEXCOORD1;     // World space normal (interp1)
-            float4 tangentWS : TEXCOORD2;    // World space tangent (interp2)
-            float3 viewDirectionWS : TEXCOORD3; // View direction (interp3)
-            float2 lightmapUV : TEXCOORD4;   // Lightmap UV (interp4)
-            float2 dynamicLightmapUV : TEXCOORD5; // Dynamic lightmap UV (interp5)
-            float3 sh : TEXCOORD6;           // Spherical Harmonics (interp6)
-            float4 fogFactorAndVertexLight : TEXCOORD7; // Fog and vertex light (interp7)
-            float4 shadowCoord : TEXCOORD8;  // Shadow coordinates (interp8)
+            float4 positionCS             : SV_POSITION;        // Corresponds to positionCS in PackedVaryings
+            float3 positionWS             : INTERP0;            // Corresponds to interp0 in PackedVaryings (stores positionWS)
+            float3 normalWS               : INTERP1;            // Corresponds to interp1 in PackedVaryings (stores normalWS)
+            float4 tangentWS              : INTERP2;            // Corresponds to interp2 in PackedVaryings (stores tangentWS)
+            float3 viewDirectionWS        : INTERP3;            // Corresponds to interp3 in PackedVaryings (stores viewDirectionWS)
+            float2 lightmapUV             : INTERP4;            // Corresponds to interp4 in PackedVaryings (stores staticLightmapUV or dynamicLightmapUV)
+            float3 sh                     : INTERP6;            // Corresponds to interp6 in PackedVaryings (stores spherical harmonics, sh)
+            float4 fogFactorAndVertexLight : INTERP7;            // Corresponds to interp7 in PackedVaryings
+            float4 shadowCoord            : INTERP8;            // Corresponds to interp8 in PackedVaryings (stores shadowCoord)
         };
+
 
         [maxvertexcount(3)]
         void geom(triangle GeomData input[3], inout TriangleStream<GeomData> triStream)
@@ -66,12 +64,12 @@ Shader "TestGeomShader2"
             vert1.positionWS += flatNormal * _DisplacementDistance;
             vert2.positionWS += flatNormal * _DisplacementDistance;
 
-            // Transform the displaced positions to clip space
-            //vert0.positionCS = UnityObjectToClipPos(vert0.positionWS);
-            //vert1.positionCS = UnityObjectToClipPos(vert1.positionWS);
-            //vert2.positionCS = UnityObjectToClipPos(vert2.positionWS);
+            // Update the clip-space positions
+            vert0.positionCS = TransformWorldToHClip(float4(vert0.positionWS, 1.0));
+            vert1.positionCS = TransformWorldToHClip(float4(vert1.positionWS, 1.0));
+            vert2.positionCS = TransformWorldToHClip(float4(vert2.positionWS, 1.0));
 
-            // === make the triangle === //
+            // === the triangle === //
             triStream.Append(vert0);
             triStream.Append(vert1);
             triStream.Append(vert2);
@@ -80,13 +78,12 @@ Shader "TestGeomShader2"
         }
 
         ENDHLSL
-
         Tags
         {
             "RenderPipeline"="UniversalPipeline"
-            "RenderType"="Opaque"
+            "RenderType"="Transparent"
             "UniversalMaterialType" = "Lit"
-            "Queue"="Geometry"
+            "Queue"="Transparent"
             "ShaderGraphShader"="true"
             "ShaderGraphTargetId"="UniversalLitSubTarget"
         }
@@ -100,9 +97,9 @@ Shader "TestGeomShader2"
         
         // Render State
         Cull Back
-        Blend One Zero
+        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
         ZTest LEqual
-        ZWrite On
+        ZWrite Off
         
         // Debug
         // <None>
@@ -120,6 +117,7 @@ Shader "TestGeomShader2"
         #pragma instancing_options renderinglayer
         #pragma multi_compile _ DOTS_INSTANCING_ON
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -163,6 +161,7 @@ Shader "TestGeomShader2"
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_FORWARD
         #define _FOG_FRAGMENT 1
+        #define _SURFACE_TYPE_TRANSPARENT 1
         #define _RECEIVE_SHADOWS_OFF 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
@@ -180,7 +179,7 @@ Shader "TestGeomShader2"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
-        
+
         // --------------------------------------------------
         // Structs and Packing
         
@@ -234,6 +233,7 @@ Shader "TestGeomShader2"
         struct SurfaceDescriptionInputs
         {
              float3 TangentSpaceNormal;
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -405,6 +405,7 @@ Shader "TestGeomShader2"
             float Metallic;
             float Smoothness;
             float Occlusion;
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
@@ -416,6 +417,7 @@ Shader "TestGeomShader2"
             surface.Metallic = 0;
             surface.Smoothness = 0.5;
             surface.Occlusion = 1;
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -455,6 +457,7 @@ Shader "TestGeomShader2"
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -489,9 +492,9 @@ Shader "TestGeomShader2"
         
         // Render State
         Cull Back
-        Blend One Zero
+        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
         ZTest LEqual
-        ZWrite On
+        ZWrite Off
         
         // Debug
         // <None>
@@ -509,6 +512,7 @@ Shader "TestGeomShader2"
         #pragma instancing_options renderinglayer
         #pragma multi_compile _ DOTS_INSTANCING_ON
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -550,6 +554,7 @@ Shader "TestGeomShader2"
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_GBUFFER
         #define _FOG_FRAGMENT 1
+        #define _SURFACE_TYPE_TRANSPARENT 1
         #define _RECEIVE_SHADOWS_OFF 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
@@ -621,6 +626,7 @@ Shader "TestGeomShader2"
         struct SurfaceDescriptionInputs
         {
              float3 TangentSpaceNormal;
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -792,6 +798,7 @@ Shader "TestGeomShader2"
             float Metallic;
             float Smoothness;
             float Occlusion;
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
@@ -803,6 +810,7 @@ Shader "TestGeomShader2"
             surface.Metallic = 0;
             surface.Smoothness = 0.5;
             surface.Occlusion = 1;
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -842,6 +850,7 @@ Shader "TestGeomShader2"
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -895,6 +904,7 @@ Shader "TestGeomShader2"
         #pragma multi_compile_instancing
         #pragma multi_compile _ DOTS_INSTANCING_ON
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -910,6 +920,7 @@ Shader "TestGeomShader2"
         #define _NORMAL_DROPOFF_TS 1
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
+        #define VARYINGS_NEED_POSITION_WS
         #define VARYINGS_NEED_NORMAL_WS
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
@@ -947,6 +958,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
              float3 normalWS;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
@@ -963,6 +975,7 @@ Shader "TestGeomShader2"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -974,6 +987,7 @@ Shader "TestGeomShader2"
         {
              float4 positionCS : SV_POSITION;
              float3 interp0 : INTERP0;
+             float3 interp1 : INTERP1;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -993,7 +1007,8 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
-            output.interp0.xyz =  input.normalWS;
+            output.interp0.xyz =  input.positionWS;
+            output.interp1.xyz =  input.normalWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -1013,7 +1028,8 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
-            output.normalWS = input.interp0.xyz;
+            output.positionWS = input.interp0.xyz;
+            output.normalWS = input.interp1.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -1088,11 +1104,13 @@ Shader "TestGeomShader2"
         // Graph Pixel
         struct SurfaceDescription
         {
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -1131,6 +1149,7 @@ Shader "TestGeomShader2"
         
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -1146,289 +1165,6 @@ Shader "TestGeomShader2"
         
         #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShadowCasterPass.hlsl"
-        
-        // --------------------------------------------------
-        // Visual Effect Vertex Invocations
-        #ifdef HAVE_VFX_MODIFICATION
-        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/VisualEffectVertex.hlsl"
-        #endif
-        
-        ENDHLSL
-        }
-        Pass
-        {
-            Name "DepthOnly"
-            Tags
-            {
-                "LightMode" = "DepthOnly"
-            }
-        
-        // Render State
-        Cull Back
-        ZTest LEqual
-        ZWrite On
-        ColorMask 0
-        
-        // Debug
-        // <None>
-        
-        // --------------------------------------------------
-        // Pass
-        
-        HLSLPROGRAM
-        
-        // Pragmas
-        #pragma target 4.5
-        #pragma exclude_renderers gles gles3 glcore
-        #pragma multi_compile_instancing
-        #pragma multi_compile _ DOTS_INSTANCING_ON
-        #pragma vertex vert
-        #pragma fragment frag
-        
-        // DotsInstancingOptions: <None>
-        // HybridV1InjectedBuiltinProperties: <None>
-        
-        // Keywords
-        // PassKeywords: <None>
-        // GraphKeywords: <None>
-        
-        // Defines
-        
-        #define _NORMALMAP 1
-        #define _NORMAL_DROPOFF_TS 1
-        #define ATTRIBUTES_NEED_NORMAL
-        #define ATTRIBUTES_NEED_TANGENT
-        #define FEATURES_GRAPH_VERTEX
-        /* WARNING: $splice Could not find named fragment 'PassInstancing' */
-        #define SHADERPASS SHADERPASS_DEPTHONLY
-        /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
-        
-        
-        // custom interpolator pre-include
-        /* WARNING: $splice Could not find named fragment 'sgci_CustomInterpolatorPreInclude' */
-        
-        // Includes
-        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
-        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
-        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
-        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
-        
-        // --------------------------------------------------
-        // Structs and Packing
-        
-        // custom interpolators pre packing
-        /* WARNING: $splice Could not find named fragment 'CustomInterpolatorPrePacking' */
-        
-        struct Attributes
-        {
-             float3 positionOS : POSITION;
-             float3 normalOS : NORMAL;
-             float4 tangentOS : TANGENT;
-            #if UNITY_ANY_INSTANCING_ENABLED
-             uint instanceID : INSTANCEID_SEMANTIC;
-            #endif
-        };
-        struct Varyings
-        {
-             float4 positionCS : SV_POSITION;
-            #if UNITY_ANY_INSTANCING_ENABLED
-             uint instanceID : CUSTOM_INSTANCE_ID;
-            #endif
-            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
-             uint stereoTargetEyeIndexAsBlendIdx0 : BLENDINDICES0;
-            #endif
-            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
-             uint stereoTargetEyeIndexAsRTArrayIdx : SV_RenderTargetArrayIndex;
-            #endif
-            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
-             FRONT_FACE_TYPE cullFace : FRONT_FACE_SEMANTIC;
-            #endif
-        };
-        struct SurfaceDescriptionInputs
-        {
-        };
-        struct VertexDescriptionInputs
-        {
-             float3 ObjectSpaceNormal;
-             float3 ObjectSpaceTangent;
-             float3 ObjectSpacePosition;
-        };
-        struct PackedVaryings
-        {
-             float4 positionCS : SV_POSITION;
-            #if UNITY_ANY_INSTANCING_ENABLED
-             uint instanceID : CUSTOM_INSTANCE_ID;
-            #endif
-            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
-             uint stereoTargetEyeIndexAsBlendIdx0 : BLENDINDICES0;
-            #endif
-            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
-             uint stereoTargetEyeIndexAsRTArrayIdx : SV_RenderTargetArrayIndex;
-            #endif
-            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
-             FRONT_FACE_TYPE cullFace : FRONT_FACE_SEMANTIC;
-            #endif
-        };
-        
-        PackedVaryings PackVaryings (Varyings input)
-        {
-            PackedVaryings output;
-            ZERO_INITIALIZE(PackedVaryings, output);
-            output.positionCS = input.positionCS;
-            #if UNITY_ANY_INSTANCING_ENABLED
-            output.instanceID = input.instanceID;
-            #endif
-            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
-            output.stereoTargetEyeIndexAsBlendIdx0 = input.stereoTargetEyeIndexAsBlendIdx0;
-            #endif
-            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
-            output.stereoTargetEyeIndexAsRTArrayIdx = input.stereoTargetEyeIndexAsRTArrayIdx;
-            #endif
-            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
-            output.cullFace = input.cullFace;
-            #endif
-            return output;
-        }
-        
-        Varyings UnpackVaryings (PackedVaryings input)
-        {
-            Varyings output;
-            output.positionCS = input.positionCS;
-            #if UNITY_ANY_INSTANCING_ENABLED
-            output.instanceID = input.instanceID;
-            #endif
-            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
-            output.stereoTargetEyeIndexAsBlendIdx0 = input.stereoTargetEyeIndexAsBlendIdx0;
-            #endif
-            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
-            output.stereoTargetEyeIndexAsRTArrayIdx = input.stereoTargetEyeIndexAsRTArrayIdx;
-            #endif
-            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
-            output.cullFace = input.cullFace;
-            #endif
-            return output;
-        }
-        
-        
-        // --------------------------------------------------
-        // Graph
-        
-        // Graph Properties
-        CBUFFER_START(UnityPerMaterial)
-        CBUFFER_END
-        
-        // Object and Global properties
-        
-        // Graph Includes
-        // GraphIncludes: <None>
-        
-        // -- Property used by ScenePickingPass
-        #ifdef SCENEPICKINGPASS
-        float4 _SelectionID;
-        #endif
-        
-        // -- Properties used by SceneSelectionPass
-        #ifdef SCENESELECTIONPASS
-        int _ObjectId;
-        int _PassValue;
-        #endif
-        
-        // Graph Functions
-        // GraphFunctions: <None>
-        
-        // Custom interpolators pre vertex
-        /* WARNING: $splice Could not find named fragment 'CustomInterpolatorPreVertex' */
-        
-        // Graph Vertex
-        struct VertexDescription
-        {
-            float3 Position;
-            float3 Normal;
-            float3 Tangent;
-        };
-        
-        VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
-        {
-            VertexDescription description = (VertexDescription)0;
-            description.Position = IN.ObjectSpacePosition;
-            description.Normal = IN.ObjectSpaceNormal;
-            description.Tangent = IN.ObjectSpaceTangent;
-            return description;
-        }
-        
-        // Custom interpolators, pre surface
-        #ifdef FEATURES_GRAPH_VERTEX
-        Varyings CustomInterpolatorPassThroughFunc(inout Varyings output, VertexDescription input)
-        {
-        return output;
-        }
-        #define CUSTOMINTERPOLATOR_VARYPASSTHROUGH_FUNC
-        #endif
-        
-        // Graph Pixel
-        struct SurfaceDescription
-        {
-        };
-        
-        SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
-        {
-            SurfaceDescription surface = (SurfaceDescription)0;
-            return surface;
-        }
-        
-        // --------------------------------------------------
-        // Build Graph Inputs
-        #ifdef HAVE_VFX_MODIFICATION
-        #define VFX_SRP_ATTRIBUTES Attributes
-        #define VFX_SRP_VARYINGS Varyings
-        #define VFX_SRP_SURFACE_INPUTS SurfaceDescriptionInputs
-        #endif
-        VertexDescriptionInputs BuildVertexDescriptionInputs(Attributes input)
-        {
-            VertexDescriptionInputs output;
-            ZERO_INITIALIZE(VertexDescriptionInputs, output);
-        
-            output.ObjectSpaceNormal =                          input.normalOS;
-            output.ObjectSpaceTangent =                         input.tangentOS.xyz;
-            output.ObjectSpacePosition =                        input.positionOS;
-        
-            return output;
-        }
-        SurfaceDescriptionInputs BuildSurfaceDescriptionInputs(Varyings input)
-        {
-            SurfaceDescriptionInputs output;
-            ZERO_INITIALIZE(SurfaceDescriptionInputs, output);
-        
-        #ifdef HAVE_VFX_MODIFICATION
-            // FragInputs from VFX come from two places: Interpolator or CBuffer.
-            /* WARNING: $splice Could not find named fragment 'VFXSetFragInputs' */
-        
-        #endif
-        
-            
-        
-        
-        
-        
-        
-        #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
-        #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
-        #else
-        #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN
-        #endif
-        #undef BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN
-        
-                return output;
-        }
-        
-        // --------------------------------------------------
-        // Main
-        
-        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
-        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/DepthOnlyPass.hlsl"
         
         // --------------------------------------------------
         // Visual Effect Vertex Invocations
@@ -1465,6 +1201,7 @@ Shader "TestGeomShader2"
         #pragma multi_compile_instancing
         #pragma multi_compile _ DOTS_INSTANCING_ON
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -1481,6 +1218,7 @@ Shader "TestGeomShader2"
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
         #define ATTRIBUTES_NEED_TEXCOORD1
+        #define VARYINGS_NEED_POSITION_WS
         #define VARYINGS_NEED_NORMAL_WS
         #define VARYINGS_NEED_TANGENT_WS
         #define FEATURES_GRAPH_VERTEX
@@ -1520,6 +1258,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
              float3 normalWS;
              float4 tangentWS;
             #if UNITY_ANY_INSTANCING_ENABLED
@@ -1538,6 +1277,7 @@ Shader "TestGeomShader2"
         struct SurfaceDescriptionInputs
         {
              float3 TangentSpaceNormal;
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -1549,7 +1289,8 @@ Shader "TestGeomShader2"
         {
              float4 positionCS : SV_POSITION;
              float3 interp0 : INTERP0;
-             float4 interp1 : INTERP1;
+             float3 interp1 : INTERP1;
+             float4 interp2 : INTERP2;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -1569,8 +1310,9 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
-            output.interp0.xyz =  input.normalWS;
-            output.interp1.xyzw =  input.tangentWS;
+            output.interp0.xyz =  input.positionWS;
+            output.interp1.xyz =  input.normalWS;
+            output.interp2.xyzw =  input.tangentWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -1590,8 +1332,9 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
-            output.normalWS = input.interp0.xyz;
-            output.tangentWS = input.interp1.xyzw;
+            output.positionWS = input.interp0.xyz;
+            output.normalWS = input.interp1.xyz;
+            output.tangentWS = input.interp2.xyzw;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -1667,12 +1410,14 @@ Shader "TestGeomShader2"
         struct SurfaceDescription
         {
             float3 NormalTS;
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.NormalTS = IN.TangentSpaceNormal;
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -1712,6 +1457,7 @@ Shader "TestGeomShader2"
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -1759,6 +1505,7 @@ Shader "TestGeomShader2"
         #pragma target 4.5
         #pragma exclude_renderers gles gles3 glcore
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -1777,6 +1524,7 @@ Shader "TestGeomShader2"
         #define ATTRIBUTES_NEED_TEXCOORD0
         #define ATTRIBUTES_NEED_TEXCOORD1
         #define ATTRIBUTES_NEED_TEXCOORD2
+        #define VARYINGS_NEED_POSITION_WS
         #define VARYINGS_NEED_TEXCOORD0
         #define VARYINGS_NEED_TEXCOORD1
         #define VARYINGS_NEED_TEXCOORD2
@@ -1821,6 +1569,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
              float4 texCoord0;
              float4 texCoord1;
              float4 texCoord2;
@@ -1839,6 +1588,7 @@ Shader "TestGeomShader2"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -1849,9 +1599,10 @@ Shader "TestGeomShader2"
         struct PackedVaryings
         {
              float4 positionCS : SV_POSITION;
-             float4 interp0 : INTERP0;
+             float3 interp0 : INTERP0;
              float4 interp1 : INTERP1;
              float4 interp2 : INTERP2;
+             float4 interp3 : INTERP3;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -1871,9 +1622,10 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
-            output.interp0.xyzw =  input.texCoord0;
-            output.interp1.xyzw =  input.texCoord1;
-            output.interp2.xyzw =  input.texCoord2;
+            output.interp0.xyz =  input.positionWS;
+            output.interp1.xyzw =  input.texCoord0;
+            output.interp2.xyzw =  input.texCoord1;
+            output.interp3.xyzw =  input.texCoord2;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -1893,9 +1645,10 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
-            output.texCoord0 = input.interp0.xyzw;
-            output.texCoord1 = input.interp1.xyzw;
-            output.texCoord2 = input.interp2.xyzw;
+            output.positionWS = input.interp0.xyz;
+            output.texCoord0 = input.interp1.xyzw;
+            output.texCoord1 = input.interp2.xyzw;
+            output.texCoord2 = input.interp3.xyzw;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -1972,6 +1725,7 @@ Shader "TestGeomShader2"
         {
             float3 BaseColor;
             float3 Emission;
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
@@ -1979,6 +1733,7 @@ Shader "TestGeomShader2"
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.BaseColor = IsGammaSpace() ? float3(0.5, 0.5, 0.5) : SRGBToLinear(float3(0.5, 0.5, 0.5));
             surface.Emission = float3(0, 0, 0);
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -2017,6 +1772,7 @@ Shader "TestGeomShader2"
         
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -2064,6 +1820,7 @@ Shader "TestGeomShader2"
         #pragma target 4.5
         #pragma exclude_renderers gles gles3 glcore
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -2079,6 +1836,7 @@ Shader "TestGeomShader2"
         #define _NORMAL_DROPOFF_TS 1
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
+        #define VARYINGS_NEED_POSITION_WS
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_DEPTHONLY
@@ -2117,6 +1875,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -2132,6 +1891,7 @@ Shader "TestGeomShader2"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -2142,6 +1902,7 @@ Shader "TestGeomShader2"
         struct PackedVaryings
         {
              float4 positionCS : SV_POSITION;
+             float3 interp0 : INTERP0;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -2161,6 +1922,7 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
+            output.interp0.xyz =  input.positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -2180,6 +1942,7 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
+            output.positionWS = input.interp0.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -2254,11 +2017,13 @@ Shader "TestGeomShader2"
         // Graph Pixel
         struct SurfaceDescription
         {
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -2297,6 +2062,7 @@ Shader "TestGeomShader2"
         
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -2344,6 +2110,7 @@ Shader "TestGeomShader2"
         #pragma target 4.5
         #pragma exclude_renderers gles gles3 glcore
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -2359,6 +2126,7 @@ Shader "TestGeomShader2"
         #define _NORMAL_DROPOFF_TS 1
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
+        #define VARYINGS_NEED_POSITION_WS
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_DEPTHONLY
@@ -2397,6 +2165,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -2412,6 +2181,7 @@ Shader "TestGeomShader2"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -2422,6 +2192,7 @@ Shader "TestGeomShader2"
         struct PackedVaryings
         {
              float4 positionCS : SV_POSITION;
+             float3 interp0 : INTERP0;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -2441,6 +2212,7 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
+            output.interp0.xyz =  input.positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -2460,6 +2232,7 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
+            output.positionWS = input.interp0.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -2534,11 +2307,13 @@ Shader "TestGeomShader2"
         // Graph Pixel
         struct SurfaceDescription
         {
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -2577,6 +2352,7 @@ Shader "TestGeomShader2"
         
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -2611,9 +2387,9 @@ Shader "TestGeomShader2"
         
         // Render State
         Cull Back
-        Blend One Zero
+        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
         ZTest LEqual
-        ZWrite On
+        ZWrite Off
         
         // Debug
         // <None>
@@ -2627,6 +2403,7 @@ Shader "TestGeomShader2"
         #pragma target 4.5
         #pragma exclude_renderers gles gles3 glcore
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -2642,6 +2419,7 @@ Shader "TestGeomShader2"
         #define _NORMAL_DROPOFF_TS 1
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
+        #define VARYINGS_NEED_POSITION_WS
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_2D
@@ -2678,6 +2456,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -2693,6 +2472,7 @@ Shader "TestGeomShader2"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -2703,6 +2483,7 @@ Shader "TestGeomShader2"
         struct PackedVaryings
         {
              float4 positionCS : SV_POSITION;
+             float3 interp0 : INTERP0;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -2722,6 +2503,7 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
+            output.interp0.xyz =  input.positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -2741,6 +2523,7 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
+            output.positionWS = input.interp0.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -2816,12 +2599,14 @@ Shader "TestGeomShader2"
         struct SurfaceDescription
         {
             float3 BaseColor;
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.BaseColor = IsGammaSpace() ? float3(0.5, 0.5, 0.5) : SRGBToLinear(float3(0.5, 0.5, 0.5));
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -2860,6 +2645,7 @@ Shader "TestGeomShader2"
         
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -2890,9 +2676,9 @@ Shader "TestGeomShader2"
         Tags
         {
             "RenderPipeline"="UniversalPipeline"
-            "RenderType"="Opaque"
+            "RenderType"="Transparent"
             "UniversalMaterialType" = "Lit"
-            "Queue"="Geometry"
+            "Queue"="Transparent"
             "ShaderGraphShader"="true"
             "ShaderGraphTargetId"="UniversalLitSubTarget"
         }
@@ -2906,9 +2692,9 @@ Shader "TestGeomShader2"
         
         // Render State
         Cull Back
-        Blend One Zero
+        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
         ZTest LEqual
-        ZWrite On
+        ZWrite Off
         
         // Debug
         // <None>
@@ -2925,6 +2711,7 @@ Shader "TestGeomShader2"
         #pragma multi_compile_fog
         #pragma instancing_options renderinglayer
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -2968,6 +2755,7 @@ Shader "TestGeomShader2"
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_FORWARD
         #define _FOG_FRAGMENT 1
+        #define _SURFACE_TYPE_TRANSPARENT 1
         #define _RECEIVE_SHADOWS_OFF 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
@@ -3039,6 +2827,7 @@ Shader "TestGeomShader2"
         struct SurfaceDescriptionInputs
         {
              float3 TangentSpaceNormal;
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -3210,6 +2999,7 @@ Shader "TestGeomShader2"
             float Metallic;
             float Smoothness;
             float Occlusion;
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
@@ -3221,6 +3011,7 @@ Shader "TestGeomShader2"
             surface.Metallic = 0;
             surface.Smoothness = 0.5;
             surface.Occlusion = 1;
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -3260,6 +3051,7 @@ Shader "TestGeomShader2"
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -3311,6 +3103,7 @@ Shader "TestGeomShader2"
         #pragma only_renderers gles gles3 glcore d3d11
         #pragma multi_compile_instancing
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -3326,6 +3119,7 @@ Shader "TestGeomShader2"
         #define _NORMAL_DROPOFF_TS 1
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
+        #define VARYINGS_NEED_POSITION_WS
         #define VARYINGS_NEED_NORMAL_WS
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
@@ -3363,6 +3157,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
              float3 normalWS;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
@@ -3379,6 +3174,7 @@ Shader "TestGeomShader2"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -3390,6 +3186,7 @@ Shader "TestGeomShader2"
         {
              float4 positionCS : SV_POSITION;
              float3 interp0 : INTERP0;
+             float3 interp1 : INTERP1;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -3409,7 +3206,8 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
-            output.interp0.xyz =  input.normalWS;
+            output.interp0.xyz =  input.positionWS;
+            output.interp1.xyz =  input.normalWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -3429,7 +3227,8 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
-            output.normalWS = input.interp0.xyz;
+            output.positionWS = input.interp0.xyz;
+            output.normalWS = input.interp1.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -3504,11 +3303,13 @@ Shader "TestGeomShader2"
         // Graph Pixel
         struct SurfaceDescription
         {
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -3547,6 +3348,7 @@ Shader "TestGeomShader2"
         
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -3562,288 +3364,6 @@ Shader "TestGeomShader2"
         
         #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShadowCasterPass.hlsl"
-        
-        // --------------------------------------------------
-        // Visual Effect Vertex Invocations
-        #ifdef HAVE_VFX_MODIFICATION
-        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/VisualEffectVertex.hlsl"
-        #endif
-        
-        ENDHLSL
-        }
-        Pass
-        {
-            Name "DepthOnly"
-            Tags
-            {
-                "LightMode" = "DepthOnly"
-            }
-        
-        // Render State
-        Cull Back
-        ZTest LEqual
-        ZWrite On
-        ColorMask 0
-        
-        // Debug
-        // <None>
-        
-        // --------------------------------------------------
-        // Pass
-        
-        HLSLPROGRAM
-        
-        // Pragmas
-        #pragma target 2.0
-        #pragma only_renderers gles gles3 glcore d3d11
-        #pragma multi_compile_instancing
-        #pragma vertex vert
-        #pragma fragment frag
-        
-        // DotsInstancingOptions: <None>
-        // HybridV1InjectedBuiltinProperties: <None>
-        
-        // Keywords
-        // PassKeywords: <None>
-        // GraphKeywords: <None>
-        
-        // Defines
-        
-        #define _NORMALMAP 1
-        #define _NORMAL_DROPOFF_TS 1
-        #define ATTRIBUTES_NEED_NORMAL
-        #define ATTRIBUTES_NEED_TANGENT
-        #define FEATURES_GRAPH_VERTEX
-        /* WARNING: $splice Could not find named fragment 'PassInstancing' */
-        #define SHADERPASS SHADERPASS_DEPTHONLY
-        /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
-        
-        
-        // custom interpolator pre-include
-        /* WARNING: $splice Could not find named fragment 'sgci_CustomInterpolatorPreInclude' */
-        
-        // Includes
-        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
-        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
-        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
-        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
-        
-        // --------------------------------------------------
-        // Structs and Packing
-        
-        // custom interpolators pre packing
-        /* WARNING: $splice Could not find named fragment 'CustomInterpolatorPrePacking' */
-        
-        struct Attributes
-        {
-             float3 positionOS : POSITION;
-             float3 normalOS : NORMAL;
-             float4 tangentOS : TANGENT;
-            #if UNITY_ANY_INSTANCING_ENABLED
-             uint instanceID : INSTANCEID_SEMANTIC;
-            #endif
-        };
-        struct Varyings
-        {
-             float4 positionCS : SV_POSITION;
-            #if UNITY_ANY_INSTANCING_ENABLED
-             uint instanceID : CUSTOM_INSTANCE_ID;
-            #endif
-            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
-             uint stereoTargetEyeIndexAsBlendIdx0 : BLENDINDICES0;
-            #endif
-            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
-             uint stereoTargetEyeIndexAsRTArrayIdx : SV_RenderTargetArrayIndex;
-            #endif
-            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
-             FRONT_FACE_TYPE cullFace : FRONT_FACE_SEMANTIC;
-            #endif
-        };
-        struct SurfaceDescriptionInputs
-        {
-        };
-        struct VertexDescriptionInputs
-        {
-             float3 ObjectSpaceNormal;
-             float3 ObjectSpaceTangent;
-             float3 ObjectSpacePosition;
-        };
-        struct PackedVaryings
-        {
-             float4 positionCS : SV_POSITION;
-            #if UNITY_ANY_INSTANCING_ENABLED
-             uint instanceID : CUSTOM_INSTANCE_ID;
-            #endif
-            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
-             uint stereoTargetEyeIndexAsBlendIdx0 : BLENDINDICES0;
-            #endif
-            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
-             uint stereoTargetEyeIndexAsRTArrayIdx : SV_RenderTargetArrayIndex;
-            #endif
-            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
-             FRONT_FACE_TYPE cullFace : FRONT_FACE_SEMANTIC;
-            #endif
-        };
-        
-        PackedVaryings PackVaryings (Varyings input)
-        {
-            PackedVaryings output;
-            ZERO_INITIALIZE(PackedVaryings, output);
-            output.positionCS = input.positionCS;
-            #if UNITY_ANY_INSTANCING_ENABLED
-            output.instanceID = input.instanceID;
-            #endif
-            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
-            output.stereoTargetEyeIndexAsBlendIdx0 = input.stereoTargetEyeIndexAsBlendIdx0;
-            #endif
-            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
-            output.stereoTargetEyeIndexAsRTArrayIdx = input.stereoTargetEyeIndexAsRTArrayIdx;
-            #endif
-            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
-            output.cullFace = input.cullFace;
-            #endif
-            return output;
-        }
-        
-        Varyings UnpackVaryings (PackedVaryings input)
-        {
-            Varyings output;
-            output.positionCS = input.positionCS;
-            #if UNITY_ANY_INSTANCING_ENABLED
-            output.instanceID = input.instanceID;
-            #endif
-            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
-            output.stereoTargetEyeIndexAsBlendIdx0 = input.stereoTargetEyeIndexAsBlendIdx0;
-            #endif
-            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
-            output.stereoTargetEyeIndexAsRTArrayIdx = input.stereoTargetEyeIndexAsRTArrayIdx;
-            #endif
-            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
-            output.cullFace = input.cullFace;
-            #endif
-            return output;
-        }
-        
-        
-        // --------------------------------------------------
-        // Graph
-        
-        // Graph Properties
-        CBUFFER_START(UnityPerMaterial)
-        CBUFFER_END
-        
-        // Object and Global properties
-        
-        // Graph Includes
-        // GraphIncludes: <None>
-        
-        // -- Property used by ScenePickingPass
-        #ifdef SCENEPICKINGPASS
-        float4 _SelectionID;
-        #endif
-        
-        // -- Properties used by SceneSelectionPass
-        #ifdef SCENESELECTIONPASS
-        int _ObjectId;
-        int _PassValue;
-        #endif
-        
-        // Graph Functions
-        // GraphFunctions: <None>
-        
-        // Custom interpolators pre vertex
-        /* WARNING: $splice Could not find named fragment 'CustomInterpolatorPreVertex' */
-        
-        // Graph Vertex
-        struct VertexDescription
-        {
-            float3 Position;
-            float3 Normal;
-            float3 Tangent;
-        };
-        
-        VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
-        {
-            VertexDescription description = (VertexDescription)0;
-            description.Position = IN.ObjectSpacePosition;
-            description.Normal = IN.ObjectSpaceNormal;
-            description.Tangent = IN.ObjectSpaceTangent;
-            return description;
-        }
-        
-        // Custom interpolators, pre surface
-        #ifdef FEATURES_GRAPH_VERTEX
-        Varyings CustomInterpolatorPassThroughFunc(inout Varyings output, VertexDescription input)
-        {
-        return output;
-        }
-        #define CUSTOMINTERPOLATOR_VARYPASSTHROUGH_FUNC
-        #endif
-        
-        // Graph Pixel
-        struct SurfaceDescription
-        {
-        };
-        
-        SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
-        {
-            SurfaceDescription surface = (SurfaceDescription)0;
-            return surface;
-        }
-        
-        // --------------------------------------------------
-        // Build Graph Inputs
-        #ifdef HAVE_VFX_MODIFICATION
-        #define VFX_SRP_ATTRIBUTES Attributes
-        #define VFX_SRP_VARYINGS Varyings
-        #define VFX_SRP_SURFACE_INPUTS SurfaceDescriptionInputs
-        #endif
-        VertexDescriptionInputs BuildVertexDescriptionInputs(Attributes input)
-        {
-            VertexDescriptionInputs output;
-            ZERO_INITIALIZE(VertexDescriptionInputs, output);
-        
-            output.ObjectSpaceNormal =                          input.normalOS;
-            output.ObjectSpaceTangent =                         input.tangentOS.xyz;
-            output.ObjectSpacePosition =                        input.positionOS;
-        
-            return output;
-        }
-        SurfaceDescriptionInputs BuildSurfaceDescriptionInputs(Varyings input)
-        {
-            SurfaceDescriptionInputs output;
-            ZERO_INITIALIZE(SurfaceDescriptionInputs, output);
-        
-        #ifdef HAVE_VFX_MODIFICATION
-            // FragInputs from VFX come from two places: Interpolator or CBuffer.
-            /* WARNING: $splice Could not find named fragment 'VFXSetFragInputs' */
-        
-        #endif
-        
-            
-        
-        
-        
-        
-        
-        #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
-        #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
-        #else
-        #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN
-        #endif
-        #undef BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN
-        
-                return output;
-        }
-        
-        // --------------------------------------------------
-        // Main
-        
-        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
-        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/DepthOnlyPass.hlsl"
         
         // --------------------------------------------------
         // Visual Effect Vertex Invocations
@@ -3879,6 +3399,7 @@ Shader "TestGeomShader2"
         #pragma only_renderers gles gles3 glcore d3d11
         #pragma multi_compile_instancing
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -3895,6 +3416,7 @@ Shader "TestGeomShader2"
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
         #define ATTRIBUTES_NEED_TEXCOORD1
+        #define VARYINGS_NEED_POSITION_WS
         #define VARYINGS_NEED_NORMAL_WS
         #define VARYINGS_NEED_TANGENT_WS
         #define FEATURES_GRAPH_VERTEX
@@ -3934,6 +3456,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
              float3 normalWS;
              float4 tangentWS;
             #if UNITY_ANY_INSTANCING_ENABLED
@@ -3952,6 +3475,7 @@ Shader "TestGeomShader2"
         struct SurfaceDescriptionInputs
         {
              float3 TangentSpaceNormal;
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -3963,7 +3487,8 @@ Shader "TestGeomShader2"
         {
              float4 positionCS : SV_POSITION;
              float3 interp0 : INTERP0;
-             float4 interp1 : INTERP1;
+             float3 interp1 : INTERP1;
+             float4 interp2 : INTERP2;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -3983,8 +3508,9 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
-            output.interp0.xyz =  input.normalWS;
-            output.interp1.xyzw =  input.tangentWS;
+            output.interp0.xyz =  input.positionWS;
+            output.interp1.xyz =  input.normalWS;
+            output.interp2.xyzw =  input.tangentWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -4004,8 +3530,9 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
-            output.normalWS = input.interp0.xyz;
-            output.tangentWS = input.interp1.xyzw;
+            output.positionWS = input.interp0.xyz;
+            output.normalWS = input.interp1.xyz;
+            output.tangentWS = input.interp2.xyzw;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -4081,12 +3608,14 @@ Shader "TestGeomShader2"
         struct SurfaceDescription
         {
             float3 NormalTS;
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.NormalTS = IN.TangentSpaceNormal;
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -4126,6 +3655,7 @@ Shader "TestGeomShader2"
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -4173,6 +3703,7 @@ Shader "TestGeomShader2"
         #pragma target 2.0
         #pragma only_renderers gles gles3 glcore d3d11
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -4191,6 +3722,7 @@ Shader "TestGeomShader2"
         #define ATTRIBUTES_NEED_TEXCOORD0
         #define ATTRIBUTES_NEED_TEXCOORD1
         #define ATTRIBUTES_NEED_TEXCOORD2
+        #define VARYINGS_NEED_POSITION_WS
         #define VARYINGS_NEED_TEXCOORD0
         #define VARYINGS_NEED_TEXCOORD1
         #define VARYINGS_NEED_TEXCOORD2
@@ -4235,6 +3767,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
              float4 texCoord0;
              float4 texCoord1;
              float4 texCoord2;
@@ -4253,6 +3786,7 @@ Shader "TestGeomShader2"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -4263,9 +3797,10 @@ Shader "TestGeomShader2"
         struct PackedVaryings
         {
              float4 positionCS : SV_POSITION;
-             float4 interp0 : INTERP0;
+             float3 interp0 : INTERP0;
              float4 interp1 : INTERP1;
              float4 interp2 : INTERP2;
+             float4 interp3 : INTERP3;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -4285,9 +3820,10 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
-            output.interp0.xyzw =  input.texCoord0;
-            output.interp1.xyzw =  input.texCoord1;
-            output.interp2.xyzw =  input.texCoord2;
+            output.interp0.xyz =  input.positionWS;
+            output.interp1.xyzw =  input.texCoord0;
+            output.interp2.xyzw =  input.texCoord1;
+            output.interp3.xyzw =  input.texCoord2;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -4307,9 +3843,10 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
-            output.texCoord0 = input.interp0.xyzw;
-            output.texCoord1 = input.interp1.xyzw;
-            output.texCoord2 = input.interp2.xyzw;
+            output.positionWS = input.interp0.xyz;
+            output.texCoord0 = input.interp1.xyzw;
+            output.texCoord1 = input.interp2.xyzw;
+            output.texCoord2 = input.interp3.xyzw;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -4386,6 +3923,7 @@ Shader "TestGeomShader2"
         {
             float3 BaseColor;
             float3 Emission;
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
@@ -4393,6 +3931,7 @@ Shader "TestGeomShader2"
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.BaseColor = IsGammaSpace() ? float3(0.5, 0.5, 0.5) : SRGBToLinear(float3(0.5, 0.5, 0.5));
             surface.Emission = float3(0, 0, 0);
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -4431,6 +3970,7 @@ Shader "TestGeomShader2"
         
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -4479,6 +4019,7 @@ Shader "TestGeomShader2"
         #pragma only_renderers gles gles3 glcore d3d11
         #pragma multi_compile_instancing
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -4494,6 +4035,7 @@ Shader "TestGeomShader2"
         #define _NORMAL_DROPOFF_TS 1
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
+        #define VARYINGS_NEED_POSITION_WS
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_DEPTHONLY
@@ -4532,6 +4074,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -4547,6 +4090,7 @@ Shader "TestGeomShader2"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -4557,6 +4101,7 @@ Shader "TestGeomShader2"
         struct PackedVaryings
         {
              float4 positionCS : SV_POSITION;
+             float3 interp0 : INTERP0;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -4576,6 +4121,7 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
+            output.interp0.xyz =  input.positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -4595,6 +4141,7 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
+            output.positionWS = input.interp0.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -4669,11 +4216,13 @@ Shader "TestGeomShader2"
         // Graph Pixel
         struct SurfaceDescription
         {
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -4712,6 +4261,7 @@ Shader "TestGeomShader2"
         
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -4760,6 +4310,7 @@ Shader "TestGeomShader2"
         #pragma only_renderers gles gles3 glcore d3d11
         #pragma multi_compile_instancing
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -4775,6 +4326,7 @@ Shader "TestGeomShader2"
         #define _NORMAL_DROPOFF_TS 1
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
+        #define VARYINGS_NEED_POSITION_WS
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_DEPTHONLY
@@ -4813,6 +4365,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -4828,6 +4381,7 @@ Shader "TestGeomShader2"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -4838,6 +4392,7 @@ Shader "TestGeomShader2"
         struct PackedVaryings
         {
              float4 positionCS : SV_POSITION;
+             float3 interp0 : INTERP0;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -4857,6 +4412,7 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
+            output.interp0.xyz =  input.positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -4876,6 +4432,7 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
+            output.positionWS = input.interp0.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -4950,11 +4507,13 @@ Shader "TestGeomShader2"
         // Graph Pixel
         struct SurfaceDescription
         {
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -4993,6 +4552,7 @@ Shader "TestGeomShader2"
         
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -5027,9 +4587,9 @@ Shader "TestGeomShader2"
         
         // Render State
         Cull Back
-        Blend One Zero
+        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
         ZTest LEqual
-        ZWrite On
+        ZWrite Off
         
         // Debug
         // <None>
@@ -5044,6 +4604,7 @@ Shader "TestGeomShader2"
         #pragma only_renderers gles gles3 glcore d3d11
         #pragma multi_compile_instancing
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
@@ -5059,6 +4620,7 @@ Shader "TestGeomShader2"
         #define _NORMAL_DROPOFF_TS 1
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
+        #define VARYINGS_NEED_POSITION_WS
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_2D
@@ -5095,6 +4657,7 @@ Shader "TestGeomShader2"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
+             float3 positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -5110,6 +4673,7 @@ Shader "TestGeomShader2"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -5120,6 +4684,7 @@ Shader "TestGeomShader2"
         struct PackedVaryings
         {
              float4 positionCS : SV_POSITION;
+             float3 interp0 : INTERP0;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -5139,6 +4704,7 @@ Shader "TestGeomShader2"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
+            output.interp0.xyz =  input.positionWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -5158,6 +4724,7 @@ Shader "TestGeomShader2"
         {
             Varyings output;
             output.positionCS = input.positionCS;
+            output.positionWS = input.interp0.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -5233,12 +4800,14 @@ Shader "TestGeomShader2"
         struct SurfaceDescription
         {
             float3 BaseColor;
+            float Alpha;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.BaseColor = IsGammaSpace() ? float3(0.5, 0.5, 0.5) : SRGBToLinear(float3(0.5, 0.5, 0.5));
+            surface.Alpha = 1;
             return surface;
         }
         
@@ -5277,6 +4846,7 @@ Shader "TestGeomShader2"
         
         
         
+            output.WorldSpacePosition = input.positionWS;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
