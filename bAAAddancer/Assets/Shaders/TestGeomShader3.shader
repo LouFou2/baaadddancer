@@ -10,8 +10,9 @@ Shader "TestGeomShader3"
 
         //My own hack properties:
         [HideInInspector] _ShadingMode("Shading Mode", Float) = 0
-        _DisplacementDistance("Displacement Distance", Float) = 0.3
-        _IsShadeFlat("Is Shading Flat", int) = 0
+        [HideInInspector] _DisplacementDistance("Displacement Distance", Float) = 0.3
+        [HideInInspector] _IsShadeFlat("Is Shading Flat", int) = 0
+        //[HideInInspector] _EffectPoint("Effect Point", float3) = (0f,0f,0f)
     }
     SubShader
     {
@@ -21,8 +22,13 @@ Shader "TestGeomShader3"
 
         // Define uniform variable
         uniform float _ShadingMode;
+        uniform int _IsShadeFlat;
+
         uniform float _DisplacementDistance;
-        int _IsShadeFlat;
+
+        uniform float3 _EffectPoint;
+        uniform float _EffectPointFalloff;
+        uniform float _EffectPointDisplacement;
 
         struct GeomData
         {
@@ -36,7 +42,6 @@ Shader "TestGeomShader3"
             float4 fogFactorAndVertexLight : INTERP7;            // Corresponds to interp7 in PackedVaryings
             float4 shadowCoord            : INTERP8;            // Corresponds to interp8 in PackedVaryings (stores shadowCoord)
         };
-
 
         [maxvertexcount(3)]
         void geom(triangle GeomData input[3], inout TriangleStream<GeomData> triStream)
@@ -59,10 +64,78 @@ Shader "TestGeomShader3"
                 vert2.normalWS = flatNormal;
             }
 
-            // Apply displacement along the flat normal
+            //== General Displacement ==
+            
             vert0.positionWS += flatNormal * _DisplacementDistance;
             vert1.positionWS += flatNormal * _DisplacementDistance;
             vert2.positionWS += flatNormal * _DisplacementDistance;
+
+            //== Using the Effect Point ==
+
+            // Calculate the distance between the vertex position and the effect point
+            float dist0 = distance(vert0.positionWS, _EffectPoint);
+            float dist1 = distance(vert1.positionWS, _EffectPoint);
+            float dist2 = distance(vert2.positionWS, _EffectPoint);
+
+            // Calculate the distance factors (normalized to 0-1 range)
+            float distFactor0 = saturate(1.0 - dist0 / _EffectPointFalloff);
+            float distFactor1 = saturate(1.0 - dist1 / _EffectPointFalloff);
+            float distFactor2 = saturate(1.0 - dist2 / _EffectPointFalloff);
+
+            // Diplace verts if the distance is within the falloff range (doing it along flat normals again here)
+            // also smoothing out displacement amount relative to distance from effect point
+            if (dist0 <= _EffectPointFalloff)
+            {
+                vert0.positionWS += flatNormal * _EffectPointDisplacement * distFactor0;
+            }
+            if (dist1 <= _EffectPointFalloff)
+            {
+                vert1.positionWS += flatNormal * _EffectPointDisplacement * distFactor1;
+            }
+            if (dist2 <= _EffectPointFalloff)
+            {
+                vert2.positionWS += flatNormal * _EffectPointDisplacement * distFactor2;
+            }
+
+            // shrink triangles away from Effect Point:
+            /*  the two verts closest to the effect point
+                move towards the furthest point, amount to move is relative to distance from move point
+            */
+            //Check which distance is biggest (dist0, dist1, dist2)
+            float maxDist = dist0;
+            int maxIndex = 0; // Index of the vertex with the largest distance
+            if (dist1 > maxDist)
+            {
+                maxDist = dist1;
+                maxIndex = 1;
+            }
+            if (dist2 > maxDist)
+            {
+                maxDist = dist2;
+                maxIndex = 2;
+            }
+            switch(maxIndex)
+            {
+                case 0:
+                    // Move vert1 and vert2 towards vert0
+                    vert1.positionWS = lerp(vert1.positionWS, vert0.positionWS, distFactor1);
+                    vert2.positionWS = lerp(vert2.positionWS, vert0.positionWS, distFactor2);
+                    break;
+
+                case 1:
+                    // Move vert0 and vert2 towards vert1
+                    vert0.positionWS = lerp(vert0.positionWS, vert1.positionWS, distFactor0);
+                    vert2.positionWS = lerp(vert2.positionWS, vert1.positionWS, distFactor2);
+                    break;
+
+                case 2:
+                    // Move vert0 and vert1 towards vert2
+                    vert0.positionWS = lerp(vert0.positionWS, vert2.positionWS, distFactor0);
+                    vert1.positionWS = lerp(vert1.positionWS, vert2.positionWS, distFactor1);
+                    break;
+            }
+
+            //== Final Calculations ==
 
             // Update the clip-space positions
             vert0.positionCS = TransformWorldToHClip(float4(vert0.positionWS, 1.0));
