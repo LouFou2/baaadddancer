@@ -17,13 +17,6 @@ public class ShaderBender : MonoBehaviour
     // Displacement
     [SerializeField] [Range(0, 1)] private float displacementAmount = 0f;
 
-    // EffectPoint (a point that affects the mesh)
-    [SerializeField] bool useEffectPoint = false;
-    [SerializeField] GameObject effectPointObject;
-    private Vector3 effectPoint;
-    [SerializeField] float effectFalloff;
-    [SerializeField] float effectDisplacement;
-
     void Update()
     {
         // == Shade Smooth or Flat ==
@@ -38,11 +31,6 @@ public class ShaderBender : MonoBehaviour
 
         // == Displacement ==
         material.SetFloat("_DisplacementDistance", displacementAmount);
-
-        // == Effect Point Effects ==
-        if(useEffectPoint)
-            EffectPointEffects();
-
     }
 
     void FlickerShadeSmoothFlat() 
@@ -59,11 +47,4 @@ public class ShaderBender : MonoBehaviour
         material.SetFloat("_ShadingMode", shadingMode);
     }
 
-    void EffectPointEffects() 
-    {
-        effectPoint = effectPointObject.transform.position;
-        material.SetVector("_EffectPoint", effectPoint);
-        material.SetFloat("_EffectPointFalloff", effectFalloff);
-        material.SetFloat("_EffectPointDisplacement", effectDisplacement);
-    }
 }

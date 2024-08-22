@@ -330,8 +330,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 378394126}
+  - component: {fileID: 378394127}
   m_Layer: 0
-  m_Name: EffectPoint
+  m_Name: RepellPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -344,14 +345,31 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378394125}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.0849, z: 0.1146}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 636620167}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &378394127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378394125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ba0106566f3b7e4d9a6ecec12429477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 4a352b6963baad444bf413b450c85e53, type: 2}
+  useRepell: 1
+  repellPointObject: {fileID: 378394125}
+  repellFalloff: 0.1
+  repellDisplacement: 0.1
 --- !u!1 &449728562
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,15 +518,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 4a352b6963baad444bf413b450c85e53, type: 2}
-  shadeSmooth: 0
-  flickerShading: 0
+  shadeSmooth: 1
+  flickerShading: 1
   flickerSpeed: 6
   flickerIntensity: 0.5
   displacementAmount: 0
-  useEffectPoint: 1
-  effectPointObject: {fileID: 378394125}
-  effectFalloff: 0.17
-  effectDisplacement: 0.18
 --- !u!4 &636620167
 Transform:
   m_ObjectHideFlags: 0

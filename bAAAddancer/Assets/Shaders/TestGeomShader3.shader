@@ -26,9 +26,9 @@ Shader "TestGeomShader3"
 
         uniform float _DisplacementDistance;
 
-        uniform float3 _EffectPoint;
-        uniform float _EffectPointFalloff;
-        uniform float _EffectPointDisplacement;
+        uniform float3 _RepellPoint;
+        uniform float _RepellPointFalloff;
+        uniform float _RepellPointDisplacement;
 
         struct GeomData
         {
@@ -73,28 +73,28 @@ Shader "TestGeomShader3"
             //== Using the Effect Point ==
 
             // Calculate the distance between the vertex position and the effect point
-            float dist0 = distance(vert0.positionWS, _EffectPoint);
-            float dist1 = distance(vert1.positionWS, _EffectPoint);
-            float dist2 = distance(vert2.positionWS, _EffectPoint);
+            float dist0 = distance(vert0.positionWS, _RepellPoint);
+            float dist1 = distance(vert1.positionWS, _RepellPoint);
+            float dist2 = distance(vert2.positionWS, _RepellPoint);
 
             // Calculate the distance factors (normalized to 0-1 range)
-            float distFactor0 = saturate(1.0 - dist0 / _EffectPointFalloff);
-            float distFactor1 = saturate(1.0 - dist1 / _EffectPointFalloff);
-            float distFactor2 = saturate(1.0 - dist2 / _EffectPointFalloff);
+            float distFactor0 = saturate(1.0 - dist0 / _RepellPointFalloff);
+            float distFactor1 = saturate(1.0 - dist1 / _RepellPointFalloff);
+            float distFactor2 = saturate(1.0 - dist2 / _RepellPointFalloff);
 
             // Diplace verts if the distance is within the falloff range (doing it along flat normals again here)
             // also smoothing out displacement amount relative to distance from effect point
-            if (dist0 <= _EffectPointFalloff)
+            if (dist0 <= _RepellPointFalloff)
             {
-                vert0.positionWS += flatNormal * _EffectPointDisplacement * distFactor0;
+                vert0.positionWS += flatNormal * _RepellPointDisplacement * distFactor0;
             }
-            if (dist1 <= _EffectPointFalloff)
+            if (dist1 <= _RepellPointFalloff)
             {
-                vert1.positionWS += flatNormal * _EffectPointDisplacement * distFactor1;
+                vert1.positionWS += flatNormal * _RepellPointDisplacement * distFactor1;
             }
-            if (dist2 <= _EffectPointFalloff)
+            if (dist2 <= _RepellPointFalloff)
             {
-                vert2.positionWS += flatNormal * _EffectPointDisplacement * distFactor2;
+                vert2.positionWS += flatNormal * _RepellPointDisplacement * distFactor2;
             }
 
             // shrink triangles away from Effect Point:
