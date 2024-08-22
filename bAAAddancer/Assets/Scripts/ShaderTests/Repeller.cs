@@ -5,7 +5,7 @@ public class Repeller : MonoBehaviour
     public Material material; // Assign your material in the inspector
 
     // EffectPoint (a point that affects the mesh)
-    [SerializeField] bool useRepell = true;
+    [SerializeField] bool useRepell;
     [SerializeField] GameObject repellPointObject;
     private Vector3 repellPoint;
     [SerializeField] [Range(0,1)] float repellFalloff;

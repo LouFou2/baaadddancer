@@ -13,6 +13,8 @@ Shader "TestGeomShader3"
         [HideInInspector] _DisplacementDistance("Displacement Distance", Float) = 0.3
         [HideInInspector] _IsShadeFlat("Is Shading Flat", int) = 0
         //[HideInInspector] _EffectPoint("Effect Point", float3) = (0f,0f,0f)
+        _NormalAlignmentThreshold("Normal Alignment Threshold", float) = 0.9
+        _NormalAlignFactor("NormalAlignFactor", float) = 0.5
     }
     SubShader
     {
@@ -29,6 +31,11 @@ Shader "TestGeomShader3"
         uniform float3 _RepellPoint;
         uniform float _RepellPointFalloff;
         uniform float _RepellPointDisplacement;
+
+        // New uniform variable to control the alignment threshold
+        uniform float _NormalAlignmentThreshold;
+        uniform float _NormalAlignFactor; // How much to align the normal towards the view direction (0 = no alignment, 1 = full alignment)
+
 
         struct GeomData
         {
@@ -50,13 +57,16 @@ Shader "TestGeomShader3"
             GeomData vert1 = input[1];
             GeomData vert2 = input[2];
 
+            // Get the camera position in world space
+            float3 cameraPosWS = GetCameraPositionWS();
+
             // Compute the flat normal for the triangle
             float3 edge1 = normalize(vert1.positionWS - vert0.positionWS);
             float3 edge2 = normalize(vert2.positionWS - vert0.positionWS);
             float3 flatNormal = normalize(cross(edge1, edge2));
             
             // = SMOOTH/FLAT SHADING == //
-            if (_ShadingMode < 0.5 || _IsShadeFlat == 1)
+            if (_ShadingMode < 0.5 || _IsShadeFlat == 1) //***TO FIX: this overrides the flicker effect is shading is flat
             {
                 // Flat shading: Flatten normals and positions
                 vert0.normalWS = flatNormal;
@@ -64,13 +74,13 @@ Shader "TestGeomShader3"
                 vert2.normalWS = flatNormal;
             }
 
-            //== General Displacement ==
+            //== GENERAL DISPLACEMENT ==
             
             vert0.positionWS += flatNormal * _DisplacementDistance;
             vert1.positionWS += flatNormal * _DisplacementDistance;
             vert2.positionWS += flatNormal * _DisplacementDistance;
 
-            //== Using the Effect Point ==
+            //== USING THE REPELL POINT ==
 
             // Calculate the distance between the vertex position and the effect point
             float dist0 = distance(vert0.positionWS, _RepellPoint);
@@ -133,6 +143,37 @@ Shader "TestGeomShader3"
                     vert0.positionWS = lerp(vert0.positionWS, vert2.positionWS, distFactor0);
                     vert1.positionWS = lerp(vert1.positionWS, vert2.positionWS, distFactor1);
                     break;
+            }
+
+            //== NORMALS MANIPULATION ==
+            //== Align Normals to View Direction if within Threshold ==
+            for (int i = 0; i < 3; ++i)
+            {
+                GeomData vert;
+                if(i==0)
+                    vert = vert0;
+                else if (i==1)
+                    vert = vert1;
+                else // (i==2)
+                    vert = vert2;
+
+                // Calculate view direction from the vertex position to the camera
+                
+                float dotProduct = dot(vert.normalWS, vert.viewDirectionWS);
+
+                if (dotProduct > _NormalAlignmentThreshold)
+                {
+                    // Realign the normal towards the view direction
+                    vert.normalWS = normalize(lerp(vert.normalWS, vert.viewDirectionWS, _NormalAlignFactor));
+                }
+
+                // Reassign the adjusted vertex back to the input array
+                if(i==0)
+                    vert0 = vert;
+                else if (i==1)
+                    vert1 = vert;
+                else // (i==2)
+                    vert2 = vert;
             }
 
             //== Final Calculations ==
