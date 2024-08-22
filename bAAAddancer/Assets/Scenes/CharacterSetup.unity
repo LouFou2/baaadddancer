@@ -518,11 +518,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 4a352b6963baad444bf413b450c85e53, type: 2}
-  shadeSmooth: 0
+  shadeSmooth: 1
+  rotateTriangles: 1
+  rotateTriangleSpeed: 0.1
   flickerShading: 0
   flickerSpeed: 6
   flickerIntensity: 0.5
   displacementAmount: 0
+  alignNormalsToView: 0
+  normalAlignmentThreshold: 2
+  normalAlignFactor: 1
 --- !u!4 &636620167
 Transform:
   m_ObjectHideFlags: 0

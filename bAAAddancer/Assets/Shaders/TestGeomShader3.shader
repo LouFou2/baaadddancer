@@ -12,7 +12,6 @@ Shader "TestGeomShader3"
         [HideInInspector] _ShadingMode("Shading Mode", Float) = 0
         [HideInInspector] _DisplacementDistance("Displacement Distance", Float) = 0.3
         [HideInInspector] _IsShadeFlat("Is Shading Flat", int) = 0
-        //[HideInInspector] _EffectPoint("Effect Point", float3) = (0f,0f,0f)
         _NormalAlignmentThreshold("Normal Alignment Threshold", float) = 0.9
         _NormalAlignFactor("NormalAlignFactor", float) = 0.5
     }
@@ -22,20 +21,21 @@ Shader "TestGeomShader3"
 
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-        // Define uniform variable
+        //= VARIABLES (controlled externally through C# script, see "ShaderBender.cs") =
+        // shade smooth/flat
         uniform float _ShadingMode;
         uniform int _IsShadeFlat;
-
+        // displacement of mesh along normals
         uniform float _DisplacementDistance;
-
+        // custom "repeller" script
         uniform float3 _RepellPoint;
         uniform float _RepellPointFalloff;
         uniform float _RepellPointDisplacement;
-
-        // New uniform variable to control the alignment threshold
+        // aligning normals to view (note: this overrides smooth shading)
         uniform float _NormalAlignmentThreshold;
         uniform float _NormalAlignFactor; // How much to align the normal towards the view direction (0 = no alignment, 1 = full alignment)
-
+        // triangle rotator
+        uniform float _RotateTime;
 
         struct GeomData
         {
@@ -60,12 +60,35 @@ Shader "TestGeomShader3"
             // Get the camera position in world space
             float3 cameraPosWS = GetCameraPositionWS();
 
-            // Compute the flat normal for the triangle
-            float3 edge1 = normalize(vert1.positionWS - vert0.positionWS);
-            float3 edge2 = normalize(vert2.positionWS - vert0.positionWS);
-            float3 flatNormal = normalize(cross(edge1, edge2));
-            
+            // Compute edge vectors
+            float3 edge0 = vert1.positionWS - vert0.positionWS; // Edge from vert0 to vert1
+            float3 edge1 = vert2.positionWS - vert1.positionWS; // Edge from vert1 to vert2
+            float3 edge2 = vert0.positionWS - vert2.positionWS; // Edge from vert2 to vert0
+
+            // Calculate edge lengths
+            float edgeLength0 = length(edge0); // Length of edge from vert0 to vert1
+            float edgeLength1 = length(edge1); // Length of edge from vert1 to vert2
+            float edgeLength2 = length(edge2); // Length of edge from vert2 to vert0
+
+            // = ROTATING THE TRIANGLE
+
+            // Normalize edge vectors to get direction vectors
+            float3 edgeDir0 = normalize(edge0); // Direction from vert0 to vert1
+            float3 edgeDir1 = normalize(edge1); // Direction from vert1 to vert2
+            float3 edgeDir2 = normalize(edge2); // Direction from vert2 to vert0
+
+            // Move each vertex along its respective edge
+            vert0.positionWS += edgeDir0 * _RotateTime * edgeLength0; // Move vert0 along edge0
+            vert1.positionWS += edgeDir1 * _RotateTime * edgeLength1; // Move vert1 along edge1
+            vert2.positionWS += edgeDir2 * _RotateTime * edgeLength2; // Move vert2 along edge2
+
             // = SMOOTH/FLAT SHADING == //
+
+            // Compute the flat normal for the triangle
+            float3 normalizedEdge1 = normalize(vert1.positionWS - vert0.positionWS);
+            float3 normalizedEdge2 = normalize(vert2.positionWS - vert0.positionWS);
+            float3 flatNormal = normalize(cross(normalizedEdge1, normalizedEdge2));
+
             if (_ShadingMode < 0.5 || _IsShadeFlat == 1) //***TO FIX: this overrides the flicker effect is shading is flat
             {
                 // Flat shading: Flatten normals and positions
@@ -150,7 +173,7 @@ Shader "TestGeomShader3"
             for (int i = 0; i < 3; ++i)
             {
                 GeomData vert;
-                if(i==0)
+                if (i==0)
                     vert = vert0;
                 else if (i==1)
                     vert = vert1;
@@ -168,7 +191,7 @@ Shader "TestGeomShader3"
                 }
 
                 // Reassign the adjusted vertex back to the input array
-                if(i==0)
+                if (i==0)
                     vert0 = vert;
                 else if (i==1)
                     vert1 = vert;
@@ -179,9 +202,12 @@ Shader "TestGeomShader3"
             //== Final Calculations ==
 
             // Update the clip-space positions
-            vert0.positionCS = TransformWorldToHClip(float4(vert0.positionWS, 1.0));
-            vert1.positionCS = TransformWorldToHClip(float4(vert1.positionWS, 1.0));
-            vert2.positionCS = TransformWorldToHClip(float4(vert2.positionWS, 1.0));
+            //vert0.positionCS = TransformWorldToHClip(float4(vert0.positionWS, 1.0));
+            //vert1.positionCS = TransformWorldToHClip(float4(vert1.positionWS, 1.0));
+            //vert2.positionCS = TransformWorldToHClip(float4(vert2.positionWS, 1.0));
+            vert0.positionCS = TransformWorldToHClip(vert0.positionWS);
+            vert1.positionCS = TransformWorldToHClip(vert1.positionWS);
+            vert2.positionCS = TransformWorldToHClip(vert2.positionWS);
 
             // === the triangle === //
             triStream.Append(vert0);
@@ -192,6 +218,7 @@ Shader "TestGeomShader3"
         }
 
         ENDHLSL
+
         Tags
         {
             "RenderPipeline"="UniversalPipeline"
