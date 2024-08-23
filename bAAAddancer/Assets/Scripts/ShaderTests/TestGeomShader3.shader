@@ -22,18 +22,26 @@ Shader "TestGeomShader3"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
         //= VARIABLES (controlled externally through C# script, see "ShaderBender.cs") =
+
         // shade smooth/flat
         uniform float _ShadingMode;
         uniform int _IsShadeFlat;
+
         // displacement of mesh along normals
         uniform float _DisplacementDistance;
+
         // custom "repeller" script
         uniform float3 _RepellPoint;
         uniform float _RepellPointFalloff;
         uniform float _RepellPointDisplacement;
+        uniform int _RepellViewX;
+        uniform int _RepellViewY;
+
+
         // aligning normals to view (note: this overrides smooth shading)
         uniform float _NormalAlignmentThreshold;
         uniform float _NormalAlignFactor; // How much to align the normal towards the view direction (0 = no alignment, 1 = full alignment)
+
         // triangle rotator
         uniform float _RotateTime;
 
@@ -109,6 +117,19 @@ Shader "TestGeomShader3"
             float dist0 = distance(vert0.positionWS, _RepellPoint);
             float dist1 = distance(vert1.positionWS, _RepellPoint);
             float dist2 = distance(vert2.positionWS, _RepellPoint);
+
+            if(_RepellViewX == 1)
+            {
+                dist0 = distance(vert0.positionWS.x, _RepellPoint.x);
+                dist1 = distance(vert1.positionWS.x, _RepellPoint.x);
+                dist2 = distance(vert2.positionWS.x, _RepellPoint.x);
+            }
+            if(_RepellViewY == 1)
+            {
+                dist0 = distance(vert0.positionWS.y, _RepellPoint.y);
+                dist1 = distance(vert1.positionWS.y, _RepellPoint.y);
+                dist2 = distance(vert2.positionWS.y, _RepellPoint.y);
+            }
 
             // Calculate the distance factors (normalized to 0-1 range)
             float distFactor0 = saturate(1.0 - dist0 / _RepellPointFalloff);
@@ -202,9 +223,6 @@ Shader "TestGeomShader3"
             //== Final Calculations ==
 
             // Update the clip-space positions
-            //vert0.positionCS = TransformWorldToHClip(float4(vert0.positionWS, 1.0));
-            //vert1.positionCS = TransformWorldToHClip(float4(vert1.positionWS, 1.0));
-            //vert2.positionCS = TransformWorldToHClip(float4(vert2.positionWS, 1.0));
             vert0.positionCS = TransformWorldToHClip(vert0.positionWS);
             vert1.positionCS = TransformWorldToHClip(vert1.positionWS);
             vert2.positionCS = TransformWorldToHClip(vert2.positionWS);
