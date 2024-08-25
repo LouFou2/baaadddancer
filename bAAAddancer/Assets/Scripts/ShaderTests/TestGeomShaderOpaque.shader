@@ -1,4 +1,4 @@
-Shader "TestGeomShader4"
+Shader "TestGeomShaderOpaque"
 {
     Properties
     {
@@ -8,7 +8,8 @@ Shader "TestGeomShader4"
         [HideInInspector][NoScaleOffset]unity_LightmapsInd("unity_LightmapsInd", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
 
-        //My own hack properties:
+        //My properties:
+        _Color("Base Color", Color) = (1,1,1,1) // Expose a color property in the inspector
         _EdgeLengthThreshold("Edge Length Threshold", Range(0.01, 0.12)) = 0.1
         _IncrementValue("Increment Spacing Value", Range(0.0001,0.1)) = 0.1
     }
@@ -18,6 +19,7 @@ Shader "TestGeomShader4"
 
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
+        float4 _Color;
         float _EdgeLengthThreshold;
         float _IncrementValue;
 
@@ -129,16 +131,15 @@ Shader "TestGeomShader4"
                 
             }
         }
-
-        
         ENDHLSL
+
 
         Tags
         {
             "RenderPipeline"="UniversalPipeline"
-            "RenderType"="Transparent"
+            "RenderType"="Opaque"
             "UniversalMaterialType" = "Lit"
-            "Queue"="Transparent"
+            "Queue"="AlphaTest"
             "ShaderGraphShader"="true"
             "ShaderGraphTargetId"="UniversalLitSubTarget"
         }
@@ -152,9 +153,9 @@ Shader "TestGeomShader4"
         
         // Render State
         Cull Back
-        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        Blend One Zero
         ZTest LEqual
-        ZWrite Off
+        ZWrite On
         
         // Debug
         // <None>
@@ -216,7 +217,7 @@ Shader "TestGeomShader4"
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_FORWARD
         #define _FOG_FRAGMENT 1
-        #define _SURFACE_TYPE_TRANSPARENT 1
+        #define _ALPHATEST_ON 1
         #define _RECEIVE_SHADOWS_OFF 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
@@ -234,7 +235,7 @@ Shader "TestGeomShader4"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
-
+        
         // --------------------------------------------------
         // Structs and Packing
         
@@ -288,7 +289,7 @@ Shader "TestGeomShader4"
         struct SurfaceDescriptionInputs
         {
              float3 TangentSpaceNormal;
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -461,18 +462,21 @@ Shader "TestGeomShader4"
             float Smoothness;
             float Occlusion;
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            surface.BaseColor = IsGammaSpace() ? float3(0.5, 0.5, 0.5) : SRGBToLinear(float3(0.5, 0.5, 0.5));
+            float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
+            surface.BaseColor = _Color.rgb;
             surface.NormalTS = IN.TangentSpaceNormal;
             surface.Emission = float3(0, 0, 0);
             surface.Metallic = 0;
             surface.Smoothness = 0.5;
             surface.Occlusion = 1;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -512,7 +516,7 @@ Shader "TestGeomShader4"
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -547,9 +551,9 @@ Shader "TestGeomShader4"
         
         // Render State
         Cull Back
-        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        Blend One Zero
         ZTest LEqual
-        ZWrite Off
+        ZWrite On
         
         // Debug
         // <None>
@@ -609,7 +613,7 @@ Shader "TestGeomShader4"
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_GBUFFER
         #define _FOG_FRAGMENT 1
-        #define _SURFACE_TYPE_TRANSPARENT 1
+        #define _ALPHATEST_ON 1
         #define _RECEIVE_SHADOWS_OFF 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
@@ -681,7 +685,7 @@ Shader "TestGeomShader4"
         struct SurfaceDescriptionInputs
         {
              float3 TangentSpaceNormal;
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -854,18 +858,21 @@ Shader "TestGeomShader4"
             float Smoothness;
             float Occlusion;
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            surface.BaseColor = IsGammaSpace() ? float3(0.5, 0.5, 0.5) : SRGBToLinear(float3(0.5, 0.5, 0.5));
+            float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
+            surface.BaseColor = _Color.rgb;
             surface.NormalTS = IN.TangentSpaceNormal;
             surface.Emission = float3(0, 0, 0);
             surface.Metallic = 0;
             surface.Smoothness = 0.5;
             surface.Occlusion = 1;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -905,7 +912,7 @@ Shader "TestGeomShader4"
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -980,6 +987,7 @@ Shader "TestGeomShader4"
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_SHADOWCASTER
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -1030,7 +1038,7 @@ Shader "TestGeomShader4"
         };
         struct SurfaceDescriptionInputs
         {
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -1160,12 +1168,14 @@ Shader "TestGeomShader4"
         struct SurfaceDescription
         {
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -1204,7 +1214,7 @@ Shader "TestGeomShader4"
         
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -1220,6 +1230,302 @@ Shader "TestGeomShader4"
         
         #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShadowCasterPass.hlsl"
+        
+        // --------------------------------------------------
+        // Visual Effect Vertex Invocations
+        #ifdef HAVE_VFX_MODIFICATION
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/VisualEffectVertex.hlsl"
+        #endif
+        
+        ENDHLSL
+        }
+        Pass
+        {
+            Name "DepthOnly"
+            Tags
+            {
+                "LightMode" = "DepthOnly"
+            }
+        
+        // Render State
+        Cull Back
+        ZTest LEqual
+        ZWrite On
+        ColorMask 0
+        
+        // Debug
+        // <None>
+        
+        // --------------------------------------------------
+        // Pass
+        
+        HLSLPROGRAM
+        
+        // Pragmas
+        #pragma target 4.5
+        #pragma exclude_renderers gles gles3 glcore
+        #pragma multi_compile_instancing
+        #pragma multi_compile _ DOTS_INSTANCING_ON
+        #pragma vertex vert
+        #pragma geometry geom
+        #pragma fragment frag
+        
+        // DotsInstancingOptions: <None>
+        // HybridV1InjectedBuiltinProperties: <None>
+        
+        // Keywords
+        // PassKeywords: <None>
+        // GraphKeywords: <None>
+        
+        // Defines
+        
+        #define _NORMALMAP 1
+        #define _NORMAL_DROPOFF_TS 1
+        #define ATTRIBUTES_NEED_NORMAL
+        #define ATTRIBUTES_NEED_TANGENT
+        #define VARYINGS_NEED_POSITION_WS
+        #define FEATURES_GRAPH_VERTEX
+        /* WARNING: $splice Could not find named fragment 'PassInstancing' */
+        #define SHADERPASS SHADERPASS_DEPTHONLY
+        #define _ALPHATEST_ON 1
+        /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
+        
+        
+        // custom interpolator pre-include
+        /* WARNING: $splice Could not find named fragment 'sgci_CustomInterpolatorPreInclude' */
+        
+        // Includes
+        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
+        
+        // --------------------------------------------------
+        // Structs and Packing
+        
+        // custom interpolators pre packing
+        /* WARNING: $splice Could not find named fragment 'CustomInterpolatorPrePacking' */
+        
+        struct Attributes
+        {
+             float3 positionOS : POSITION;
+             float3 normalOS : NORMAL;
+             float4 tangentOS : TANGENT;
+            #if UNITY_ANY_INSTANCING_ENABLED
+             uint instanceID : INSTANCEID_SEMANTIC;
+            #endif
+        };
+        struct Varyings
+        {
+             float4 positionCS : SV_POSITION;
+             float3 positionWS;
+            #if UNITY_ANY_INSTANCING_ENABLED
+             uint instanceID : CUSTOM_INSTANCE_ID;
+            #endif
+            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
+             uint stereoTargetEyeIndexAsBlendIdx0 : BLENDINDICES0;
+            #endif
+            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
+             uint stereoTargetEyeIndexAsRTArrayIdx : SV_RenderTargetArrayIndex;
+            #endif
+            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
+             FRONT_FACE_TYPE cullFace : FRONT_FACE_SEMANTIC;
+            #endif
+        };
+        struct SurfaceDescriptionInputs
+        {
+             float3 ObjectSpacePosition;
+        };
+        struct VertexDescriptionInputs
+        {
+             float3 ObjectSpaceNormal;
+             float3 ObjectSpaceTangent;
+             float3 ObjectSpacePosition;
+        };
+        struct PackedVaryings
+        {
+             float4 positionCS : SV_POSITION;
+             float3 interp0 : INTERP0;
+            #if UNITY_ANY_INSTANCING_ENABLED
+             uint instanceID : CUSTOM_INSTANCE_ID;
+            #endif
+            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
+             uint stereoTargetEyeIndexAsBlendIdx0 : BLENDINDICES0;
+            #endif
+            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
+             uint stereoTargetEyeIndexAsRTArrayIdx : SV_RenderTargetArrayIndex;
+            #endif
+            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
+             FRONT_FACE_TYPE cullFace : FRONT_FACE_SEMANTIC;
+            #endif
+        };
+        
+        PackedVaryings PackVaryings (Varyings input)
+        {
+            PackedVaryings output;
+            ZERO_INITIALIZE(PackedVaryings, output);
+            output.positionCS = input.positionCS;
+            output.interp0.xyz =  input.positionWS;
+            #if UNITY_ANY_INSTANCING_ENABLED
+            output.instanceID = input.instanceID;
+            #endif
+            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
+            output.stereoTargetEyeIndexAsBlendIdx0 = input.stereoTargetEyeIndexAsBlendIdx0;
+            #endif
+            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
+            output.stereoTargetEyeIndexAsRTArrayIdx = input.stereoTargetEyeIndexAsRTArrayIdx;
+            #endif
+            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
+            output.cullFace = input.cullFace;
+            #endif
+            return output;
+        }
+        
+        Varyings UnpackVaryings (PackedVaryings input)
+        {
+            Varyings output;
+            output.positionCS = input.positionCS;
+            output.positionWS = input.interp0.xyz;
+            #if UNITY_ANY_INSTANCING_ENABLED
+            output.instanceID = input.instanceID;
+            #endif
+            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
+            output.stereoTargetEyeIndexAsBlendIdx0 = input.stereoTargetEyeIndexAsBlendIdx0;
+            #endif
+            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
+            output.stereoTargetEyeIndexAsRTArrayIdx = input.stereoTargetEyeIndexAsRTArrayIdx;
+            #endif
+            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
+            output.cullFace = input.cullFace;
+            #endif
+            return output;
+        }
+        
+        
+        // --------------------------------------------------
+        // Graph
+        
+        // Graph Properties
+        CBUFFER_START(UnityPerMaterial)
+        CBUFFER_END
+        
+        // Object and Global properties
+        
+        // Graph Includes
+        // GraphIncludes: <None>
+        
+        // -- Property used by ScenePickingPass
+        #ifdef SCENEPICKINGPASS
+        float4 _SelectionID;
+        #endif
+        
+        // -- Properties used by SceneSelectionPass
+        #ifdef SCENESELECTIONPASS
+        int _ObjectId;
+        int _PassValue;
+        #endif
+        
+        // Graph Functions
+        // GraphFunctions: <None>
+        
+        // Custom interpolators pre vertex
+        /* WARNING: $splice Could not find named fragment 'CustomInterpolatorPreVertex' */
+        
+        // Graph Vertex
+        struct VertexDescription
+        {
+            float3 Position;
+            float3 Normal;
+            float3 Tangent;
+        };
+        
+        VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
+        {
+            VertexDescription description = (VertexDescription)0;
+            description.Position = IN.ObjectSpacePosition;
+            description.Normal = IN.ObjectSpaceNormal;
+            description.Tangent = IN.ObjectSpaceTangent;
+            return description;
+        }
+        
+        // Custom interpolators, pre surface
+        #ifdef FEATURES_GRAPH_VERTEX
+        Varyings CustomInterpolatorPassThroughFunc(inout Varyings output, VertexDescription input)
+        {
+        return output;
+        }
+        #define CUSTOMINTERPOLATOR_VARYPASSTHROUGH_FUNC
+        #endif
+        
+        // Graph Pixel
+        struct SurfaceDescription
+        {
+            float Alpha;
+            float AlphaClipThreshold;
+        };
+        
+        SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
+        {
+            SurfaceDescription surface = (SurfaceDescription)0;
+            surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
+            return surface;
+        }
+        
+        // --------------------------------------------------
+        // Build Graph Inputs
+        #ifdef HAVE_VFX_MODIFICATION
+        #define VFX_SRP_ATTRIBUTES Attributes
+        #define VFX_SRP_VARYINGS Varyings
+        #define VFX_SRP_SURFACE_INPUTS SurfaceDescriptionInputs
+        #endif
+        VertexDescriptionInputs BuildVertexDescriptionInputs(Attributes input)
+        {
+            VertexDescriptionInputs output;
+            ZERO_INITIALIZE(VertexDescriptionInputs, output);
+        
+            output.ObjectSpaceNormal =                          input.normalOS;
+            output.ObjectSpaceTangent =                         input.tangentOS.xyz;
+            output.ObjectSpacePosition =                        input.positionOS;
+        
+            return output;
+        }
+        SurfaceDescriptionInputs BuildSurfaceDescriptionInputs(Varyings input)
+        {
+            SurfaceDescriptionInputs output;
+            ZERO_INITIALIZE(SurfaceDescriptionInputs, output);
+        
+        #ifdef HAVE_VFX_MODIFICATION
+            // FragInputs from VFX come from two places: Interpolator or CBuffer.
+            /* WARNING: $splice Could not find named fragment 'VFXSetFragInputs' */
+        
+        #endif
+        
+            
+        
+        
+        
+        
+        
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
+        #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
+        #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
+        #else
+        #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN
+        #endif
+        #undef BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN
+        
+                return output;
+        }
+        
+        // --------------------------------------------------
+        // Main
+        
+        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/DepthOnlyPass.hlsl"
         
         // --------------------------------------------------
         // Visual Effect Vertex Invocations
@@ -1279,6 +1585,7 @@ Shader "TestGeomShader4"
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_DEPTHNORMALS
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -1332,7 +1639,7 @@ Shader "TestGeomShader4"
         struct SurfaceDescriptionInputs
         {
              float3 TangentSpaceNormal;
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -1466,6 +1773,7 @@ Shader "TestGeomShader4"
         {
             float3 NormalTS;
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
@@ -1473,6 +1781,7 @@ Shader "TestGeomShader4"
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.NormalTS = IN.TangentSpaceNormal;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -1512,7 +1821,7 @@ Shader "TestGeomShader4"
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -1587,6 +1896,7 @@ Shader "TestGeomShader4"
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_META
         #define _FOG_FRAGMENT 1
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -1643,7 +1953,7 @@ Shader "TestGeomShader4"
         };
         struct SurfaceDescriptionInputs
         {
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -1781,14 +2091,17 @@ Shader "TestGeomShader4"
             float3 BaseColor;
             float3 Emission;
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            surface.BaseColor = IsGammaSpace() ? float3(0.5, 0.5, 0.5) : SRGBToLinear(float3(0.5, 0.5, 0.5));
+            float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
+            surface.BaseColor = _Color.rgb;
             surface.Emission = float3(0, 0, 0);
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -1827,7 +2140,7 @@ Shader "TestGeomShader4"
         
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -1897,6 +2210,7 @@ Shader "TestGeomShader4"
         #define SHADERPASS SHADERPASS_DEPTHONLY
         #define SCENESELECTIONPASS 1
         #define ALPHA_CLIP_THRESHOLD 1
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -1946,7 +2260,7 @@ Shader "TestGeomShader4"
         };
         struct SurfaceDescriptionInputs
         {
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -2073,12 +2387,14 @@ Shader "TestGeomShader4"
         struct SurfaceDescription
         {
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -2117,7 +2433,7 @@ Shader "TestGeomShader4"
         
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -2187,6 +2503,7 @@ Shader "TestGeomShader4"
         #define SHADERPASS SHADERPASS_DEPTHONLY
         #define SCENEPICKINGPASS 1
         #define ALPHA_CLIP_THRESHOLD 1
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -2236,7 +2553,7 @@ Shader "TestGeomShader4"
         };
         struct SurfaceDescriptionInputs
         {
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -2363,12 +2680,14 @@ Shader "TestGeomShader4"
         struct SurfaceDescription
         {
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -2407,7 +2726,7 @@ Shader "TestGeomShader4"
         
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -2442,9 +2761,9 @@ Shader "TestGeomShader4"
         
         // Render State
         Cull Back
-        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        Blend One Zero
         ZTest LEqual
-        ZWrite Off
+        ZWrite On
         
         // Debug
         // <None>
@@ -2478,6 +2797,7 @@ Shader "TestGeomShader4"
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_2D
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -2527,7 +2847,7 @@ Shader "TestGeomShader4"
         };
         struct SurfaceDescriptionInputs
         {
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -2655,13 +2975,16 @@ Shader "TestGeomShader4"
         {
             float3 BaseColor;
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            surface.BaseColor = IsGammaSpace() ? float3(0.5, 0.5, 0.5) : SRGBToLinear(float3(0.5, 0.5, 0.5));
+            float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
+            surface.BaseColor = _Color.rgb;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -2700,7 +3023,7 @@ Shader "TestGeomShader4"
         
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -2731,9 +3054,9 @@ Shader "TestGeomShader4"
         Tags
         {
             "RenderPipeline"="UniversalPipeline"
-            "RenderType"="Transparent"
+            "RenderType"="Opaque"
             "UniversalMaterialType" = "Lit"
-            "Queue"="Transparent"
+            "Queue"="AlphaTest"
             "ShaderGraphShader"="true"
             "ShaderGraphTargetId"="UniversalLitSubTarget"
         }
@@ -2747,9 +3070,9 @@ Shader "TestGeomShader4"
         
         // Render State
         Cull Back
-        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        Blend One Zero
         ZTest LEqual
-        ZWrite Off
+        ZWrite On
         
         // Debug
         // <None>
@@ -2810,7 +3133,7 @@ Shader "TestGeomShader4"
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_FORWARD
         #define _FOG_FRAGMENT 1
-        #define _SURFACE_TYPE_TRANSPARENT 1
+        #define _ALPHATEST_ON 1
         #define _RECEIVE_SHADOWS_OFF 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
@@ -2882,7 +3205,7 @@ Shader "TestGeomShader4"
         struct SurfaceDescriptionInputs
         {
              float3 TangentSpaceNormal;
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -3055,18 +3378,21 @@ Shader "TestGeomShader4"
             float Smoothness;
             float Occlusion;
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            surface.BaseColor = IsGammaSpace() ? float3(0.5, 0.5, 0.5) : SRGBToLinear(float3(0.5, 0.5, 0.5));
+            float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
+            surface.BaseColor = _Color.rgb;
             surface.NormalTS = IN.TangentSpaceNormal;
             surface.Emission = float3(0, 0, 0);
             surface.Metallic = 0;
             surface.Smoothness = 0.5;
             surface.Occlusion = 1;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -3106,7 +3432,7 @@ Shader "TestGeomShader4"
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -3179,6 +3505,7 @@ Shader "TestGeomShader4"
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_SHADOWCASTER
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -3229,7 +3556,7 @@ Shader "TestGeomShader4"
         };
         struct SurfaceDescriptionInputs
         {
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -3359,12 +3686,14 @@ Shader "TestGeomShader4"
         struct SurfaceDescription
         {
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -3403,7 +3732,7 @@ Shader "TestGeomShader4"
         
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -3419,6 +3748,301 @@ Shader "TestGeomShader4"
         
         #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShadowCasterPass.hlsl"
+        
+        // --------------------------------------------------
+        // Visual Effect Vertex Invocations
+        #ifdef HAVE_VFX_MODIFICATION
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/VisualEffectVertex.hlsl"
+        #endif
+        
+        ENDHLSL
+        }
+        Pass
+        {
+            Name "DepthOnly"
+            Tags
+            {
+                "LightMode" = "DepthOnly"
+            }
+        
+        // Render State
+        Cull Back
+        ZTest LEqual
+        ZWrite On
+        ColorMask 0
+        
+        // Debug
+        // <None>
+        
+        // --------------------------------------------------
+        // Pass
+        
+        HLSLPROGRAM
+        
+        // Pragmas
+        #pragma target 2.0
+        #pragma only_renderers gles gles3 glcore d3d11
+        #pragma multi_compile_instancing
+        #pragma vertex vert
+        #pragma geometry geom
+        #pragma fragment frag
+        
+        // DotsInstancingOptions: <None>
+        // HybridV1InjectedBuiltinProperties: <None>
+        
+        // Keywords
+        // PassKeywords: <None>
+        // GraphKeywords: <None>
+        
+        // Defines
+        
+        #define _NORMALMAP 1
+        #define _NORMAL_DROPOFF_TS 1
+        #define ATTRIBUTES_NEED_NORMAL
+        #define ATTRIBUTES_NEED_TANGENT
+        #define VARYINGS_NEED_POSITION_WS
+        #define FEATURES_GRAPH_VERTEX
+        /* WARNING: $splice Could not find named fragment 'PassInstancing' */
+        #define SHADERPASS SHADERPASS_DEPTHONLY
+        #define _ALPHATEST_ON 1
+        /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
+        
+        
+        // custom interpolator pre-include
+        /* WARNING: $splice Could not find named fragment 'sgci_CustomInterpolatorPreInclude' */
+        
+        // Includes
+        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+        #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
+        
+        // --------------------------------------------------
+        // Structs and Packing
+        
+        // custom interpolators pre packing
+        /* WARNING: $splice Could not find named fragment 'CustomInterpolatorPrePacking' */
+        
+        struct Attributes
+        {
+             float3 positionOS : POSITION;
+             float3 normalOS : NORMAL;
+             float4 tangentOS : TANGENT;
+            #if UNITY_ANY_INSTANCING_ENABLED
+             uint instanceID : INSTANCEID_SEMANTIC;
+            #endif
+        };
+        struct Varyings
+        {
+             float4 positionCS : SV_POSITION;
+             float3 positionWS;
+            #if UNITY_ANY_INSTANCING_ENABLED
+             uint instanceID : CUSTOM_INSTANCE_ID;
+            #endif
+            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
+             uint stereoTargetEyeIndexAsBlendIdx0 : BLENDINDICES0;
+            #endif
+            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
+             uint stereoTargetEyeIndexAsRTArrayIdx : SV_RenderTargetArrayIndex;
+            #endif
+            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
+             FRONT_FACE_TYPE cullFace : FRONT_FACE_SEMANTIC;
+            #endif
+        };
+        struct SurfaceDescriptionInputs
+        {
+             float3 ObjectSpacePosition;
+        };
+        struct VertexDescriptionInputs
+        {
+             float3 ObjectSpaceNormal;
+             float3 ObjectSpaceTangent;
+             float3 ObjectSpacePosition;
+        };
+        struct PackedVaryings
+        {
+             float4 positionCS : SV_POSITION;
+             float3 interp0 : INTERP0;
+            #if UNITY_ANY_INSTANCING_ENABLED
+             uint instanceID : CUSTOM_INSTANCE_ID;
+            #endif
+            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
+             uint stereoTargetEyeIndexAsBlendIdx0 : BLENDINDICES0;
+            #endif
+            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
+             uint stereoTargetEyeIndexAsRTArrayIdx : SV_RenderTargetArrayIndex;
+            #endif
+            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
+             FRONT_FACE_TYPE cullFace : FRONT_FACE_SEMANTIC;
+            #endif
+        };
+        
+        PackedVaryings PackVaryings (Varyings input)
+        {
+            PackedVaryings output;
+            ZERO_INITIALIZE(PackedVaryings, output);
+            output.positionCS = input.positionCS;
+            output.interp0.xyz =  input.positionWS;
+            #if UNITY_ANY_INSTANCING_ENABLED
+            output.instanceID = input.instanceID;
+            #endif
+            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
+            output.stereoTargetEyeIndexAsBlendIdx0 = input.stereoTargetEyeIndexAsBlendIdx0;
+            #endif
+            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
+            output.stereoTargetEyeIndexAsRTArrayIdx = input.stereoTargetEyeIndexAsRTArrayIdx;
+            #endif
+            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
+            output.cullFace = input.cullFace;
+            #endif
+            return output;
+        }
+        
+        Varyings UnpackVaryings (PackedVaryings input)
+        {
+            Varyings output;
+            output.positionCS = input.positionCS;
+            output.positionWS = input.interp0.xyz;
+            #if UNITY_ANY_INSTANCING_ENABLED
+            output.instanceID = input.instanceID;
+            #endif
+            #if (defined(UNITY_STEREO_MULTIVIEW_ENABLED)) || (defined(UNITY_STEREO_INSTANCING_ENABLED) && (defined(SHADER_API_GLES3) || defined(SHADER_API_GLCORE)))
+            output.stereoTargetEyeIndexAsBlendIdx0 = input.stereoTargetEyeIndexAsBlendIdx0;
+            #endif
+            #if (defined(UNITY_STEREO_INSTANCING_ENABLED))
+            output.stereoTargetEyeIndexAsRTArrayIdx = input.stereoTargetEyeIndexAsRTArrayIdx;
+            #endif
+            #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
+            output.cullFace = input.cullFace;
+            #endif
+            return output;
+        }
+        
+        
+        // --------------------------------------------------
+        // Graph
+        
+        // Graph Properties
+        CBUFFER_START(UnityPerMaterial)
+        CBUFFER_END
+        
+        // Object and Global properties
+        
+        // Graph Includes
+        // GraphIncludes: <None>
+        
+        // -- Property used by ScenePickingPass
+        #ifdef SCENEPICKINGPASS
+        float4 _SelectionID;
+        #endif
+        
+        // -- Properties used by SceneSelectionPass
+        #ifdef SCENESELECTIONPASS
+        int _ObjectId;
+        int _PassValue;
+        #endif
+        
+        // Graph Functions
+        // GraphFunctions: <None>
+        
+        // Custom interpolators pre vertex
+        /* WARNING: $splice Could not find named fragment 'CustomInterpolatorPreVertex' */
+        
+        // Graph Vertex
+        struct VertexDescription
+        {
+            float3 Position;
+            float3 Normal;
+            float3 Tangent;
+        };
+        
+        VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
+        {
+            VertexDescription description = (VertexDescription)0;
+            description.Position = IN.ObjectSpacePosition;
+            description.Normal = IN.ObjectSpaceNormal;
+            description.Tangent = IN.ObjectSpaceTangent;
+            return description;
+        }
+        
+        // Custom interpolators, pre surface
+        #ifdef FEATURES_GRAPH_VERTEX
+        Varyings CustomInterpolatorPassThroughFunc(inout Varyings output, VertexDescription input)
+        {
+        return output;
+        }
+        #define CUSTOMINTERPOLATOR_VARYPASSTHROUGH_FUNC
+        #endif
+        
+        // Graph Pixel
+        struct SurfaceDescription
+        {
+            float Alpha;
+            float AlphaClipThreshold;
+        };
+        
+        SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
+        {
+            SurfaceDescription surface = (SurfaceDescription)0;
+            surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
+            return surface;
+        }
+        
+        // --------------------------------------------------
+        // Build Graph Inputs
+        #ifdef HAVE_VFX_MODIFICATION
+        #define VFX_SRP_ATTRIBUTES Attributes
+        #define VFX_SRP_VARYINGS Varyings
+        #define VFX_SRP_SURFACE_INPUTS SurfaceDescriptionInputs
+        #endif
+        VertexDescriptionInputs BuildVertexDescriptionInputs(Attributes input)
+        {
+            VertexDescriptionInputs output;
+            ZERO_INITIALIZE(VertexDescriptionInputs, output);
+        
+            output.ObjectSpaceNormal =                          input.normalOS;
+            output.ObjectSpaceTangent =                         input.tangentOS.xyz;
+            output.ObjectSpacePosition =                        input.positionOS;
+        
+            return output;
+        }
+        SurfaceDescriptionInputs BuildSurfaceDescriptionInputs(Varyings input)
+        {
+            SurfaceDescriptionInputs output;
+            ZERO_INITIALIZE(SurfaceDescriptionInputs, output);
+        
+        #ifdef HAVE_VFX_MODIFICATION
+            // FragInputs from VFX come from two places: Interpolator or CBuffer.
+            /* WARNING: $splice Could not find named fragment 'VFXSetFragInputs' */
+        
+        #endif
+        
+            
+        
+        
+        
+        
+        
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
+        #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
+        #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
+        #else
+        #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN
+        #endif
+        #undef BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN
+        
+                return output;
+        }
+        
+        // --------------------------------------------------
+        // Main
+        
+        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
+        #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/DepthOnlyPass.hlsl"
         
         // --------------------------------------------------
         // Visual Effect Vertex Invocations
@@ -3477,6 +4101,7 @@ Shader "TestGeomShader4"
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_DEPTHNORMALS
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -3530,7 +4155,7 @@ Shader "TestGeomShader4"
         struct SurfaceDescriptionInputs
         {
              float3 TangentSpaceNormal;
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -3664,6 +4289,7 @@ Shader "TestGeomShader4"
         {
             float3 NormalTS;
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
@@ -3671,6 +4297,7 @@ Shader "TestGeomShader4"
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.NormalTS = IN.TangentSpaceNormal;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -3710,7 +4337,7 @@ Shader "TestGeomShader4"
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -3785,6 +4412,7 @@ Shader "TestGeomShader4"
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_META
         #define _FOG_FRAGMENT 1
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -3841,7 +4469,7 @@ Shader "TestGeomShader4"
         };
         struct SurfaceDescriptionInputs
         {
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -3979,14 +4607,17 @@ Shader "TestGeomShader4"
             float3 BaseColor;
             float3 Emission;
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            surface.BaseColor = IsGammaSpace() ? float3(0.5, 0.5, 0.5) : SRGBToLinear(float3(0.5, 0.5, 0.5));
+            float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
+            surface.BaseColor = _Color.rgb;
             surface.Emission = float3(0, 0, 0);
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -4025,7 +4656,7 @@ Shader "TestGeomShader4"
         
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -4096,6 +4727,7 @@ Shader "TestGeomShader4"
         #define SHADERPASS SHADERPASS_DEPTHONLY
         #define SCENESELECTIONPASS 1
         #define ALPHA_CLIP_THRESHOLD 1
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -4145,7 +4777,7 @@ Shader "TestGeomShader4"
         };
         struct SurfaceDescriptionInputs
         {
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -4272,12 +4904,14 @@ Shader "TestGeomShader4"
         struct SurfaceDescription
         {
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -4316,7 +4950,7 @@ Shader "TestGeomShader4"
         
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -4387,6 +5021,7 @@ Shader "TestGeomShader4"
         #define SHADERPASS SHADERPASS_DEPTHONLY
         #define SCENEPICKINGPASS 1
         #define ALPHA_CLIP_THRESHOLD 1
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -4436,7 +5071,7 @@ Shader "TestGeomShader4"
         };
         struct SurfaceDescriptionInputs
         {
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -4563,12 +5198,14 @@ Shader "TestGeomShader4"
         struct SurfaceDescription
         {
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -4607,7 +5244,7 @@ Shader "TestGeomShader4"
         
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -4642,9 +5279,9 @@ Shader "TestGeomShader4"
         
         // Render State
         Cull Back
-        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        Blend One Zero
         ZTest LEqual
-        ZWrite Off
+        ZWrite On
         
         // Debug
         // <None>
@@ -4679,6 +5316,7 @@ Shader "TestGeomShader4"
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_2D
+        #define _ALPHATEST_ON 1
         /* WARNING: $splice Could not find named fragment 'DotsInstancingVars' */
         
         
@@ -4728,7 +5366,7 @@ Shader "TestGeomShader4"
         };
         struct SurfaceDescriptionInputs
         {
-             float3 WorldSpacePosition;
+             float3 ObjectSpacePosition;
         };
         struct VertexDescriptionInputs
         {
@@ -4856,13 +5494,16 @@ Shader "TestGeomShader4"
         {
             float3 BaseColor;
             float Alpha;
+            float AlphaClipThreshold;
         };
         
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            surface.BaseColor = IsGammaSpace() ? float3(0.5, 0.5, 0.5) : SRGBToLinear(float3(0.5, 0.5, 0.5));
+            float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
+            surface.BaseColor = _Color.rgb;
             surface.Alpha = 1;
+            surface.AlphaClipThreshold = 0.5;
             return surface;
         }
         
@@ -4901,7 +5542,7 @@ Shader "TestGeomShader4"
         
         
         
-            output.WorldSpacePosition = input.positionWS;
+            output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
