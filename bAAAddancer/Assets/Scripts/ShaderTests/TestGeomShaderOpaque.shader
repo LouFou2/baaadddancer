@@ -9,7 +9,15 @@ Shader "TestGeomShaderOpaque"
         [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
 
         //My properties:
-        _Color("Base Color", Color) = (1,1,1,1) // Expose a color property in the inspector
+        [Header(Color Properties)]
+        _BaseColor("Base Color", Color) = (1,1,1,1) // Expose a color property in the inspector
+
+        [Header(Irridescent Colors)]
+        _FresnelEdge("Fresnel Edge Range", Range(0,1)) = 0.4
+        _ViewColour("View Colour Facing to Cam", Color) = (1,1,1,1)
+        _EdgeColor("Fresnel Edge Color", Color) = (0, 1, 0.55, 1)
+        
+        [Header(Geometry Properties)]
         _EdgeLengthThreshold("Edge Length Threshold", Range(0.01, 0.12)) = 0.1
         _IncrementValue("Increment Spacing Value", Range(0.0001,0.1)) = 0.1
     }
@@ -19,9 +27,14 @@ Shader "TestGeomShaderOpaque"
 
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-        float4 _Color;
+        float4 _BaseColor;
+        //the Irridescent Effect:
+        float4 _ViewColour;
+        float4 _EdgeColor;
+        float _FresnelEdge;
         float _EdgeLengthThreshold;
         float _IncrementValue;
+        
 
         struct GeomData
         {
@@ -34,6 +47,7 @@ Shader "TestGeomShaderOpaque"
             float3 sh                     : INTERP6;            // Corresponds to interp6 in PackedVaryings (stores spherical harmonics, sh)
             float4 fogFactorAndVertexLight : INTERP7;            // Corresponds to interp7 in PackedVaryings
             float4 shadowCoord            : INTERP8;            // Corresponds to interp8 in PackedVaryings (stores shadowCoord)
+            float4 color                  : INTERP9;        // Color corresponds to interp9 in PackedVaryings ()
         };
         float3 RoundToNearestIncrement(float3 value, float increment)
         {
@@ -42,6 +56,25 @@ Shader "TestGeomShaderOpaque"
                 round(value.y / increment) * increment,
                 round(value.z / increment) * increment
             );
+        }
+        
+        float4 CalculateColor(GeomData input)
+        {
+            float4 edgeColor = _EdgeColor;
+            //float4 inputColor = input.color;
+            float4 calculatedColor = _ViewColour;
+
+            //calculate a "fresnel" effect
+            float3 normal = normalize(input.normalWS);
+            float3 viewDirection = normalize(input.viewDirectionWS);
+            float fresnelRange = _FresnelEdge;
+            float dotProduct = dot(normal, viewDirection);
+            if (dotProduct < fresnelRange)
+            {
+                calculatedColor = edgeColor;
+            }
+
+            return calculatedColor;
         }
         [maxvertexcount(12)]
         void geom(triangle GeomData input[3], inout TriangleStream<GeomData> triStream)
@@ -62,6 +95,7 @@ Shader "TestGeomShaderOpaque"
                 {
                     vert = input[i];
                     vert.normalWS = baryNormal;
+                    vert.color = CalculateColor(vert);
                     vert.positionWS = RoundToNearestIncrement(vert.positionWS, _IncrementValue);
                     vert.positionCS = TransformWorldToHClip(vert.positionWS);
                     triStream.Append(vert);
@@ -87,6 +121,7 @@ Shader "TestGeomShaderOpaque"
 
                     //corner 1 (simply the current vert):
                     vert = input[i];
+                    vert.color = CalculateColor(vert);
                     vert.positionWS = RoundToNearestIncrement(vert.positionWS, _IncrementValue);
                     vert.positionCS = TransformWorldToHClip(vert.positionWS);
                     // can we tesselate again? for example if edgeLength > threshold && previousEdgeLength > threshold
@@ -96,6 +131,7 @@ Shader "TestGeomShaderOpaque"
                     //corner 2: (put the next corner halfway along edge)
                     GeomData newVert2 = vert; // Start with current vert's properties (***note: this effectively makes all 3 verts share the same normal)
                     newVert2.positionWS += 0.5 * edgeLength * edgeDir; // Move halfway along the edge
+                    newVert2.color = CalculateColor(newVert2);
                     newVert2.positionWS = RoundToNearestIncrement(newVert2.positionWS, _IncrementValue);
                     newVert2.positionCS = TransformWorldToHClip(newVert2.positionWS);
                     triStream.Append(newVert2);
@@ -103,6 +139,7 @@ Shader "TestGeomShaderOpaque"
                     //corner 3: (halfway along other edge)
                     GeomData newVert3 = vert; // Start with current vert's properties (*** same normal))
                     newVert3.positionWS = input[prevIndex].positionWS + 0.5 * prevEdgeLength * prevEdgeDir;
+                    newVert3.color = CalculateColor(newVert3);
                     newVert3.positionWS = RoundToNearestIncrement(newVert3.positionWS, _IncrementValue);
                     newVert3.positionCS = TransformWorldToHClip(newVert3.positionWS);
                     triStream.Append(newVert3);
@@ -111,16 +148,17 @@ Shader "TestGeomShaderOpaque"
                 }
 
                 // the last triangle: (this one forms a triangle inside the original triangle)
-                for(int i = 0; i < 3; i++ )
+                for(int j = 0; j < 3; j++ )
                 {
-                    vert = input[i];
-                    int nextIndex = ( i + 1 ) % 3;
+                    vert = input[j];
+                    int nextIndex = ( j + 1 ) % 3;
 
                     //put the vert halfway towards the nextIndex
-                    float3 edge = input[nextIndex].positionWS - input[i].positionWS; // Edge from vert to next vert
+                    float3 edge = input[nextIndex].positionWS - input[j].positionWS; // Edge from vert to next vert
                     float edgeLength = length(edge);
                     float3 edgeDir = normalize(edge);
                     vert.positionWS += 0.5 * edgeLength * edgeDir;
+                    vert.color = CalculateColor(vert);
                     vert.positionWS = RoundToNearestIncrement(vert.positionWS, _IncrementValue);
                     vert.positionCS = TransformWorldToHClip(vert.positionWS);
                     vert.normalWS = baryNormal;
@@ -273,6 +311,9 @@ Shader "TestGeomShaderOpaque"
             #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
              float4 shadowCoord;
             #endif
+
+            float4 color; //color
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -285,11 +326,14 @@ Shader "TestGeomShaderOpaque"
             #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
              FRONT_FACE_TYPE cullFace : FRONT_FACE_SEMANTIC;
             #endif
+
+            
         };
         struct SurfaceDescriptionInputs
         {
              float3 TangentSpaceNormal;
              float3 ObjectSpacePosition;
+             float4 color;
         };
         struct VertexDescriptionInputs
         {
@@ -309,6 +353,7 @@ Shader "TestGeomShaderOpaque"
              float3 interp6 : INTERP6;
              float4 interp7 : INTERP7;
              float4 interp8 : INTERP8;
+             float4 interp9 : INTERP9; // this refers to interp9
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -327,6 +372,7 @@ Shader "TestGeomShaderOpaque"
         {
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
+
             output.positionCS = input.positionCS;
             output.interp0.xyz =  input.positionWS;
             output.interp1.xyz =  input.normalWS;
@@ -345,6 +391,9 @@ Shader "TestGeomShaderOpaque"
             #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
             output.interp8.xyzw =  input.shadowCoord;
             #endif
+
+            output.interp9 = input.color;  // interp9 (gets Varyings.color)
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -363,6 +412,7 @@ Shader "TestGeomShaderOpaque"
         Varyings UnpackVaryings (PackedVaryings input)
         {
             Varyings output;
+            
             output.positionCS = input.positionCS;
             output.positionWS = input.interp0.xyz;
             output.normalWS = input.interp1.xyz;
@@ -381,6 +431,9 @@ Shader "TestGeomShaderOpaque"
             #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
             output.shadowCoord = input.interp8.xyzw;
             #endif
+
+            output.color = input.interp9; // color data from PackedVaryings
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -456,6 +509,7 @@ Shader "TestGeomShaderOpaque"
         struct SurfaceDescription
         {
             float3 BaseColor;
+            float4 color; // Vertex Color
             float3 NormalTS;
             float3 Emission;
             float Metallic;
@@ -469,7 +523,9 @@ Shader "TestGeomShaderOpaque"
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
-            surface.BaseColor = _Color.rgb;
+            
+            surface.BaseColor = IN.color.rgb;
+            //surface.BaseColor = _Color.rgb;
             surface.NormalTS = IN.TangentSpaceNormal;
             surface.Emission = float3(0, 0, 0);
             surface.Metallic = 0;
@@ -517,6 +573,9 @@ Shader "TestGeomShaderOpaque"
         
         
             output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
+
+            output.color = input.color; // input.color from the Varyings struct
+
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -669,6 +728,9 @@ Shader "TestGeomShaderOpaque"
             #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
              float4 shadowCoord;
             #endif
+
+            float4 color; //color
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -686,6 +748,7 @@ Shader "TestGeomShaderOpaque"
         {
              float3 TangentSpaceNormal;
              float3 ObjectSpacePosition;
+             float4 color;
         };
         struct VertexDescriptionInputs
         {
@@ -705,6 +768,9 @@ Shader "TestGeomShaderOpaque"
              float3 interp6 : INTERP6;
              float4 interp7 : INTERP7;
              float4 interp8 : INTERP8;
+
+             float4 interp9 : INTERP9; // this refers to interp9
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -741,6 +807,9 @@ Shader "TestGeomShaderOpaque"
             #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
             output.interp8.xyzw =  input.shadowCoord;
             #endif
+
+            output.interp9 = input.color;  // interp9 (gets Varyings.color)
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -777,6 +846,9 @@ Shader "TestGeomShaderOpaque"
             #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
             output.shadowCoord = input.interp8.xyzw;
             #endif
+
+            output.color = input.interp9; // color data from PackedVaryings
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -852,6 +924,7 @@ Shader "TestGeomShaderOpaque"
         struct SurfaceDescription
         {
             float3 BaseColor;
+            float4 color; // Vertex Color
             float3 NormalTS;
             float3 Emission;
             float Metallic;
@@ -865,7 +938,9 @@ Shader "TestGeomShaderOpaque"
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
-            surface.BaseColor = _Color.rgb;
+            
+            surface.BaseColor = IN.color.rgb;
+            //surface.BaseColor = _Color.rgb;
             surface.NormalTS = IN.TangentSpaceNormal;
             surface.Emission = float3(0, 0, 0);
             surface.Metallic = 0;
@@ -913,6 +988,9 @@ Shader "TestGeomShaderOpaque"
         
         
             output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
+
+            output.color = input.color; // input.color from the Varyings struct
+
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -1938,6 +2016,9 @@ Shader "TestGeomShaderOpaque"
              float4 texCoord0;
              float4 texCoord1;
              float4 texCoord2;
+
+             float4 color; // color data
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -1954,6 +2035,7 @@ Shader "TestGeomShaderOpaque"
         struct SurfaceDescriptionInputs
         {
              float3 ObjectSpacePosition;
+             float4 color;
         };
         struct VertexDescriptionInputs
         {
@@ -1968,6 +2050,9 @@ Shader "TestGeomShaderOpaque"
              float4 interp1 : INTERP1;
              float4 interp2 : INTERP2;
              float4 interp3 : INTERP3;
+
+             float4 interp9 : INTERP9; // color data
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -1991,6 +2076,9 @@ Shader "TestGeomShaderOpaque"
             output.interp1.xyzw =  input.texCoord0;
             output.interp2.xyzw =  input.texCoord1;
             output.interp3.xyzw =  input.texCoord2;
+
+            output.interp9 = input.color; // Pack color data
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -2014,6 +2102,9 @@ Shader "TestGeomShaderOpaque"
             output.texCoord0 = input.interp1.xyzw;
             output.texCoord1 = input.interp2.xyzw;
             output.texCoord2 = input.interp3.xyzw;
+
+            output.color = input.interp9; // Unpack color data
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -2089,6 +2180,7 @@ Shader "TestGeomShaderOpaque"
         struct SurfaceDescription
         {
             float3 BaseColor;
+            float4 color; // Vertex Color
             float3 Emission;
             float Alpha;
             float AlphaClipThreshold;
@@ -2098,7 +2190,9 @@ Shader "TestGeomShaderOpaque"
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
-            surface.BaseColor = _Color.rgb;
+            
+            surface.BaseColor = IN.color.rgb;
+            //surface.BaseColor = _Color.rgb;
             surface.Emission = float3(0, 0, 0);
             surface.Alpha = 1;
             surface.AlphaClipThreshold = 0.5;
@@ -2141,6 +2235,9 @@ Shader "TestGeomShaderOpaque"
         
         
             output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
+
+            output.color = input.color; // input.color from the Varyings struct
+
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -2832,6 +2929,9 @@ Shader "TestGeomShaderOpaque"
         {
              float4 positionCS : SV_POSITION;
              float3 positionWS;
+
+             float4 color; //color
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -2848,6 +2948,7 @@ Shader "TestGeomShaderOpaque"
         struct SurfaceDescriptionInputs
         {
              float3 ObjectSpacePosition;
+             float4 color;
         };
         struct VertexDescriptionInputs
         {
@@ -2859,6 +2960,9 @@ Shader "TestGeomShaderOpaque"
         {
              float4 positionCS : SV_POSITION;
              float3 interp0 : INTERP0;
+
+             float4 interp9 : INTERP9; // this refers to interp9
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -2879,6 +2983,9 @@ Shader "TestGeomShaderOpaque"
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
             output.interp0.xyz =  input.positionWS;
+
+            output.interp9 = input.color;  // interp9 (gets Varyings.color)
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -2899,6 +3006,9 @@ Shader "TestGeomShaderOpaque"
             Varyings output;
             output.positionCS = input.positionCS;
             output.positionWS = input.interp0.xyz;
+
+            output.color = input.interp9; // color data from PackedVaryings
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -2974,6 +3084,7 @@ Shader "TestGeomShaderOpaque"
         struct SurfaceDescription
         {
             float3 BaseColor;
+            float4 color; // Vertex Color
             float Alpha;
             float AlphaClipThreshold;
         };
@@ -2982,7 +3093,9 @@ Shader "TestGeomShaderOpaque"
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
-            surface.BaseColor = _Color.rgb;
+            
+            surface.BaseColor = IN.color.rgb;
+            //surface.BaseColor = _Color.rgb;
             surface.Alpha = 1;
             surface.AlphaClipThreshold = 0.5;
             return surface;
@@ -3024,6 +3137,9 @@ Shader "TestGeomShaderOpaque"
         
         
             output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
+
+            output.color = input.color; // input.color from the Varyings struct
+
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -3189,6 +3305,9 @@ Shader "TestGeomShaderOpaque"
             #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
              float4 shadowCoord;
             #endif
+
+            float4 color; //color
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -3206,6 +3325,7 @@ Shader "TestGeomShaderOpaque"
         {
              float3 TangentSpaceNormal;
              float3 ObjectSpacePosition;
+             float4 color;
         };
         struct VertexDescriptionInputs
         {
@@ -3225,6 +3345,9 @@ Shader "TestGeomShaderOpaque"
              float3 interp6 : INTERP6;
              float4 interp7 : INTERP7;
              float4 interp8 : INTERP8;
+
+             float4 interp9 : INTERP9; // this refers to interp9
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -3261,6 +3384,9 @@ Shader "TestGeomShaderOpaque"
             #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
             output.interp8.xyzw =  input.shadowCoord;
             #endif
+
+            output.interp9 = input.color;  // interp9 (gets Varyings.color)
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -3297,6 +3423,9 @@ Shader "TestGeomShaderOpaque"
             #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
             output.shadowCoord = input.interp8.xyzw;
             #endif
+
+            output.color = input.interp9; // color data from PackedVaryings
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -3372,6 +3501,7 @@ Shader "TestGeomShaderOpaque"
         struct SurfaceDescription
         {
             float3 BaseColor;
+            float4 color;
             float3 NormalTS;
             float3 Emission;
             float Metallic;
@@ -3385,7 +3515,9 @@ Shader "TestGeomShaderOpaque"
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
-            surface.BaseColor = _Color.rgb;
+            
+            surface.BaseColor = IN.color.rgb;
+            //surface.BaseColor = _Color.rgb;
             surface.NormalTS = IN.TangentSpaceNormal;
             surface.Emission = float3(0, 0, 0);
             surface.Metallic = 0;
@@ -3433,6 +3565,9 @@ Shader "TestGeomShaderOpaque"
         
         
             output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
+
+            output.color = input.color; // input.color from the Varyings struct
+
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -4454,6 +4589,9 @@ Shader "TestGeomShaderOpaque"
              float4 texCoord0;
              float4 texCoord1;
              float4 texCoord2;
+
+             float4 color; //color
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -4470,6 +4608,7 @@ Shader "TestGeomShaderOpaque"
         struct SurfaceDescriptionInputs
         {
              float3 ObjectSpacePosition;
+             float4 color;
         };
         struct VertexDescriptionInputs
         {
@@ -4484,6 +4623,9 @@ Shader "TestGeomShaderOpaque"
              float4 interp1 : INTERP1;
              float4 interp2 : INTERP2;
              float4 interp3 : INTERP3;
+
+             float4 interp9 : INTERP9; // this refers to interp9
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -4507,6 +4649,9 @@ Shader "TestGeomShaderOpaque"
             output.interp1.xyzw =  input.texCoord0;
             output.interp2.xyzw =  input.texCoord1;
             output.interp3.xyzw =  input.texCoord2;
+
+            output.interp9 = input.color;  // interp9 (gets Varyings.color)
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -4530,6 +4675,9 @@ Shader "TestGeomShaderOpaque"
             output.texCoord0 = input.interp1.xyzw;
             output.texCoord1 = input.interp2.xyzw;
             output.texCoord2 = input.interp3.xyzw;
+
+            output.color = input.interp9; // color data from PackedVaryings
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -4605,6 +4753,7 @@ Shader "TestGeomShaderOpaque"
         struct SurfaceDescription
         {
             float3 BaseColor;
+            float4 color;
             float3 Emission;
             float Alpha;
             float AlphaClipThreshold;
@@ -4614,7 +4763,9 @@ Shader "TestGeomShaderOpaque"
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
-            surface.BaseColor = _Color.rgb;
+            
+            surface.BaseColor = IN.color.rgb;
+            //surface.BaseColor = _Color.rgb;
             surface.Emission = float3(0, 0, 0);
             surface.Alpha = 1;
             surface.AlphaClipThreshold = 0.5;
@@ -4657,6 +4808,9 @@ Shader "TestGeomShaderOpaque"
         
         
             output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
+
+            output.color = input.color; // input.color from the Varyings struct
+
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -5351,6 +5505,9 @@ Shader "TestGeomShaderOpaque"
         {
              float4 positionCS : SV_POSITION;
              float3 positionWS;
+
+             float4 color; //color
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -5367,6 +5524,7 @@ Shader "TestGeomShaderOpaque"
         struct SurfaceDescriptionInputs
         {
              float3 ObjectSpacePosition;
+             float4 color;
         };
         struct VertexDescriptionInputs
         {
@@ -5378,6 +5536,9 @@ Shader "TestGeomShaderOpaque"
         {
              float4 positionCS : SV_POSITION;
              float3 interp0 : INTERP0;
+
+             float4 interp9 : INTERP9; // this refers to interp9
+
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -5398,6 +5559,9 @@ Shader "TestGeomShaderOpaque"
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
             output.interp0.xyz =  input.positionWS;
+
+            output.interp9 = input.color;  // interp9 (gets Varyings.color)
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -5418,6 +5582,9 @@ Shader "TestGeomShaderOpaque"
             Varyings output;
             output.positionCS = input.positionCS;
             output.positionWS = input.interp0.xyz;
+
+            output.color = input.interp9; // color data from PackedVaryings
+
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -5493,6 +5660,7 @@ Shader "TestGeomShaderOpaque"
         struct SurfaceDescription
         {
             float3 BaseColor;
+            float4 color;
             float Alpha;
             float AlphaClipThreshold;
         };
@@ -5501,7 +5669,9 @@ Shader "TestGeomShaderOpaque"
         {
             SurfaceDescription surface = (SurfaceDescription)0;
             float4 Color_96f6ce5be5e545d999078df9c44af6b0 = IsGammaSpace() ? float4(0, 0, 0, 0) : float4(SRGBToLinear(float3(0, 0, 0)), 0);
-            surface.BaseColor = _Color.rgb;
+            
+            surface.BaseColor = IN.color.rgb;
+            //surface.BaseColor = _Color.rgb;
             surface.Alpha = 1;
             surface.AlphaClipThreshold = 0.5;
             return surface;
@@ -5529,20 +5699,17 @@ Shader "TestGeomShaderOpaque"
         {
             SurfaceDescriptionInputs output;
             ZERO_INITIALIZE(SurfaceDescriptionInputs, output);
-        
+
         #ifdef HAVE_VFX_MODIFICATION
             // FragInputs from VFX come from two places: Interpolator or CBuffer.
             /* WARNING: $splice Could not find named fragment 'VFXSetFragInputs' */
         
         #endif
         
-            
-        
-        
-        
-        
-        
             output.ObjectSpacePosition = TransformWorldToObject(input.positionWS);
+
+            output.color = input.color; // input.color from the Varyings struct
+
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else

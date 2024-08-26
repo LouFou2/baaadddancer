@@ -34,10 +34,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EdgeLengthThreshold: 0.0505
-    - _IncrementValue: 0.0144
+    - _EdgeLengthThreshold: 0.039
+    - _FresnelEdge: 0.47
+    - _IncrementValue: 0.019
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 0.6666667, g: 0.8901961, b: 0.90588236, a: 1}
+    - _BaseColor: {r: 0, g: 1, b: 0.5551646, a: 1}
+    - _Color: {r: 0, g: 0.754717, b: 0.66447383, a: 1}
+    - _EdgeColor: {r: 0, g: 1, b: 0.54999995, a: 1}
+    - _ViewColour: {r: 0.82492375, g: 0.3726415, b: 1, a: 1}
   m_BuildTextureStacks: []
