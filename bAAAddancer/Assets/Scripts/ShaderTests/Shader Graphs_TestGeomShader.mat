@@ -48,17 +48,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelEdge: 0.317
+    - _EdgeBlendPower: 0
+    - _EdgeSharpness: 10
+    - _EdgeViewCross: 0.359
+    - _FresnelEdge: 0.21
     - _FresnelPower: 3.53
     - _IrridescenceBlend: 1
-    - _Metal: 0.773
+    - _Metal: 0.245
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smooth: 0.454
+    - _Smooth: 0.505
+    - _ViewBlendPower: 0
+    - _ViewColorBlend: 2
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.6621349, b: 0.3915094, a: 0}
+    - _BaseColor: {r: 1, g: 0.6124979, b: 0.48584908, a: 0}
     - _IrriColorEdge1: {r: 0, g: 1, b: 0.54901963, a: 1}
-    - _IrriColorEdge2: {r: 0.7676649, g: 0.5882353, b: 1, a: 0}
-    - _IrriColorView1: {r: 0, g: 0, b: 0, a: 0}
-    - _IrriColorView2: {r: 1, g: 0.41037738, b: 0.84739184, a: 0}
+    - _IrriColorEdge2: {r: 0, g: 0.5911331, b: 1, a: 0}
+    - _IrriColorView1: {r: 0.43137264, g: 0, b: 1, a: 0}
+    - _IrriColorView2: {r: 1, g: 0.3820755, b: 0.95987463, a: 1}
   m_BuildTextureStacks: []
