@@ -124,7 +124,7 @@ public class TestMovement : MonoBehaviour
                     moveObjects[1].leftControlObject.transform.position = moveObjects[1].currentPosition_L;
                 }
                 else
-                    moveObjects[1].leftControlObject.transform.position = moveObjects[0].initialPosition_L;
+                    moveObjects[1].leftControlObject.transform.position = moveObjects[1].initialPosition_L;
 
                 if (moveInputR.magnitude > 0.001)
                 {
