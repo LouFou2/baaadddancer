@@ -13,9 +13,12 @@ Shader "TestGeomShaderOpaque"
         _BaseColor("Base Color", Color) = (1,1,1,1) // Expose a color property in the inspector
 
         [Header(Irridescent Colors)]
+        _IrridescenceFactor("Irridescence Amount", Range(0,1)) = 1
         _FresnelEdge("Fresnel Edge Range", Range(0,1)) = 0.4
-        _ViewColour("View Colour Facing to Cam", Color) = (1,1,1,1)
-        _EdgeColor("Fresnel Edge Color", Color) = (0, 1, 0.55, 1)
+        _EdgeColor1("Edge Color1", Color) = (0, 1, 0.55, 1)
+        _EdgeColor2("Edge Color2", Color) = (0, 1, 0.55, 1)
+        _ViewColour1("View Colour 1", Color) = (1,1,1,1)
+        _ViewColour2("View Colour 2", Color) = (1,0.5,1,1)
         
         [Header(Geometry Properties)]
         _EdgeLengthThreshold("Edge Length Threshold", Range(0.01, 0.12)) = 0.1
@@ -29,8 +32,11 @@ Shader "TestGeomShaderOpaque"
 
         float4 _BaseColor;
         //the Irridescent Effect:
-        float4 _ViewColour;
-        float4 _EdgeColor;
+        float _IrridescenceFactor;
+        float4 _ViewColour1;
+        float4 _ViewColour2;
+        float4 _EdgeColor1;
+        float4 _EdgeColor2;
         float _FresnelEdge;
         float _EdgeLengthThreshold;
         float _IncrementValue;
@@ -58,24 +64,35 @@ Shader "TestGeomShaderOpaque"
             );
         }
         
+        float4 InvLerp(float a, float b, float value)
+        {
+            return (value - a)/( b - a );
+        }
+
         float4 CalculateColor(GeomData input)
         {
-            float4 edgeColor = _EdgeColor;
-            //float4 inputColor = input.color;
-            float4 calculatedColor = _ViewColour;
-
-            //calculate a "fresnel" effect
+            //"fresnel" edge
             float3 normal = normalize(input.normalWS);
             float3 viewDirection = normalize(input.viewDirectionWS);
-            float fresnelRange = _FresnelEdge;
             float dotProduct = dot(normal, viewDirection);
-            if (dotProduct < fresnelRange)
-            {
-                calculatedColor = edgeColor;
-            }
+            
+            float edgeGradientValue = InvLerp(0, _FresnelEdge, dotProduct);
+            float viewGradientValue = InvLerp(_FresnelEdge, 1, dotProduct);
+            
+            //"irridescence"
+            float4 calculatedEdgeColor = lerp(_EdgeColor1, _EdgeColor2, edgeGradientValue);
+            float4 calculatedViewColor = lerp(_ViewColour1, _ViewColour2, viewGradientValue);
 
-            return calculatedColor;
+            float4 calculatedIrridescentColor = lerp( calculatedEdgeColor, calculatedViewColor, dotProduct );
+
+            // final blend
+            float4 viewBlendBaseColor = lerp(calculatedIrridescentColor, _BaseColor, viewGradientValue);
+            float4 blendedColor = lerp(_BaseColor, viewBlendBaseColor, _IrridescenceFactor);
+
+            return blendedColor;
         }
+
+
         [maxvertexcount(12)]
         void geom(triangle GeomData input[3], inout TriangleStream<GeomData> triStream)
         {
@@ -392,7 +409,7 @@ Shader "TestGeomShaderOpaque"
             output.interp8.xyzw =  input.shadowCoord;
             #endif
 
-            output.interp9 = input.color;  // interp9 (gets Varyings.color)
+            output.interp9 = input.color;  // interp9 (pack Varyings.color)
 
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
@@ -432,7 +449,7 @@ Shader "TestGeomShaderOpaque"
             output.shadowCoord = input.interp8.xyzw;
             #endif
 
-            output.color = input.interp9; // color data from PackedVaryings
+            output.color = input.interp9; // unpack color data from PackedVaryings
 
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
