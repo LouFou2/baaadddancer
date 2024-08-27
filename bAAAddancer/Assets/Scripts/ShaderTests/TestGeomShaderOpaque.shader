@@ -115,6 +115,7 @@ Shader "TestGeomShaderOpaque"
                     vert.color = CalculateColor(vert);
                     vert.positionWS = RoundToNearestIncrement(vert.positionWS, _IncrementValue);
                     vert.positionCS = TransformWorldToHClip(vert.positionWS);
+
                     triStream.Append(vert);
                 }
                 triStream.RestartStrip();
@@ -141,24 +142,25 @@ Shader "TestGeomShaderOpaque"
                     vert.color = CalculateColor(vert);
                     vert.positionWS = RoundToNearestIncrement(vert.positionWS, _IncrementValue);
                     vert.positionCS = TransformWorldToHClip(vert.positionWS);
-                    // can we tesselate again? for example if edgeLength > threshold && previousEdgeLength > threshold
-                    // else we simply append the vert
+
                     triStream.Append(vert);
 
                     //corner 2: (put the next corner halfway along edge)
-                    GeomData newVert2 = vert; // Start with current vert's properties (***note: this effectively makes all 3 verts share the same normal)
+                    GeomData newVert2 = input[i]; // Start with current vert's properties (***note: this effectively makes all 3 verts share the same normal)
                     newVert2.positionWS += 0.5 * edgeLength * edgeDir; // Move halfway along the edge
                     newVert2.color = CalculateColor(newVert2);
                     newVert2.positionWS = RoundToNearestIncrement(newVert2.positionWS, _IncrementValue);
                     newVert2.positionCS = TransformWorldToHClip(newVert2.positionWS);
+
                     triStream.Append(newVert2);
 
                     //corner 3: (halfway along other edge)
-                    GeomData newVert3 = vert; // Start with current vert's properties (*** same normal))
+                    GeomData newVert3 = input[i]; // Start with current vert's properties (*** same normal))
                     newVert3.positionWS = input[prevIndex].positionWS + 0.5 * prevEdgeLength * prevEdgeDir;
                     newVert3.color = CalculateColor(newVert3);
                     newVert3.positionWS = RoundToNearestIncrement(newVert3.positionWS, _IncrementValue);
                     newVert3.positionCS = TransformWorldToHClip(newVert3.positionWS);
+
                     triStream.Append(newVert3);
 
                     triStream.RestartStrip();
