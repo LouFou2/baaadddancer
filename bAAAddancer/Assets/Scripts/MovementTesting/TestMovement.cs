@@ -77,8 +77,8 @@ public class TestMovement : MonoBehaviour
     private void Update()
     {
         // first we determine the current active control objects
-        int nextIndex = ((controlObjectIndex + 1) > 5) ? 0 : controlObjectIndex + 1 ;       // there are 5 pairs of control objects
-        int previousIndex = ((controlObjectIndex - 1) < 0) ? 5 : controlObjectIndex - 1;    // also we make sure it loops 0-5                                               
+        int nextIndex = ((controlObjectIndex + 1) > 4) ? 0 : controlObjectIndex + 1 ;       // there are 5 pairs of control objects
+        int previousIndex = ((controlObjectIndex - 1) < 0) ? 4 : controlObjectIndex - 1;    // also we make sure it loops 0-5                                               
         // the controlObjects gets switched by the bumpers
         for(int i = 0; i < 5; i++) 
         {
@@ -90,7 +90,74 @@ public class TestMovement : MonoBehaviour
         if (switchControlObjectPrevious) controlObjectIndex = previousIndex;
         if (switchControlObjectNext) controlObjectIndex = nextIndex;
 
-        Debug.Log(controlObjectIndex);
+        moveInputL = playerControls.DanceControls.MoveL.ReadValue<Vector2>();
+        moveInputR = playerControls.DanceControls.MoveR.ReadValue<Vector2>();
+
+        //now we can use the index of the active control objects
+        switch (controlObjectIndex) 
+        {
+            case (0): // move moveObjects[0]
+                if (moveInputL.magnitude > 0.001) 
+                {
+                    moveObjects[0].currentPosition_L = new Vector3(moveInputL.x, moveInputL.y, moveObjects[0].currentPosition_L.z);
+                    moveObjects[0].leftControlObject.transform.position = moveObjects[0].currentPosition_L;
+                }
+                if (moveInputR.magnitude > 0.001)
+                {
+                    moveObjects[0].currentPosition_R = new Vector3(moveInputR.x, moveInputR.y, moveObjects[0].currentPosition_R.z);
+                    moveObjects[0].rightControlObject.transform.position = moveObjects[0].currentPosition_R;
+                }
+                break;
+            case (1): // move moveObjects[1]
+                if (moveInputL.magnitude > 0.001)
+                {
+                    moveObjects[1].currentPosition_L = new Vector3(moveInputL.x, moveInputL.y, moveObjects[1].currentPosition_L.z);
+                    moveObjects[1].leftControlObject.transform.position = moveObjects[1].currentPosition_L;
+                }
+                if (moveInputR.magnitude > 0.001)
+                {
+                    moveObjects[1].currentPosition_R = new Vector3(moveInputR.x, moveInputR.y, moveObjects[1].currentPosition_R.z);
+                    moveObjects[1].rightControlObject.transform.position = moveObjects[1].currentPosition_R;
+                }
+                break;
+            case (2): // move moveObjects[2]
+                if (moveInputL.magnitude > 0.001)
+                {
+                    moveObjects[2].currentPosition_L = new Vector3(moveInputL.x, moveInputL.y, moveObjects[2].currentPosition_R.z);
+                    moveObjects[2].leftControlObject.transform.position = moveObjects[2].currentPosition_L;
+                }
+                if (moveInputR.magnitude > 0.001)
+                {
+                    moveObjects[2].currentPosition_R = new Vector3(moveInputR.x, moveInputR.y, moveObjects[2].currentPosition_R.z);
+                    moveObjects[2].rightControlObject.transform.position = moveObjects[2].currentPosition_R;
+                }
+                break;
+            case (3): // move moveObjects[3]
+                if (moveInputL.magnitude > 0.001)
+                {
+                    moveObjects[3].currentPosition_L = new Vector3(moveInputL.x, moveInputL.y, moveObjects[3].currentPosition_L.z);
+                    moveObjects[3].leftControlObject.transform.position = moveObjects[3].currentPosition_L;
+                }
+                if (moveInputR.magnitude > 0.001)
+                {
+                    moveObjects[3].currentPosition_R = new Vector3(moveInputR.x, moveInputR.y, moveObjects[3].currentPosition_R.z);
+                    moveObjects[3].rightControlObject.transform.position = moveObjects[3].currentPosition_R;
+                }
+                break;
+            case (4): // move moveObjects[4]
+                if (moveInputL.magnitude > 0.001)
+                {
+                    moveObjects[4].currentPosition_L = new Vector3(moveInputL.x, moveInputL.y, moveObjects[4].currentPosition_L.z);
+                    moveObjects[4].leftControlObject.transform.position = moveObjects[4].currentPosition_L;
+                }
+                if (moveInputR.magnitude > 0.001)
+                {
+                    moveObjects[4].currentPosition_R = new Vector3(moveInputR.x, moveInputR.y, moveObjects[4].currentPosition_R.z);
+                    moveObjects[4].rightControlObject.transform.position = moveObjects[4].currentPosition_R;
+                }
+                break;
+        }
+
         /*
         // activating the gizmo/control/visualiser object
         if (!isActive)
