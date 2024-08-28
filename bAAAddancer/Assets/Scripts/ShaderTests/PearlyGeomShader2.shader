@@ -18,7 +18,20 @@ Shader "PearlyGeomShader2"
         [HideInInspector][NoScaleOffset]unity_LightmapsInd("unity_LightmapsInd", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
 
-        _DisplaceAmount("Displace Amount", Float) = 0.1
+        _DisplaceAmount("Displace Amount", Range(0, 0.05)) = 0.1
+
+        _IsHead("Is Head", Float) = 0
+        _HeadBonePosition("Head Bone Position", Vector) = (0,0,0,0)
+
+        _IsHands("Is Hands", Float) = 0
+        _Hand_L_BonePosition("Hand L Position", Vector) = (0,0,0,0)
+        _Hand_R_BonePosition("Hand R Position", Vector) = (0,0,0,0)
+
+        _IsFeet("Is Feet", Float) = 0
+        _Foot_L_BonePosition("Foot L Position", Vector) = (0,0,0,0)
+        _Foot_R_BonePosition("Foot R Position", Vector) = (0,0,0,0)
+
+        _FalloffRange("Falloff Range", Float) = 0
 
     }
     SubShader
@@ -28,6 +41,26 @@ Shader "PearlyGeomShader2"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
         uniform float _DisplaceAmount;
+
+        // properties to use for interactive mesh manipulation:
+        // the control objects used to control movement, and their corresponding bone positions
+        // will be used to calculate effect points and areas
+        // falloff and curves can be calculated by measuring movement amount (this is a next step, first handle above)
+        // (the movement direction and amount etc can be measured by referring to 3 damped "follow objects" that follow the control object)
+
+        uniform float _IsHead;
+        uniform float3 _HeadBonePosition;
+
+        uniform float _IsHands;
+        uniform float3 _Hand_L_BonePosition;
+        uniform float3 _Hand_R_BonePosition;
+
+        uniform float _IsFeet;
+        uniform float3 _Foot_L_BonePosition;
+        uniform float3 _Foot_R_BonePosition;
+
+        uniform float _FalloffRange;
+
 
         struct GeomData
         {
@@ -55,6 +88,12 @@ Shader "PearlyGeomShader2"
             #endif
         };
 
+        float CalculateFalloff(float3 vertexPosition, float3 bonePosition, float falloffRange) 
+        {
+            float distanceToBone = distance(vertexPosition, bonePosition);
+            return saturate(1.0 - distanceToBone / falloffRange);
+        }
+
         [maxvertexcount(3)] //***MAKE SURE THIS IS CORRECT AMOUNT
         void geom(triangle GeomData input[3], inout TriangleStream<GeomData> triStream)
         {
@@ -62,29 +101,61 @@ Shader "PearlyGeomShader2"
             GeomData vert2 = input[1];
             GeomData vert3 = input[2];
 
-            float3 baryNormal = (input[0].normalWS + input[1].normalWS + input[2].normalWS) / 3;
+            // a flat normal 
+            float3 normalizedEdge1 = normalize(vert2.positionWS - vert1.positionWS);
+            float3 normalizedEdge2 = normalize(vert3.positionWS - vert1.positionWS);
+            float3 flatNormal = normalize(cross(normalizedEdge1, normalizedEdge2));
 
-            vert1.normalWS = baryNormal;
-            vert2.normalWS = baryNormal;
-            vert3.normalWS = baryNormal;
+            // to flatten the tri:
+            vert1.normalWS = flatNormal;
+            vert2.normalWS = flatNormal;
+            vert3.normalWS = flatNormal;
 
-            vert1.positionWS += baryNormal * _DisplaceAmount;
-            vert2.positionWS += baryNormal * _DisplaceAmount;
-            vert2.positionWS += baryNormal * _DisplaceAmount;
+            // general displacement:
+            //vert1.positionWS += flatNormal * _DisplaceAmount;
+            //vert2.positionWS += flatNormal * _DisplaceAmount;
+            //vert3.positionWS += flatNormal * _DisplaceAmount;
+
+            // Calculate falloffs
+            float headFalloff1 = _IsHead * CalculateFalloff(vert1.positionWS, _HeadBonePosition.xyz, _FalloffRange); // "_IsHead" will make this 0 if the float is 0 (like a bool)
+            float headFalloff2 = _IsHead * CalculateFalloff(vert2.positionWS, _HeadBonePosition.xyz, _FalloffRange);
+            float headFalloff3 = _IsHead * CalculateFalloff(vert3.positionWS, _HeadBonePosition.xyz, _FalloffRange);
+
+            float handLFalloff1 = _IsHands * CalculateFalloff(vert1.positionWS, _Hand_L_BonePosition.xyz, _FalloffRange);
+            float handLFalloff2 = _IsHands * CalculateFalloff(vert2.positionWS, _Hand_L_BonePosition.xyz, _FalloffRange);
+            float handLFalloff3 = _IsHands * CalculateFalloff(vert3.positionWS, _Hand_L_BonePosition.xyz, _FalloffRange);
+
+            float handRFalloff1 = _IsHands * CalculateFalloff(vert1.positionWS, _Hand_R_BonePosition.xyz, _FalloffRange);
+            float handRFalloff2 = _IsHands * CalculateFalloff(vert2.positionWS, _Hand_R_BonePosition.xyz, _FalloffRange);
+            float handRFalloff3 = _IsHands * CalculateFalloff(vert3.positionWS, _Hand_R_BonePosition.xyz, _FalloffRange);
+
+            float footLFalloff1 = _IsFeet * CalculateFalloff(vert1.positionWS, _Foot_L_BonePosition.xyz, _FalloffRange);
+            float footLFalloff2 = _IsFeet * CalculateFalloff(vert2.positionWS, _Foot_L_BonePosition.xyz, _FalloffRange);
+            float footLFalloff3 = _IsFeet * CalculateFalloff(vert3.positionWS, _Foot_L_BonePosition.xyz, _FalloffRange);
+
+            float footRFalloff1 = _IsFeet * CalculateFalloff(vert1.positionWS, _Foot_R_BonePosition.xyz, _FalloffRange);
+            float footRFalloff2 = _IsFeet * CalculateFalloff(vert2.positionWS, _Foot_R_BonePosition.xyz, _FalloffRange);
+            float footRFalloff3 = _IsFeet * CalculateFalloff(vert3.positionWS, _Foot_R_BonePosition.xyz, _FalloffRange);
+
+            // Combine displacements from all sources
+            float3 displacement1 = flatNormal * _DisplaceAmount * (headFalloff1 + handLFalloff1 + handRFalloff1 + footLFalloff1 + footRFalloff1);
+            float3 displacement2 = flatNormal * _DisplaceAmount * (headFalloff2 + handLFalloff2 + handRFalloff2 + footLFalloff2 + footRFalloff2);
+            float3 displacement3 = flatNormal * _DisplaceAmount * (headFalloff3 + handLFalloff3 + handRFalloff3 + footLFalloff3 + footRFalloff3);
+
+            vert1.positionWS += flatNormal * displacement1;
+            vert2.positionWS += flatNormal * displacement2;
+            vert3.positionWS += flatNormal * displacement3;
 
             vert1.positionCS = TransformWorldToHClip(vert1.positionWS);
             vert2.positionCS = TransformWorldToHClip(vert2.positionWS);
             vert3.positionCS = TransformWorldToHClip(vert3.positionWS);
 
-            //the original tri, as is
+            // make the tri:
             triStream.Append(vert1);
             triStream.Append(vert2);
             triStream.Append(vert3);
 
             triStream.RestartStrip();
-
-            //make a duplicate triangle, displaced along the normal
-            
         }
         ENDHLSL
 
@@ -2000,6 +2071,7 @@ Shader "PearlyGeomShader2"
         #pragma target 4.5
         #pragma exclude_renderers gles gles3 glcore
         #pragma vertex vert
+        #pragma geometry geom
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>

@@ -34,16 +34,26 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DisplaceAmount: 0.1
-    - _FresnelEdge: 0.5
+    - IsHead: 0
+    - _DisplaceAmount: 0.05
+    - _FalloffRange: 0.63
+    - _FresnelEdge: 0.327
     - _FresnelPower: 1
-    - _IrridescenceBlend: 1
-    - _Metal: 0
+    - _IrridescenceBlend: 0.356
+    - _IsFeet: 1
+    - _IsHands: 0
+    - _IsHead: 0
+    - _Metal: 0.135
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smooth: 0.5
+    - _Smooth: 0.472
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.7107104, b: 0.29716977, a: 0}
+    - _BaseColor: {r: 1, g: 0.6604105, b: 0.4575472, a: 0}
+    - _Foot_L_BonePosition: {r: -0.08636082, g: 0.09173183, b: -0.0007616058, a: 0}
+    - _Foot_R_BonePosition: {r: 0.0850537, g: 0.091768205, b: -0.00021097064, a: 0}
+    - _Hand_L_BonePosition: {r: -0.18693058, g: 0.8190543, b: -0.0024085045, a: 0}
+    - _Hand_R_BonePosition: {r: 0.17717852, g: 0.8187722, b: -0.002753973, a: 0}
+    - _HeadBonePosition: {r: -0.00000052311, g: 1.4541191, b: 0.018997073, a: 0}
     - _IrriColorEdge1: {r: 0, g: 0.55888957, b: 1, a: 1}
     - _IrriColorEdge2: {r: 0.079324685, g: 1, b: 0, a: 1}
     - _IrriColorView1: {r: 1, g: 0, b: 0.9161034, a: 1}
