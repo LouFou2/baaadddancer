@@ -134,6 +134,9 @@
         },
         {
             "m_Id": "c9b47416c57f4c6f966d069d83a1fb7b"
+        },
+        {
+            "m_Id": "597789e43247462ea1b7ad7af724a63f"
         }
     ],
     "m_GroupDatas": [],
@@ -219,6 +222,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "8c2b5ebc781b40fdbe0ceffdc0c60bf0"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "597789e43247462ea1b7ad7af724a63f"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "79e611a61eb644708ec5584cc7024173"
                 },
                 "m_SlotId": 0
             }
@@ -1266,6 +1283,42 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.PositionNode",
+    "m_ObjectId": "597789e43247462ea1b7ad7af724a63f",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Position",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -227.99996948242188,
+            "y": 569.0,
+            "width": 206.00003051757813,
+            "height": 131.00006103515626
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "9f310930fa514d4ea6211ad43ecfb5f4"
+        }
+    ],
+    "synonyms": [
+        "location"
+    ],
+    "m_Precision": 1,
+    "m_PreviewExpanded": false,
+    "m_PreviewMode": 2,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Space": 0,
+    "m_PositionSource": 0
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "599c6ae2a13d4572a10b56930061f0fa",
@@ -2092,6 +2145,29 @@
     "m_StageCapability": 2,
     "m_Value": 1.0,
     "m_DefaultValue": 1.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "9f310930fa514d4ea6211ad43ecfb5f4",
+    "m_Id": 0,
+    "m_DisplayName": "Out",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
     "m_Labels": []
 }
 
@@ -3162,10 +3238,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -343.99993896484377,
-            "y": -240.00001525878907,
-            "width": 206.00010681152345,
-            "height": 130.99998474121095
+            "x": -240.99998474121095,
+            "y": -77.0,
+            "width": 205.9998779296875,
+            "height": 131.0
         }
     },
     "m_Slots": [
