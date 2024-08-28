@@ -18,7 +18,7 @@ Shader "PearlyGeomShader2"
         [HideInInspector][NoScaleOffset]unity_LightmapsInd("unity_LightmapsInd", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
 
-        _DisplaceAmount("Displace Amount", Range(0, 0.05)) = 0.1
+        
 
         _IsHead("Is Head", Float) = 0
         _HeadBonePosition("Head Bone Position", Vector) = (0,0,0,0)
@@ -32,6 +32,11 @@ Shader "PearlyGeomShader2"
         _Foot_R_BonePosition("Foot R Position", Vector) = (0,0,0,0)
 
         _FalloffRange("Falloff Range", Float) = 0
+
+        [Header(Geometry Properties)]
+        _DisplaceAmount("Displace Amount", Range(0, 0.05)) = 0.1
+        [Header(Cubify)]
+        _IncrementValue("Increment Spacing Max", Range(0.0001,0.1)) = 0.1
 
     }
     SubShader
@@ -60,6 +65,9 @@ Shader "PearlyGeomShader2"
         uniform float3 _Foot_R_BonePosition;
 
         uniform float _FalloffRange;
+
+        float _EdgeLengthThreshold;
+        float _IncrementValue;
 
 
         struct GeomData
@@ -94,13 +102,22 @@ Shader "PearlyGeomShader2"
             return saturate(1.0 - distanceToBone / falloffRange);
         }
 
+        float3 RoundToNearestIncrement(float3 positionWorld, float increment)
+        {
+            return float3(
+                round(positionWorld.x / increment) * increment,
+                round(positionWorld.y / increment) * increment,
+                round(positionWorld.z / increment) * increment
+            );
+        }
+
         [maxvertexcount(3)] //***MAKE SURE THIS IS CORRECT AMOUNT
         void geom(triangle GeomData input[3], inout TriangleStream<GeomData> triStream)
         {
             GeomData vert1 = input[0];
             GeomData vert2 = input[1];
             GeomData vert3 = input[2];
-
+            
             // a flat normal 
             float3 normalizedEdge1 = normalize(vert2.positionWS - vert1.positionWS);
             float3 normalizedEdge2 = normalize(vert3.positionWS - vert1.positionWS);
@@ -138,13 +155,25 @@ Shader "PearlyGeomShader2"
             float footRFalloff3 = _IsFeet * CalculateFalloff(vert3.positionWS, _Foot_R_BonePosition.xyz, _FalloffRange);
 
             // Combine displacements from all sources
-            float3 displacement1 = flatNormal * _DisplaceAmount * (headFalloff1 + handLFalloff1 + handRFalloff1 + footLFalloff1 + footRFalloff1);
-            float3 displacement2 = flatNormal * _DisplaceAmount * (headFalloff2 + handLFalloff2 + handRFalloff2 + footLFalloff2 + footRFalloff2);
-            float3 displacement3 = flatNormal * _DisplaceAmount * (headFalloff3 + handLFalloff3 + handRFalloff3 + footLFalloff3 + footRFalloff3);
+            //float3 displacement1 = flatNormal * _DisplaceAmount * (headFalloff1 + handLFalloff1 + handRFalloff1 + footLFalloff1 + footRFalloff1);
+            //float3 displacement2 = flatNormal * _DisplaceAmount * (headFalloff2 + handLFalloff2 + handRFalloff2 + footLFalloff2 + footRFalloff2);
+            //float3 displacement3 = flatNormal * _DisplaceAmount * (headFalloff3 + handLFalloff3 + handRFalloff3 + footLFalloff3 + footRFalloff3);
 
-            vert1.positionWS += flatNormal * displacement1;
-            vert2.positionWS += flatNormal * displacement2;
-            vert3.positionWS += flatNormal * displacement3;
+            //vert1.positionWS += flatNormal * displacement1;
+            //vert2.positionWS += flatNormal * displacement2;
+            //vert3.positionWS += flatNormal * displacement3;
+
+            float cubifyFalloff1 = (headFalloff1 + handLFalloff1 + handRFalloff1 + footLFalloff1 + footRFalloff1);
+            float cubifyFalloff2 = (headFalloff2 + handLFalloff2 + handRFalloff2 + footLFalloff2 + footRFalloff2);
+            float cubifyFalloff3 = (headFalloff3 + handLFalloff3 + handRFalloff3 + footLFalloff3 + footRFalloff3);
+
+            float3 displacement1 = RoundToNearestIncrement(vert1.positionWS, _IncrementValue);
+            float3 displacement2 = RoundToNearestIncrement(vert2.positionWS, _IncrementValue);
+            float3 displacement3 = RoundToNearestIncrement(vert3.positionWS, _IncrementValue);
+
+            vert1.positionWS = lerp(vert1.positionWS, displacement1, cubifyFalloff1);
+            vert2.positionWS = lerp(vert2.positionWS, displacement2, cubifyFalloff2);
+            vert3.positionWS = lerp(vert3.positionWS, displacement3, cubifyFalloff3);
 
             vert1.positionCS = TransformWorldToHClip(vert1.positionWS);
             vert2.positionCS = TransformWorldToHClip(vert2.positionWS);
