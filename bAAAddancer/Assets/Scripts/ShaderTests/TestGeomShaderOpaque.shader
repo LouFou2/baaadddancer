@@ -55,12 +55,12 @@ Shader "TestGeomShaderOpaque"
             float4 shadowCoord            : INTERP8;            // Corresponds to interp8 in PackedVaryings (stores shadowCoord)
             float4 color                  : INTERP9;        // Color corresponds to interp9 in PackedVaryings ()
         };
-        float3 RoundToNearestIncrement(float3 value, float increment)
+        float3 RoundToNearestIncrement(float3 positionWorld, float increment)
         {
             return float3(
-                round(value.x / increment) * increment,
-                round(value.y / increment) * increment,
-                round(value.z / increment) * increment
+                round(positionWorld.x / increment) * increment,
+                round(positionWorld.y / increment) * increment,
+                round(positionWorld.z / increment) * increment
             );
         }
         
