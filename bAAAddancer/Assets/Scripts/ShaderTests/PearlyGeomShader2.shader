@@ -18,9 +18,10 @@ Shader "PearlyGeomShader2"
         [HideInInspector][NoScaleOffset]unity_LightmapsInd("unity_LightmapsInd", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
 
+        //***EVENTUALLY REMOVE PROPERTIES NOT NEEDED IN INSPECTOR: CONTROLLED VIA C#
         _IsHead("Is Head", Float) = 0
-        _HeadBonePosition("Head Bone Position", Vector) = (0,0,0,0)
-        _HeadFollowerDirection("Head Follower Direction", Vector) = (0,0,0,0)
+        [HideInInspector]_HeadBonePosition("Head Bone Position", Vector) = (0,0,0,0)
+        [HideInInspector]_HeadFollowerDirection("Head Follower Direction", Vector) = (0,0,0,0)
 
         _IsHands("Is Hands", Float) = 0
         [HideInInspector]_Hand_L_BonePosition("Hand L Position", Vector) = (0,0,0,0)
@@ -57,24 +58,46 @@ Shader "PearlyGeomShader2"
         // (the movement direction and amount etc can be measured by referring to 3 damped "follow objects" that follow the control object)
 
         uniform float _IsHead;
+
         uniform float3 _HeadBonePosition;
         uniform float3 _HeadFollowerDirection;
+        uniform float _HeadMoveAmount;
 
         uniform float _IsHands;
+
         uniform float3 _Hand_L_BonePosition;
         uniform float3 _Hand_L_FollowerDirection;
+        uniform float _Hand_L_MoveAmount;
+
         uniform float3 _Hand_R_BonePosition;
         uniform float3 _Hand_R_FollowerDirection;
+        uniform float _Hand_R_MoveAmount;
 
         uniform float _IsFeet;
+
         uniform float3 _Foot_L_BonePosition;
         uniform float3 _Foot_L_FollowerDirection;
+        uniform float _Foot_L_MoveAmount;
+
         uniform float3 _Foot_R_BonePosition;
         uniform float3 _Foot_R_FollowerDirection;
+        uniform float _Foot_R_MoveAmount;
+
+        uniform float _IsPelvis;
+
+        uniform float3 _PelvisBonePosition;
+        uniform float3 _PelvisFollowerDirection;
+        uniform float _PelvisMoveAmount;
+
+        uniform float _IsTorso;
+
+        uniform float3 _TorsoBonePosition;
+        uniform float3 _TorsoFollowerDirection;
+        uniform float _TorsoMoveAmount;
+
 
         uniform float _FalloffRange;
 
-        float _EdgeLengthThreshold;
         float _IncrementValue;
 
 
@@ -104,7 +127,7 @@ Shader "PearlyGeomShader2"
             #endif
         };
 
-        float CalculateFalloff(float3 vertexPosition, float3 vertexNormal, float3 bonePosition, float3 followerDirection, float falloffRange) 
+        float CalculateFalloff(float3 vertexPosition, float3 vertexNormal, float3 bonePosition, float3 followerDirection, float moveAmount, float falloffRange) 
         {
             float distanceToBone = distance(vertexPosition, bonePosition);
             float generalFalloff = saturate(1.0 - distanceToBone / falloffRange);
@@ -114,7 +137,9 @@ Shader "PearlyGeomShader2"
             float3 tailDir = followerDirection; // the direction passed from c# script should be normalized 
             float directionFactor = saturate(dot(normalDir, tailDir));
 
-            return generalFalloff * directionFactor;
+            // tail amount (based on distance between control object and follow object)
+
+            return generalFalloff * moveAmount * directionFactor;
         }
 
         float3 RoundToNearestIncrement(float3 positionWorld, float increment)
@@ -143,45 +168,68 @@ Shader "PearlyGeomShader2"
             vert2.normalWS = flatNormal;
             vert3.normalWS = flatNormal;
 
-            // general displacement:
+            // general displacement (along normals):
             //vert1.positionWS += flatNormal * _DisplaceAmount;
             //vert2.positionWS += flatNormal * _DisplaceAmount;
             //vert3.positionWS += flatNormal * _DisplaceAmount;
 
             // Calculate falloffs
-            float headFalloff1 = _IsHead * CalculateFalloff(vert1.positionWS, vert1.normalWS, _HeadBonePosition.xyz, _HeadFollowerDirection.xyz, _FalloffRange); // "_IsHead" will make this 0 if the float is 0 (like a bool)
-            float headFalloff2 = _IsHead * CalculateFalloff(vert2.positionWS, vert2.normalWS, _HeadBonePosition.xyz, _HeadFollowerDirection.xyz, _FalloffRange);
-            float headFalloff3 = _IsHead * CalculateFalloff(vert3.positionWS, vert3.normalWS, _HeadBonePosition.xyz, _HeadFollowerDirection.xyz, _FalloffRange);
+            float headFalloff1 = _IsHead * CalculateFalloff(vert1.positionWS, vert1.normalWS, _HeadBonePosition.xyz, _HeadFollowerDirection.xyz, _HeadMoveAmount, _FalloffRange); // "_IsHead" will make this 0 if the float is 0 (like a bool)
+            float headFalloff2 = _IsHead * CalculateFalloff(vert2.positionWS, vert2.normalWS, _HeadBonePosition.xyz, _HeadFollowerDirection.xyz, _HeadMoveAmount, _FalloffRange);
+            float headFalloff3 = _IsHead * CalculateFalloff(vert3.positionWS, vert3.normalWS, _HeadBonePosition.xyz, _HeadFollowerDirection.xyz, _HeadMoveAmount, _FalloffRange);
 
-            float handLFalloff1 = _IsHands * CalculateFalloff(vert1.positionWS, vert1.normalWS, _Hand_L_BonePosition.xyz, _Hand_L_FollowerDirection.xyz, _FalloffRange);
-            float handLFalloff2 = _IsHands * CalculateFalloff(vert2.positionWS, vert2.normalWS, _Hand_L_BonePosition.xyz, _Hand_L_FollowerDirection.xyz, _FalloffRange);
-            float handLFalloff3 = _IsHands * CalculateFalloff(vert3.positionWS, vert3.normalWS, _Hand_L_BonePosition.xyz, _Hand_L_FollowerDirection.xyz, _FalloffRange);
+            float handLFalloff1 = _IsHands * CalculateFalloff(vert1.positionWS, vert1.normalWS, _Hand_L_BonePosition.xyz, _Hand_L_FollowerDirection.xyz, _Hand_L_MoveAmount, _FalloffRange);
+            float handLFalloff2 = _IsHands * CalculateFalloff(vert2.positionWS, vert2.normalWS, _Hand_L_BonePosition.xyz, _Hand_L_FollowerDirection.xyz, _Hand_L_MoveAmount, _FalloffRange);
+            float handLFalloff3 = _IsHands * CalculateFalloff(vert3.positionWS, vert3.normalWS, _Hand_L_BonePosition.xyz, _Hand_L_FollowerDirection.xyz, _Hand_L_MoveAmount, _FalloffRange);
 
-            float handRFalloff1 = _IsHands * CalculateFalloff(vert1.positionWS, vert1.normalWS, _Hand_R_BonePosition.xyz, _Hand_R_FollowerDirection.xyz, _FalloffRange);
-            float handRFalloff2 = _IsHands * CalculateFalloff(vert2.positionWS, vert2.normalWS, _Hand_R_BonePosition.xyz, _Hand_R_FollowerDirection.xyz, _FalloffRange);
-            float handRFalloff3 = _IsHands * CalculateFalloff(vert3.positionWS, vert3.normalWS, _Hand_R_BonePosition.xyz, _Hand_R_FollowerDirection.xyz, _FalloffRange);
+            float handRFalloff1 = _IsHands * CalculateFalloff(vert1.positionWS, vert1.normalWS, _Hand_R_BonePosition.xyz, _Hand_R_FollowerDirection.xyz, _Hand_R_MoveAmount, _FalloffRange);
+            float handRFalloff2 = _IsHands * CalculateFalloff(vert2.positionWS, vert2.normalWS, _Hand_R_BonePosition.xyz, _Hand_R_FollowerDirection.xyz, _Hand_R_MoveAmount, _FalloffRange);
+            float handRFalloff3 = _IsHands * CalculateFalloff(vert3.positionWS, vert3.normalWS, _Hand_R_BonePosition.xyz, _Hand_R_FollowerDirection.xyz, _Hand_R_MoveAmount, _FalloffRange);
 
-            float footLFalloff1 = _IsFeet * CalculateFalloff(vert1.positionWS, vert1.normalWS, _Foot_L_BonePosition.xyz, _Foot_L_FollowerDirection.xyz, _FalloffRange);
-            float footLFalloff2 = _IsFeet * CalculateFalloff(vert2.positionWS, vert2.normalWS, _Foot_L_BonePosition.xyz, _Foot_L_FollowerDirection.xyz, _FalloffRange);
-            float footLFalloff3 = _IsFeet * CalculateFalloff(vert3.positionWS, vert3.normalWS, _Foot_L_BonePosition.xyz, _Foot_L_FollowerDirection.xyz, _FalloffRange);
+            float footLFalloff1 = _IsFeet * CalculateFalloff(vert1.positionWS, vert1.normalWS, _Foot_L_BonePosition.xyz, _Foot_L_FollowerDirection.xyz, _Foot_L_MoveAmount, _FalloffRange);
+            float footLFalloff2 = _IsFeet * CalculateFalloff(vert2.positionWS, vert2.normalWS, _Foot_L_BonePosition.xyz, _Foot_L_FollowerDirection.xyz, _Foot_L_MoveAmount, _FalloffRange);
+            float footLFalloff3 = _IsFeet * CalculateFalloff(vert3.positionWS, vert3.normalWS, _Foot_L_BonePosition.xyz, _Foot_L_FollowerDirection.xyz, _Foot_L_MoveAmount, _FalloffRange);
 
-            float footRFalloff1 = _IsFeet * CalculateFalloff(vert1.positionWS, vert1.normalWS, _Foot_R_BonePosition.xyz, _Foot_R_FollowerDirection.xyz, _FalloffRange);
-            float footRFalloff2 = _IsFeet * CalculateFalloff(vert2.positionWS, vert2.normalWS, _Foot_R_BonePosition.xyz, _Foot_R_FollowerDirection.xyz, _FalloffRange);
-            float footRFalloff3 = _IsFeet * CalculateFalloff(vert3.positionWS, vert3.normalWS, _Foot_R_BonePosition.xyz, _Foot_R_FollowerDirection.xyz, _FalloffRange);
+            float footRFalloff1 = _IsFeet * CalculateFalloff(vert1.positionWS, vert1.normalWS, _Foot_R_BonePosition.xyz, _Foot_R_FollowerDirection.xyz, _Foot_R_MoveAmount, _FalloffRange);
+            float footRFalloff2 = _IsFeet * CalculateFalloff(vert2.positionWS, vert2.normalWS, _Foot_R_BonePosition.xyz, _Foot_R_FollowerDirection.xyz, _Foot_R_MoveAmount, _FalloffRange);
+            float footRFalloff3 = _IsFeet * CalculateFalloff(vert3.positionWS, vert3.normalWS, _Foot_R_BonePosition.xyz, _Foot_R_FollowerDirection.xyz, _Foot_R_MoveAmount, _FalloffRange);
+            // --- 
+            float pelvisFalloff1 = _IsPelvis * CalculateFalloff(vert1.positionWS, vert1.normalWS, _PelvisBonePosition.xyz, _PelvisFollowerDirection.xyz, _PelvisMoveAmount, _FalloffRange);
+            float pelvisFalloff2 = _IsPelvis * CalculateFalloff(vert2.positionWS, vert2.normalWS, _PelvisBonePosition.xyz, _PelvisFollowerDirection.xyz, _PelvisMoveAmount, _FalloffRange);
+            float pelvisFalloff3 = _IsPelvis * CalculateFalloff(vert3.positionWS, vert3.normalWS, _PelvisBonePosition.xyz, _PelvisFollowerDirection.xyz, _PelvisMoveAmount, _FalloffRange);
+            
+            float torsoFalloff1 = _IsTorso * CalculateFalloff(vert1.positionWS, vert1.normalWS, _TorsoBonePosition.xyz, _TorsoFollowerDirection.xyz, _TorsoMoveAmount, _FalloffRange);
+            float torsoFalloff2 = _IsTorso * CalculateFalloff(vert2.positionWS, vert2.normalWS, _TorsoBonePosition.xyz, _TorsoFollowerDirection.xyz, _TorsoMoveAmount, _FalloffRange);
+            float torsoFalloff3 = _IsTorso * CalculateFalloff(vert3.positionWS, vert3.normalWS, _TorsoBonePosition.xyz, _TorsoFollowerDirection.xyz, _TorsoMoveAmount, _FalloffRange);
 
-            //to displace vert in the "follower direction" (as in the tail direction)?
-            //float3 displacement1 = flatNormal * _DisplaceAmount * (headFalloff1 + handLFalloff1 + handRFalloff1 + footLFalloff1 + footRFalloff1);
-            //float3 displacement2 = flatNormal * _DisplaceAmount * (headFalloff2 + handLFalloff2 + handRFalloff2 + footLFalloff2 + footRFalloff2);
-            //float3 displacement3 = flatNormal * _DisplaceAmount * (headFalloff3 + handLFalloff3 + handRFalloff3 + footLFalloff3 + footRFalloff3);
 
-            //vert1.positionWS += displacement1;
-            //vert2.positionWS += displacement2;
-            //vert3.positionWS += displacement3;
+            // Displacement:
+
+            // Calculate displacement directions
+            float3 headDisplacement = _DisplaceAmount * _HeadFollowerDirection;
+            float3 handLDisplacement = _DisplaceAmount * _Hand_L_FollowerDirection;
+            float3 handRDisplacement = _DisplaceAmount * _Hand_R_FollowerDirection;
+            float3 footLDisplacement = _DisplaceAmount * _Foot_L_FollowerDirection;
+            float3 footRDisplacement = _DisplaceAmount * _Foot_R_FollowerDirection;
+            float3 pelvisDisplacement = _DisplaceAmount * _PelvisFollowerDirection;
+            float3 torsoDisplacement = _DisplaceAmount * _TorsoFollowerDirection;
+
+            // Apply displacement (factoring in falloff ranges)
+            float3 displacement1 = headDisplacement * headFalloff1 + handLDisplacement * handLFalloff1 + handRDisplacement * handRFalloff1 + footLDisplacement * footLFalloff1 + footRDisplacement * footRFalloff1 + pelvisDisplacement * pelvisFalloff1 + torsoDisplacement * torsoFalloff1;
+            float3 displacement2 = headDisplacement * headFalloff2 + handLDisplacement * handLFalloff2 + handRDisplacement * handRFalloff2 + footLDisplacement * footLFalloff2 + footRDisplacement * footRFalloff2 + pelvisDisplacement * pelvisFalloff2 + torsoDisplacement * torsoFalloff2;
+            float3 displacement3 = headDisplacement * headFalloff3 + handLDisplacement * handLFalloff3 + handRDisplacement * handRFalloff3 + footLDisplacement * footLFalloff3 + footRDisplacement * footRFalloff3 + pelvisDisplacement * pelvisFalloff3 + torsoDisplacement * torsoFalloff3;
+
+            vert1.positionWS += displacement1;
+            vert2.positionWS += displacement2;
+            vert3.positionWS += displacement3;
+
 
             // Cubify:
-            float cubifyFalloff1 = (headFalloff1 + handLFalloff1 + handRFalloff1 + footLFalloff1 + footRFalloff1);
-            float cubifyFalloff2 = (headFalloff2 + handLFalloff2 + handRFalloff2 + footLFalloff2 + footRFalloff2);
-            float cubifyFalloff3 = (headFalloff3 + handLFalloff3 + handRFalloff3 + footLFalloff3 + footRFalloff3);
+
+            //calculate cubify effect falloff
+            float cubifyFalloff1 = (headFalloff1 + handLFalloff1 + handRFalloff1 + footLFalloff1 + footRFalloff1 + pelvisFalloff1 + torsoFalloff1);
+            float cubifyFalloff2 = (headFalloff2 + handLFalloff2 + handRFalloff2 + footLFalloff2 + footRFalloff2 + pelvisFalloff2 + torsoFalloff2);
+            float cubifyFalloff3 = (headFalloff3 + handLFalloff3 + handRFalloff3 + footLFalloff3 + footRFalloff3 + pelvisFalloff3 + torsoFalloff3);
 
             float3 cubify1 = RoundToNearestIncrement(vert1.positionWS, _IncrementValue);
             float3 cubify2 = RoundToNearestIncrement(vert2.positionWS, _IncrementValue);
@@ -191,23 +239,7 @@ Shader "PearlyGeomShader2"
             vert2.positionWS = lerp(vert2.positionWS, cubify2, cubifyFalloff2);
             vert3.positionWS = lerp(vert3.positionWS, cubify3, cubifyFalloff3);
 
-            // Calculate displacement directions
-            float3 headDisplacement = _DisplaceAmount * _HeadFollowerDirection;
-            float3 handLDisplacement = _DisplaceAmount * _Hand_L_FollowerDirection;
-            float3 handRDisplacement = _DisplaceAmount * _Hand_R_FollowerDirection;
-            float3 footLDisplacement = _DisplaceAmount * _Foot_L_FollowerDirection;
-            float3 footRDisplacement = _DisplaceAmount * _Foot_R_FollowerDirection;
-
-            // Apply displacement
-            float3 displacement1 = headDisplacement * headFalloff1 + handLDisplacement * handLFalloff1 + handRDisplacement * handRFalloff1 + footLDisplacement * footLFalloff1 + footRDisplacement * footRFalloff1;
-            float3 displacement2 = headDisplacement * headFalloff2 + handLDisplacement * handLFalloff2 + handRDisplacement * handRFalloff2 + footLDisplacement * footLFalloff2 + footRDisplacement * footRFalloff2;
-            float3 displacement3 = headDisplacement * headFalloff3 + handLDisplacement * handLFalloff3 + handRDisplacement * handRFalloff3 + footLDisplacement * footLFalloff3 + footRDisplacement * footRFalloff3;
-
-            vert1.positionWS += displacement1;
-            vert2.positionWS += displacement2;
-            vert3.positionWS += displacement3;
-
-
+            
             // make the tri:
             vert1.positionCS = TransformWorldToHClip(vert1.positionWS);
             vert2.positionCS = TransformWorldToHClip(vert2.positionWS);
