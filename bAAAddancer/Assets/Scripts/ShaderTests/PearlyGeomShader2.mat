@@ -34,15 +34,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DisplaceAmount: 0
+    - _DisplaceAmount: 0.46
     - _EdgeLengthThreshold: 0.01
-    - _FalloffRange: 0.65
+    - _FalloffRange: 0.34
     - _FresnelEdge: 0.507
     - _FresnelPower: 1.13
-    - _IncrementValue: 0.042
+    - _IncrementValue: 0.0349
     - _IrridescenceBlend: 0.674
-    - _IsFeet: 1
-    - _IsHands: 0
+    - _IsFeet: 0
+    - _IsHands: 1
     - _IsHead: 0
     - _Metal: 0.187
     - _QueueControl: 0
@@ -50,11 +50,16 @@ Material:
     - _Smooth: 0.5
     m_Colors:
     - _BaseColor: {r: 1, g: 0.7107104, b: 0.29716977, a: 0}
-    - _Foot_L_BonePosition: {r: -0.08636068, g: 0.09173195, b: -0.00074432045, a: 0}
-    - _Foot_R_BonePosition: {r: 0.08505359, g: 0.091768146, b: -0.00021126866, a: 0}
-    - _Hand_L_BonePosition: {r: -0.5971533, g: 1.6187855, b: -0.0018275976, a: 0}
-    - _Hand_R_BonePosition: {r: 0.62307054, g: 1.5712006, b: -0.001708746, a: 0}
-    - _HeadBonePosition: {r: -0.0000005722707, g: 1.4541177, b: 0.019018054, a: 0}
+    - _Foot_L_BonePosition: {r: -0.08636069, g: 0.091731235, b: -0.0007709637, a: 0}
+    - _Foot_L_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _Foot_R_BonePosition: {r: 0.085053325, g: 0.09176886, b: -0.0001848638, a: 0}
+    - _Foot_R_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _Hand_L_BonePosition: {r: -0.18692714, g: 0.819054, b: -0.0024103522, a: 0}
+    - _Hand_L_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _Hand_R_BonePosition: {r: 0.1771757, g: 0.8187719, b: -0.0027267933, a: 0}
+    - _Hand_R_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _HeadBonePosition: {r: -0.0000004064575, g: 1.45412, b: 0.018978834, a: 0}
+    - _HeadFollowerDirection: {r: 0, g: 0, b: 0, a: 0}
     - _IrriColorEdge1: {r: 0, g: 0.55888957, b: 1, a: 1}
     - _IrriColorEdge2: {r: 0.079324685, g: 1, b: 0, a: 1}
     - _IrriColorView1: {r: 1, g: 0.36320752, b: 0.94755816, a: 1}
