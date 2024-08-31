@@ -13,11 +13,12 @@ public class DynamicDialogueUnits : ScriptableObject
         public List<GameCriterion> gameCriteria;
         public List<CharCriterion> speakerCriteria;
         public List<CharCriterion> spokenToCriteria;
+        [Tooltip("Camera Directions")]
         public CameraDirections camera, distance, angle, zoom, shake;
         public UnityEvent onDialogueTriggered;
     }
 
-    public LevelKey levelKey;
+    //public LevelKey levelKey;
     public DialogueUnit[] sceneDialogueUnits;
 
     // player response
@@ -25,8 +26,7 @@ public class DynamicDialogueUnits : ScriptableObject
     public string responseYes;
     public CharCriterion spokenToCriterion;
     public CameraDirections playerCamera, playerCamDistance, playerCamAngle, playerCamZoom, playerCamShake;
-    public enum ResponseEvents { triggerNextDialogue, switchScene, customEvent }
+    public UnityEvent onPlayerRespondYes;
+    public UnityEvent onPlayerRespondNo;
 
-    public ResponseEvents NoEventToCall;
-    public ResponseEvents YesEventToCall;
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DialogueQueryCriteria", menuName = "ScriptableObjects/DialogueQueryCriteria", order = 1)]
+[CreateAssetMenu(fileName = "DialogueQueryCriteria", menuName = "NewDialogueSystem/DialogueQueryCriteria", order = 1)]
 public class DialogueQueryCriteria : ScriptableObject
 {
     [System.Serializable]

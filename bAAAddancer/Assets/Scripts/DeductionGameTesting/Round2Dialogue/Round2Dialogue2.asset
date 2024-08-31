@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd40a45f4fb4bb47a9e96a47722ba7c, type: 3}
+  m_Name: Round2Dialogue2
+  m_EditorClassIdentifier: 
+  sceneDialogueUnits:
+  - dialogueText: Well time is ticking, we need more moves
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: I'm just a bit freaked out
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: knowing one of you is cursing us...
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: I promise its not me!
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: Well I don't believe any of you
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  responseNo: 
+  responseYes: Let's just keep practicing
+  spokenToCriterion:
+    key: 9
+    value: 1
+  playerCamera: 0
+  playerCamDistance: 0
+  playerCamAngle: 0
+  playerCamZoom: 0
+  playerCamShake: 0
+  onPlayerRespondYes:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlayerRespondNo:
+    m_PersistentCalls:
+      m_Calls: []

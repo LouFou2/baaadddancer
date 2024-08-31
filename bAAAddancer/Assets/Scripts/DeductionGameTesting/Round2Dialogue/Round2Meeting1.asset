@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd40a45f4fb4bb47a9e96a47722ba7c, type: 3}
+  m_Name: Round2Meeting1
+  m_EditorClassIdentifier: 
+  sceneDialogueUnits:
+  - dialogueText: I kinda like this feeling
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: Don't say that!
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: It's like a strange kind of power...
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  responseNo: No, it looks weird
+  responseYes: Hmm yeah, like rave-bending
+  spokenToCriterion:
+    key: 3
+    value: 1
+  playerCamera: 0
+  playerCamDistance: 0
+  playerCamAngle: 0
+  playerCamZoom: 0
+  playerCamShake: 0
+  onPlayerRespondYes:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlayerRespondNo:
+    m_PersistentCalls:
+      m_Calls: []

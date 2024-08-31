@@ -7,8 +7,11 @@ using UnityEngine.Events;
 
 public class DialogueQueryHandler : MonoBehaviour
 {
-    [SerializeField] private DialogueQueryCriteria[] queryCriteriaSOs;
-    [SerializeField] private DynamicDialogueUnits[] dialogueUnits;
+    private DialogueSwitcher2 dialogueSwitcher;
+
+    //[SerializeField] private DialogueQueryCriteria[] queryCriteriaSOs;
+    //[SerializeField] private DynamicDialogueUnits[] dialogueUnits;
+
     [SerializeField] private CharacterStatsManager characterStatsManager;
     [SerializeField] private GameConditionsManager gameConditionsManager;
 
@@ -32,37 +35,32 @@ public class DialogueQueryHandler : MonoBehaviour
     public int previousSpeaker { get; private set; }
     public int currentSpokenTo { get; private set; }
     public int previousSpokenTo { get; private set; }
+
     public int playerIndex;
 
     public enum DialogueState { PauseOrContinue, PlayerResponse }
     private DialogueState dialogueState;
 
-    // Unity Events for responses
+    /*
+    // Unity Events for responses  //*** Maybe don't even need these eventually (since the events are set up in dialogue units)
     public UnityEvent triggerNextDialogueEvent; // set the event in the inspector (what method to call)
     public UnityEvent switchSceneEvent;
     public UnityEvent customDialogueEvent; //etc
+    */
 
     private void Start()
     {
-        // Check LevelKey and assign current Dialogue Unit
-        LevelKey levelKey = GameManager.Instance.GetCurrentLevelKey();
-        foreach (DynamicDialogueUnits dialogueUnit in dialogueUnits) 
-        {
-            if (dialogueUnit.levelKey == levelKey) 
-            {
-                currentDialogueUnit = dialogueUnit;
-            }
-        }
-        foreach (DialogueQueryCriteria queryCriteriaSOs in queryCriteriaSOs) 
-        {
-            if (queryCriteriaSOs.levelKey == levelKey) 
-            {
-                currentQueryCriteria = queryCriteriaSOs;
-            }
-        }
+        dialogueSwitcher = GetComponent<DialogueSwitcher2>();
+
+        currentDialogueUnit = dialogueSwitcher.currentDialogueUnits;
+        
+        currentQueryCriteria = dialogueSwitcher.currentSceneQueryCriteria;
 
         button0Text = button0.GetComponentInChildren<TextMeshProUGUI>();
         button1Text = button1.GetComponentInChildren<TextMeshProUGUI>();
+
+        button0clicked = false; // reset button click states
+        button1clicked = false;
 
         playerIndex = characterStatsManager.playerIndex;
 
@@ -80,7 +78,7 @@ public class DialogueQueryHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
             queryQueue.Clear();
-            HandlePlayerResponse();
+            StartCoroutine(PlayerResponseCoroutine());
         }
 
         // == Case Switching for button inputs == //
@@ -118,6 +116,7 @@ public class DialogueQueryHandler : MonoBehaviour
     public void Button1Clicked()
     {
         button1clicked = true;
+        Debug.Log("Button 1 Clicked");
     }
     private void InitializeQueryQueue()
     {
@@ -136,7 +135,7 @@ public class DialogueQueryHandler : MonoBehaviour
         }
         else
         {
-            HandlePlayerResponse();
+            StartCoroutine(PlayerResponseCoroutine());
         }
     }
     public void RunQueryByIdentifier(string identifier)
@@ -372,40 +371,19 @@ public class DialogueQueryHandler : MonoBehaviour
         }
         else 
         {
-            HandlePlayerResponse();
+            dialogueState = DialogueState.PlayerResponse;
+            StartCoroutine(PlayerResponseCoroutine());
         }
     }
     private void HandleCinematography(CameraDirections camera, CameraDirections distance, CameraDirections angle, CameraDirections zoom, CameraDirections shake)
     {
         camDirector.SetCameraState(camera, currentSpeaker, currentSpokenTo, distance, angle, zoom, shake);
     }
-    private void HandlePlayerResponse() 
-    {
-        dialogueState = DialogueState.PlayerResponse;
-
-        StartCoroutine(PlayerResponseCoroutine());
-
-        /*button0Text.text = currentDialogueUnit.responseNo;
-        button1Text.text = currentDialogueUnit.responseYes;
-
-        button1.gameObject.SetActive(true);
-        button1.Select();
-        button0.gameObject.SetActive((string.IsNullOrEmpty(button0Text.text)) ? false : true); // button0 only active if it has text
-
-        previousSpeaker = currentSpeaker;
-        currentSpeaker = playerIndex;
-
-        UpdateSpeakerAndSpokenToDicts();
-
-        HandleCinematography
-            (currentDialogueUnit.playerCamera,
-            currentDialogueUnit.playerCamDistance,
-            currentDialogueUnit.playerCamAngle,
-            currentDialogueUnit.playerCamZoom,
-            currentDialogueUnit.playerCamShake);*/
-    }
+    
     private void HandleNoResponse() 
     {
+        currentDialogueUnit.onPlayerRespondNo.Invoke(); //*** These can probably go where the method is called (don't need the method?)
+        /*
         switch (currentDialogueUnit.NoEventToCall) 
         {
             case DynamicDialogueUnits.ResponseEvents.triggerNextDialogue:
@@ -417,10 +395,12 @@ public class DialogueQueryHandler : MonoBehaviour
             case DynamicDialogueUnits.ResponseEvents.customEvent:
                 customDialogueEvent.Invoke();
                 break;
-        }
+        }*/
     }
     private void HandleYesResponse() 
     {
+        currentDialogueUnit.onPlayerRespondYes.Invoke(); //*** same
+        /*
         switch (currentDialogueUnit.YesEventToCall)
         {
             case DynamicDialogueUnits.ResponseEvents.triggerNextDialogue:
@@ -432,13 +412,16 @@ public class DialogueQueryHandler : MonoBehaviour
             case DynamicDialogueUnits.ResponseEvents.customEvent:
                 customDialogueEvent.Invoke();
                 break;
-        }
+        }*/
     }
 
     private IEnumerator PlayerResponseCoroutine()
     {
-        // Pause for a bit before changing buttons and cinematography
-        yield return new WaitForSeconds(2f); // Adjust the duration as needed
+        button0.gameObject.SetActive(false);
+        button1.gameObject.SetActive(true);
+        button1.Select();
+        button1Text.text = "player>";
+        yield return new WaitUntil(() => button1clicked);
 
         characterTextDisplay.transform.parent.gameObject.SetActive(false);
 
