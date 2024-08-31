@@ -31,6 +31,13 @@ public class SceneSwitcher : MonoBehaviour
 
         SceneManager.LoadScene(sceneName);
     }
+    public void LoadSceneByIndex(int sceneIndex)
+    {
+        // Kill all tweens associated with GameObjects
+        DOTween.KillAll();
+
+        SceneManager.LoadScene(sceneIndex);
+    }
     public void SwitchToNextLevelKey()
     {
         LevelKey currentLevelKey = GameManager.Instance.GetCurrentLevelKey();

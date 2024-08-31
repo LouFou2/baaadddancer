@@ -15,7 +15,7 @@ public class DynamicDialogueUnits : ScriptableObject
         public List<CharCriterion> spokenToCriteria;
         [Tooltip("Camera Directions")]
         public CameraDirections camera, distance, angle, zoom, shake;
-        public UnityEvent onDialogueTriggered;
+        public DialogueEventData[] onDialogueTriggered;
     }
 
     //public LevelKey levelKey;
@@ -26,6 +26,6 @@ public class DynamicDialogueUnits : ScriptableObject
     public string responseYes;
     public CharCriterion spokenToCriterion;
     public CameraDirections playerCamera, playerCamDistance, playerCamAngle, playerCamZoom, playerCamShake;
-    public UnityEvent onPlayerRespondNo;
-    public UnityEvent onPlayerRespondYes;
+    public DialogueEventData[] onPlayerRespondNo;
+    public DialogueEventData[] onPlayerRespondYes;
 }

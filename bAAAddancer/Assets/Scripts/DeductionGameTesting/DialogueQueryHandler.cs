@@ -15,6 +15,8 @@ public class DialogueQueryHandler : MonoBehaviour
     [SerializeField] private CharacterStatsManager characterStatsManager;
     [SerializeField] private GameConditionsManager gameConditionsManager;
 
+    private DialogueEventsManager dialogueEventsManager;
+
     [SerializeField] private CamDirector camDirector;
 
     [SerializeField] private DynamicDialogueUnits currentDialogueUnit;
@@ -51,6 +53,7 @@ public class DialogueQueryHandler : MonoBehaviour
     private void Start()
     {
         dialogueSwitcher = GetComponent<DialogueSwitcher2>();
+        dialogueEventsManager = GetComponent<DialogueEventsManager>();
 
         currentDialogueUnit = dialogueSwitcher.currentDialogueUnits;
         
@@ -91,11 +94,11 @@ public class DialogueQueryHandler : MonoBehaviour
             case DialogueState.PlayerResponse:
                 if (button0clicked)
                 {
-                    HandleNoResponse();
+                    dialogueEventsManager.HandleEvents(currentDialogueUnit.onPlayerRespondNo);
                 }
                 if (button1clicked)
                 {
-                    HandleYesResponse();
+                    dialogueEventsManager.HandleEvents(currentDialogueUnit.onPlayerRespondYes);
                 }
                 break;
 
@@ -284,8 +287,8 @@ public class DialogueQueryHandler : MonoBehaviour
             // CINEMATOGRAPHY
             HandleCinematography(selectedUnit.camera, selectedUnit.distance, selectedUnit.angle, selectedUnit.zoom, selectedUnit.shake);
 
-            // Trigger the UnityEvent
-            selectedUnit.onDialogueTriggered.Invoke();
+            // Trigger Dialogue Event
+            dialogueEventsManager.HandleEvents(selectedUnit.onDialogueTriggered);
 
             HandlePauseContinue();
         }
@@ -392,42 +395,7 @@ public class DialogueQueryHandler : MonoBehaviour
             currentDialogueUnit.playerCamZoom,
             currentDialogueUnit.playerCamShake);
     }
-    private void HandleNoResponse()
-    {
-        currentDialogueUnit.onPlayerRespondNo.Invoke(); //*** These can probably go where the method is called (don't need the method?)
-        /*
-        switch (currentDialogueUnit.NoEventToCall) 
-        {
-            case DynamicDialogueUnits.ResponseEvents.triggerNextDialogue:
-                triggerNextDialogueEvent.Invoke();
-                break;
-            case DynamicDialogueUnits.ResponseEvents.switchScene:
-                switchSceneEvent.Invoke();
-                break;
-            case DynamicDialogueUnits.ResponseEvents.customEvent:
-                customDialogueEvent.Invoke();
-                break;
-        }*/
-    }
-    private void HandleYesResponse()
-    {
-        currentDialogueUnit.onPlayerRespondYes.Invoke(); //*** same
-        /*
-        switch (currentDialogueUnit.YesEventToCall)
-        {
-            case DynamicDialogueUnits.ResponseEvents.triggerNextDialogue:
-                triggerNextDialogueEvent.Invoke();
-                break;
-            case DynamicDialogueUnits.ResponseEvents.switchScene:
-                switchSceneEvent.Invoke();
-                break;
-            case DynamicDialogueUnits.ResponseEvents.customEvent:
-                customDialogueEvent.Invoke();
-                break;
-        }*/
-    }
-
-
+    
     private void HandleCinematography(CameraDirections camera, CameraDirections distance, CameraDirections angle, CameraDirections zoom, CameraDirections shake)
     {
         camDirector.SetCameraState(camera, currentSpeaker, currentSpokenTo, distance, angle, zoom, shake);
