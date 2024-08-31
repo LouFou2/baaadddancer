@@ -38,7 +38,7 @@ public class DialogueQueryHandler : MonoBehaviour
 
     public int playerIndex;
 
-    public enum DialogueState { PauseOrContinue, PlayerResponse }
+    public enum DialogueState { PauseOrContinue, LastPause, PlayerResponse }
     private DialogueState dialogueState;
 
     /*
@@ -59,9 +59,6 @@ public class DialogueQueryHandler : MonoBehaviour
         button0Text = button0.GetComponentInChildren<TextMeshProUGUI>();
         button1Text = button1.GetComponentInChildren<TextMeshProUGUI>();
 
-        button0clicked = false; // reset button click states
-        button1clicked = false;
-
         playerIndex = characterStatsManager.playerIndex;
 
         InitializeQueryQueue();
@@ -78,7 +75,7 @@ public class DialogueQueryHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
             queryQueue.Clear();
-            StartCoroutine(PlayerResponseCoroutine());
+            HandlePlayerResponse();
         }
 
         // == Case Switching for button inputs == //
@@ -116,7 +113,6 @@ public class DialogueQueryHandler : MonoBehaviour
     public void Button1Clicked()
     {
         button1clicked = true;
-        Debug.Log("Button 1 Clicked");
     }
     private void InitializeQueryQueue()
     {
@@ -135,7 +131,7 @@ public class DialogueQueryHandler : MonoBehaviour
         }
         else
         {
-            StartCoroutine(PlayerResponseCoroutine());
+            HandlePlayerResponse();
         }
     }
     public void RunQueryByIdentifier(string identifier)
@@ -291,22 +287,10 @@ public class DialogueQueryHandler : MonoBehaviour
             // Trigger the UnityEvent
             selectedUnit.onDialogueTriggered.Invoke();
 
-            PauseContinueResponse();
+            HandlePauseContinue();
         }
     }
-    private void UpdateSpeakerAndSpokenToDicts() 
-    {
-        // first reset the speaker stats
-        for (int i = 0; i < 6; i++) 
-        {
-            if(i != currentSpeaker)
-                characterStatsManager.ModifyCharacterStat(i, CharacterStat.LastSpeaker, 0);
-            if(i != currentSpokenTo)
-                characterStatsManager.ModifyCharacterStat(i, CharacterStat.LastSpokenTo, 0);
-        }
-        characterStatsManager.ModifyCharacterStat(currentSpeaker, CharacterStat.LastSpeaker, 1);
-        characterStatsManager.ModifyCharacterStat(currentSpokenTo, CharacterStat.LastSpokenTo, 1);
-    }
+    
     private bool IsGameMatch(List<GameCriterion> gameQueryCriteria)
     {
         foreach (var criterion in gameQueryCriteria)
@@ -360,69 +344,33 @@ public class DialogueQueryHandler : MonoBehaviour
         }
         return true;
     }
-    private void PauseContinueResponse() 
+
+    private void UpdateSpeakerAndSpokenToDicts()
     {
-        if (queryQueue.Count > 0)
+        // first reset the speaker stats
+        for (int i = 0; i < 6; i++)
         {
-            dialogueState = DialogueState.PauseOrContinue;
-            button1.gameObject.SetActive(true);
-            button1.Select();
-            button1Text.text = ">";
+            if (i != currentSpeaker)
+                characterStatsManager.ModifyCharacterStat(i, CharacterStat.LastSpeaker, 0);
+            if (i != currentSpokenTo)
+                characterStatsManager.ModifyCharacterStat(i, CharacterStat.LastSpokenTo, 0);
         }
-        else 
-        {
-            dialogueState = DialogueState.PlayerResponse;
-            StartCoroutine(PlayerResponseCoroutine());
-        }
-    }
-    private void HandleCinematography(CameraDirections camera, CameraDirections distance, CameraDirections angle, CameraDirections zoom, CameraDirections shake)
-    {
-        camDirector.SetCameraState(camera, currentSpeaker, currentSpokenTo, distance, angle, zoom, shake);
+        characterStatsManager.ModifyCharacterStat(currentSpeaker, CharacterStat.LastSpeaker, 1);
+        characterStatsManager.ModifyCharacterStat(currentSpokenTo, CharacterStat.LastSpokenTo, 1);
     }
     
-    private void HandleNoResponse() 
+    private void HandlePauseContinue() 
     {
-        currentDialogueUnit.onPlayerRespondNo.Invoke(); //*** These can probably go where the method is called (don't need the method?)
-        /*
-        switch (currentDialogueUnit.NoEventToCall) 
-        {
-            case DynamicDialogueUnits.ResponseEvents.triggerNextDialogue:
-                triggerNextDialogueEvent.Invoke();
-                break;
-            case DynamicDialogueUnits.ResponseEvents.switchScene:
-                switchSceneEvent.Invoke();
-                break;
-            case DynamicDialogueUnits.ResponseEvents.customEvent:
-                customDialogueEvent.Invoke();
-                break;
-        }*/
-    }
-    private void HandleYesResponse() 
-    {
-        currentDialogueUnit.onPlayerRespondYes.Invoke(); //*** same
-        /*
-        switch (currentDialogueUnit.YesEventToCall)
-        {
-            case DynamicDialogueUnits.ResponseEvents.triggerNextDialogue:
-                triggerNextDialogueEvent.Invoke();
-                break;
-            case DynamicDialogueUnits.ResponseEvents.switchScene:
-                switchSceneEvent.Invoke();
-                break;
-            case DynamicDialogueUnits.ResponseEvents.customEvent:
-                customDialogueEvent.Invoke();
-                break;
-        }*/
-    }
-
-    private IEnumerator PlayerResponseCoroutine()
-    {
-        button0.gameObject.SetActive(false);
+        dialogueState = DialogueState.PauseOrContinue;
         button1.gameObject.SetActive(true);
         button1.Select();
-        button1Text.text = "player>";
-        yield return new WaitUntil(() => button1clicked);
-
+        button1Text.text = ">";
+        
+    }
+    
+    private void HandlePlayerResponse() 
+    {
+        dialogueState = DialogueState.PlayerResponse;
         characterTextDisplay.transform.parent.gameObject.SetActive(false);
 
         button0Text.text = currentDialogueUnit.responseNo;
@@ -444,4 +392,45 @@ public class DialogueQueryHandler : MonoBehaviour
             currentDialogueUnit.playerCamZoom,
             currentDialogueUnit.playerCamShake);
     }
+    private void HandleNoResponse()
+    {
+        currentDialogueUnit.onPlayerRespondNo.Invoke(); //*** These can probably go where the method is called (don't need the method?)
+        /*
+        switch (currentDialogueUnit.NoEventToCall) 
+        {
+            case DynamicDialogueUnits.ResponseEvents.triggerNextDialogue:
+                triggerNextDialogueEvent.Invoke();
+                break;
+            case DynamicDialogueUnits.ResponseEvents.switchScene:
+                switchSceneEvent.Invoke();
+                break;
+            case DynamicDialogueUnits.ResponseEvents.customEvent:
+                customDialogueEvent.Invoke();
+                break;
+        }*/
+    }
+    private void HandleYesResponse()
+    {
+        currentDialogueUnit.onPlayerRespondYes.Invoke(); //*** same
+        /*
+        switch (currentDialogueUnit.YesEventToCall)
+        {
+            case DynamicDialogueUnits.ResponseEvents.triggerNextDialogue:
+                triggerNextDialogueEvent.Invoke();
+                break;
+            case DynamicDialogueUnits.ResponseEvents.switchScene:
+                switchSceneEvent.Invoke();
+                break;
+            case DynamicDialogueUnits.ResponseEvents.customEvent:
+                customDialogueEvent.Invoke();
+                break;
+        }*/
+    }
+
+
+    private void HandleCinematography(CameraDirections camera, CameraDirections distance, CameraDirections angle, CameraDirections zoom, CameraDirections shake)
+    {
+        camDirector.SetCameraState(camera, currentSpeaker, currentSpokenTo, distance, angle, zoom, shake);
+    }
+
 }

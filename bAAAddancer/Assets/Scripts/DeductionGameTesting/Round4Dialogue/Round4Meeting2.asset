@@ -12,9 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd40a45f4fb4bb47a9e96a47722ba7c, type: 3}
   m_Name: Round4Meeting2
   m_EditorClassIdentifier: 
-  sceneDialogueUnits: []
-  responseNo: 
-  responseYes: 
+  sceneDialogueUnits:
+  - dialogueText: C'mon you don't think its me right?
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: I don't think it's you no
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: I think you're the most suspicous
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  responseNo: I don't agree they are suspicious
+  responseYes: Oh for sure you're the rave demon
   spokenToCriterion:
     key: 0
     value: 0
@@ -23,9 +59,9 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
-  onPlayerRespondYes:
+  onPlayerRespondNo:
     m_PersistentCalls:
       m_Calls: []
-  onPlayerRespondNo:
+  onPlayerRespondYes:
     m_PersistentCalls:
       m_Calls: []

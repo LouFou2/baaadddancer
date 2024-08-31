@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Round3Meeting1
   m_EditorClassIdentifier: 
   sceneDialogueUnits:
-  - dialogueText: 
+  - dialogueText: Listen, there are only 3 of you who haven't been cursed
     gameCriteria: []
     speakerCriteria: []
     spokenToCriteria: []
@@ -25,7 +25,7 @@ MonoBehaviour:
     onDialogueTriggered:
       m_PersistentCalls:
         m_Calls: []
-  - dialogueText: 
+  - dialogueText: Yeah, one of you is the Rave Demon
     gameCriteria: []
     speakerCriteria: []
     spokenToCriteria: []
@@ -37,8 +37,8 @@ MonoBehaviour:
     onDialogueTriggered:
       m_PersistentCalls:
         m_Calls: []
-  responseNo: 
-  responseYes: 
+  responseNo: It's not me
+  responseYes: Why would I debug everyone if it was me?
   spokenToCriterion:
     key: 0
     value: 0
@@ -47,9 +47,9 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
-  onPlayerRespondYes:
+  onPlayerRespondNo:
     m_PersistentCalls:
       m_Calls: []
-  onPlayerRespondNo:
+  onPlayerRespondYes:
     m_PersistentCalls:
       m_Calls: []

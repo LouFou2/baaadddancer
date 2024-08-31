@@ -12,9 +12,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd40a45f4fb4bb47a9e96a47722ba7c, type: 3}
   m_Name: Round4Meeting1
   m_EditorClassIdentifier: 
-  sceneDialogueUnits: []
-  responseNo: 
-  responseYes: 
+  sceneDialogueUnits:
+  - dialogueText: It's time to go to the rave
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: We can't go with a Rave Demon in our midst
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: Or can we?
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: Well it's clear who the RaveDemon is right?
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: What, you think its me?
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: No, not you...
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: I'm actually not sure now...
+    gameCriteria: []
+    speakerCriteria: []
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+      m_PersistentCalls:
+        m_Calls: []
+  responseNo: No of course not
+  responseYes: I'm pretty sure you are
   spokenToCriterion:
     key: 0
     value: 0
@@ -23,9 +107,9 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
-  onPlayerRespondYes:
+  onPlayerRespondNo:
     m_PersistentCalls:
       m_Calls: []
-  onPlayerRespondNo:
+  onPlayerRespondYes:
     m_PersistentCalls:
       m_Calls: []

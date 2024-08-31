@@ -26,7 +26,6 @@ public class DynamicDialogueUnits : ScriptableObject
     public string responseYes;
     public CharCriterion spokenToCriterion;
     public CameraDirections playerCamera, playerCamDistance, playerCamAngle, playerCamZoom, playerCamShake;
-    public UnityEvent onPlayerRespondYes;
     public UnityEvent onPlayerRespondNo;
-
+    public UnityEvent onPlayerRespondYes;
 }

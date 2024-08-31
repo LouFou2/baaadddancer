@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd40a45f4fb4bb47a9e96a47722ba7c, type: 3}
   m_Name: IntroDialogue
   m_EditorClassIdentifier: 
-  levelKey: 1
   sceneDialogueUnits:
   - dialogueText: Are you all ready for Rumble at the Rave?
     gameCriteria:
-    - key: 0
-      value: 0
     - key: 1
       value: 0
     speakerCriteria:
@@ -115,14 +112,28 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - dialogueText: That means we need some killer moves...
     gameCriteria:
     - key: 1
       value: 6
     speakerCriteria:
     - key: 4
-      value: 2
+      value: 1
+    - key: 7
+      value: 0
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -138,7 +149,7 @@ MonoBehaviour:
       value: 7
     speakerCriteria:
     - key: 4
-      value: 1
+      value: 0
     - key: 0
       value: 0
     spokenToCriteria: []
@@ -160,5 +171,9 @@ MonoBehaviour:
   playerCamAngle: 7
   playerCamZoom: 9
   playerCamShake: 14
-  NoEventToCall: 1
-  YesEventToCall: 1
+  onPlayerRespondNo:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlayerRespondYes:
+    m_PersistentCalls:
+      m_Calls: []
