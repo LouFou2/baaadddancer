@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueSwitcher2 : MonoBehaviour //***RENAME TO DIEALOGUESWITCHER WHEN FULL REPLACEMENT HAS BEEN IMPLEMENT
+public class DialogueSwitcher2 : MonoBehaviour //***RENAME TO DIEALOGUE SWITCHER WHEN FULL REPLACEMENT HAS BEEN IMPLEMENT
 {
     [Tooltip("The scriptable objects with the sequences of dynamic dialogue units, for all rounds of this scene")]
     public DynamicDialogueSequence[] dynamicDialogueSequences;

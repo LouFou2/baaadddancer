@@ -26,7 +26,7 @@ MonoBehaviour:
     angle: 6
     zoom: 9
     shake: 14
-    onDialogueTriggered: 0
+    onDialogueTriggered: []
   - dialogueText: I'm ready to SWALLOW the competition!
     gameCriteria:
     - key: 1
@@ -42,7 +42,7 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
-    onDialogueTriggered: 0
+    onDialogueTriggered: []
   - dialogueText: Me too!
     gameCriteria:
     - key: 1
@@ -56,7 +56,7 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
-    onDialogueTriggered: 0
+    onDialogueTriggered: []
   - dialogueText: Me three!
     gameCriteria:
     - key: 1
@@ -72,7 +72,7 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
-    onDialogueTriggered: 0
+    onDialogueTriggered: []
   - dialogueText: We only have an hour to get ready...
     gameCriteria:
     - key: 1
@@ -86,7 +86,7 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
-    onDialogueTriggered: 0
+    onDialogueTriggered: []
   - dialogueText: We need to GET GOOD!
     gameCriteria:
     - key: 1
@@ -100,7 +100,7 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
-    onDialogueTriggered: 0
+    onDialogueTriggered: []
   - dialogueText: That means we need some killer moves...
     gameCriteria:
     - key: 1
@@ -116,7 +116,7 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
-    onDialogueTriggered: 0
+    onDialogueTriggered: []
   - dialogueText: Who's gonna do the choreography?
     gameCriteria:
     - key: 1
@@ -132,7 +132,7 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
-    onDialogueTriggered: 0
+    onDialogueTriggered: []
   responseNo: 
   responseYes: I'll give it a go...
   spokenToCriterion:
@@ -143,5 +143,9 @@ MonoBehaviour:
   playerCamAngle: 7
   playerCamZoom: 9
   playerCamShake: 14
-  onPlayerRespondNo: 0
-  onPlayerRespondYes: 2
+  onPlayerRespondNo: []
+  onPlayerRespondYes:
+  - dialogueEvent: 2
+    intArgument: 0
+  - dialogueEvent: 4
+    intArgument: 0
