@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     // Singleton instance of the GameManager
     public static GameManager Instance { get; private set; }
 
-    private LevelKey currentLevelKey;
-    private bool gameStarted = false;
+    [SerializeField] private LevelKey currentLevelKey;
+    [SerializeField] private bool gameStarted = false;
 
     private void Awake()
     {
@@ -41,6 +41,10 @@ public class GameManager : MonoBehaviour
                 dataResetter.ResetAllData();
             gameStarted = true;
         }
+    }
+    public bool HasGameNewStarted() 
+    {
+        return gameStarted;
     }
     private void ResetCurrentLevelKey()
     {

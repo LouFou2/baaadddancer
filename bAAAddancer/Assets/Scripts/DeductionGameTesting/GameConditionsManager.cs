@@ -1,22 +1,17 @@
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public class GameConditionsManager : MonoBehaviour
 {
     public Dictionary<GameCondition, int> gameConditions = new Dictionary<GameCondition, int>();
+    //public int dialogueLine = -1;
 
     public void Start()
     {
-        SetGameCondition(GameCondition.NewGame, 0); // need more sophisticated logic so this doesnt reset every new scene
         SetGameCondition(GameCondition.DialogueLine, 0);
+        //dialogueLine = 0;
     }
 
-    public void GameStarted() 
-    {
-        SetGameCondition(GameCondition.NewGame, 1);
-    } 
-    
     public int GetGameCondition(GameCondition gameCondition)
     {
         return gameConditions.ContainsKey(gameCondition) ? gameConditions[gameCondition] : 0;
@@ -26,12 +21,14 @@ public class GameConditionsManager : MonoBehaviour
     public void SetGameCondition(GameCondition condition, int value)
     {
         gameConditions[condition] = value;
+        //Debug.Log("GameCondition " + condition + " set to value: " + value);
     }
 
     public void IncrementDialogueLine() 
     {
         int currentLine = GetGameCondition(GameCondition.DialogueLine);
         currentLine += 1;
+        //dialogueLine = currentLine;
         SetGameCondition(GameCondition.DialogueLine, currentLine);
     }
 }

@@ -20,14 +20,15 @@ public class TitleSceneDirector : MonoBehaviour
 
     private int currentCharacterIndex = 0;
     private GameObject currentCharacter;
+
     [SerializeField] private TitleEndEventHandler titleEnd;
     private enum TitleSceneState { TitlePlaying, ChoosingCharacter, SceneEnd }
     private TitleSceneState titleSceneState;
 
-    private bool bugIsAssigned = false;
+    private bool demonIsAssigned = false;
 
     private PlayerControls playerControls;
-    private SceneSwitcher sceneSwitcher;
+
     [SerializeField] private AudioSource titleAudioSource;
     [SerializeField] private AudioSource charSelectTrackAudioSource;
     [SerializeField] private AudioSource charSelectSwitchAudioSource;
@@ -52,7 +53,7 @@ public class TitleSceneDirector : MonoBehaviour
 
     void Start()
     {
-        sceneSwitcher = FindObjectOfType<SceneSwitcher>();
+        //sceneSwitcher = FindObjectOfType<SceneSwitcher>();
 
         chooseCharacterText.text = string.Empty;
         leftBumperImage.gameObject.SetActive(false);
@@ -65,7 +66,7 @@ public class TitleSceneDirector : MonoBehaviour
 
         charactersSelection = new GameObject[characterManager.characters.Length];
 
-        bugIsAssigned = false;
+        demonIsAssigned = false;
 
         for (int i = 0; i < charactersSelection.Length; i++)
         {
@@ -114,7 +115,7 @@ public class TitleSceneDirector : MonoBehaviour
                 rightBumperImage.gameObject.SetActive(false);
                 selectButtonImage.gameObject.SetActive(false);
 
-                AssignBugCharacter();
+                AssignDemonCharacter();
                 HandleSceneEnd();
 
                 break;
@@ -123,6 +124,7 @@ public class TitleSceneDirector : MonoBehaviour
     
     void HandleCharacterSelection() 
     {
+        // controller input to scroll selection
         if (playerControls.DanceControls.SwitchObjectL.triggered) 
         {
             charSelectSwitchAudioSource.Play();
@@ -141,6 +143,7 @@ public class TitleSceneDirector : MonoBehaviour
         {
             currentCharacterIndex = charactersSelection.Length - 1;
         }
+
         currentCharacter = charactersSelection[currentCharacterIndex];
 
         foreach (var character in charactersSelection) 
@@ -165,9 +168,9 @@ public class TitleSceneDirector : MonoBehaviour
         }
 
     }
-    void AssignBugCharacter() 
+    void AssignDemonCharacter() 
     {
-        if (!bugIsAssigned) 
+        if (!demonIsAssigned) 
         {
             int randomIndex;
             do
@@ -177,14 +180,12 @@ public class TitleSceneDirector : MonoBehaviour
             while (randomIndex == currentCharacterIndex); // Check if the random index is the same as the player character index
 
             characterManager.characterDataSOs[randomIndex].characterRoleSelect = CharacterData.CharacterRole.Demon;
-            bugIsAssigned = true;
+            demonIsAssigned = true;
         }
         
     }
     void HandleSceneEnd() 
     {
         titleSceneEndEvent.Invoke();
-        //sceneSwitcher.SwitchToNextLevelKey();
-        //sceneSwitcher.LoadNextScene();
     }
 }

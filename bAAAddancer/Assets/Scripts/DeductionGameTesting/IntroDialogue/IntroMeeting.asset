@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd40a45f4fb4bb47a9e96a47722ba7c, type: 3}
   m_Name: IntroMeeting
   m_EditorClassIdentifier: 
-  levelKey: 4
   sceneDialogueUnits:
   - dialogueText: Someone cursed me!
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 0
+    speakerCriteria:
+    - key: 3
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -24,11 +27,15 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: Oh no! Not the curse!
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 1
+    speakerCriteria:
+    - key: 5
+      value: 0
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -36,120 +43,122 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: What curse?
-    gameCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 2
     speakerCriteria:
     - key: 0
       value: 1
-    spokenToCriteria:
-    - key: 9
-      value: 1
+    spokenToCriteria: []
     camera: 0
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: It's the curse of the Rave Demon
-    gameCriteria: []
-    speakerCriteria:
+    gameCriteria:
     - key: 0
-      value: 1
-    spokenToCriteria:
-    - key: 9
-      value: 1
+      value: 3
+    speakerCriteria:
+    - key: 5
+      value: 2
+    spokenToCriteria: []
     camera: 0
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: Someone on this team
-    gameCriteria: []
-    speakerCriteria:
+    gameCriteria:
     - key: 0
+      value: 4
+    speakerCriteria:
+    - key: 5
       value: 1
-    spokenToCriteria:
-    - key: 9
-      value: 1
+    - key: 7
+      value: 0
+    spokenToCriteria: []
     camera: 0
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: Is possessed by the Rave Demon!
-    gameCriteria: []
-    speakerCriteria:
+    gameCriteria:
     - key: 0
+      value: 5
+    speakerCriteria:
+    - key: 5
       value: 1
-    spokenToCriteria:
-    - key: 9
-      value: 1
+    spokenToCriteria: []
     camera: 0
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: And they have cursed me!
-    gameCriteria: []
-    speakerCriteria:
+    gameCriteria:
     - key: 0
+      value: 6
+    speakerCriteria:
+    - key: 3
       value: 1
-    spokenToCriteria:
-    - key: 9
-      value: 1
+    spokenToCriteria: []
     camera: 0
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: Can we do something about it?
-    gameCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 7
     speakerCriteria:
     - key: 0
       value: 1
-    spokenToCriteria:
-    - key: 9
-      value: 1
+    spokenToCriteria: []
     camera: 0
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: Can you debug me?
-    gameCriteria: []
-    speakerCriteria:
+    gameCriteria:
     - key: 0
+      value: 8
+    speakerCriteria:
+    - key: 3
       value: 1
-    spokenToCriteria:
-    - key: 9
-      value: 1
+    spokenToCriteria: []
     camera: 0
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   responseNo: 
   responseYes: I believe I can get some help with that...
   spokenToCriterion:
@@ -160,9 +169,11 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
-  onPlayerRespondYes:
-    m_PersistentCalls:
-      m_Calls: []
   onPlayerRespondNo:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 0
+    intArgument: 0
+  onPlayerRespondYes:
+  - dialogueEvent: 2
+    intArgument: 0
+  - dialogueEvent: 4
+    intArgument: 0

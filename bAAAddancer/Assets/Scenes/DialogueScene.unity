@@ -171,6 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 3309d3c6b81c34b4382fc6b1fd78a061, type: 2}
   dataResetter: {fileID: 0}
+  currentLevelKey: 0
+  gameStarted: 0
 --- !u!114 &66719756 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3995588870235323536, guid: d1b196c8865e16c4b84c89f03af98c48,
@@ -4748,7 +4750,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterManager: {fileID: 6372104692362033166}
-  characterStats: []
+  characterStats:
+  - {fileID: 11400000, guid: 3d8be6ea06604f94bad6ddfb7adde717, type: 2}
+  - {fileID: 11400000, guid: 31f5f841d0d5aae42abf6bcd1777e903, type: 2}
+  - {fileID: 11400000, guid: ef880b5cb156e4842906f316e3758fe8, type: 2}
+  - {fileID: 11400000, guid: b12810239b5c0a346831305dd2380218, type: 2}
+  - {fileID: 11400000, guid: d034c8d29df625a48aedfec9b15ab60a, type: 2}
+  - {fileID: 11400000, guid: dce6e9ec59fa6674286f51773babf871, type: 2}
   demonIndex: -1
   playerIndex: -1
 --- !u!1001 &6852680912765456338

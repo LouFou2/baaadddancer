@@ -5,13 +5,14 @@ public class CharacterStatsManager : MonoBehaviour
 {
     // probably need to plug into the Character Manager
     [SerializeField] private CharacterManager characterManager;
-    public CharacterStats[] characterStats;
+    public CharacterStatsSO[] characterStats; // the dictionary doesn't show anything in inspector anyway
 
     public int demonIndex = -1;
     public int playerIndex = -1;
 
-    private bool gameStarted = false;
+    //private bool gameStarted = false;
 
+    /*
     [System.Serializable]
     public class CharacterStats
     {
@@ -32,44 +33,46 @@ public class CharacterStatsManager : MonoBehaviour
             { CharacterStat.SpeakToGroup, 0},
             { CharacterStat.SpeakToCamera, 0},
         };
-    }
+    }*/
     private void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
 
-        if (GameManager.Instance.GetCurrentLevelKey() == LevelKey.IntroDialogue && !gameStarted) 
+        // We set up the stats in the first dialogue scene
+        // After player has been selected, Demon has been assigned
+        if (GameManager.Instance.GetCurrentLevelKey() == LevelKey.IntroDialogue) 
         {
             SetupNewGameStats();
         }
+
+        UpdateCharacterStats();
+
     }
 
     private void SetupNewGameStats()
     {
-        gameStarted = true;
-
-        characterStats = new CharacterStats[characterManager.characterDataSOs.Length];
-        for (int i = 0; i < characterStats.Length; i++)
-        {
-            characterStats[i] = new CharacterStats();
-        }
-
         SetPlayerIndex();
         SetDemonIndex();
         AssignCharacterStats();
     }
+    private void UpdateCharacterStats() 
+    {
+        for (int i = 0; i < characterStats.Length; i++) 
+        {
+            // The last cursed character:
+            ModifyCharacterStat(i, CharacterStat.LastCursed, 0); // reset all 
+            if (characterManager.characterDataSOs[i].lastBuggedCharacter)
+                ModifyCharacterStat(i, CharacterStat.LastCursed, 1);
+        }
+    }
 
     private void SetPlayerIndex()
     {
-        //playerIndex = Random.Range(0, characters.Length);
         playerIndex = characterManager.playerIndex;
     }
 
     private void SetDemonIndex()
     {
-        /*do
-        {
-            demonIndex = Random.Range(0, characters.Length);
-        } while (demonIndex == playerIndex);*/
         demonIndex = characterManager.demonIndex;
     }
 
@@ -167,13 +170,9 @@ public class CharacterStatsManager : MonoBehaviour
             if (characterStats[characterIndex].stats.ContainsKey(characterStat))
             {
                 characterStats[characterIndex].stats[characterStat] = newValue;
-                /*if(newValue == 1)
-                    Debug.Log("Key: " + characterStat + " :" + newValue + ", char" + characterIndex);*/
             }
-            /*else
-            {
-                characterStats[characterIndex].stats.Add(characterStat, newValue);
-            }*/
+            else
+                Debug.LogWarning("no valid stat " + characterStat + " to modify");
         }
     }
 

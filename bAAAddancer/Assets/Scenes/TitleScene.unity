@@ -1899,6 +1899,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 3309d3c6b81c34b4382fc6b1fd78a061, type: 2}
   dataResetter: {fileID: 0}
+  currentLevelKey: 0
+  gameStarted: 0
 --- !u!1 &666619051 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e611949955b5a94fbe907272be2e587,
@@ -4551,6 +4553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1976710550}
   - component: {fileID: 1976710549}
+  - component: {fileID: 1976710551}
   m_Layer: 0
   m_Name: CharacterManager
   m_TagString: Untagged
@@ -4579,7 +4582,7 @@ MonoBehaviour:
   - {fileID: 1830299741}
   characterDataSOs: []
   playerIndex: 0
-  bugIndex: 0
+  demonIndex: 0
 --- !u!4 &1976710550
 Transform:
   m_ObjectHideFlags: 0
@@ -4595,6 +4598,28 @@ Transform:
   m_Father: {fileID: 238173833}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1976710551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976710548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024df188ae7c75a4da09310d014ccdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterManager: {fileID: 0}
+  characterStats:
+  - {fileID: 11400000, guid: 3d8be6ea06604f94bad6ddfb7adde717, type: 2}
+  - {fileID: 11400000, guid: 31f5f841d0d5aae42abf6bcd1777e903, type: 2}
+  - {fileID: 11400000, guid: ef880b5cb156e4842906f316e3758fe8, type: 2}
+  - {fileID: 11400000, guid: b12810239b5c0a346831305dd2380218, type: 2}
+  - {fileID: 11400000, guid: d034c8d29df625a48aedfec9b15ab60a, type: 2}
+  - {fileID: 11400000, guid: dce6e9ec59fa6674286f51773babf871, type: 2}
+  demonIndex: -1
+  playerIndex: -1
 --- !u!1 &1998198396 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4605507234340117936, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,

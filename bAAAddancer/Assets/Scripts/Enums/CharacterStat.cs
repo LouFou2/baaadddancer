@@ -4,7 +4,7 @@ public enum CharacterStat
     IsPlayer,
     IsDemon,
     Cursed,
-    LastBugged,
+    LastCursed,
 
     Influence,
     Perception,

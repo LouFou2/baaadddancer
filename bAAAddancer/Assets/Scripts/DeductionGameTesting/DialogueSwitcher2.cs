@@ -27,20 +27,12 @@ public class DialogueSwitcher2 : MonoBehaviour //***RENAME TO DIEALOGUE SWITCHER
             {
                 currentSceneDialogueSequence = sequence;
             }
-            else
-            {
-                Debug.LogWarning("No valid Levelkey found for Dialogue Sequence");
-            }
         }
         foreach (DialogueQueryCriteria queryCritera in queryCriteriaSOs) 
         {
             if (queryCritera.levelKey == currentLevelKey)
             {
                 currentSceneQueryCriteria = queryCritera;
-            }
-            else
-            {
-                Debug.LogWarning("No valid Levelkey found for Query Criteria");
             }
         }
 
