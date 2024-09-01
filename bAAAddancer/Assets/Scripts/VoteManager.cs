@@ -149,7 +149,7 @@ public class VoteManager : MonoBehaviour
         if (charDataList.Count > 0)
         {
             randomNPC_Index = Random.Range(0, charDataList.Count);
-            Debug.Log($"Random NPC Index: {randomNPC_Index}");
+            //Debug.Log($"Random NPC Index: {randomNPC_Index}");
         }
 
         yield return new WaitForSeconds(0.5f);

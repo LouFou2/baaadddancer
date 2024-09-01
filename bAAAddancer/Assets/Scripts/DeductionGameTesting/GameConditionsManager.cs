@@ -4,12 +4,10 @@ using UnityEngine;
 public class GameConditionsManager : MonoBehaviour
 {
     public Dictionary<GameCondition, int> gameConditions = new Dictionary<GameCondition, int>();
-    //public int dialogueLine = -1;
 
     public void Start()
     {
         SetGameCondition(GameCondition.DialogueLine, 0);
-        //dialogueLine = 0;
     }
 
     public int GetGameCondition(GameCondition gameCondition)
@@ -28,7 +26,6 @@ public class GameConditionsManager : MonoBehaviour
     {
         int currentLine = GetGameCondition(GameCondition.DialogueLine);
         currentLine += 1;
-        //dialogueLine = currentLine;
         SetGameCondition(GameCondition.DialogueLine, currentLine);
     }
 }

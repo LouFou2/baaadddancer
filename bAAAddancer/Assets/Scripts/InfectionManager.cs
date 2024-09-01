@@ -24,7 +24,7 @@ public class InfectionManager : MonoBehaviour
 
         foreach (CharacterData characterData in characterManager.characterDataSOs)
         {
-            characterData.lastBuggedCharacter = false;
+            characterData.lastCursedCharacter = false;
 
             if (characterData != null 
                 && characterData.characterRoleSelect != CharacterData.CharacterRole.Player 
@@ -36,7 +36,7 @@ public class InfectionManager : MonoBehaviour
             //increase current infection level
             if(characterData.infectionLevel > 0  && !infectedCharacters.Contains(characterData) )
             {
-                characterData.infectionLevel += Random.Range(0.1f,0.25f);
+                characterData.infectionLevel += 1;
 
                 // Add character to the list of processed characters
                 infectedCharacters.Add(characterData);
@@ -55,10 +55,10 @@ public class InfectionManager : MonoBehaviour
         CharacterData selectedCharacter = eligibleCharacters[randomIndex];
 
         // Infect the selected character
-        selectedCharacter.infectionLevel += 0.25f;
-        if(selectedCharacter.infectionLevel > 1) selectedCharacter.infectionLevel = 1;
-        selectedCharacter.lastBuggedCharacter = true;
-        Debug.Log(selectedCharacter.name + " was infected");
+        selectedCharacter.infectionLevel += 1;
+        if(selectedCharacter.infectionLevel > 16) selectedCharacter.infectionLevel = 16;
+        selectedCharacter.lastCursedCharacter = true;
+        //Debug.Log(selectedCharacter.name + " was infected");
     }
 
 }

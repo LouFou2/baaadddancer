@@ -2337,7 +2337,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25dfbd006c8dc044b1ca3b745ff9613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueLine: -1
 --- !u!4 &1117094154
 Transform:
   m_ObjectHideFlags: 0
@@ -5672,15 +5671,9 @@ PrefabInstance:
         type: 3}
       propertyPath: camAnimator
       value: 
-      objectReference: {fileID: 6852680912765456339}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fb9b9e11f7221e4da69957778db4a69, type: 3}
---- !u!95 &6852680912765456339 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6852680913369816908, guid: 2fb9b9e11f7221e4da69957778db4a69,
-    type: 3}
-  m_PrefabInstance: {fileID: 6852680912765456338}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9210883016460425286
 PrefabInstance:
   m_ObjectHideFlags: 0

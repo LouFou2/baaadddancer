@@ -39,25 +39,25 @@ public class ViewSwitcher : MonoBehaviour
         {
             CurrentView = ViewSwitch.front;
             MoveCameraToView(frontCameraTransform);
-            Debug.Log("frontview");
+            //Debug.Log("frontview");
         }
         else if (playerControls.DanceControls.RotateViewX_Top.triggered)
         {
             CurrentView = ViewSwitch.top;
             MoveCameraToView(topCameraTransform);
-            Debug.Log("topview");
+            //Debug.Log("topview");
         }
         else if (playerControls.DanceControls.RotateViewY_Left.triggered)
         {
             CurrentView = ViewSwitch.left;
             MoveCameraToView(leftCameraTransform);
-            Debug.Log("leftview");
+            //Debug.Log("leftview");
         }
         else if (playerControls.DanceControls.RotateViewY_Right.triggered)
         {
             CurrentView = ViewSwitch.right;
             MoveCameraToView(rightCameraTransform);
-            Debug.Log("rightview");
+            //Debug.Log("rightview");
         }
     }
     // Move the camera to the specified view

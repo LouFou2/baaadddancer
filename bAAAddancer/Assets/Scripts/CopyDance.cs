@@ -96,12 +96,12 @@ public class CopyDance : MonoBehaviour
             if (playerControls.GenericInput.LBumper.triggered && !updatingRoundSequence)
             {
                 UpdateDanceSequence(-1);
-                Debug.Log("left bumper");
+                //Debug.Log("left bumper");
             }
             if (playerControls.GenericInput.RBumper.triggered && !updatingRoundSequence) 
             {
                 UpdateDanceSequence(1);
-                Debug.Log("right bumper");
+                //Debug.Log("right bumper");
 
             }
         }
@@ -111,7 +111,7 @@ public class CopyDance : MonoBehaviour
     private void UpdateDanceSequence(int posOrNegInt) 
     {
         updatingRoundSequence = true;
-        Debug.Log("Updating round sequence");
+        //Debug.Log("Updating round sequence");
         roundSwitcherIndex += posOrNegInt;
         if (roundSwitcherIndex > currentRound) roundSwitcherIndex = 0; // loop, also limit switch index to amount of rounds
         if (roundSwitcherIndex < 0) roundSwitcherIndex = currentRound; // loop, also limit switch index to amount of rounds

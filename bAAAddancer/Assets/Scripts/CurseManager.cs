@@ -18,6 +18,6 @@ public class CurseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        characterAnimator.SetFloat("CurseAmount", charData.infectionLevel);
+        characterAnimator.SetFloat("CurseAmount", (float)(charData.infectionLevel / 16));
     }
 }

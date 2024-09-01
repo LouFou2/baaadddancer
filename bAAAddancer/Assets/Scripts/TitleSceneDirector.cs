@@ -72,7 +72,7 @@ public class TitleSceneDirector : MonoBehaviour
         {
             charactersSelection[i] = characterManager.characters[i];
             characterManager.characterDataSOs[i].characterRoleSelect = CharacterData.CharacterRole.NPC; //this just resets all characters to NPC's
-            characterManager.characterDataSOs[i].infectionLevel = 0f;
+            characterManager.characterDataSOs[i].infectionLevel = 0;
             characterManager.characterDataSOs[i].wasDebuggedLastRound = false;
         }
         currentCharacter = charactersSelection[0];

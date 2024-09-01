@@ -119,7 +119,7 @@ public class BugSpawner : MonoBehaviour
         int totalBugsHandled = bugsDestroyedCount + bugsOffBottomCount + zapper.GetBugZappedAmount();
         if (totalBugsHandled >= poolSize)
         {
-            Debug.Log("Debug Ended");
+            //Debug.Log("Debug Ended");
             debugHasEnded = true;
         }
     }

@@ -57,7 +57,7 @@ public class CutscenesAudioManager : MonoBehaviour
                 bugIndex = i;
                 availableIndexes.Remove(i); // Remove bug index
             }
-            if (characterDataSOs[i].lastBuggedCharacter == true)
+            if (characterDataSOs[i].lastCursedCharacter == true)
             {
                 lastBuggedCharacterIndex = i;
                 availableIndexes.Remove(i); // Remove last bugged character index

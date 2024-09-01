@@ -5,35 +5,11 @@ public class CharacterStatsManager : MonoBehaviour
 {
     // probably need to plug into the Character Manager
     [SerializeField] private CharacterManager characterManager;
-    public CharacterStatsSO[] characterStats; // the dictionary doesn't show anything in inspector anyway
+    public CharacterStatsSO[] characterStats;
 
     public int demonIndex = -1;
     public int playerIndex = -1;
 
-    //private bool gameStarted = false;
-
-    /*
-    [System.Serializable]
-    public class CharacterStats
-    {
-        public Dictionary<CharacterStat, int> stats = new Dictionary<CharacterStat, int>
-        {
-            { CharacterStat.IsPlayer, 0 }, // player and demon: 0 false, 1 true
-            { CharacterStat.IsDemon, 0 },
-            { CharacterStat.Cursed, 0 }, // cursed: t.b.d useful index range... 0-15? (4 for each round?)
-            { CharacterStat.LastBugged, 0},
-
-            { CharacterStat.Influence, 0 }, // influence and perception: 0 bad, 1 neutral, 2 good
-            { CharacterStat.Perception, 0 },
-
-            { CharacterStat.SpokenAmount, 0},
-            { CharacterStat.LastSpeaker, 0},
-            { CharacterStat.LastSpokenTo, 0},
-
-            { CharacterStat.SpeakToGroup, 0},
-            { CharacterStat.SpeakToCamera, 0},
-        };
-    }*/
     private void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
@@ -44,9 +20,13 @@ public class CharacterStatsManager : MonoBehaviour
         {
             SetupNewGameStats();
         }
+        else
+            UpdateCharacterStats();
 
-        UpdateCharacterStats();
-
+    }
+    private void OnDestroy()
+    {
+        StoreCharacterStats();
     }
 
     private void SetupNewGameStats()
@@ -59,10 +39,38 @@ public class CharacterStatsManager : MonoBehaviour
     {
         for (int i = 0; i < characterStats.Length; i++) 
         {
+            // we use int values stored in the SOs (because apparently dictionaries in SOs don't carry persistent data so good)
+            // * Im sure theres a better solution but were in it now...
+            ModifyCharacterStat(i, CharacterStat.IsPlayer, characterStats[i].IsPlayerInt);
+            ModifyCharacterStat(i, CharacterStat.IsDemon, characterStats[i].IsDemonInt);
+
+            ModifyCharacterStat(i, CharacterStat.Influence, characterStats[i].InfluenceInt);
+            ModifyCharacterStat(i, CharacterStat.Perception, characterStats[i].Perceptionint);
+
+            // The Curse Stats gets handled differently: (because cursing happens between dialogue scenes, and gets stored in characterDataSOs)
             // The last cursed character:
             ModifyCharacterStat(i, CharacterStat.LastCursed, 0); // reset all 
-            if (characterManager.characterDataSOs[i].lastBuggedCharacter)
+            if (characterManager.characterDataSOs[i].lastCursedCharacter) 
+            {
                 ModifyCharacterStat(i, CharacterStat.LastCursed, 1);
+                characterStats[i].LastCursedInt = 1; //*** just for the sake of debugging (cant see dictionary value in inspector)
+            }    
+            // Cursed Amount:
+            ModifyCharacterStat(i, CharacterStat.Cursed, characterManager.characterDataSOs[i].infectionLevel); //***CHECK THAT THIS CHECKS OUT WITH ALL INFECTION LEVEL REFS!
+
+        }
+    }
+    public void StoreCharacterStats() 
+    {
+        for (int i = 0; i < characterStats.Length; i++) 
+        {
+            characterStats[i].IsPlayerInt = characterStats[i].stats[CharacterStat.IsPlayer];
+            characterStats[i].IsDemonInt = characterStats[i].stats[CharacterStat.IsDemon];
+            characterStats[i].CursedInt = characterStats[i].stats[CharacterStat.Cursed];
+            // *** NOTE LastCursed is handled different, as it happens between dialogue scenes
+            characterStats[i].InfluenceInt = characterStats[i].stats[CharacterStat.Influence];
+            characterStats[i].Perceptionint = characterStats[i].stats[CharacterStat.Perception];
+            
         }
     }
 

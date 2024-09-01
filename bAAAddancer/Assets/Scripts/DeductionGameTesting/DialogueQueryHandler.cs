@@ -129,6 +129,7 @@ public class DialogueQueryHandler : MonoBehaviour
     {
         if (queryQueue.Count > 0)
         {
+            Debug.Log(queryQueue.Count + " queries in queue");
             var query = queryQueue.Dequeue();
             RunQuery(query);
         }
@@ -231,7 +232,7 @@ public class DialogueQueryHandler : MonoBehaviour
             foreach (var criterion in selectedUnit.speakerCriteria)
             {
                 selectedCriteria.Add(criterion.key, criterion.value);
-                Debug.Log("Speakercritera:" + criterion.key + ": " + criterion.value);
+                //Debug.Log("Speakercritera:" + criterion.key + ": " + criterion.value);
             }
 
             List<int> matchingCharacterIndices = characterStatsManager.GetMatchingCharacterIndices(selectedCriteria);
@@ -242,8 +243,8 @@ public class DialogueQueryHandler : MonoBehaviour
 
                 previousSpeaker = currentSpeaker;
                 currentSpeaker = selectedSpeakerIndex;
-                Debug.Log("CURRENTSPEAKER: " + currentSpeaker);
-                Debug.Log("PREVIOUS: " + previousSpeaker);
+                //Debug.Log("CURRENTSPEAKER: " + currentSpeaker);
+                //Debug.Log("PREVIOUS: " + previousSpeaker);
 
                 // Increment the SpokenAmount stat
                 var characterStats = characterStatsManager.GetCharacterStats(selectedSpeakerIndex);
