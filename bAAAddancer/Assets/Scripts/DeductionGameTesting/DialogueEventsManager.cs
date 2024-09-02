@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+// Custom UnityEvent class that takes an int argument
+[System.Serializable]
+public class UnityEventInt : UnityEvent<int> { }
 
 public class DialogueEventsManager : MonoBehaviour
 {
-    private SceneSwitcher sceneSwitcher;
+    public UnityEvent SwitchDialogueSequence;
+    public UnityEvent SwitchNextLevelKey;
+    public UnityEvent SwitchNextRound;
+    public UnityEvent SwitchNextScene;
+    public UnityEventInt LoadSceneByIndex;  // Using the custom UnityEvent that takes an int
+    public UnityEvent StartDebugGame;
+    public UnityEvent SpeakerJustLied;
+    public UnityEvent ForgetLies;
 
-    private void Start()
-    {
-        sceneSwitcher = FindObjectOfType<SceneSwitcher>();
-    }
     public void HandleEvents(DialogueEventData[] dialogueEvents)
     {
         foreach (var eventData in dialogueEvents)
@@ -18,7 +26,6 @@ public class DialogueEventsManager : MonoBehaviour
         }
     }
 
-    // Method to process the DialogueEvents enum and invoke the corresponding method
     public void HandleEvent(DialogueEventData eventData)
     {
         switch (eventData.dialogueEvent)
@@ -26,59 +33,33 @@ public class DialogueEventsManager : MonoBehaviour
             case DialogueEvents.None:
                 break;
             case DialogueEvents.SwitchDialogueSequence:
-                SwitchDialogueSequence();
+                SwitchDialogueSequence.Invoke();
                 break;
             case DialogueEvents.SwitchNextLevelKey:
-                SwitchNextLevelKey();
+                SwitchNextLevelKey.Invoke();
                 break;
             case DialogueEvents.SwitchNextRound:
-                SwitchNextRound();
+                SwitchNextRound.Invoke();
                 break;
             case DialogueEvents.SwitchNextScene:
-                SwitchNextScene();
+                SwitchNextScene.Invoke();
                 break;
             case DialogueEvents.LoadSceneByIndex:
-                LoadSceneByIndex(eventData.intArgument);
+                LoadSceneByIndex.Invoke(eventData.intArgument);  // Invoking with an int argument
                 break;
             case DialogueEvents.StartDebugGame:
-                StartDebugGame();
+                StartDebugGame.Invoke();
+                break;
+            case DialogueEvents.SpeakerJustLied:
+                SpeakerJustLied.Invoke();
+                break;
+            case DialogueEvents.ForgetLies:
+                ForgetLies.Invoke();
                 break;
             // Add more cases for other events
             default:
                 eventData.dialogueEvent = DialogueEvents.None;
                 break;
         }
-    }
-    
-    // Set up events methods as needed
-    void SwitchDialogueSequence()
-    {
-        DialogueSwitcher2 dialogueSwitcher = GetComponent<DialogueSwitcher2>();
-        dialogueSwitcher.SwitchDialogueUnits();
-    }
-    void SwitchNextLevelKey() 
-    {
-        sceneSwitcher.SwitchToNextLevelKey();
-    }
-    void SwitchNextRound() 
-    {
-        sceneSwitcher.SwitchToNextRound();
-    }
-    void SwitchNextScene() 
-    {
-        sceneSwitcher.LoadNextScene();
-    }
-    void LoadSceneByIndex(int sceneIndex)
-    {
-        sceneSwitcher.LoadSceneByIndex(sceneIndex);
-    }
-
-    void StartDebugGame() 
-    {
-        DebugGameManager debugGameManager = FindObjectOfType<DebugGameManager>();
-        if (debugGameManager != null)
-            debugGameManager.StartDebugGame();
-        else
-            Debug.LogWarning("Couldn't find Debug Game Manager");
     }
 }

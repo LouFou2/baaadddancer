@@ -6285,3 +6285,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3aad8fd17897c4db6831b6f4e649c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SwitchDialogueSequence:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7555923998705681100}
+        m_TargetAssemblyTypeName: DialogueSwitcher2, Assembly-CSharp
+        m_MethodName: SwitchDialogueUnits
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  SwitchNextLevelKey:
+    m_PersistentCalls:
+      m_Calls: []
+  SwitchNextRound:
+    m_PersistentCalls:
+      m_Calls: []
+  SwitchNextScene:
+    m_PersistentCalls:
+      m_Calls: []
+  LoadSceneByIndex:
+    m_PersistentCalls:
+      m_Calls: []
+  StartDebugGame:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7210517696203753423}
+        m_TargetAssemblyTypeName: DebugGameManager, Assembly-CSharp
+        m_MethodName: StartDebugGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  SpeakerJustLied:
+    m_PersistentCalls:
+      m_Calls: []
+  ForgetLies:
+    m_PersistentCalls:
+      m_Calls: []

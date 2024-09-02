@@ -36,7 +36,7 @@ public class InfectionManager : MonoBehaviour
             //increase current infection level
             if(characterData.infectionLevel > 0  && !infectedCharacters.Contains(characterData) )
             {
-                characterData.infectionLevel += 1;
+                characterData.infectionLevel += Random.Range(0.1f, 0.25f);
 
                 // Add character to the list of processed characters
                 infectedCharacters.Add(characterData);
@@ -55,8 +55,8 @@ public class InfectionManager : MonoBehaviour
         CharacterData selectedCharacter = eligibleCharacters[randomIndex];
 
         // Infect the selected character
-        selectedCharacter.infectionLevel += 1;
-        if(selectedCharacter.infectionLevel > 16) selectedCharacter.infectionLevel = 16;
+        selectedCharacter.infectionLevel += 0.25f;
+        if (selectedCharacter.infectionLevel > 1) selectedCharacter.infectionLevel = 1; //clamp at max 1
         selectedCharacter.lastCursedCharacter = true;
         //Debug.Log(selectedCharacter.name + " was infected");
     }

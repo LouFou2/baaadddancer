@@ -15,4 +15,6 @@ public enum CharacterStat
 
     SpeakToGroup,
     SpeakToCamera,
+
+    Deception,
 }

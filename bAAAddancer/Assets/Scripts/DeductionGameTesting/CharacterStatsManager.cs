@@ -30,7 +30,9 @@ public class CharacterStatsManager : MonoBehaviour
                 { CharacterStat.LastCursed, characterStats[i].LastCursedInt },
                 { CharacterStat.Influence, characterStats[i].InfluenceInt },
                 { CharacterStat.Perception, characterStats[i].PerceptionInt },
+                { CharacterStat.Deception, characterStats[i].DeceptionInt },
 
+                // Every scene these can start with defaults:
                 { CharacterStat.SpokenAmount, 0 },
                 { CharacterStat.LastSpeaker, -1 },
                 { CharacterStat.LastSpokenTo, -1 },
@@ -53,9 +55,7 @@ public class CharacterStatsManager : MonoBehaviour
         else
         { 
             UpdateCharacterStats();
-        }
-            
-
+        } 
     }
     
     private void SetupNewGameStats()
@@ -68,24 +68,34 @@ public class CharacterStatsManager : MonoBehaviour
     {
         for (int i = 0; i < characterStats.Length; i++) 
         {
-            // we use int values stored in the SOs (because apparently dictionaries in SOs don't carry persistent data so good)
-            // * Im sure theres a better solution but were in it now...
+            /* //Think we probably dont' need the same stats that are initialized, only the special ones...
             ModifyCharacterStat(i, CharacterStat.IsPlayer, characterStats[i].IsPlayerInt);
             ModifyCharacterStat(i, CharacterStat.IsDemon, characterStats[i].IsDemonInt);
 
             ModifyCharacterStat(i, CharacterStat.Influence, characterStats[i].InfluenceInt);
             ModifyCharacterStat(i, CharacterStat.Perception, characterStats[i].PerceptionInt);
+            */
 
-            // The Curse Stats gets handled differently: (because cursing happens between dialogue scenes, and gets stored in characterDataSOs)
-            // The last cursed character:
+            //== The Curse Stats gets handled differently: ==
+            // (because cursing happens between dialogue scenes, and gets stored in characterDataSOs)
+
+            // --The last cursed character:
             ModifyCharacterStat(i, CharacterStat.LastCursed, 0); // reset all 
             if (characterManager.characterDataSOs[i].lastCursedCharacter) 
             {
                 ModifyCharacterStat(i, CharacterStat.LastCursed, 1);
                 characterStats[i].LastCursedInt = 1; //*** just for the sake of debugging (cant see dictionary value in inspector)
-            }    
-            // Cursed Amount:
-            ModifyCharacterStat(i, CharacterStat.Cursed, characterManager.characterDataSOs[i].infectionLevel); //***CHECK THAT THIS CHECKS OUT WITH ALL INFECTION LEVEL REFS!
+            }
+            // --Cursed Amount:
+            if (characterManager.characterDataSOs[i].infectionLevel > 0) 
+            {
+                characterStats[i].CursedInt = 1;
+                ModifyCharacterStat(i, CharacterStat.Cursed, 1);
+            }
+
+                
+            else
+                ModifyCharacterStat(i, CharacterStat.Cursed, 0);
 
         }
     }
@@ -263,5 +273,16 @@ public class CharacterStatsManager : MonoBehaviour
         }
 
         return matchingIndices;
+    }
+
+    public void HandleSpeakerHasLied()
+    {
+        for (int i = 0; i < characterStats.Length; i++) 
+        {
+            if (GetCharacterStats(i)[CharacterStat.LastSpeaker] == 1) 
+            {
+                ModifyCharacterStat(i, CharacterStat.Deception, 1);
+            }
+        }
     }
 }

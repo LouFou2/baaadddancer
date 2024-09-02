@@ -9,6 +9,9 @@ public enum DialogueEvents
     SwitchNextScene,
     LoadSceneByIndex,
     StartDebugGame,
+    SpeakerJustLied,
+    ForgetLies,
+
 }
 
 [System.Serializable]

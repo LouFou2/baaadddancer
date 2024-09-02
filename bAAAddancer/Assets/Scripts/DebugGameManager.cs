@@ -56,11 +56,11 @@ public class DebugGameManager : MonoBehaviour
     {
         int bugsZapped = zapperScript.GetBugZappedAmount();
 
-        float debuggedFactor = 1- ( (float)bugsZapped / bugsRemain );
+        float debuggedFactor = 1 - ( (float)bugsZapped / bugsRemain );
         slider.value = debuggedFactor;
 
-        debuggedCharacterData.infectionLevel = Mathf.CeilToInt(debuggedCharacterData.infectionLevel * debuggedFactor);
-        //debuggedCharacterData.infectionLevel *= debuggedFactor; // DEBGUGGING THE CHARACTER
+        //debuggedCharacterData.infectionLevel = Mathf.CeilToInt(debuggedCharacterData.infectionLevel * debuggedFactor);
+        debuggedCharacterData.infectionLevel *= debuggedFactor; // DEBGUGGING THE CHARACTER
 
         bool endGame = bugSpawnerScript.DebugHasEnded();
         if (endGame) EndDebugGame();

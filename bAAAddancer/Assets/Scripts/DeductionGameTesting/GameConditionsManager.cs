@@ -8,6 +8,7 @@ public class GameConditionsManager : MonoBehaviour
     public void Start()
     {
         SetGameCondition(GameCondition.DialogueLine, 0);
+        SetGameCondition(GameCondition.DeceptionDetected, 0);
     }
 
     public int GetGameCondition(GameCondition gameCondition)
@@ -27,5 +28,15 @@ public class GameConditionsManager : MonoBehaviour
         int currentLine = GetGameCondition(GameCondition.DialogueLine);
         currentLine += 1;
         SetGameCondition(GameCondition.DialogueLine, currentLine);
+    }
+
+    public void HandleLieDetection() 
+    {
+        Debug.Log("Lie Detected, Setting Game Condition");
+        SetGameCondition(GameCondition.DeceptionDetected, 1);
+    }
+    public void ResetLieDetection()
+    {
+        SetGameCondition(GameCondition.DeceptionDetected, 0);
     }
 }

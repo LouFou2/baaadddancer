@@ -2,4 +2,5 @@
 public enum GameCondition
 {
     DialogueLine,
+    DeceptionDetected,
 }

@@ -9,4 +9,5 @@ public class CharacterStatsSO : ScriptableObject
     public int LastCursedInt;
     public int InfluenceInt;
     public int PerceptionInt;
+    public int DeceptionInt;
 }

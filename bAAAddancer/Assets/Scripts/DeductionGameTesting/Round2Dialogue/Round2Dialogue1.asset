@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd40a45f4fb4bb47a9e96a47722ba7c, type: 3}
   m_Name: Round2Dialogue1
   m_EditorClassIdentifier: 
-  levelKey: 6
   sceneDialogueUnits:
   - dialogueText: Did you get rid of the curse?
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 0
+    speakerCriteria:
+    - key: 3
+      value: 0
+    - key: 0
+      value: 0
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -24,11 +29,17 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: I'm fine, all better
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 1
+    speakerCriteria:
+    - key: 3
+      value: 1
+    - key: 2
+      value: 0
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -36,8 +47,48 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
+  - dialogueText: Im fine, all butter
+    gameCriteria:
+    - key: 0
+      value: 1
+    speakerCriteria:
+    - key: 3
+      value: 1
+    - key: 2
+      value: 1
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+    - dialogueEvent: 7
+      intArgument: 0
+  - dialogueText: You don't look quite right though
+    gameCriteria:
+    - key: 0
+      value: 2
+    - key: 1
+      value: 1
+    speakerCriteria:
+    - key: 0
+      value: 0
+    - key: 3
+      value: 0
+    - key: 5
+      value: 2
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+    - dialogueEvent: 0
+      intArgument: 0
   responseNo: I'm not sure...
   responseYes: Yip, all better...
   spokenToCriterion:
@@ -48,9 +99,9 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
-  onPlayerRespondYes:
-    m_PersistentCalls:
-      m_Calls: []
   onPlayerRespondNo:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 0
+    intArgument: 0
+  onPlayerRespondYes:
+  - dialogueEvent: 1
+    intArgument: 0
