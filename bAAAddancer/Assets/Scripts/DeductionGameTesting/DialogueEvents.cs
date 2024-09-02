@@ -8,6 +8,7 @@ public enum DialogueEvents
     SwitchNextRound,
     SwitchNextScene,
     LoadSceneByIndex,
+    StartDebugGame,
 }
 
 [System.Serializable]

@@ -13,4 +13,53 @@ MonoBehaviour:
   m_Name: _IntroDebugQueries
   m_EditorClassIdentifier: 
   levelKey: 5
-  queries: []
+  queries:
+  - identifier: Trust
+    gameCriteria:
+    - key: 0
+      value: 0
+    speakerCriteria:
+    - key: 3
+      value: 1
+  - identifier: UNotDemon
+    gameCriteria:
+    - key: 0
+      value: 1
+    speakerCriteria:
+    - key: 3
+      value: 1
+  - identifier: FigureOut
+    gameCriteria:
+    - key: 0
+      value: 2
+    speakerCriteria:
+    - key: 3
+      value: 1
+  - identifier: AllCursed
+    gameCriteria:
+    - key: 0
+      value: 3
+    speakerCriteria:
+    - key: 3
+      value: 1
+  - identifier: Promise
+    gameCriteria:
+    - key: 0
+      value: 4
+    speakerCriteria:
+    - key: 0
+      value: 1
+  - identifier: Please
+    gameCriteria:
+    - key: 0
+      value: 5
+    speakerCriteria:
+    - key: 3
+      value: 1
+  - identifier: Eliminate
+    gameCriteria:
+    - key: 0
+      value: 6
+    speakerCriteria:
+    - key: 3
+      value: 1

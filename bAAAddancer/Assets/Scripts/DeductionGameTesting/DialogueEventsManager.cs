@@ -40,6 +40,9 @@ public class DialogueEventsManager : MonoBehaviour
             case DialogueEvents.LoadSceneByIndex:
                 LoadSceneByIndex(eventData.intArgument);
                 break;
+            case DialogueEvents.StartDebugGame:
+                StartDebugGame();
+                break;
             // Add more cases for other events
             default:
                 eventData.dialogueEvent = DialogueEvents.None;
@@ -68,5 +71,14 @@ public class DialogueEventsManager : MonoBehaviour
     void LoadSceneByIndex(int sceneIndex)
     {
         sceneSwitcher.LoadSceneByIndex(sceneIndex);
+    }
+
+    void StartDebugGame() 
+    {
+        DebugGameManager debugGameManager = FindObjectOfType<DebugGameManager>();
+        if (debugGameManager != null)
+            debugGameManager.StartDebugGame();
+        else
+            Debug.LogWarning("Couldn't find Debug Game Manager");
     }
 }

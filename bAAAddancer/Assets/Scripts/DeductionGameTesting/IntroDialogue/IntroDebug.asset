@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd40a45f4fb4bb47a9e96a47722ba7c, type: 3}
   m_Name: IntroDebug
   m_EditorClassIdentifier: 
-  levelKey: 5
   sceneDialogueUnits:
   - dialogueText: Listen, I trust you
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 0
+    speakerCriteria:
+    - key: 3
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -24,11 +27,15 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: I don't believe you are the Rave Demon
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 1
+    speakerCriteria:
+    - key: 3
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -36,11 +43,15 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: But you have to figure it out
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 2
+    speakerCriteria:
+    - key: 3
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -48,11 +59,15 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: Or we ALL might cursed
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 3
+    speakerCriteria:
+    - key: 3
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -60,11 +75,15 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: I'll try to figure it out, promise
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 4
+    speakerCriteria:
+    - key: 0
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -72,11 +91,15 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: and please debug
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 5
+    speakerCriteria:
+    - key: 3
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -84,11 +107,15 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: or the others might want to eliminate me
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 6
+    speakerCriteria:
+    - key: 3
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -96,8 +123,8 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   responseNo: 
   responseYes: let's do this
   spokenToCriterion:
@@ -108,9 +135,9 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
-  onPlayerRespondYes:
-    m_PersistentCalls:
-      m_Calls: []
   onPlayerRespondNo:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 0
+    intArgument: 0
+  onPlayerRespondYes:
+  - dialogueEvent: 6
+    intArgument: 0

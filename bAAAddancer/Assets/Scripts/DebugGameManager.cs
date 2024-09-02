@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class DebugGameManager : MonoBehaviour
@@ -16,10 +17,10 @@ public class DebugGameManager : MonoBehaviour
     private Slider slider;
     private int bugsRemain;
 
-    //private DialogueManager dialogueManager;
-
     private CharacterManager characterManager;
     private CharacterData debuggedCharacterData;
+
+    public UnityEvent gameEndEvent;
 
     private void Start()
     {
@@ -80,7 +81,9 @@ public class DebugGameManager : MonoBehaviour
         screen.SetActive(false);
         zapper.SetActive(false);
         debugSliderObject.SetActive(false);
-        //dialogueManager.switchSceneEvent.Invoke(); //***NB HANDLE END OF GAME
+        gameEndEvent.Invoke(); //***NB HANDLE END OF GAME
         ambience.Stop();
+
+
     }
 }
