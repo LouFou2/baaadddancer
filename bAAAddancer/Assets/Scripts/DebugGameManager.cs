@@ -16,7 +16,7 @@ public class DebugGameManager : MonoBehaviour
     private Slider slider;
     private int bugsRemain;
 
-    private DialogueManager dialogueManager;
+    //private DialogueManager dialogueManager;
 
     private CharacterManager characterManager;
     private CharacterData debuggedCharacterData;
@@ -39,7 +39,7 @@ public class DebugGameManager : MonoBehaviour
             }
         }
 
-        dialogueManager = FindObjectOfType<DialogueManager>();
+        //dialogueManager = FindObjectOfType<DialogueManager2>();
 
         bugSpawnerScript = FindObjectOfType<BugSpawner>();
         zapperScript = FindObjectOfType<Zapper>();
@@ -80,7 +80,7 @@ public class DebugGameManager : MonoBehaviour
         screen.SetActive(false);
         zapper.SetActive(false);
         debugSliderObject.SetActive(false);
-        dialogueManager.switchSceneEvent.Invoke();
+        //dialogueManager.switchSceneEvent.Invoke(); //***NB HANDLE END OF GAME
         ambience.Stop();
     }
 }

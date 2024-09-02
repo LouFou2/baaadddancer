@@ -2776,6 +2776,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioCutscenes
       objectReference: {fileID: 0}
+    - target: {fileID: 3612356307558578565, guid: 1cf43c46b95d2994bacaca36d83729d7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3612356307795122275, guid: 1cf43c46b95d2994bacaca36d83729d7,
         type: 3}
       propertyPath: Loop
@@ -6201,8 +6206,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7555923998705681091}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21819764, y: 0.8897301, z: -0.018209368}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6241,12 +6246,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dynamicDialogueSequences:
-  - {fileID: 11400000, guid: ead3022a28bcece43ba5b5cda886a1e3, type: 2}
-  - {fileID: 11400000, guid: decb26dec540d324291afab3b708563c, type: 2}
-  - {fileID: 11400000, guid: 588e06279f6730d4db3c623ea2ae663c, type: 2}
-  - {fileID: 11400000, guid: 66d3c071252200740aa27e7f4bc9c375, type: 2}
+  - {fileID: 11400000, guid: a3d8e5600ce3fda4dbca3048bb15753d, type: 2}
+  - {fileID: 11400000, guid: e521c3fc2f4837c469c99facd18a9e21, type: 2}
+  - {fileID: 11400000, guid: 17c841718be563f45b78a0058f083fba, type: 2}
+  - {fileID: 11400000, guid: 17c841718be563f45b78a0058f083fba, type: 2}
+  - {fileID: 11400000, guid: e68fa02e948f0af41a06b8bdcb9f3365, type: 2}
   queryCriteriaSOs:
-  - {fileID: 11400000, guid: 719fca062e48e074c9e8b688b7f3ded4, type: 2}
+  - {fileID: 11400000, guid: 1305fd7ebc84ff544b5aee8392cff4ed, type: 2}
+  - {fileID: 11400000, guid: 60a207d81bc8a8c48a2a622fe9ca5806, type: 2}
+  - {fileID: 11400000, guid: e904962a9d4f04e4b8ec09663c2881fa, type: 2}
+  - {fileID: 11400000, guid: fa1f2971b4a628045ae24991b027b717, type: 2}
   currentDialogueUnits: {fileID: 0}
   currentSceneQueryCriteria: {fileID: 0}
   currentUnitsIndex: 0
