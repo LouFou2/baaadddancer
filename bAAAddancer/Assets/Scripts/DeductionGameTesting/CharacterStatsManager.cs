@@ -10,18 +10,51 @@ public class CharacterStatsManager : MonoBehaviour
     public int demonIndex = -1;
     public int playerIndex = -1;
 
+    private Dictionary<CharacterStat, int>[] statsDictionaries;
+
+    private void Awake()
+    {
+        InitializeDictionaries();
+    }
+
+    private void InitializeDictionaries()
+    {
+        statsDictionaries = new Dictionary<CharacterStat, int>[characterStats.Length];
+        for (int i = 0; i < characterStats.Length; i++)
+        {
+            statsDictionaries[i] = new Dictionary<CharacterStat, int>
+            {
+                { CharacterStat.IsPlayer, characterStats[i].IsPlayerInt },
+                { CharacterStat.IsDemon, characterStats[i].IsDemonInt },
+                { CharacterStat.Cursed, characterStats[i].CursedInt },
+                { CharacterStat.LastCursed, characterStats[i].LastCursedInt },
+                { CharacterStat.Influence, characterStats[i].InfluenceInt },
+                { CharacterStat.Perception, characterStats[i].PerceptionInt },
+
+                { CharacterStat.SpokenAmount, 0 },
+                { CharacterStat.LastSpeaker, -1 },
+                { CharacterStat.LastSpokenTo, -1 },
+                { CharacterStat.SpeakToGroup, 0 },
+                { CharacterStat.SpeakToCamera, 0 },
+            };
+        }
+    }
+
     private void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
 
         // We set up the stats in the first dialogue scene
         // (After player has been selected and Demon has been assigned)
-        if (GameManager.Instance.GetCurrentLevelKey() == LevelKey.IntroDialogue) 
+        if (GameManager.Instance.GetCurrentLevelKey() == LevelKey.IntroDialogue)
         {
             SetupNewGameStats();
         }
         else
+        { 
             UpdateCharacterStats();
+        }
+            
 
     }
     
@@ -62,18 +95,18 @@ public class CharacterStatsManager : MonoBehaviour
         {
             // Debug logs to check the values in the dictionary before storing them in the SO fields
             Debug.Log($"Storing Character Stats for index {i}:");
-            Debug.Log($"IsPlayer: {characterStats[i].stats[CharacterStat.IsPlayer]}");
-            Debug.Log($"IsDemon: {characterStats[i].stats[CharacterStat.IsDemon]}");
-            Debug.Log($"Cursed: {characterStats[i].stats[CharacterStat.Cursed]}");
-            Debug.Log($"Influence: {characterStats[i].stats[CharacterStat.Influence]}");
-            Debug.Log($"Perception: {characterStats[i].stats[CharacterStat.Perception]}");
+            Debug.Log($"IsPlayer: {statsDictionaries[i][CharacterStat.IsPlayer]}");
+            Debug.Log($"IsDemon: {statsDictionaries[i][CharacterStat.IsDemon]}");
+            Debug.Log($"Cursed: {statsDictionaries[i][CharacterStat.Cursed]}");
+            Debug.Log($"Influence: {statsDictionaries[i][CharacterStat.Influence]}");
+            Debug.Log($"Perception: {statsDictionaries[i][CharacterStat.Perception]}");
 
-            characterStats[i].IsPlayerInt = characterStats[i].stats[CharacterStat.IsPlayer];
-            characterStats[i].IsDemonInt = characterStats[i].stats[CharacterStat.IsDemon];
-            characterStats[i].CursedInt = characterStats[i].stats[CharacterStat.Cursed];
+            characterStats[i].IsPlayerInt = statsDictionaries[i][CharacterStat.IsPlayer];
+            characterStats[i].IsDemonInt = statsDictionaries[i][CharacterStat.IsDemon];
+            characterStats[i].CursedInt = statsDictionaries[i][CharacterStat.Cursed];
             // LastCursed is handled different, as it happens between dialogue scenes
-            characterStats[i].InfluenceInt = characterStats[i].stats[CharacterStat.Influence];
-            characterStats[i].PerceptionInt = characterStats[i].stats[CharacterStat.Perception];
+            characterStats[i].InfluenceInt = statsDictionaries[i][CharacterStat.Influence];
+            characterStats[i].PerceptionInt = statsDictionaries[i][CharacterStat.Perception];
 
             // Debug logs to confirm the values were stored correctly
             Debug.Log($"Stored IsPlayerInt: {characterStats[i].IsPlayerInt}");
@@ -122,13 +155,13 @@ public class CharacterStatsManager : MonoBehaviour
 
             if (index == playerIndex)
             {
-                characterStats[index].stats[CharacterStat.IsPlayer] = 1;
+                statsDictionaries[index][CharacterStat.IsPlayer] = 1;
                 //Debug.Log($"Character {index}: IsPlayer assigned to {characterStats[index].stats[CharacterStat.IsPlayer]}");
                 characterStats[index].IsPlayerInt = 1;
             }
             if (index == demonIndex)
             {
-                characterStats[index].stats[CharacterStat.IsDemon] = 1;
+                statsDictionaries[index][CharacterStat.IsDemon] = 1;
                 //Debug.Log($"Character {index}: IsDemon assigned to {characterStats[index].stats[CharacterStat.IsDemon]}");
                 characterStats[index].IsDemonInt = 1;
             }
@@ -172,10 +205,10 @@ public class CharacterStatsManager : MonoBehaviour
                 influence = 1; // Default random assignment if no specific criteria (** so leaving the final pair again for "middle" stat)
             }
 
-            characterStats[index].stats[CharacterStat.Influence] = influence;
+            statsDictionaries[index][CharacterStat.Influence] = influence;
             //Debug.Log($"Character {index}: Influence assigned to {characterStats[index].stats[CharacterStat.Influence]}");
             characterStats[index].InfluenceInt = influence; // just so I can see in inspector
-            characterStats[index].stats[CharacterStat.Perception] = perception;
+            statsDictionaries[index][CharacterStat.Perception] = perception;
             //Debug.Log($"Character {index}: Perception assigned to {characterStats[index].stats[CharacterStat.Perception]}");
             characterStats[index].PerceptionInt = perception;
         }
@@ -185,7 +218,7 @@ public class CharacterStatsManager : MonoBehaviour
     {
         if (index >= 0 && index < characterStats.Length)
         {
-            return characterStats[index].stats;
+            return statsDictionaries[index];
         }
         return null;
     }
@@ -193,9 +226,9 @@ public class CharacterStatsManager : MonoBehaviour
     {
         if (characterIndex >= 0 && characterIndex < characterStats.Length)
         {
-            if (characterStats[characterIndex].stats.ContainsKey(characterStat))
+            if (statsDictionaries[characterIndex].ContainsKey(characterStat))
             {
-                characterStats[characterIndex].stats[characterStat] = newValue;
+                statsDictionaries[characterIndex][characterStat] = newValue;
 
                 //Debug.Log($"Character {characterIndex}: {characterStat} updated to {characterStats[characterIndex].stats[characterStat]}");
             }
@@ -215,7 +248,7 @@ public class CharacterStatsManager : MonoBehaviour
             foreach (var criterion in queryCriteria)
             {
                 //Debug.Log("Checking criterion: " + criterion.Key + " with value: " + criterion.Value);
-                if (!characterStats[i].stats.ContainsKey(criterion.Key) || characterStats[i].stats[criterion.Key] != criterion.Value)
+                if (!statsDictionaries[i].ContainsKey(criterion.Key) || statsDictionaries[i][criterion.Key] != criterion.Value)
                 {
                     match = false;
                     //Debug.Log("Criterion does not match for character index: " + i);

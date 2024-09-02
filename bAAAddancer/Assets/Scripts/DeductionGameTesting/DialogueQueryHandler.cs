@@ -396,7 +396,7 @@ public class DialogueQueryHandler : MonoBehaviour
             currentDialogueUnit.playerCamZoom,
             currentDialogueUnit.playerCamShake);
 
-        characterStatsManager.StoreCharacterStats();
+        //characterStatsManager.StoreCharacterStats();
     }
     
     private void HandleCinematography(CameraDirections camera, CameraDirections distance, CameraDirections angle, CameraDirections zoom, CameraDirections shake)
