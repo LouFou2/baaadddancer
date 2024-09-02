@@ -9,16 +9,7 @@ public class CharacterStatsSO : ScriptableObject
     public int CursedInt = 0;
     public int LastCursedInt = 0;
     public int InfluenceInt = 0;
-    public int Perceptionint = 0;
-
-    //*** DONT THINK I NEED PERSISTENT DATA FOR SPEAKER INFO
-    /*
-    public int SpokenAmountInt = 0;
-    public int LastSpeakerInt = 0;
-    public int LastSpokenToInt = 0;
-    public int SpeakToGroupInt = 0;
-    public int SpeakToCameraInt = 0;
-    */
+    public int PerceptionInt = 0;
 
     public Dictionary<CharacterStat, int> stats = new Dictionary<CharacterStat, int>
     {

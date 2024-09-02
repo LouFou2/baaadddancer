@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelKey: 4
   queries:
-  - identifier: CursedMe1
+  - identifier: SomeoneCursed
     gameCriteria:
     - key: 0
       value: 0
@@ -35,20 +35,20 @@ MonoBehaviour:
     speakerCriteria:
     - key: 0
       value: 1
-  - identifier: CurseOfRaveDemon
+  - identifier: CORD
     gameCriteria:
     - key: 0
       value: 3
     speakerCriteria:
     - key: 5
       value: 2
-  - identifier: SomeoneOnTeam
+  - identifier: Someone
     gameCriteria:
     - key: 0
       value: 4
     speakerCriteria:
     - key: 5
-      value: 2
+      value: 1
   - identifier: Posessed
     gameCriteria:
     - key: 0
@@ -56,21 +56,21 @@ MonoBehaviour:
     speakerCriteria:
     - key: 5
       value: 1
-  - identifier: CursedMe2
+  - identifier: CursedMe
     gameCriteria:
     - key: 0
       value: 6
     speakerCriteria:
     - key: 3
       value: 1
-  - identifier: DoSomething
+  - identifier: CanDo
     gameCriteria:
     - key: 0
       value: 7
     speakerCriteria:
     - key: 0
       value: 1
-  - identifier: DebugMe
+  - identifier: Debug
     gameCriteria:
     - key: 0
       value: 8

@@ -129,7 +129,7 @@ public class DialogueQueryHandler : MonoBehaviour
     {
         if (queryQueue.Count > 0)
         {
-            Debug.Log(queryQueue.Count + " queries in queue");
+            //Debug.Log(queryQueue.Count + " queries in queue");
             var query = queryQueue.Dequeue();
             RunQuery(query);
         }
@@ -395,6 +395,8 @@ public class DialogueQueryHandler : MonoBehaviour
             currentDialogueUnit.playerCamAngle,
             currentDialogueUnit.playerCamZoom,
             currentDialogueUnit.playerCamShake);
+
+        characterStatsManager.StoreCharacterStats();
     }
     
     private void HandleCinematography(CameraDirections camera, CameraDirections distance, CameraDirections angle, CameraDirections zoom, CameraDirections shake)
