@@ -69,14 +69,6 @@ public class CharacterStatsManager : MonoBehaviour
     {
         for (int i = 0; i < characterStats.Length; i++) 
         {
-            /* //Think we probably dont' need the same stats that are initialized, only the special ones...
-            ModifyCharacterStat(i, CharacterStat.IsPlayer, characterStats[i].IsPlayerInt);
-            ModifyCharacterStat(i, CharacterStat.IsDemon, characterStats[i].IsDemonInt);
-
-            ModifyCharacterStat(i, CharacterStat.Influence, characterStats[i].InfluenceInt);
-            ModifyCharacterStat(i, CharacterStat.Perception, characterStats[i].PerceptionInt);
-            */
-
             //== The Curse Stats gets handled differently: ==
             // (because cursing happens between dialogue scenes, and gets stored in characterDataSOs)
 
@@ -100,7 +92,7 @@ public class CharacterStatsManager : MonoBehaviour
 
         }
     }
-    public void StoreCharacterStats() 
+    public void StoreCharacterStats()  //***PROBABLY DONT NEED THIS
     {
         for (int i = 0; i < characterStats.Length; i++) 
         {
