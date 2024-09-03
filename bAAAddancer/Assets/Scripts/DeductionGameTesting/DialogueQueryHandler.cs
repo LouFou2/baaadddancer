@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Linq;
 
 public class DialogueQueryHandler : MonoBehaviour
 {
@@ -159,6 +160,13 @@ public class DialogueQueryHandler : MonoBehaviour
             RunNextQuery();
             return;
         }
+        // Is there generally a matching Speaker?
+        if (!IsSpeakerMatch(query.speakerCriteria))
+        {
+            Debug.Log("No matching speaker, skipping to the next query.");
+            RunNextQuery();
+            return;
+        }
 
         button0.gameObject.SetActive(false);
         button0Text.text = string.Empty;
@@ -305,6 +313,49 @@ public class DialogueQueryHandler : MonoBehaviour
             }
         }
         return true;
+    }
+    private bool IsSpeakerMatch(List<CharCriterion> speakerQueryCriteria)
+    {
+        List<List<int>> allMatchingIndices = new List<List<int>>(); // A list of lists... *
+
+        for (int i = 0; i < speakerQueryCriteria.Count; i++) 
+        {
+            var criteriaDictionary = new Dictionary<CharacterStat, int>
+            {
+                { speakerQueryCriteria[i].key, speakerQueryCriteria[i].value }
+            };
+            Debug.Log($"checking speakercriteria{i} K: {speakerQueryCriteria[i].key} V: {speakerQueryCriteria[i].value}");
+            List<int> matchingSpeakersIndices = characterStatsManager.GetMatchingCharacterIndices(criteriaDictionary);
+
+            if (matchingSpeakersIndices.Count == 0)
+            {
+                Debug.Log("No matching index found.");
+                return false;                           // exit early if criteria finds no match
+            }
+
+            Debug.Log($"potential matches for criterion {i}");
+            allMatchingIndices.Add(matchingSpeakersIndices);
+        }
+        // Find the common indices that are present in all lists
+        List<int> commonIndices = new List<int>(allMatchingIndices[0]); //starts with the first list in our list of lists *
+
+        for (int i = 1; i < allMatchingIndices.Count; i++)
+        {
+            commonIndices = commonIndices.Intersect(allMatchingIndices[i]).ToList();
+            if (commonIndices.Count == 0)
+            {
+                Debug.Log("No common index found across all criteria.");
+                return false; // Return false if no index is common across all criteria
+            }
+        }
+        // If there are common indices, it means we have a speaker that matches all criteria
+        if (commonIndices.Count > 0)
+        {
+            Debug.Log("Found common index: " + commonIndices[0]);
+            return true; // Return true if there is at least one common index
+        }
+
+        return false; // Return false if no common indices found
     }
 
     private bool IsSpeakerCriteriaMatchInUnit(DynamicDialogueUnits.DialogueUnit unit, Dictionary<CharacterStat, int> speakerQueryCriteria)

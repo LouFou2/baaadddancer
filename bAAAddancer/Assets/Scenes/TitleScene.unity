@@ -4553,6 +4553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1976710550}
   - component: {fileID: 1976710549}
+  - component: {fileID: 1976710551}
   m_Layer: 0
   m_Name: CharacterManager
   m_TagString: Untagged
@@ -4597,6 +4598,28 @@ Transform:
   m_Father: {fileID: 238173833}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1976710551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976710548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024df188ae7c75a4da09310d014ccdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterManager: {fileID: 0}
+  characterStats:
+  - {fileID: 11400000, guid: bf07d1c44da722749be7464a2cf2031c, type: 2}
+  - {fileID: 11400000, guid: 38d7d65d3eecfc74ebf61d6ed541f2ba, type: 2}
+  - {fileID: 11400000, guid: 625f4c9596a422f42ab0b74d893bb6f0, type: 2}
+  - {fileID: 11400000, guid: ab071bf766bb0e74ca8adce043843024, type: 2}
+  - {fileID: 11400000, guid: fff83e3ef08745746bcb1711dd6bde98, type: 2}
+  - {fileID: 11400000, guid: cf398b03e0f02a94a91b9e1951fec279, type: 2}
+  demonIndex: -1
+  playerIndex: -1
 --- !u!1 &1998198396 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4605507234340117936, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,

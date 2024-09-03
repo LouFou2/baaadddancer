@@ -246,12 +246,39 @@ public class CharacterStatsManager : MonoBehaviour
                 Debug.LogWarning("no valid stat " + characterStat + " to modify");
         }
     }
+    public int GetFirstMatchingIndex(Dictionary<CharacterStat, int> queryCriteria)
+    {
+        for (int i = 0; i < statsDictionaries.Length; i++)
+        {
+            bool match = true;
+            //Debug.Log("Checking character index: " + i);
+
+            foreach (var criterion in queryCriteria)
+            {
+                //Debug.Log("Checking criterion: " + criterion.Key + " with value: " + criterion.Value);
+                if (!statsDictionaries[i].ContainsKey(criterion.Key) || statsDictionaries[i][criterion.Key] != criterion.Value)
+                {
+                    match = false;
+                    //Debug.Log("Criterion does not match for character index: " + i);
+                    break;
+                }
+            }
+
+            if (match)
+            {
+                //Debug.Log("Found match: " + i);
+                return i; // Return the first matching index
+            }
+        }
+
+        return -1; // Return -1 if no match is found
+    }
 
     public List<int> GetMatchingCharacterIndices(Dictionary<CharacterStat, int> queryCriteria)
     {
         List<int> matchingIndices = new List<int>();
 
-        for (int i = 0; i < characterStats.Length; i++)
+        for (int i = 0; i < statsDictionaries.Length; i++)
         {
             bool match = true;
             //Debug.Log("Checking character index: " + i);
