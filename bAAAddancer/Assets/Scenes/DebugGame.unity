@@ -6238,17 +6238,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02d93e1081dadb46a472f12d573db4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dynamicDialogueSequences:
+  dialogueAndQuerySequences:
   - {fileID: 11400000, guid: a3d8e5600ce3fda4dbca3048bb15753d, type: 2}
   - {fileID: 11400000, guid: e521c3fc2f4837c469c99facd18a9e21, type: 2}
   - {fileID: 11400000, guid: 17c841718be563f45b78a0058f083fba, type: 2}
-  - {fileID: 11400000, guid: 17c841718be563f45b78a0058f083fba, type: 2}
   - {fileID: 11400000, guid: e68fa02e948f0af41a06b8bdcb9f3365, type: 2}
-  queryCriteriaSOs:
-  - {fileID: 11400000, guid: 1305fd7ebc84ff544b5aee8392cff4ed, type: 2}
-  - {fileID: 11400000, guid: 60a207d81bc8a8c48a2a622fe9ca5806, type: 2}
-  - {fileID: 11400000, guid: e904962a9d4f04e4b8ec09663c2881fa, type: 2}
-  - {fileID: 11400000, guid: fa1f2971b4a628045ae24991b027b717, type: 2}
   currentDialogueUnits: {fileID: 0}
   currentSceneQueryCriteria: {fileID: 0}
   currentUnitsIndex: 0
@@ -6331,5 +6325,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   ForgetLies:
+    m_PersistentCalls:
+      m_Calls: []
+  IncrementTeamCurse:
     m_PersistentCalls:
       m_Calls: []

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CharacterManager : MonoBehaviour
 {
@@ -15,7 +14,8 @@ public class CharacterManager : MonoBehaviour
 
         for (int i = 0; i < characters.Length; i++)
         {
-            CharacterProfile characterProfile = characters[i].GetComponent<CharacterProfile>();
+            // We use the scriptable objects attached to each character
+            CharacterProfile characterProfile = characters[i].GetComponent<CharacterProfile>(); 
 
             if (characterProfile != null)
             {
@@ -35,5 +35,4 @@ public class CharacterManager : MonoBehaviour
             }
         }
     }
-
 }

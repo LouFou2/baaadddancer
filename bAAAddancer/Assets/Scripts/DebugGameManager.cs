@@ -35,7 +35,7 @@ public class DebugGameManager : MonoBehaviour
             if (characterData.infectionLevel > 0 && !characterData.wasDebuggedLastRound)
             {
                 character.SetActive(true);
-                characterData.wasDebuggedLastRound = true;
+                //characterData.wasDebuggedLastRound = true;
                 debuggedCharacterData = characterManager.characterDataSOs[i];
             }
         }
@@ -78,12 +78,11 @@ public class DebugGameManager : MonoBehaviour
 
     public void EndDebugGame() 
     {
+        debuggedCharacterData.wasDebuggedLastRound = true;
         screen.SetActive(false);
         zapper.SetActive(false);
         debugSliderObject.SetActive(false);
         gameEndEvent.Invoke(); //***NB HANDLE END OF GAME
         ambience.Stop();
-
-
     }
 }

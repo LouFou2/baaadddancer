@@ -100,7 +100,9 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
-    onDialogueTriggered: []
+    onDialogueTriggered:
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: That means we need some killer moves...
     gameCriteria:
     - key: 0

@@ -46,24 +46,19 @@ public class CharacterStatsManager : MonoBehaviour
     {
         characterManager = FindObjectOfType<CharacterManager>();
 
+        SetPlayerIndex();
+        SetDemonIndex();
+
         // We set up the stats in the first dialogue scene
         // (After player has been selected and Demon has been assigned)
         if (GameManager.Instance.GetCurrentLevelKey() == LevelKey.IntroDialogue)
         {
-            SetupNewGameStats();
+            AssignCharacterStats();
         }
         else
         { 
             UpdateCharacterStats();
         }
-
-        SetPlayerIndex();
-        SetDemonIndex();
-    }
-
-    private void SetupNewGameStats()
-    {
-        AssignCharacterStats();
     }
     private void UpdateCharacterStats() 
     {
@@ -84,12 +79,9 @@ public class CharacterStatsManager : MonoBehaviour
             {
                 characterStats[i].CursedInt = 1;
                 ModifyCharacterStat(i, CharacterStat.Cursed, 1);
-            }
-
-                
+            }    
             else
                 ModifyCharacterStat(i, CharacterStat.Cursed, 0);
-
         }
     }
     public void StoreCharacterStats()  //***PROBABLY DONT NEED THIS
@@ -132,6 +124,19 @@ public class CharacterStatsManager : MonoBehaviour
 
     private void AssignCharacterStats()
     {
+        // first lets reset some stats:
+        for (int i = 0; i < characterStats.Length; i++) 
+        {
+            ModifyCharacterStat(i, CharacterStat.Cursed, 0);
+            characterStats[i].CursedInt = 0;
+            ModifyCharacterStat(i, CharacterStat.LastCursed, 0);
+            characterStats[i].LastCursedInt = 0;
+            ModifyCharacterStat(i, CharacterStat.Deception, 0);
+            characterStats[i].DeceptionInt = 0;
+        }
+
+        // == Now Assign the basic stats == 
+
         List<int> indices = new List<int>();
         for (int i = 0; i < characterStats.Length; i++)
         {
@@ -301,7 +306,9 @@ public class CharacterStatsManager : MonoBehaviour
         {
             if (GetCharacterStats(i)[CharacterStat.LastSpeaker] == 1) 
             {
-                ModifyCharacterStat(i, CharacterStat.Deception, 1);
+                int deceptionValue = GetCharacterStats(i)[CharacterStat.Deception];
+                ModifyCharacterStat(i, CharacterStat.Deception, deceptionValue + 1);
+                characterStats[i].DeceptionInt += 1;
             }
         }
     }

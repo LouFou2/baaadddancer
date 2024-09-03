@@ -83,6 +83,86 @@ MonoBehaviour:
     onDialogueTriggered:
     - dialogueEvent: 0
       intArgument: 0
+  - dialogueText: What if I don't WANT to GET GOOD?
+    gameCriteria:
+    - key: 0
+      value: 4
+    - key: 2
+      value: 1
+    speakerCriteria:
+    - key: 3
+      value: 1
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+    - dialogueEvent: 0
+      intArgument: 0
+  - dialogueText: I'm just glad we can get on with it
+    gameCriteria:
+    - key: 0
+      value: 4
+    - key: 2
+      value: 0
+    speakerCriteria:
+    - key: 3
+      value: 1
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+    - dialogueEvent: 0
+      intArgument: 0
+  - dialogueText: You're freaking me out!
+    gameCriteria:
+    - key: 0
+      value: 5
+    - key: 2
+      value: 1
+    speakerCriteria:
+    - key: 3
+      value: 0
+    - key: 0
+      value: 0
+    - key: 4
+      value: 1
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+    - dialogueEvent: 0
+      intArgument: 0
+  - dialogueText: Yay let's get good!
+    gameCriteria:
+    - key: 0
+      value: 5
+    - key: 2
+      value: 0
+    speakerCriteria:
+    - key: 3
+      value: 0
+    - key: 0
+      value: 0
+    - key: 4
+      value: 1
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+    - dialogueEvent: 0
+      intArgument: 0
   responseNo: 
   responseYes: Let's just keep practicing
   spokenToCriterion:
@@ -97,5 +177,7 @@ MonoBehaviour:
   - dialogueEvent: 0
     intArgument: 0
   onPlayerRespondYes:
-  - dialogueEvent: 0
+  - dialogueEvent: 2
+    intArgument: 0
+  - dialogueEvent: 4
     intArgument: 0

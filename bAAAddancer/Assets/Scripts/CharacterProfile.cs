@@ -1,13 +1,15 @@
 using UnityEngine;
 
+// === This script literally only exists so we can attach the scriptable object to the character
 public class CharacterProfile : MonoBehaviour
 {
     public CharacterData characterDataSO;
 
+    /*
     public bool isPlayer = false;
     public bool isNPC = false;
     public bool isBug = false;
-
+    
     private void Update()
     {
         if (characterDataSO != null) 
@@ -31,5 +33,6 @@ public class CharacterProfile : MonoBehaviour
     {
         isBug = true;
         characterDataSO.characterRoleSelect = CharacterData.CharacterRole.Demon;
-    }
+    }*/
+    // ***PRETTY SURE THIS STUFF IS NEVER USED...
 }

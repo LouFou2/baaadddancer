@@ -5550,6 +5550,12 @@ MonoBehaviour:
   SpeakerJustLied:
     m_PersistentCalls:
       m_Calls: []
+  ForgetLies:
+    m_PersistentCalls:
+      m_Calls: []
+  IncrementTeamCurse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7555923999160777186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5562,16 +5568,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02d93e1081dadb46a472f12d573db4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dynamicDialogueSequences:
+  dialogueAndQuerySequences:
   - {fileID: 11400000, guid: 41da9acf3b799874eab92fb135259b1d, type: 2}
   - {fileID: 11400000, guid: 90910f64fe2192e4e9e49b484a258de9, type: 2}
   - {fileID: 11400000, guid: 52109c3e0111dca4db8cb1a1123f3821, type: 2}
   - {fileID: 11400000, guid: 35baf4038ff83fa4881a79fd5e4c83d7, type: 2}
-  queryCriteriaSOs:
-  - {fileID: 11400000, guid: 2f03fca8c79a84e42b0cd295db977122, type: 2}
-  - {fileID: 11400000, guid: fb89eb5d3b00b6444acd0ff543ea1587, type: 2}
-  - {fileID: 11400000, guid: 235fbfc42ea1a06418d0723702a926b4, type: 2}
-  - {fileID: 11400000, guid: f22f8640dffa55c42933435f0a841a11, type: 2}
   currentDialogueUnits: {fileID: 0}
   currentSceneQueryCriteria: {fileID: 0}
   currentUnitsIndex: 0
