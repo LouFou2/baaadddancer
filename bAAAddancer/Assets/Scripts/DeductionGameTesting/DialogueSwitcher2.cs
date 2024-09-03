@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class DialogueSwitcher2 : MonoBehaviour //***RENAME TO DIEALOGUE SWITCHER WHEN FULL REPLACEMENT HAS BEEN IMPLEMENT
 {
-    [Tooltip("The scriptable objects with the sequences of dynamic dialogue units, for all rounds of this scene")]
-    public DynamicDialogueSequence[] dynamicDialogueSequences;
-    [Tooltip("The query criteria scriptable objects, for all rounds of this scene")]
-    public DialogueQueryCriteria[] queryCriteriaSOs;
+    [Tooltip("The scriptable objects with the sequences of dialogue units, as well as sequences of queries, for all rounds of this scene")]
+    public DialogueAndQuerySequence[] dialogueAndQuerySequences;
 
-    private DynamicDialogueSequence currentSceneDialogueSequence;
+    private DialogueAndQuerySequence currentSceneDialogueSequence;
+
     public DynamicDialogueUnits currentDialogueUnits;
-
     public DialogueQueryCriteria currentSceneQueryCriteria;
 
     private LevelKey currentLevelKey;
@@ -21,22 +19,16 @@ public class DialogueSwitcher2 : MonoBehaviour //***RENAME TO DIEALOGUE SWITCHER
     {
         currentLevelKey = GameManager.Instance.GetCurrentLevelKey();
 
-        foreach (DynamicDialogueSequence sequence in dynamicDialogueSequences) 
+        foreach (DialogueAndQuerySequence sequence in dialogueAndQuerySequences) 
         {
             if (sequence.levelKey == currentLevelKey)
             {
                 currentSceneDialogueSequence = sequence;
             }
         }
-        foreach (DialogueQueryCriteria queryCritera in queryCriteriaSOs) 
-        {
-            if (queryCritera.levelKey == currentLevelKey)
-            {
-                currentSceneQueryCriteria = queryCritera;
-            }
-        }
 
         currentDialogueUnits = currentSceneDialogueSequence.dynamicDialogueUnits[0];
+        currentSceneQueryCriteria = currentSceneDialogueSequence.dialogueQueries[0];
 
         currentUnitsIndex = 0; //***Not sure this is necesarry, as it is set to 0 in declaration?
     }
@@ -46,5 +38,6 @@ public class DialogueSwitcher2 : MonoBehaviour //***RENAME TO DIEALOGUE SWITCHER
     {
         currentUnitsIndex += 1;
         currentDialogueUnits = currentSceneDialogueSequence.dynamicDialogueUnits[currentUnitsIndex];
+        currentSceneQueryCriteria = currentSceneDialogueSequence.dialogueQueries[currentUnitsIndex];
     }
 }

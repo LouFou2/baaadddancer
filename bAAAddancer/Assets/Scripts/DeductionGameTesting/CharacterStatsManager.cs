@@ -55,13 +55,14 @@ public class CharacterStatsManager : MonoBehaviour
         else
         { 
             UpdateCharacterStats();
-        } 
-    }
-    
-    private void SetupNewGameStats()
-    {
+        }
+
         SetPlayerIndex();
         SetDemonIndex();
+    }
+
+    private void SetupNewGameStats()
+    {
         AssignCharacterStats();
     }
     private void UpdateCharacterStats() 

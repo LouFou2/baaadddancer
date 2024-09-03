@@ -56,9 +56,9 @@ public class DialogueQueryHandler : MonoBehaviour
         dialogueSwitcher = GetComponent<DialogueSwitcher2>();
         dialogueEventsManager = GetComponent<DialogueEventsManager>();
 
-        currentDialogueUnit = dialogueSwitcher.currentDialogueUnits;
+        //currentDialogueUnit = dialogueSwitcher.currentDialogueUnits;
         
-        currentQueryCriteria = dialogueSwitcher.currentSceneQueryCriteria;
+        //currentQueryCriteria = dialogueSwitcher.currentSceneQueryCriteria;
 
         button0Text = button0.GetComponentInChildren<TextMeshProUGUI>();
         button1Text = button1.GetComponentInChildren<TextMeshProUGUI>();
@@ -118,24 +118,28 @@ public class DialogueQueryHandler : MonoBehaviour
     {
         button1clicked = true;
     }
-    private void InitializeQueryQueue()
+    public void InitializeQueryQueue()
     {
+        currentQueryCriteria = dialogueSwitcher.currentSceneQueryCriteria;
+        currentDialogueUnit = dialogueSwitcher.currentDialogueUnits;
+
         foreach (var query in currentQueryCriteria.queries)
         {
             queryQueue.Enqueue(query);
         }
     }
 
-    private void RunNextQuery()
+    public void RunNextQuery()
     {
         if (queryQueue.Count > 0)
         {
-            //Debug.Log(queryQueue.Count + " queries in queue");
+            Debug.Log(queryQueue.Count + " queries in queue");
             var query = queryQueue.Dequeue();
             RunQuery(query);
         }
         else
         {
+            Debug.Log("Player Response");
             HandlePlayerResponse();
         }
     }
@@ -324,16 +328,16 @@ public class DialogueQueryHandler : MonoBehaviour
             {
                 { speakerQueryCriteria[i].key, speakerQueryCriteria[i].value }
             };
-            Debug.Log($"checking speakercriteria{i} K: {speakerQueryCriteria[i].key} V: {speakerQueryCriteria[i].value}");
+            //Debug.Log($"checking speakercriteria{i} K: {speakerQueryCriteria[i].key} V: {speakerQueryCriteria[i].value}");
             List<int> matchingSpeakersIndices = characterStatsManager.GetMatchingCharacterIndices(criteriaDictionary);
 
             if (matchingSpeakersIndices.Count == 0)
             {
-                Debug.Log("No matching index found.");
+                //Debug.Log("No matching index found.");
                 return false;                           // exit early if criteria finds no match
             }
 
-            Debug.Log($"potential matches for criterion {i}");
+           // Debug.Log($"potential matches for criterion {i}");
             allMatchingIndices.Add(matchingSpeakersIndices);
         }
         // Find the common indices that are present in all lists
@@ -344,14 +348,14 @@ public class DialogueQueryHandler : MonoBehaviour
             commonIndices = commonIndices.Intersect(allMatchingIndices[i]).ToList();
             if (commonIndices.Count == 0)
             {
-                Debug.Log("No common index found across all criteria.");
+                //Debug.Log("No common index found across all criteria.");
                 return false; // Return false if no index is common across all criteria
             }
         }
         // If there are common indices, it means we have a speaker that matches all criteria
         if (commonIndices.Count > 0)
         {
-            Debug.Log("Found common index: " + commonIndices[0]);
+            //Debug.Log("Found common index: " + commonIndices[0]);
             return true; // Return true if there is at least one common index
         }
 

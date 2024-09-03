@@ -1968,16 +1968,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02d93e1081dadb46a472f12d573db4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dynamicDialogueSequences:
+  dialogueAndQuerySequences:
   - {fileID: 11400000, guid: ead3022a28bcece43ba5b5cda886a1e3, type: 2}
   - {fileID: 11400000, guid: decb26dec540d324291afab3b708563c, type: 2}
   - {fileID: 11400000, guid: 588e06279f6730d4db3c623ea2ae663c, type: 2}
   - {fileID: 11400000, guid: 66d3c071252200740aa27e7f4bc9c375, type: 2}
-  queryCriteriaSOs:
-  - {fileID: 11400000, guid: 719fca062e48e074c9e8b688b7f3ded4, type: 2}
-  - {fileID: 11400000, guid: ae3772fc6f01b944bb56dcc32c6ac068, type: 2}
-  - {fileID: 11400000, guid: 78fa6cb33c8f109479a7f58322d141a1, type: 2}
-  - {fileID: 11400000, guid: 47045275d91d3bf4a9f608944de4acc5, type: 2}
   currentDialogueUnits: {fileID: 0}
   currentSceneQueryCriteria: {fileID: 0}
   currentUnitsIndex: 0
@@ -1999,6 +1994,30 @@ MonoBehaviour:
       - m_Target: {fileID: 1182487289}
         m_TargetAssemblyTypeName: DialogueSwitcher2, Assembly-CSharp
         m_MethodName: SwitchDialogueUnits
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1182487288}
+        m_TargetAssemblyTypeName: DialogueQueryHandler, Assembly-CSharp
+        m_MethodName: InitializeQueryQueue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1182487288}
+        m_TargetAssemblyTypeName: DialogueQueryHandler, Assembly-CSharp
+        m_MethodName: RunNextQuery
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2104,6 +2123,21 @@ MonoBehaviour:
       - m_Target: {fileID: 681865257}
         m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
         m_MethodName: ResetLieDetection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  IncrementTeamCurse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 681865257}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: IncrementTeamCursedAmount
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

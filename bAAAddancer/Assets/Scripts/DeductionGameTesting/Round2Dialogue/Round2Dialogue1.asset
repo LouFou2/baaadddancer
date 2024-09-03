@@ -67,6 +67,8 @@ MonoBehaviour:
     onDialogueTriggered:
     - dialogueEvent: 7
       intArgument: 0
+    - dialogueEvent: 9
+      intArgument: 0
   - dialogueText: You don't look quite right though
     gameCriteria:
     - key: 0
@@ -89,8 +91,8 @@ MonoBehaviour:
     onDialogueTriggered:
     - dialogueEvent: 0
       intArgument: 0
-  responseNo: I'm not sure...
-  responseYes: Yip, all better...
+  responseNo: I think I missed a bug or two...
+  responseYes: I got all the bugs!
   spokenToCriterion:
     key: 9
     value: 1
@@ -100,7 +102,9 @@ MonoBehaviour:
   playerCamZoom: 0
   playerCamShake: 0
   onPlayerRespondNo:
-  - dialogueEvent: 0
+  - dialogueEvent: 8
+    intArgument: 0
+  - dialogueEvent: 1
     intArgument: 0
   onPlayerRespondYes:
   - dialogueEvent: 1

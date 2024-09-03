@@ -11,7 +11,7 @@ public class DialogueQueryCriteria : ScriptableObject
         public List<GameCriterion> gameCriteria = new List<GameCriterion>(); 
         public List<CharCriterion> speakerCriteria = new List<CharCriterion>(); 
     }
-    public LevelKey levelKey;
+    //public LevelKey levelKey;
     public List<Query> queries = new List<Query>();
 }
 

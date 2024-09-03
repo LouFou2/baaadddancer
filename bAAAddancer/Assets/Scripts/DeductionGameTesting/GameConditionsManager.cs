@@ -20,7 +20,7 @@ public class GameConditionsManager : MonoBehaviour
     public void SetGameCondition(GameCondition condition, int value)
     {
         gameConditions[condition] = value;
-        //Debug.Log("GameCondition " + condition + " set to value: " + value);
+        Debug.Log("GameCondition " + condition + " set to value: " + value);
     }
 
     public void IncrementDialogueLine() 
@@ -38,5 +38,11 @@ public class GameConditionsManager : MonoBehaviour
     public void ResetLieDetection()
     {
         SetGameCondition(GameCondition.DeceptionDetected, 0);
+    }
+    public void IncrementTeamCursedAmount() 
+    {
+        int teamCursedAmount = GetGameCondition(GameCondition.TeamCursedAmount);
+        teamCursedAmount += 1;
+        SetGameCondition(GameCondition.TeamCursedAmount, teamCursedAmount);
     }
 }

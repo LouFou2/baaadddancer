@@ -13,9 +13,19 @@ MonoBehaviour:
   m_Name: Round2Dialogue2
   m_EditorClassIdentifier: 
   sceneDialogueUnits:
-  - dialogueText: Well time is ticking, we need more moves
-    gameCriteria: []
-    speakerCriteria: []
+  - dialogueText: I'm not sure I believe you...
+    gameCriteria:
+    - key: 0
+      value: 3
+    - key: 1
+      value: 1
+    speakerCriteria:
+    - key: 0
+      value: 0
+    - key: 3
+      value: 0
+    - key: 5
+      value: 2
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -23,11 +33,23 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
-  - dialogueText: I'm just a bit freaked out
-    gameCriteria: []
-    speakerCriteria: []
+    - dialogueEvent: 0
+      intArgument: 0
+  - dialogueText: The more we get cursed, the less we GET GOOD!
+    gameCriteria:
+    - key: 0
+      value: 3
+    - key: 1
+      value: 0
+    - key: 2
+      value: 1
+    speakerCriteria:
+    - key: 0
+      value: 0
+    - key: 3
+      value: 0
+    - key: 4
+      value: 2
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -35,11 +57,23 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
-  - dialogueText: knowing one of you is cursing us...
-    gameCriteria: []
-    speakerCriteria: []
+    - dialogueEvent: 0
+      intArgument: 0
+  - dialogueText: Time is ticking, we need more moves to GET GOOD
+    gameCriteria:
+    - key: 0
+      value: 3
+    - key: 1
+      value: 0
+    - key: 2
+      value: 0
+    speakerCriteria:
+    - key: 0
+      value: 0
+    - key: 3
+      value: 0
+    - key: 4
+      value: 2
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -47,32 +81,8 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
-  - dialogueText: I promise its not me!
-    gameCriteria: []
-    speakerCriteria: []
-    spokenToCriteria: []
-    camera: 0
-    distance: 0
-    angle: 0
-    zoom: 0
-    shake: 0
-    onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
-  - dialogueText: Well I don't believe any of you
-    gameCriteria: []
-    speakerCriteria: []
-    spokenToCriteria: []
-    camera: 0
-    distance: 0
-    angle: 0
-    zoom: 0
-    shake: 0
-    onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   responseNo: 
   responseYes: Let's just keep practicing
   spokenToCriterion:
@@ -83,9 +93,9 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
-  onPlayerRespondYes:
-    m_PersistentCalls:
-      m_Calls: []
   onPlayerRespondNo:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 0
+    intArgument: 0
+  onPlayerRespondYes:
+  - dialogueEvent: 0
+    intArgument: 0

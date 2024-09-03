@@ -17,6 +17,7 @@ public class DialogueEventsManager : MonoBehaviour
     public UnityEvent StartDebugGame;
     public UnityEvent SpeakerJustLied;
     public UnityEvent ForgetLies;
+    public UnityEvent IncrementTeamCurse;
 
     public void HandleEvents(DialogueEventData[] dialogueEvents)
     {
@@ -55,6 +56,9 @@ public class DialogueEventsManager : MonoBehaviour
                 break;
             case DialogueEvents.ForgetLies:
                 ForgetLies.Invoke();
+                break;
+            case DialogueEvents.IncrementTeamCurse:
+                IncrementTeamCurse.Invoke();
                 break;
             // Add more cases for other events
             default:

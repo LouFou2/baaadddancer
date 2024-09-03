@@ -11,7 +11,7 @@ public enum DialogueEvents
     StartDebugGame,
     SpeakerJustLied,
     ForgetLies,
-
+    IncrementTeamCurse,
 }
 
 [System.Serializable]
