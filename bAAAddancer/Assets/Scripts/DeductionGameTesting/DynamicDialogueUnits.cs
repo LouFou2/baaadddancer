@@ -17,8 +17,8 @@ public class DynamicDialogueUnits : ScriptableObject
         public DialogueEventData[] onDialogueTriggered;
     }
 
-    //public LevelKey levelKey;
     public DialogueUnit[] sceneDialogueUnits;
+    public PlayerResponseUnit[] playerResponseUnits;
 
     // player response
     public string responseNo;
@@ -27,4 +27,17 @@ public class DynamicDialogueUnits : ScriptableObject
     public CameraDirections playerCamera, playerCamDistance, playerCamAngle, playerCamZoom, playerCamShake;
     public DialogueEventData[] onPlayerRespondNo;
     public DialogueEventData[] onPlayerRespondYes;
+
+    [System.Serializable]
+    public class PlayerResponseUnit 
+    {
+        public List<GameCriterion> gameCriteria;
+        public List<CharCriterion> speakerCriteria;
+        public string responseNo;
+        public string responseYes;
+        public CharCriterion spokenToCriterion;
+        public CameraDirections playerCamera, playerCamDistance, playerCamAngle, playerCamZoom, playerCamShake;
+        public DialogueEventData[] onPlayerRespondNo;
+        public DialogueEventData[] onPlayerRespondYes;
+    }
 }

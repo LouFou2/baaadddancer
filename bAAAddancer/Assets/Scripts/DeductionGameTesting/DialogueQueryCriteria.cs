@@ -13,5 +13,6 @@ public class DialogueQueryCriteria : ScriptableObject
     }
     //public LevelKey levelKey;
     public List<Query> queries = new List<Query>();
+    public List<Query> playerResponseQueries = new List<Query>();
 }
 

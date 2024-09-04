@@ -20,6 +20,7 @@ public class DialogueQueryHandler : MonoBehaviour
     [SerializeField] private DynamicDialogueUnits currentDialogueUnit;
     [SerializeField] private DialogueQueryCriteria currentQueryCriteria;
     private Queue<DialogueQueryCriteria.Query> queryQueue = new Queue<DialogueQueryCriteria.Query>();
+    private Queue<DialogueQueryCriteria.Query> responseQueryQueue = new Queue<DialogueQueryCriteria.Query>();
 
     private HashSet<DynamicDialogueUnits.DialogueUnit> usedDialogueUnits = new HashSet<DynamicDialogueUnits.DialogueUnit>();
 
@@ -76,7 +77,7 @@ public class DialogueQueryHandler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
-            queryQueue.Clear();
+            queryQueue.Clear(); //*** Might hold off on this so that it can first query WHICH player response to load
             HandlePlayerResponse();
         }
 
@@ -125,6 +126,10 @@ public class DialogueQueryHandler : MonoBehaviour
         {
             queryQueue.Enqueue(query);
         }
+        foreach (var responseQuery in currentQueryCriteria.playerResponseQueries) 
+        {
+            responseQueryQueue.Enqueue(responseQuery);
+        }
     }
 
     public void RunNextQuery()
@@ -138,9 +143,24 @@ public class DialogueQueryHandler : MonoBehaviour
         else
         {
             //Debug.Log("Player Response");
+            RunNextResponseQuery();
             HandlePlayerResponse();
         }
     }
+
+    //================================= *** call method above ***
+    private void RunNextResponseQuery() // same as above, but only for player response
+    {
+        if (responseQueryQueue.Count > 0)
+        {
+            var responseQuery = responseQueryQueue.Dequeue();
+            MatchPlayerResponse(responseQuery);
+        }
+        else
+            Debug.Log("No more player response queries");
+    } 
+    //==================================
+
     public void RunQueryByIdentifier(string identifier)
     {
         var query = currentQueryCriteria.queries.Find(q => q.identifier == identifier);
@@ -403,6 +423,48 @@ public class DialogueQueryHandler : MonoBehaviour
         return true;
     }
 
+    private bool IsSpeakerMatchInResponseUnit(DynamicDialogueUnits.PlayerResponseUnit unit, Dictionary<CharacterStat, int> speakerQueryCriteria)
+    {
+        foreach (var criterion in speakerQueryCriteria)
+        {
+            bool criterionMatch = false;
+            foreach (var unitCriterion in unit.speakerCriteria)
+            {
+                if (unitCriterion.key == criterion.Key && unitCriterion.value == criterion.Value)
+                {
+                    criterionMatch = true;
+                    break;
+                }
+            }
+            if (!criterionMatch)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private bool IsGameMatchInResponseUnit(DynamicDialogueUnits.PlayerResponseUnit unit, Dictionary<GameCondition, int> gameQueryCriteria)
+    {
+        foreach (var criterion in gameQueryCriteria)
+        {
+            bool criterionMatch = false;
+            foreach (var unitCriterion in unit.gameCriteria)
+            {
+                if (unitCriterion.key == criterion.Key && unitCriterion.value == criterion.Value)
+                {
+                    criterionMatch = true;
+                    break;
+                }
+            }
+            if (!criterionMatch)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void UpdateSpeakerAndSpokenToDicts()
     {
         // first reset the speaker stats
@@ -424,6 +486,61 @@ public class DialogueQueryHandler : MonoBehaviour
         button1.Select();
         button1Text.text = ">";
         
+    }
+    private void MatchPlayerResponse(DialogueQueryCriteria.Query responseQuery) 
+    {
+        // Do game conditions exist for this response?
+        if (!IsGameMatch(responseQuery.gameCriteria))
+        {
+            Debug.Log("Game conditions not matching for player response, skipping to the next query.");
+            RunNextResponseQuery();
+            return;
+        }
+        // Do speaker conditions exist for this response?
+        if (!IsSpeakerMatch(responseQuery.speakerCriteria))
+        {
+            Debug.Log("Speaker conditions not matching for player response, skipping to the next query.");
+            RunNextResponseQuery();
+            return;
+        }
+        // If above checks pass
+        // We can find a match in the dialogue unit:
+        DynamicDialogueUnits.PlayerResponseUnit matchingResponseUnit = null;
+
+        Dictionary<CharacterStat, int> speakerQueryCriteria = new Dictionary<CharacterStat, int>();
+        foreach (var criterion in responseQuery.speakerCriteria)
+        {
+            speakerQueryCriteria.Add(criterion.key, criterion.value);
+        }
+
+        Dictionary<GameCondition, int> gameQueryCriteria = new Dictionary<GameCondition, int>();
+        foreach (var criterion in responseQuery.gameCriteria)
+        {
+            gameQueryCriteria.Add(criterion.key, criterion.value);
+        }
+
+        foreach (var responseUnit in currentDialogueUnit.playerResponseUnits)
+        {
+            if (IsGameMatchInResponseUnit(responseUnit, gameQueryCriteria) && IsSpeakerMatchInResponseUnit(responseUnit, speakerQueryCriteria))
+            {
+                matchingResponseUnit = responseUnit;
+            }
+        }
+        if (matchingResponseUnit == null)
+        {
+            RunNextResponseQuery();
+        }
+        else // We can modify the player response based on the query match
+        {
+            currentDialogueUnit.responseNo = matchingResponseUnit.responseNo;
+            currentDialogueUnit.responseYes = matchingResponseUnit.responseYes;
+
+            currentDialogueUnit.onPlayerRespondNo = matchingResponseUnit.onPlayerRespondNo;
+            currentDialogueUnit.onPlayerRespondYes = matchingResponseUnit.onPlayerRespondYes;
+
+            // ... add more modifications as needed
+        }
+
     }
     
     private void HandlePlayerResponse() 
