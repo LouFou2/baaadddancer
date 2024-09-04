@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbd40a45f4fb4bb47a9e96a47722ba7c, type: 3}
-  m_Name: IntroDebug
+  m_Name: IntroDebug1
   m_EditorClassIdentifier: 
   sceneDialogueUnits:
   - dialogueText: Listen, I trust you
@@ -77,56 +77,8 @@ MonoBehaviour:
     onDialogueTriggered:
     - dialogueEvent: 0
       intArgument: 0
-  - dialogueText: I'll try to figure it out, promise
-    gameCriteria:
-    - key: 0
-      value: 4
-    speakerCriteria:
-    - key: 0
-      value: 1
-    spokenToCriteria: []
-    camera: 0
-    distance: 0
-    angle: 0
-    zoom: 0
-    shake: 0
-    onDialogueTriggered:
-    - dialogueEvent: 0
-      intArgument: 0
-  - dialogueText: and please debug
-    gameCriteria:
-    - key: 0
-      value: 5
-    speakerCriteria:
-    - key: 3
-      value: 1
-    spokenToCriteria: []
-    camera: 0
-    distance: 0
-    angle: 0
-    zoom: 0
-    shake: 0
-    onDialogueTriggered:
-    - dialogueEvent: 0
-      intArgument: 0
-  - dialogueText: or the others might want to eliminate me
-    gameCriteria:
-    - key: 0
-      value: 6
-    speakerCriteria:
-    - key: 3
-      value: 1
-    spokenToCriteria: []
-    camera: 0
-    distance: 0
-    angle: 0
-    zoom: 0
-    shake: 0
-    onDialogueTriggered:
-    - dialogueEvent: 0
-      intArgument: 0
   responseNo: 
-  responseYes: let's do this
+  responseYes: I'll try to figure it out
   spokenToCriterion:
     key: 0
     value: 0
@@ -139,5 +91,5 @@ MonoBehaviour:
   - dialogueEvent: 0
     intArgument: 0
   onPlayerRespondYes:
-  - dialogueEvent: 6
+  - dialogueEvent: 1
     intArgument: 0

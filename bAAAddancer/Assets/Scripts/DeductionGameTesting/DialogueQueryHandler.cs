@@ -10,9 +10,6 @@ public class DialogueQueryHandler : MonoBehaviour
 {
     private DialogueSwitcher2 dialogueSwitcher;
 
-    //[SerializeField] private DialogueQueryCriteria[] queryCriteriaSOs;
-    //[SerializeField] private DynamicDialogueUnits[] dialogueUnits;
-
     [SerializeField] private CharacterStatsManager characterStatsManager;
     [SerializeField] private GameConditionsManager gameConditionsManager;
 
@@ -64,6 +61,7 @@ public class DialogueQueryHandler : MonoBehaviour
         button1Text = button1.GetComponentInChildren<TextMeshProUGUI>();
 
         playerIndex = characterStatsManager.playerIndex;
+        if (playerIndex == -1) Debug.LogWarning("playerIndex not set properly");
 
         InitializeQueryQueue();
         RunNextQuery();
@@ -133,13 +131,13 @@ public class DialogueQueryHandler : MonoBehaviour
     {
         if (queryQueue.Count > 0)
         {
-            Debug.Log(queryQueue.Count + " queries in queue");
+            //Debug.Log(queryQueue.Count + " queries in queue");
             var query = queryQueue.Dequeue();
             RunQuery(query);
         }
         else
         {
-            Debug.Log("Player Response");
+            //Debug.Log("Player Response");
             HandlePlayerResponse();
         }
     }
@@ -313,6 +311,7 @@ public class DialogueQueryHandler : MonoBehaviour
         {
             if (gameConditionsManager.GetGameCondition(criterion.key) != criterion.value)
             {
+                Debug.Log($"Game Condition {criterion.key} is not {criterion.value}");
                 return false; // Exit immediately if any game condition does not match
             }
         }

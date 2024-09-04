@@ -7,9 +7,9 @@ public class CharacterStatsManager : MonoBehaviour
     [SerializeField] private CharacterManager characterManager;
     public CharacterStatsSO[] characterStats;
 
-    public int demonIndex = -1;
     public int playerIndex = -1;
-
+    public int demonIndex = -1;
+    
     private Dictionary<CharacterStat, int>[] statsDictionaries;
 
     private void Awake()
@@ -127,12 +127,17 @@ public class CharacterStatsManager : MonoBehaviour
         // first lets reset some stats:
         for (int i = 0; i < characterStats.Length; i++) 
         {
-            ModifyCharacterStat(i, CharacterStat.Cursed, 0);
+            statsDictionaries[i][CharacterStat.IsPlayer] = 0;
+            characterStats[i].IsPlayerInt = 0;
+            statsDictionaries[i][CharacterStat.IsDemon] = 0;
+            characterStats[i].IsDemonInt = 0;
+            statsDictionaries[i][CharacterStat.Cursed] = 0;
             characterStats[i].CursedInt = 0;
-            ModifyCharacterStat(i, CharacterStat.LastCursed, 0);
+            statsDictionaries[i][CharacterStat.LastCursed] = 0;
             characterStats[i].LastCursedInt = 0;
-            ModifyCharacterStat(i, CharacterStat.Deception, 0);
+            statsDictionaries[i][CharacterStat.Deception] = 0;
             characterStats[i].DeceptionInt = 0;
+            // influence and perception is handled below
         }
 
         // == Now Assign the basic stats == 
@@ -216,6 +221,7 @@ public class CharacterStatsManager : MonoBehaviour
             statsDictionaries[index][CharacterStat.Influence] = influence;
             //Debug.Log($"Character {index}: Influence assigned to {characterStats[index].stats[CharacterStat.Influence]}");
             characterStats[index].InfluenceInt = influence; // just so I can see in inspector
+
             statsDictionaries[index][CharacterStat.Perception] = perception;
             //Debug.Log($"Character {index}: Perception assigned to {characterStats[index].stats[CharacterStat.Perception]}");
             characterStats[index].PerceptionInt = perception;
