@@ -148,7 +148,7 @@ public class DialogueQueryHandler : MonoBehaviour
         }
     }
 
-    //================================= *** call method above ***
+    //================================= 
     private void RunNextResponseQuery() // same as above, but only for player response
     {
         if (responseQueryQueue.Count > 0)
@@ -497,7 +497,7 @@ public class DialogueQueryHandler : MonoBehaviour
             return;
         }
         // Do speaker conditions exist for this response?
-        if (!IsSpeakerMatch(responseQuery.speakerCriteria))
+        if (!IsSpeakerMatch(responseQuery.speakerCriteria))  //*** THIS SHOULD REALLY JUST CHECK THE PLAYER STATS
         {
             Debug.Log("Speaker conditions not matching for player response, skipping to the next query.");
             RunNextResponseQuery();
