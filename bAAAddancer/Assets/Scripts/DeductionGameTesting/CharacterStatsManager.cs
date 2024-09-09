@@ -31,7 +31,11 @@ public class CharacterStatsManager : MonoBehaviour
                 { CharacterStat.Influence, characterStats[i].InfluenceInt },
                 { CharacterStat.Perception, characterStats[i].PerceptionInt },
                 { CharacterStat.Deception, characterStats[i].DeceptionInt },
-                { CharacterStat.Eliminator, characterStats[i].EliminatorInt },
+
+
+                //{ CharacterStat.Eliminator, characterStats[i].EliminatorInt },
+                { CharacterStat.Eliminator, 0 }, // should find a way to update the eliminator properly
+
 
                 // Every scene these can start with defaults:
                 { CharacterStat.SpokenAmount, 0 },
