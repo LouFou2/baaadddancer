@@ -10,4 +10,5 @@ public class CharacterStatsSO : ScriptableObject
     public int InfluenceInt;
     public int PerceptionInt;
     public int DeceptionInt;
+    public int EliminatorInt;
 }

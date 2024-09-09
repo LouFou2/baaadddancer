@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DeductionGameAudioManager : MonoBehaviour
 {
-    [SerializeField] private AudioSource audio;
+    [SerializeField] AudioSource audioSource;
 
     public void PlayAudio() 
     {
-        audio.Play();
+        audioSource.Play();
     }
 }

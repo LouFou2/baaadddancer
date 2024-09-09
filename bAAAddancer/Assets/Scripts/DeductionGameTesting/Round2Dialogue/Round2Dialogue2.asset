@@ -163,8 +163,51 @@ MonoBehaviour:
     onDialogueTriggered:
     - dialogueEvent: 0
       intArgument: 0
-  responseNo: 
-  responseYes: Let's just keep practicing
+  - dialogueText: I think we should eliminate!
+    gameCriteria:
+    - key: 0
+      value: 6
+    - key: 2
+      value: 1
+    speakerCriteria:
+    - key: 3
+      value: 0
+    - key: 0
+      value: 0
+    - key: 7
+      value: 0
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+    - dialogueEvent: 10
+      intArgument: 0
+  playerResponseUnits:
+  - gameCriteria:
+    - key: 2
+      value: 1
+    speakerCriteria: []
+    responseNo: Isn't that a bit harsh?
+    responseYes: Elimination might be our best option
+    spokenToCriterion:
+      key: 0
+      value: 0
+    playerCamera: 0
+    playerCamDistance: 0
+    playerCamAngle: 0
+    playerCamZoom: 0
+    playerCamShake: 0
+    onPlayerRespondNo:
+    - dialogueEvent: 11
+      intArgument: 0
+    onPlayerRespondYes:
+    - dialogueEvent: 10
+      intArgument: 0
+  responseNo: Isn't that a bit harsh?
+  responseYes: Elimination might be our best option
   spokenToCriterion:
     key: 9
     value: 1
@@ -174,10 +217,8 @@ MonoBehaviour:
   playerCamZoom: 0
   playerCamShake: 0
   onPlayerRespondNo:
-  - dialogueEvent: 0
+  - dialogueEvent: 11
     intArgument: 0
   onPlayerRespondYes:
-  - dialogueEvent: 2
-    intArgument: 0
-  - dialogueEvent: 4
+  - dialogueEvent: 10
     intArgument: 0

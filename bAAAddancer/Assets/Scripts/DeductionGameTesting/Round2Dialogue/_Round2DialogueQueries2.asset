@@ -100,3 +100,22 @@ MonoBehaviour:
       value: 0
     - key: 4
       value: 1
+  - identifier: CallEliminate1
+    gameCriteria:
+    - key: 0
+      value: 6
+    - key: 2
+      value: 1
+    speakerCriteria:
+    - key: 3
+      value: 0
+    - key: 0
+      value: 0
+    - key: 7
+      value: 0
+  playerResponseQueries:
+  - identifier: Elimination1Response
+    gameCriteria:
+    - key: 2
+      value: 1
+    speakerCriteria: []

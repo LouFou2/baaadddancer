@@ -4,4 +4,5 @@ public enum GameCondition
     DialogueLine,
     DeceptionDetected,
     TeamCursedAmount,
+    EliminationCalled,
 }

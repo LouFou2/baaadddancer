@@ -31,6 +31,7 @@ public class CharacterStatsManager : MonoBehaviour
                 { CharacterStat.Influence, characterStats[i].InfluenceInt },
                 { CharacterStat.Perception, characterStats[i].PerceptionInt },
                 { CharacterStat.Deception, characterStats[i].DeceptionInt },
+                { CharacterStat.Eliminator, characterStats[i].EliminatorInt },
 
                 // Every scene these can start with defaults:
                 { CharacterStat.SpokenAmount, 0 },
@@ -137,6 +138,8 @@ public class CharacterStatsManager : MonoBehaviour
             characterStats[i].LastCursedInt = 0;
             statsDictionaries[i][CharacterStat.Deception] = 0;
             characterStats[i].DeceptionInt = 0;
+            statsDictionaries[i][CharacterStat.Eliminator] = 0;
+            characterStats[i].EliminatorInt = 0;
             // influence and perception is handled below
         }
 
@@ -243,7 +246,6 @@ public class CharacterStatsManager : MonoBehaviour
             if (statsDictionaries[characterIndex].ContainsKey(characterStat))
             {
                 statsDictionaries[characterIndex][characterStat] = newValue;
-
                 //Debug.Log($"Character {characterIndex}: {characterStat} updated to {characterStats[characterIndex].stats[characterStat]}");
             }
             else
@@ -305,6 +307,20 @@ public class CharacterStatsManager : MonoBehaviour
 
         return matchingIndices;
     }
+    public bool IsPlayerCriteriaMatch(Dictionary<CharacterStat, int> queryCriteria) 
+    {
+        //Debug.Log("Checking character index: " + i);
+        foreach (var criterion in queryCriteria)
+        {
+            //Debug.Log("Checking criterion: " + criterion.Key + " with value: " + criterion.Value);
+            if (!statsDictionaries[playerIndex].ContainsKey(criterion.Key) || statsDictionaries[playerIndex][criterion.Key] != criterion.Value)
+            {
+                return false;
+                //Debug.Log("Criterion does not match for character index: " + i);
+            }
+        }
+        return true;
+    }
 
     public void HandleSpeakerHasLied()
     {
@@ -312,10 +328,62 @@ public class CharacterStatsManager : MonoBehaviour
         {
             if (GetCharacterStats(i)[CharacterStat.LastSpeaker] == 1) 
             {
-                int deceptionValue = GetCharacterStats(i)[CharacterStat.Deception];
-                ModifyCharacterStat(i, CharacterStat.Deception, deceptionValue + 1);
-                characterStats[i].DeceptionInt += 1;
+                ModifyCharacterStat(i, CharacterStat.Deception, 1);
+                characterStats[i].DeceptionInt = 1;
             }
         }
+    }
+    public void HandleSpeakerWantsElimination() 
+    {
+        int speakerIndex = -1;
+        for (int i = 0; i < statsDictionaries.Length; i++) 
+        {
+            speakerIndex = (GetCharacterStats(i)[CharacterStat.LastSpeaker] == 1) ? i : speakerIndex;
+        }
+        ModifyCharacterStat(speakerIndex, CharacterStat.Eliminator, 1);
+        characterStats[speakerIndex].EliminatorInt = 1;
+    }
+    public void HandleSpeakerBlocksElimination()
+    {
+        int speakerIndex = -1;
+        for (int i = 0; i < statsDictionaries.Length; i++)
+        {
+            speakerIndex = (GetCharacterStats(i)[CharacterStat.LastSpeaker] == 1) ? i : speakerIndex;
+        }
+        ModifyCharacterStat(speakerIndex, CharacterStat.Eliminator, 0);
+        characterStats[speakerIndex].EliminatorInt = 0;
+    }
+
+    public bool ShouldEliminationHappen() 
+    {
+        int compliantChars = 0; // We will see who agrees to eliminate
+
+        foreach (CharacterStatsSO charStat in characterStats) 
+        {
+            if (charStat.EliminatorInt == 1 && charStat.InfluenceInt == 2) 
+            {
+                //if they want to eliminate and have high influence, we give them a compliant follower
+                compliantChars += 1;
+            }
+        }
+        // we update any compliant characters' stats to "Eliminator". They can only be a "follower" if they have low influence.
+        for(int i = 0; i < statsDictionaries.Length; i++)  //(CharacterStatsSO charStat in characterStats)
+        {
+            if (compliantChars > 0 && characterStats[i].EliminatorInt == 0 && characterStats[i].InfluenceInt == 0) 
+            {
+                ModifyCharacterStat(i, CharacterStat.Eliminator, 1);
+                characterStats[i].EliminatorInt = 1;
+                compliantChars -= 1;
+            }
+        }
+
+        //the following can only be true if there were at least two eliminators to start with
+        //which means there is at least 4 eliminators if:
+        if (compliantChars >= 2) // so that is the majority (4 out of 6)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

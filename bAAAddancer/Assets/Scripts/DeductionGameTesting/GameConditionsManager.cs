@@ -9,6 +9,8 @@ public class GameConditionsManager : MonoBehaviour
     {
         SetGameCondition(GameCondition.DialogueLine, 0);
         SetGameCondition(GameCondition.DeceptionDetected, 0);
+        SetGameCondition(GameCondition.TeamCursedAmount, 0); //*** MAKE SURE TO HANDLE THIS BETTER (not just reset in start)
+        SetGameCondition(GameCondition.EliminationCalled, 0);
     }
 
     public int GetGameCondition(GameCondition gameCondition)

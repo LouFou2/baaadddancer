@@ -12,6 +12,8 @@ public enum DialogueEvents
     SpeakerJustLied,
     ForgetLies,
     IncrementTeamCurse,
+    GoElimination,
+    NoGoElimination,
 }
 
 [System.Serializable]

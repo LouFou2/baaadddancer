@@ -18,6 +18,8 @@ public class DialogueEventsManager : MonoBehaviour
     public UnityEvent SpeakerJustLied;
     public UnityEvent ForgetLies;
     public UnityEvent IncrementTeamCurse;
+    public UnityEvent SpeakerWantsElimination;
+    public UnityEvent SpeakerBlocksElimination;
 
     public void HandleEvents(DialogueEventData[] dialogueEvents)
     {
@@ -60,10 +62,17 @@ public class DialogueEventsManager : MonoBehaviour
             case DialogueEvents.IncrementTeamCurse:
                 IncrementTeamCurse.Invoke();
                 break;
+            case DialogueEvents.GoElimination:
+                SpeakerWantsElimination.Invoke();
+                break;
+            case DialogueEvents.NoGoElimination:
+                SpeakerBlocksElimination.Invoke();
+                break;
             // Add more cases for other events
             default:
                 eventData.dialogueEvent = DialogueEvents.None;
                 break;
         }
     }
+
 }

@@ -53,4 +53,14 @@ MonoBehaviour:
       value: 0
     - key: 5
       value: 2
-  playerResponseQueries: []
+  playerResponseQueries:
+  - identifier: NoCurseResponse1
+    gameCriteria:
+    - key: 2
+      value: 0
+    speakerCriteria: []
+  - identifier: CurseResponse1
+    gameCriteria:
+    - key: 2
+      value: 1
+    speakerCriteria: []

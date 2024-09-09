@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using System.Linq;
 
 public class DialogueQueryHandler : MonoBehaviour
@@ -41,13 +40,6 @@ public class DialogueQueryHandler : MonoBehaviour
 
     public enum DialogueState { PauseOrContinue, LastPause, PlayerResponse }
     private DialogueState dialogueState;
-
-    /*
-    // Unity Events for responses  //*** Maybe don't even need these eventually (since the events are set up in dialogue units)
-    public UnityEvent triggerNextDialogueEvent; // set the event in the inspector (what method to call)
-    public UnityEvent switchSceneEvent;
-    public UnityEvent customDialogueEvent; //etc
-    */
 
     private void Start()
     {
@@ -149,6 +141,7 @@ public class DialogueQueryHandler : MonoBehaviour
     }
 
     //================================= 
+    // Special query for the Player Response Options:
     private void RunNextResponseQuery() // same as above, but only for player response
     {
         if (responseQueryQueue.Count > 0)
@@ -347,6 +340,7 @@ public class DialogueQueryHandler : MonoBehaviour
             {
                 { speakerQueryCriteria[i].key, speakerQueryCriteria[i].value }
             };
+
             //Debug.Log($"checking speakercriteria{i} K: {speakerQueryCriteria[i].key} V: {speakerQueryCriteria[i].value}");
             List<int> matchingSpeakersIndices = characterStatsManager.GetMatchingCharacterIndices(criteriaDictionary);
 
@@ -380,6 +374,28 @@ public class DialogueQueryHandler : MonoBehaviour
 
         return false; // Return false if no common indices found
     }
+
+    // Special method for player response, similar to Is SpeakerMatch
+    // But only checking player stats:
+    private bool IsResponseSpeakerMatch(List<CharCriterion> speakerQueryCriteria) 
+    {
+        var criteriaDictionary = new Dictionary<CharacterStat, int>();
+
+        if (speakerQueryCriteria.Count == 0) 
+        { 
+            return true; // can exit early if there are no criteria. We assume the player CAN speak, since there are no criteria
+        }
+
+        // Iterate through the speakerQueryCriteria list to populate the dictionary.
+        for (int i = 0; i < speakerQueryCriteria.Count; i++)
+        {
+            // Add each key-value pair to the dictionary.
+            criteriaDictionary[speakerQueryCriteria[i].key] = speakerQueryCriteria[i].value;
+        }
+
+        // Check if the player matches all criteria in the dictionary.
+        return characterStatsManager.IsPlayerCriteriaMatch(criteriaDictionary);
+    } 
 
     private bool IsSpeakerCriteriaMatchInUnit(DynamicDialogueUnits.DialogueUnit unit, Dictionary<CharacterStat, int> speakerQueryCriteria)
     {
@@ -423,8 +439,13 @@ public class DialogueQueryHandler : MonoBehaviour
         return true;
     }
 
+    // Special methods for player response, similar to methods above:
     private bool IsSpeakerMatchInResponseUnit(DynamicDialogueUnits.PlayerResponseUnit unit, Dictionary<CharacterStat, int> speakerQueryCriteria)
     {
+        if (speakerQueryCriteria.Count == 0 && unit.speakerCriteria.Count == 0) 
+        {
+            return true; // no criteria, we can just exit the method early, player can speak
+        }
         foreach (var criterion in speakerQueryCriteria)
         {
             bool criterionMatch = false;
@@ -446,6 +467,10 @@ public class DialogueQueryHandler : MonoBehaviour
 
     private bool IsGameMatchInResponseUnit(DynamicDialogueUnits.PlayerResponseUnit unit, Dictionary<GameCondition, int> gameQueryCriteria)
     {
+        if (gameQueryCriteria.Count == 0 && unit.gameCriteria.Count == 0)
+        {
+            return true; // can just exit the method early if there are no criteria in query or unit
+        }
         foreach (var criterion in gameQueryCriteria)
         {
             bool criterionMatch = false;
@@ -489,6 +514,13 @@ public class DialogueQueryHandler : MonoBehaviour
     }
     private void MatchPlayerResponse(DialogueQueryCriteria.Query responseQuery) 
     {
+        // First we can simply check if the response query is empty
+        if (responseQuery.gameCriteria.Count == 0 && responseQuery.speakerCriteria.Count == 0) 
+        {
+            RunNextResponseQuery();
+            return;
+        }
+
         // Do game conditions exist for this response?
         if (!IsGameMatch(responseQuery.gameCriteria))
         {
@@ -497,7 +529,7 @@ public class DialogueQueryHandler : MonoBehaviour
             return;
         }
         // Do speaker conditions exist for this response?
-        if (!IsSpeakerMatch(responseQuery.speakerCriteria))  //*** THIS SHOULD REALLY JUST CHECK THE PLAYER STATS
+        if (!IsResponseSpeakerMatch(responseQuery.speakerCriteria))  // a similar method to IsSpeakerMatch, but only checking player stats
         {
             Debug.Log("Speaker conditions not matching for player response, skipping to the next query.");
             RunNextResponseQuery();
@@ -530,17 +562,14 @@ public class DialogueQueryHandler : MonoBehaviour
         {
             RunNextResponseQuery();
         }
-        else // We can modify the player response based on the query match
+        else // We modify the player response based on the query match
         {
             currentDialogueUnit.responseNo = matchingResponseUnit.responseNo;
             currentDialogueUnit.responseYes = matchingResponseUnit.responseYes;
 
             currentDialogueUnit.onPlayerRespondNo = matchingResponseUnit.onPlayerRespondNo;
             currentDialogueUnit.onPlayerRespondYes = matchingResponseUnit.onPlayerRespondYes;
-
-            // ... add more modifications as needed
         }
-
     }
     
     private void HandlePlayerResponse() 

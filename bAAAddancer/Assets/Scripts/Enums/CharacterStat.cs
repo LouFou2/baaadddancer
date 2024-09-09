@@ -17,4 +17,5 @@ public enum CharacterStat
     SpeakToCamera,
 
     Deception,
+    Eliminator,
 }

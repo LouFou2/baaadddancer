@@ -91,9 +91,51 @@ MonoBehaviour:
     onDialogueTriggered:
     - dialogueEvent: 0
       intArgument: 0
-  playerResponseUnits: []
+  playerResponseUnits:
+  - gameCriteria:
+    - key: 2
+      value: 0
+    speakerCriteria: []
+    responseNo: 
+    responseYes: I got all the bugs!
+    spokenToCriterion:
+      key: 0
+      value: 0
+    playerCamera: 0
+    playerCamDistance: 0
+    playerCamAngle: 0
+    playerCamZoom: 0
+    playerCamShake: 0
+    onPlayerRespondNo: []
+    onPlayerRespondYes:
+    - dialogueEvent: 1
+      intArgument: 0
+  - gameCriteria:
+    - key: 2
+      value: 1
+    speakerCriteria: []
+    responseNo: I think I missed a bug or two...
+    responseYes: I got all the boogs!
+    spokenToCriterion:
+      key: 0
+      value: 0
+    playerCamera: 0
+    playerCamDistance: 0
+    playerCamAngle: 0
+    playerCamZoom: 0
+    playerCamShake: 0
+    onPlayerRespondNo:
+    - dialogueEvent: 8
+      intArgument: 0
+    - dialogueEvent: 1
+      intArgument: 0
+    onPlayerRespondYes:
+    - dialogueEvent: 7
+      intArgument: 0
+    - dialogueEvent: 1
+      intArgument: 0
   responseNo: I think I missed a bug or two...
-  responseYes: I got all the bugs!
+  responseYes: I got all the boogs!
   spokenToCriterion:
     key: 9
     value: 1
@@ -108,5 +150,7 @@ MonoBehaviour:
   - dialogueEvent: 1
     intArgument: 0
   onPlayerRespondYes:
+  - dialogueEvent: 7
+    intArgument: 0
   - dialogueEvent: 1
     intArgument: 0
