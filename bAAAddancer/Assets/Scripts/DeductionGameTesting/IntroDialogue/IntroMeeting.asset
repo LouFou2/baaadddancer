@@ -88,6 +88,8 @@ MonoBehaviour:
     speakerCriteria:
     - key: 5
       value: 1
+    - key: 0
+      value: 0
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -163,6 +165,7 @@ MonoBehaviour:
     onDialogueTriggered:
     - dialogueEvent: 0
       intArgument: 0
+  playerResponseUnits: []
   responseNo: 
   responseYes: I believe I can get some help with that...
   spokenToCriterion:

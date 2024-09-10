@@ -18,4 +18,5 @@ public enum CharacterStat
 
     Deception,
     Eliminator,
+    VoteTarget,
 }

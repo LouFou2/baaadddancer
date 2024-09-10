@@ -12,10 +12,84 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd40a45f4fb4bb47a9e96a47722ba7c, type: 3}
   m_Name: Round2Dialogue3
   m_EditorClassIdentifier: 
-  sceneDialogueUnits: []
-  playerResponseUnits: []
+  sceneDialogueUnits:
+  - dialogueText: Lets rather find out who the Rave Demon is
+    gameCriteria:
+    - key: 0
+      value: 7
+    - key: 3
+      value: 0
+    speakerCriteria:
+    - key: 0
+      value: 0
+    - key: 3
+      value: 0
+    - key: 12
+      value: 0
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered: []
+  - dialogueText: We should eliminate the Rave Demon! Not me!
+    gameCriteria:
+    - key: 0
+      value: 7
+    - key: 3
+      value: 1
+    speakerCriteria:
+    - key: 3
+      value: 1
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered: []
+  playerResponseUnits:
+  - gameCriteria:
+    - key: 3
+      value: 0
+    speakerCriteria: []
+    responseNo: 
+    responseYes: And we should keep practicing
+    spokenToCriterion:
+      key: 0
+      value: 0
+    playerCamera: 0
+    playerCamDistance: 0
+    playerCamAngle: 0
+    playerCamZoom: 0
+    playerCamShake: 0
+    onPlayerRespondNo: []
+    onPlayerRespondYes:
+    - dialogueEvent: 2
+      intArgument: 0
+    - dialogueEvent: 4
+      intArgument: 0
+  - gameCriteria:
+    - key: 3
+      value: 1
+    speakerCriteria: []
+    responseNo: 
+    responseYes: Ok well this is unfortunate but...
+    spokenToCriterion:
+      key: 0
+      value: 0
+    playerCamera: 0
+    playerCamDistance: 0
+    playerCamAngle: 0
+    playerCamZoom: 0
+    playerCamShake: 0
+    onPlayerRespondNo: []
+    onPlayerRespondYes:
+    - dialogueEvent: 0
+      intArgument: 0
   responseNo: 
-  responseYes: 
+  responseYes: Lets keep practicing
   spokenToCriterion:
     key: 0
     value: 0
@@ -25,4 +99,8 @@ MonoBehaviour:
   playerCamZoom: 0
   playerCamShake: 0
   onPlayerRespondNo: []
-  onPlayerRespondYes: []
+  onPlayerRespondYes:
+  - dialogueEvent: 2
+    intArgument: 0
+  - dialogueEvent: 4
+    intArgument: 0

@@ -12,5 +12,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6312f688535d7543937c8a966ca00f5, type: 3}
   m_Name: _Round2DialogueQueries3
   m_EditorClassIdentifier: 
-  queries: []
-  playerResponseQueries: []
+  queries:
+  - identifier: 
+    gameCriteria:
+    - key: 0
+      value: 7
+    - key: 3
+      value: 0
+    speakerCriteria:
+    - key: 0
+      value: 0
+    - key: 3
+      value: 0
+    - key: 12
+      value: 0
+  - identifier: 
+    gameCriteria:
+    - key: 0
+      value: 7
+    - key: 3
+      value: 1
+    speakerCriteria:
+    - key: 3
+      value: 1
+  playerResponseQueries:
+  - identifier: 
+    gameCriteria:
+    - key: 3
+      value: 0
+    speakerCriteria: []
+  - identifier: 
+    gameCriteria:
+    - key: 3
+      value: 1
+    speakerCriteria: []

@@ -203,8 +203,34 @@ MonoBehaviour:
     onPlayerRespondNo:
     - dialogueEvent: 11
       intArgument: 0
+    - dialogueEvent: 1
+      intArgument: 0
     onPlayerRespondYes:
     - dialogueEvent: 10
+      intArgument: 0
+    - dialogueEvent: 1
+      intArgument: 0
+  - gameCriteria:
+    - key: 2
+      value: 0
+    speakerCriteria: []
+    responseNo: 
+    responseYes: We should keep practicing
+    spokenToCriterion:
+      key: 0
+      value: 0
+    playerCamera: 0
+    playerCamDistance: 0
+    playerCamAngle: 0
+    playerCamZoom: 0
+    playerCamShake: 0
+    onPlayerRespondNo:
+    - dialogueEvent: 0
+      intArgument: 0
+    onPlayerRespondYes:
+    - dialogueEvent: 2
+      intArgument: 0
+    - dialogueEvent: 4
       intArgument: 0
   responseNo: Isn't that a bit harsh?
   responseYes: Elimination might be our best option
@@ -219,6 +245,10 @@ MonoBehaviour:
   onPlayerRespondNo:
   - dialogueEvent: 11
     intArgument: 0
+  - dialogueEvent: 1
+    intArgument: 0
   onPlayerRespondYes:
   - dialogueEvent: 10
+    intArgument: 0
+  - dialogueEvent: 1
     intArgument: 0

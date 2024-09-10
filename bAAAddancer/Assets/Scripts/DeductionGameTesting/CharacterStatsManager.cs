@@ -9,6 +9,7 @@ public class CharacterStatsManager : MonoBehaviour
 
     public int playerIndex = -1;
     public int demonIndex = -1;
+    public int lastSpeakerIndex = -1;
     
     private Dictionary<CharacterStat, int>[] statsDictionaries;
 
@@ -30,11 +31,12 @@ public class CharacterStatsManager : MonoBehaviour
                 { CharacterStat.LastCursed, characterStats[i].LastCursedInt },
                 { CharacterStat.Influence, characterStats[i].InfluenceInt },
                 { CharacterStat.Perception, characterStats[i].PerceptionInt },
-                { CharacterStat.Deception, characterStats[i].DeceptionInt },
 
-
+                //{ CharacterStat.Deception, characterStats[i].DeceptionInt },
                 //{ CharacterStat.Eliminator, characterStats[i].EliminatorInt },
-                { CharacterStat.Eliminator, 0 }, // should find a way to update the eliminator properly
+                { CharacterStat.Deception, 0 }, // // should find a way to update the Deception between scenes 
+                { CharacterStat.Eliminator, 0 }, // should find a way to update the Eliminator between scenes
+                { CharacterStat.VoteTarget, -1 }, // should find a way to update the VoteTarget between scenes*************
 
 
                 // Every scene these can start with defaults:
@@ -44,7 +46,11 @@ public class CharacterStatsManager : MonoBehaviour
                 { CharacterStat.SpeakToGroup, 0 },
                 { CharacterStat.SpeakToCamera, 0 },
             };
+            characterStats[i].DeceptionInt = 0; //*********Def remove these when better update logic is implemented
+            characterStats[i].EliminatorInt = 0;
+            characterStats[i].VoteTargetInt = -1;
         }
+        
     }
 
     private void Start()
@@ -65,57 +71,7 @@ public class CharacterStatsManager : MonoBehaviour
             UpdateCharacterStats();
         }
     }
-    private void UpdateCharacterStats() 
-    {
-        for (int i = 0; i < characterStats.Length; i++) 
-        {
-            //== The Curse Stats gets handled differently: ==
-            // (because cursing happens between dialogue scenes, and gets stored in characterDataSOs)
-
-            // --The last cursed character:
-            ModifyCharacterStat(i, CharacterStat.LastCursed, 0); // reset all 
-            if (characterManager.characterDataSOs[i].lastCursedCharacter) 
-            {
-                ModifyCharacterStat(i, CharacterStat.LastCursed, 1);
-                characterStats[i].LastCursedInt = 1; //*** just for the sake of debugging (cant see dictionary value in inspector)
-            }
-            // --Cursed Amount:
-            if (characterManager.characterDataSOs[i].infectionLevel > 0) 
-            {
-                characterStats[i].CursedInt = 1;
-                ModifyCharacterStat(i, CharacterStat.Cursed, 1);
-            }    
-            else
-                ModifyCharacterStat(i, CharacterStat.Cursed, 0);
-        }
-    }
-    public void StoreCharacterStats()  //***PROBABLY DONT NEED THIS
-    {
-        for (int i = 0; i < characterStats.Length; i++) 
-        {
-            // Debug logs to check the values in the dictionary before storing them in the SO fields
-            Debug.Log($"Storing Character Stats for index {i}:");
-            Debug.Log($"IsPlayer: {statsDictionaries[i][CharacterStat.IsPlayer]}");
-            Debug.Log($"IsDemon: {statsDictionaries[i][CharacterStat.IsDemon]}");
-            Debug.Log($"Cursed: {statsDictionaries[i][CharacterStat.Cursed]}");
-            Debug.Log($"Influence: {statsDictionaries[i][CharacterStat.Influence]}");
-            Debug.Log($"Perception: {statsDictionaries[i][CharacterStat.Perception]}");
-
-            characterStats[i].IsPlayerInt = statsDictionaries[i][CharacterStat.IsPlayer];
-            characterStats[i].IsDemonInt = statsDictionaries[i][CharacterStat.IsDemon];
-            characterStats[i].CursedInt = statsDictionaries[i][CharacterStat.Cursed];
-            // LastCursed is handled different, as it happens between dialogue scenes
-            characterStats[i].InfluenceInt = statsDictionaries[i][CharacterStat.Influence];
-            characterStats[i].PerceptionInt = statsDictionaries[i][CharacterStat.Perception];
-
-            // Debug logs to confirm the values were stored correctly
-            Debug.Log($"Stored IsPlayerInt: {characterStats[i].IsPlayerInt}");
-            Debug.Log($"Stored IsDemonInt: {characterStats[i].IsDemonInt}");
-            Debug.Log($"Stored CursedInt: {characterStats[i].CursedInt}");
-            Debug.Log($"Stored InfluenceInt: {characterStats[i].InfluenceInt}");
-            Debug.Log($"Stored PerceptionInt: {characterStats[i].PerceptionInt}");
-        }
-    }
+    
 
     private void SetPlayerIndex()
     {
@@ -144,6 +100,8 @@ public class CharacterStatsManager : MonoBehaviour
             characterStats[i].DeceptionInt = 0;
             statsDictionaries[i][CharacterStat.Eliminator] = 0;
             characterStats[i].EliminatorInt = 0;
+            statsDictionaries[i][CharacterStat.VoteTarget] = -1;
+            characterStats[i].VoteTargetInt = -1;
             // influence and perception is handled below
         }
 
@@ -232,6 +190,31 @@ public class CharacterStatsManager : MonoBehaviour
             statsDictionaries[index][CharacterStat.Perception] = perception;
             //Debug.Log($"Character {index}: Perception assigned to {characterStats[index].stats[CharacterStat.Perception]}");
             characterStats[index].PerceptionInt = perception;
+        }
+    }
+
+    private void UpdateCharacterStats()
+    {
+        for (int i = 0; i < characterStats.Length; i++)
+        {
+            //== The Curse Stats gets handled differently: ==
+            // (because cursing happens between dialogue scenes, and gets stored in characterDataSOs)
+
+            // --The last cursed character:
+            ModifyCharacterStat(i, CharacterStat.LastCursed, 0); // reset all 
+            if (characterManager.characterDataSOs[i].lastCursedCharacter)
+            {
+                ModifyCharacterStat(i, CharacterStat.LastCursed, 1);
+                characterStats[i].LastCursedInt = 1; //*** just for the sake of debugging (cant see dictionary value in inspector)
+            }
+            // --Cursed Amount:
+            if (characterManager.characterDataSOs[i].infectionLevel > 0)
+            {
+                characterStats[i].CursedInt = 1;
+                ModifyCharacterStat(i, CharacterStat.Cursed, 1);
+            }
+            else
+                ModifyCharacterStat(i, CharacterStat.Cursed, 0);
         }
     }
 
@@ -328,15 +311,52 @@ public class CharacterStatsManager : MonoBehaviour
 
     public void HandleSpeakerHasLied()
     {
+        ModifyCharacterStat(lastSpeakerIndex, CharacterStat.Deception, 1);
+        characterStats[lastSpeakerIndex].DeceptionInt = 1;
+
+        // they potentially also become a VoteTarget:
         for (int i = 0; i < characterStats.Length; i++) 
         {
-            if (GetCharacterStats(i)[CharacterStat.LastSpeaker] == 1) 
+            if (GetCharacterStats(i)[CharacterStat.LastSpeaker] == 0
+                && GetCharacterStats(i)[CharacterStat.IsPlayer] == 0
+                && GetCharacterStats(i)[CharacterStat.IsDemon] == 0) // (the demon gets handled differently)
             {
-                ModifyCharacterStat(i, CharacterStat.Deception, 1);
-                characterStats[i].DeceptionInt = 1;
+                HandleSuspicion(i);
             }
         }
     }
+    public void HandleSuspicion(int suspiciousChar) // if speaker becomes suspect, they become a vote target
+    {
+        float suspicionChance = Random.Range(0f, 1f);
+        //Perception level will determine the chance of suspicion
+        if (GetCharacterStats(suspiciousChar)[CharacterStat.Perception] == 2 && suspicionChance < 0.9f) //high chance
+        {
+            ModifyCharacterStat(suspiciousChar, CharacterStat.VoteTarget, lastSpeakerIndex); // speaker becomes vote target
+            characterStats[suspiciousChar].VoteTargetInt = lastSpeakerIndex;
+
+            ModifyCharacterStat(suspiciousChar, CharacterStat.Eliminator, 1); // suspicious Char also becomes an eliminator
+            characterStats[suspiciousChar].EliminatorInt = 1;
+        }
+        if (GetCharacterStats(suspiciousChar)[CharacterStat.Perception] == 1 && suspicionChance < 0.6f) //lower chance
+        {
+            ModifyCharacterStat(suspiciousChar, CharacterStat.VoteTarget, lastSpeakerIndex);
+            characterStats[suspiciousChar].VoteTargetInt = lastSpeakerIndex;
+
+            ModifyCharacterStat(suspiciousChar, CharacterStat.Eliminator, 1); // suspicious Char also becomes an eliminator
+            characterStats[suspiciousChar].EliminatorInt = 1;
+        }
+        if (GetCharacterStats(suspiciousChar)[CharacterStat.Perception] == 0 && suspicionChance < 0.3f) //lowest chance
+        {
+            ModifyCharacterStat(suspiciousChar, CharacterStat.VoteTarget, lastSpeakerIndex);
+            characterStats[suspiciousChar].VoteTargetInt = lastSpeakerIndex;
+
+            ModifyCharacterStat(suspiciousChar, CharacterStat.Eliminator, 1); // suspicious Char also becomes an eliminator
+            characterStats[suspiciousChar].EliminatorInt = 1;
+        }
+    }
+
+
+
     public void HandleSpeakerWantsElimination() 
     {
         int speakerIndex = -1;
@@ -360,30 +380,37 @@ public class CharacterStatsManager : MonoBehaviour
 
     public bool ShouldEliminationHappen() 
     {
-        int compliantChars = 0; // We will see who agrees to eliminate
+        int compliantChars = 0; // We will see who agrees to eliminate *
+        int totalEliminators = 0;
 
         foreach (CharacterStatsSO charStat in characterStats) 
         {
+            if (charStat.EliminatorInt == 1)
+            {
+                totalEliminators += 1;
+            }
             if (charStat.EliminatorInt == 1 && charStat.InfluenceInt == 2) 
             {
-                //if they want to eliminate and have high influence, we give them a compliant follower
+                //if they want to eliminate and have high influence, we give them a compliant follower *
                 compliantChars += 1;
             }
         }
-        // we update any compliant characters' stats to "Eliminator". They can only be a "follower" if they have low influence.
+
+        // we update any compliant characters' stats to "Eliminator". They can be compliant if they have low influence.
         for(int i = 0; i < statsDictionaries.Length; i++)  //(CharacterStatsSO charStat in characterStats)
         {
             if (compliantChars > 0 && characterStats[i].EliminatorInt == 0 && characterStats[i].InfluenceInt == 0) 
             {
                 ModifyCharacterStat(i, CharacterStat.Eliminator, 1);
                 characterStats[i].EliminatorInt = 1;
+
+                totalEliminators += 1;
+
                 compliantChars -= 1;
             }
         }
 
-        //the following can only be true if there were at least two eliminators to start with
-        //which means there is at least 4 eliminators if:
-        if (compliantChars >= 2) // so that is the majority (4 out of 6)
+        if (totalEliminators >= 4) // so that is the majority (4 out of 6)
         {
             return true;
         }

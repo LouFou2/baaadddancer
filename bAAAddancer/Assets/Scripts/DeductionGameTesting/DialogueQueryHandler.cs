@@ -496,11 +496,17 @@ public class DialogueQueryHandler : MonoBehaviour
         for (int i = 0; i < 6; i++)
         {
             if (i != currentSpeaker)
+            {
                 characterStatsManager.ModifyCharacterStat(i, CharacterStat.LastSpeaker, 0);
+                characterStatsManager.lastSpeakerIndex = -1;
+            }
+            
             if (i != currentSpokenTo)
                 characterStatsManager.ModifyCharacterStat(i, CharacterStat.LastSpokenTo, 0);
         }
         characterStatsManager.ModifyCharacterStat(currentSpeaker, CharacterStat.LastSpeaker, 1);
+        characterStatsManager.lastSpeakerIndex = currentSpeaker;
+
         characterStatsManager.ModifyCharacterStat(currentSpokenTo, CharacterStat.LastSpokenTo, 1);
     }
     
