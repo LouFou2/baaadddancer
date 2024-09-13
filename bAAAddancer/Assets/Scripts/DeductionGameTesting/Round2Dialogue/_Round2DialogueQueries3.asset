@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: _Round2DialogueQueries3
   m_EditorClassIdentifier: 
   queries:
-  - identifier: 
+  - identifier: FindDemon
     gameCriteria:
     - key: 0
       value: 7
@@ -26,7 +26,7 @@ MonoBehaviour:
       value: 0
     - key: 12
       value: 0
-  - identifier: 
+  - identifier: NotMe
     gameCriteria:
     - key: 0
       value: 7
@@ -36,12 +36,12 @@ MonoBehaviour:
     - key: 3
       value: 1
   playerResponseQueries:
-  - identifier: 
+  - identifier: KeepPractice
     gameCriteria:
     - key: 3
       value: 0
     speakerCriteria: []
-  - identifier: 
+  - identifier: Unfortunate
     gameCriteria:
     - key: 3
       value: 1
