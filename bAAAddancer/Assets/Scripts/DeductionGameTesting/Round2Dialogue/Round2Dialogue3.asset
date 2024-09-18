@@ -86,10 +86,10 @@ MonoBehaviour:
     playerCamShake: 0
     onPlayerRespondNo: []
     onPlayerRespondYes:
-    - dialogueEvent: 0
+    - dialogueEvent: 12
       intArgument: 0
   responseNo: 
-  responseYes: Lets keep practicing
+  responseYes: Ok well this is unfortunate but...
   spokenToCriterion:
     key: 0
     value: 0
@@ -100,7 +100,5 @@ MonoBehaviour:
   playerCamShake: 0
   onPlayerRespondNo: []
   onPlayerRespondYes:
-  - dialogueEvent: 2
-    intArgument: 0
-  - dialogueEvent: 4
-    intArgument: 0
+  - dialogueEvent: 5
+    intArgument: 8

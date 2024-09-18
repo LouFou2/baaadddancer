@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,9 +6,9 @@ public class VoteSceneSetup : MonoBehaviour
     private CharacterManager characterManager;
     private CharacterData[] characterDataSOs;
     [SerializeField] private Button[] buttons;
-
+/*
     // Define the shader property name as a constant
-    private const string burnShaderEffect = "_NoiseFade"; 
+    private const string burnShaderEffect = "_NoiseFade"; */
 
     void Start()
     {
@@ -34,12 +32,6 @@ public class VoteSceneSetup : MonoBehaviour
         {
             characterDataSOs[i] = characterManager.characterDataSOs[i];
 
-            Material buttonMaterial = buttons[i].image.material;
-            if (buttonMaterial != null)
-            {
-                buttonMaterial.SetFloat(burnShaderEffect, 0f);
-            }
-
             if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player)
             {
                 // Set the button to non-interactable
@@ -48,6 +40,11 @@ public class VoteSceneSetup : MonoBehaviour
                 {
                     buttons[1].Select(); // we select the second button (Char02) 
                 }
+            }
+
+            if (characterDataSOs[i].wasEliminated)
+            {
+                buttons[i].gameObject.SetActive(false);
             }
         }
     }

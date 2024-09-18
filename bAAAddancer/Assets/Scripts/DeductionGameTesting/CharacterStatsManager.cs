@@ -23,6 +23,14 @@ public class CharacterStatsManager : MonoBehaviour
         statsDictionaries = new Dictionary<CharacterStat, int>[characterStats.Length];
         for (int i = 0; i < characterStats.Length; i++)
         {
+            // should find a way to update the Deception between scenes
+            // should find a way to update the Eliminator between scenes
+            // should find a way to update the VoteTarget between scenes
+            characterStats[i].DeceptionInt = 0; 
+            characterStats[i].EliminatorInt = 0;
+            //characterStats[i].VoteTargetInt = -1; //*** this should reset after elimination?
+            characterStats[i].EliminationVoteCountsInt = 0;
+
             statsDictionaries[i] = new Dictionary<CharacterStat, int>
             {
                 { CharacterStat.IsPlayer, characterStats[i].IsPlayerInt },
@@ -32,12 +40,10 @@ public class CharacterStatsManager : MonoBehaviour
                 { CharacterStat.Influence, characterStats[i].InfluenceInt },
                 { CharacterStat.Perception, characterStats[i].PerceptionInt },
 
-                //{ CharacterStat.Deception, characterStats[i].DeceptionInt },
-                //{ CharacterStat.Eliminator, characterStats[i].EliminatorInt },
-                { CharacterStat.Deception, 0 }, // // should find a way to update the Deception between scenes 
-                { CharacterStat.Eliminator, 0 }, // should find a way to update the Eliminator between scenes
-                { CharacterStat.VoteTarget, -1 }, // should find a way to update the VoteTarget between scenes*************
-
+                { CharacterStat.Deception, characterStats[i].DeceptionInt },
+                { CharacterStat.Eliminator, characterStats[i].EliminatorInt },
+                { CharacterStat.VoteTarget, characterStats[i].VoteTargetInt },
+                { CharacterStat.EliminationVoteCounts, characterStats[i].EliminationVoteCountsInt },
 
                 // Every scene these can start with defaults:
                 { CharacterStat.SpokenAmount, 0 },
@@ -46,9 +52,7 @@ public class CharacterStatsManager : MonoBehaviour
                 { CharacterStat.SpeakToGroup, 0 },
                 { CharacterStat.SpeakToCamera, 0 },
             };
-            characterStats[i].DeceptionInt = 0; //*********Def remove these when better update logic is implemented
-            characterStats[i].EliminatorInt = 0;
-            characterStats[i].VoteTargetInt = -1;
+            
         }
         
     }
@@ -102,6 +106,8 @@ public class CharacterStatsManager : MonoBehaviour
             characterStats[i].EliminatorInt = 0;
             statsDictionaries[i][CharacterStat.VoteTarget] = -1;
             characterStats[i].VoteTargetInt = -1;
+            statsDictionaries[i][CharacterStat.EliminationVoteCounts] = 0;
+            characterStats[i].EliminationVoteCountsInt = 0;
             // influence and perception is handled below
         }
 

@@ -12,4 +12,5 @@ public class CharacterStatsSO : ScriptableObject
     public int DeceptionInt;
     public int EliminatorInt;
     public int VoteTargetInt;
+    public int EliminationVoteCountsInt;
 }

@@ -28,6 +28,15 @@ public class CharacterManager : MonoBehaviour
                 {
                     demonIndex = i;
                 }
+
+
+                //=====================================
+                if (characterDataSOs[i].wasEliminated)
+                {
+                    characters[i].SetActive(false);
+                }
+                //=====================================
+
             }
             else
             {

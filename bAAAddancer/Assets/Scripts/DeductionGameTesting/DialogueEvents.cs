@@ -14,6 +14,7 @@ public enum DialogueEvents
     IncrementTeamCurse,
     GoElimination,
     NoGoElimination,
+    LoadVoteScene,
 }
 
 [System.Serializable]

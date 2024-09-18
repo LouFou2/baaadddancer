@@ -20,6 +20,7 @@ public class DialogueEventsManager : MonoBehaviour
     public UnityEvent IncrementTeamCurse;
     public UnityEvent SpeakerWantsElimination;
     public UnityEvent SpeakerBlocksElimination;
+    public UnityEvent LoadVoteScene;
 
     public void HandleEvents(DialogueEventData[] dialogueEvents)
     {
@@ -67,6 +68,9 @@ public class DialogueEventsManager : MonoBehaviour
                 break;
             case DialogueEvents.NoGoElimination:
                 SpeakerBlocksElimination.Invoke();
+                break;
+            case DialogueEvents.LoadVoteScene:
+                LoadVoteScene.Invoke();
                 break;
             // Add more cases for other events
             default:
