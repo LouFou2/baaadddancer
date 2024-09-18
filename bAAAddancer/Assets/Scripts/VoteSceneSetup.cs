@@ -6,10 +6,9 @@ public class VoteSceneSetup : MonoBehaviour
     private CharacterManager characterManager;
     private CharacterData[] characterDataSOs;
     [SerializeField] private Button[] buttons;
-/*
-    // Define the shader property name as a constant
-    private const string burnShaderEffect = "_NoiseFade"; */
-
+    /*
+        // Define the shader property name as a constant
+        private const string burnShaderEffect = "_NoiseFade"; */
     void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();

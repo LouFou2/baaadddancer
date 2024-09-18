@@ -29,5 +29,7 @@ public enum LevelKey
     Round4Meeting,
     Round4Vote,
 
-    RaveScene
+    RaveScene,
+
+    EliminationScene,
 }

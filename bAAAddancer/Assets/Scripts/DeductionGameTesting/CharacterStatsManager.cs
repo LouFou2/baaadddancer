@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CharacterStatsManager : MonoBehaviour
 {
-    // probably need to plug into the Character Manager
     [SerializeField] private CharacterManager characterManager;
     public CharacterStatsSO[] characterStats;
 
@@ -28,7 +27,6 @@ public class CharacterStatsManager : MonoBehaviour
             // should find a way to update the VoteTarget between scenes
             characterStats[i].DeceptionInt = 0; 
             characterStats[i].EliminatorInt = 0;
-            //characterStats[i].VoteTargetInt = -1; //*** this should reset after elimination?
             characterStats[i].EliminationVoteCountsInt = 0;
 
             statsDictionaries[i] = new Dictionary<CharacterStat, int>

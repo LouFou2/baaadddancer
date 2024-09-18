@@ -198,7 +198,7 @@ public class NewVoteManager : MonoBehaviour
     private void EndScene()
     {
         sceneSwitcher.SwitchToNextLevelKey();
-        sceneSwitcher.LoadNextScene();
+        sceneSwitcher.LoadSceneByName("MakeDance");
     }
 
 }
