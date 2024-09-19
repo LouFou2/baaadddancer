@@ -24,8 +24,15 @@ public class NewVoteManager : MonoBehaviour
 
     private int voteIndex = -1;
 
+    [SerializeField] private Canvas sceneCanvas;
+    [SerializeField] private Canvas menuCanvas;
+    [SerializeField] private Button restartGameButton;
+
     void Start()
     {
+        sceneCanvas.gameObject.SetActive(true);
+        menuCanvas.gameObject.SetActive(false);
+
         characterManager = FindObjectOfType<CharacterManager>();
         statsManager = FindObjectOfType<CharacterStatsManager>();
         sceneSwitcher = FindObjectOfType<SceneSwitcher>();
@@ -197,8 +204,25 @@ public class NewVoteManager : MonoBehaviour
 
     private void EndScene()
     {
-        sceneSwitcher.SwitchToNextLevelKey();
-        sceneSwitcher.LoadSceneByName("MakeDance");
+        if (characterManager.characterDataSOs[voteIndex].characterRoleSelect != CharacterData.CharacterRole.Player)
+        {
+            sceneSwitcher.SwitchToNextLevelKey();
+            sceneSwitcher.LoadSceneByName("MakeDance");
+        }
+        else
+        {
+            GameOver();
+        }
+    }
+    private void GameOver()
+    {
+        sceneCanvas.gameObject.SetActive(false);
+        menuCanvas.gameObject.SetActive(true);
+        restartGameButton.Select();
     }
 
+    public void RestartGame()
+    {
+        GameManager.Instance.RestartGame();
+    }
 }

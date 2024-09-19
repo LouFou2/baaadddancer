@@ -27,13 +27,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // Destroy any duplicate instances
         }
+        dataResetter = FindObjectOfType<DataResetter>();
     }
     private void Start()
     {
         currentLevelKey = gameData.currentLevelKey;
-        dataResetter = FindObjectOfType<DataResetter>();
+        
         if (!gameStarted && SceneManager.GetActiveScene().buildIndex == 0)
         {
+            Debug.Log("Resetting Game");
             // If this is the first loading of the game, reset the currentLevelKey
             ResetCurrentLevelKey();
             ResetRoundNr();
