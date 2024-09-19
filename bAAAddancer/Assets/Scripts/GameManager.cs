@@ -27,15 +27,14 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // Destroy any duplicate instances
         }
-        dataResetter = FindObjectOfType<DataResetter>();
-    }
-    private void Start()
-    {
+
         currentLevelKey = gameData.currentLevelKey;
-        
+
+        dataResetter = FindObjectOfType<DataResetter>();
+        Debug.Log("Game Started: " + gameStarted);
+
         if (!gameStarted && SceneManager.GetActiveScene().buildIndex == 0)
         {
-            Debug.Log("Resetting Game");
             // If this is the first loading of the game, reset the currentLevelKey
             ResetCurrentLevelKey();
             ResetRoundNr();
@@ -43,6 +42,24 @@ public class GameManager : MonoBehaviour
                 dataResetter.ResetAllData();
             gameStarted = true;
         }
+
+    }
+    private void Start()
+    {
+        /*currentLevelKey = gameData.currentLevelKey;
+
+        dataResetter = FindObjectOfType<DataResetter>();
+        Debug.Log("Game Started: " + gameStarted);
+
+        if (!gameStarted && SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            // If this is the first loading of the game, reset the currentLevelKey
+            ResetCurrentLevelKey();
+            ResetRoundNr();
+            if (dataResetter != null)
+                dataResetter.ResetAllData();
+            gameStarted = true;
+        }*/
     }
     public bool HasGameNewStarted() 
     {
