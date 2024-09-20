@@ -11,15 +11,17 @@ public enum DialogueEvents
     StartDebugGame,
     SpeakerJustLied,
     ForgetLies,
-    IncrementTeamCurse,
+    CountTeamCurse,
     GoElimination,
     NoGoElimination,
     LoadVoteScene,
+    SpeakerChooseGud,
+    SpeakerChooseCurse,
 }
 
 [System.Serializable]
 public class DialogueEventData
 {
     public DialogueEvents dialogueEvent;
-    public int intArgument; // For cases like scene index
+    //public int intArgument; // For cases like scene index
 }

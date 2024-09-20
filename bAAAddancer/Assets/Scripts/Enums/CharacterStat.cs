@@ -21,4 +21,9 @@ public enum CharacterStat
     VoteTarget,
 
     EliminationVoteCounts,
+
+    Eliminated,
+
+    SideGud,
+    SideCurse,
 }

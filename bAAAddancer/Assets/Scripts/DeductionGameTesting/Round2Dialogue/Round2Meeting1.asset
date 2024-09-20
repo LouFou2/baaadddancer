@@ -15,7 +15,9 @@ MonoBehaviour:
   sceneDialogueUnits:
   - dialogueText: I kinda like this feeling
     gameCriteria: []
-    speakerCriteria: []
+    speakerCriteria:
+    - key: 3
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -23,11 +25,17 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 9
+      intArgument: 1
+    - dialogueEvent: 14
+      intArgument: 1
   - dialogueText: Don't say that!
     gameCriteria: []
-    speakerCriteria: []
+    speakerCriteria:
+    - key: 3
+      value: 0
+    - key: 0
+      value: 0
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -35,11 +43,13 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
   - dialogueText: It's like a strange kind of power...
     gameCriteria: []
-    speakerCriteria: []
+    speakerCriteria:
+    - key: 3
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -47,8 +57,9 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+      intArgument: 0
+  playerResponseUnits: []
   responseNo: No, it looks weird
   responseYes: Hmm yeah, like rave-bending
   spokenToCriterion:
@@ -59,9 +70,11 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
-  onPlayerRespondYes:
-    m_PersistentCalls:
-      m_Calls: []
   onPlayerRespondNo:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 1
+    intArgument: 0
+  onPlayerRespondYes:
+  - dialogueEvent: 14
+    intArgument: 0
+  - dialogueEvent: 1
+    intArgument: 0

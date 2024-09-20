@@ -3,14 +3,30 @@ using UnityEngine;
 
 public class GameConditionsManager : MonoBehaviour
 {
+    public GameConditionsSO gameConditionsSO;
     public Dictionary<GameCondition, int> gameConditions = new Dictionary<GameCondition, int>();
+    public CharacterStatsManager charStatsManager;
 
     public void Start()
     {
+        charStatsManager = FindObjectOfType<CharacterStatsManager>();
+
+        // first dialogue scene, reset ints
+        if (GameManager.Instance.GetCurrentLevelKey() == LevelKey.IntroDialogue)
+        {
+            gameConditionsSO.GitGudMembersInt = 0;
+            gameConditionsSO.GitCursedMembersInt = 0;
+            gameConditionsSO.TeamCursedAmountInt = 0;
+        }
+
         SetGameCondition(GameCondition.DialogueLine, 0);
         SetGameCondition(GameCondition.DeceptionDetected, 0);
-        SetGameCondition(GameCondition.TeamCursedAmount, 0); //*** MAKE SURE TO HANDLE THIS BETTER (not just reset in start)
+        SetGameCondition(GameCondition.TeamCursedAmount, gameConditionsSO.TeamCursedAmountInt);
         SetGameCondition(GameCondition.EliminationCalled, 0);
+
+        SetGameCondition(GameCondition.GudBeatsCursed, DoesGudBeatCursed());
+        SetGameCondition(GameCondition.GitGudMembersCount, gameConditionsSO.GitGudMembersInt);
+        SetGameCondition(GameCondition.GitCursedMembersCount, gameConditionsSO.GitCursedMembersInt);
     }
 
     public int GetGameCondition(GameCondition gameCondition)
@@ -41,10 +57,46 @@ public class GameConditionsManager : MonoBehaviour
     {
         SetGameCondition(GameCondition.DeceptionDetected, 0);
     }
-    public void IncrementTeamCursedAmount() 
+
+    public void CountTeamCursedAmount() 
     {
-        int teamCursedAmount = GetGameCondition(GameCondition.TeamCursedAmount);
-        teamCursedAmount += 1;
-        SetGameCondition(GameCondition.TeamCursedAmount, teamCursedAmount);
+        gameConditionsSO.TeamCursedAmountInt = 0;
+        foreach (CharacterStatsSO charStat in charStatsManager.characterStats)
+        {
+            if (charStat.CursedInt == 1 && charStat.EliminatedInt == 0)
+            {
+                gameConditionsSO.TeamCursedAmountInt += 1;
+            }
+            
+        }   
+        SetGameCondition(GameCondition.TeamCursedAmount, gameConditionsSO.TeamCursedAmountInt);
+    }
+
+    public void CountGudVsCursedMembers()
+    {
+        gameConditionsSO.GitGudMembersInt = 0;
+        gameConditionsSO.GitCursedMembersInt = 0;
+        foreach (CharacterStatsSO charStat in charStatsManager.characterStats)
+        {
+            if (charStat.SideGudInt == 1)
+            {
+                gameConditionsSO.GitGudMembersInt += 1;
+            }
+            if (charStat.SideCursedInt == 1)
+            {
+                gameConditionsSO.GitCursedMembersInt += 1;
+            }
+        }
+        SetGameCondition(GameCondition.GudBeatsCursed, DoesGudBeatCursed());
+    }
+
+    public int DoesGudBeatCursed()
+    {
+        if(gameConditionsSO.GitGudMembersInt > gameConditionsSO.GitCursedMembersInt)
+            return 1;
+        if (gameConditionsSO.GitGudMembersInt < gameConditionsSO.GitCursedMembersInt)
+            return 0;
+        else
+            return -1; // if they are equal, default to -1
     }
 }

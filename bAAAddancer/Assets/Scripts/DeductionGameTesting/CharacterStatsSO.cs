@@ -13,4 +13,7 @@ public class CharacterStatsSO : ScriptableObject
     public int EliminatorInt;
     public int VoteTargetInt;
     public int EliminationVoteCountsInt;
+    public int EliminatedInt;
+    public int SideGudInt;
+    public int SideCursedInt;
 }

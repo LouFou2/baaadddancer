@@ -2165,6 +2165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25dfbd006c8dc044b1ca3b745ff9613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameConditionsSO: {fileID: 11400000, guid: 3c8d66533a6371444bb4fd86566ac01f, type: 2}
+  charStatsManager: {fileID: 0}
 --- !u!4 &1117094154
 Transform:
   m_ObjectHideFlags: 0
@@ -5530,6 +5532,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7555923999160777187}
+        m_TargetAssemblyTypeName: DialogueQueryHandler, Assembly-CSharp
+        m_MethodName: InitializeQueryQueue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7555923999160777187}
+        m_TargetAssemblyTypeName: DialogueQueryHandler, Assembly-CSharp
+        m_MethodName: RunNextQuery
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   SwitchNextLevelKey:
     m_PersistentCalls:
       m_Calls:
@@ -5595,19 +5621,115 @@ MonoBehaviour:
       m_Calls: []
   SpeakerJustLied:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6522463995895946351}
+        m_TargetAssemblyTypeName: CharacterStatsManager, Assembly-CSharp
+        m_MethodName: HandleSpeakerHasLied
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1117094153}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: HandleLieDetection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ForgetLies:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1117094153}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: ResetLieDetection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   IncrementTeamCurse:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1117094153}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: CountTeamCursedAmount
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   SpeakerWantsElimination:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6522463995895946351}
+        m_TargetAssemblyTypeName: CharacterStatsManager, Assembly-CSharp
+        m_MethodName: HandleSpeakerWantsElimination
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 100588813}
+        m_TargetAssemblyTypeName: EliminationHandler, Assembly-CSharp
+        m_MethodName: HandleElimination
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   SpeakerBlocksElimination:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6522463995895946351}
+        m_TargetAssemblyTypeName: CharacterStatsManager, Assembly-CSharp
+        m_MethodName: HandleSpeakerBlocksElimination
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 100588813}
+        m_TargetAssemblyTypeName: EliminationHandler, Assembly-CSharp
+        m_MethodName: HandleElimination
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   LoadVoteScene:
     m_PersistentCalls:
       m_Calls:
@@ -5619,6 +5741,60 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 8
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  SpeakerChooseGud:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6522463995895946351}
+        m_TargetAssemblyTypeName: CharacterStatsManager, Assembly-CSharp
+        m_MethodName: HandleSpeakerSidesGud
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1117094153}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: CountGudVsCursedMembers
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  SpeakerChooseCurse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6522463995895946351}
+        m_TargetAssemblyTypeName: CharacterStatsManager, Assembly-CSharp
+        m_MethodName: HandleSpeakerSidesCursed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1117094153}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: CountGudVsCursedMembers
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

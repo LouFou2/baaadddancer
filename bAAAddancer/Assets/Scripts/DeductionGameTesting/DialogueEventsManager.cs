@@ -19,6 +19,8 @@ public class DialogueEventsManager : MonoBehaviour
     public UnityEvent SpeakerWantsElimination;
     public UnityEvent SpeakerBlocksElimination;
     public UnityEvent LoadVoteScene;
+    public UnityEvent SpeakerChooseGud;
+    public UnityEvent SpeakerChooseCurse;
 
     public void HandleEvents(DialogueEventData[] dialogueEvents)
     {
@@ -46,9 +48,9 @@ public class DialogueEventsManager : MonoBehaviour
             case DialogueEvents.SwitchNextScene:
                 SwitchNextScene.Invoke();
                 break;
-            case DialogueEvents.LoadSceneByIndex:
-                LoadSceneByIndex.Invoke(eventData.intArgument);  // Invoking with an int argument
-                break;
+            //case DialogueEvents.LoadSceneByIndex:                 // I don't think I use this ever?
+                //LoadSceneByIndex.Invoke(eventData.intArgument);   // as in, I don't load scene by index from scriptable object data
+                //break;
             case DialogueEvents.StartDebugGame:
                 StartDebugGame.Invoke();
                 break;
@@ -58,7 +60,7 @@ public class DialogueEventsManager : MonoBehaviour
             case DialogueEvents.ForgetLies:
                 ForgetLies.Invoke();
                 break;
-            case DialogueEvents.IncrementTeamCurse:
+            case DialogueEvents.CountTeamCurse:
                 IncrementTeamCurse.Invoke();
                 break;
             case DialogueEvents.GoElimination:
@@ -69,6 +71,12 @@ public class DialogueEventsManager : MonoBehaviour
                 break;
             case DialogueEvents.LoadVoteScene:
                 LoadVoteScene.Invoke();
+                break;
+            case DialogueEvents.SpeakerChooseGud:
+                SpeakerChooseGud.Invoke();
+                break;
+            case DialogueEvents.SpeakerChooseCurse:
+                SpeakerChooseCurse.Invoke();
                 break;
             // Add more cases for other events
             default:

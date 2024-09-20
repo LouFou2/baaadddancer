@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: Round2Meeting2
   m_EditorClassIdentifier: 
   sceneDialogueUnits:
-  - dialogueText: I think I know who it might be
+  - dialogueText: No freaky shenanigans! I say we eliminate!
     gameCriteria: []
-    speakerCriteria: []
+    speakerCriteria:
+    - key: 0
+      value: 0
+    - key: 4
+      value: 2
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -23,44 +27,9 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
-  - dialogueText: Well I suspect it might be YOU
-    gameCriteria: []
-    speakerCriteria: []
-    spokenToCriteria: []
-    camera: 0
-    distance: 0
-    angle: 0
-    zoom: 0
-    shake: 0
-    onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
-  - dialogueText: Oh you're quick to point the finger
-    gameCriteria: []
-    speakerCriteria: []
-    spokenToCriteria: []
-    camera: 0
-    distance: 0
-    angle: 0
-    zoom: 0
-    shake: 0
-    onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
-  - dialogueText: Yeah that's a bit suspicious
-    gameCriteria: []
-    speakerCriteria: []
-    spokenToCriteria: []
-    camera: 0
-    distance: 0
-    angle: 0
-    zoom: 0
-    shake: 0
-    onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 13
+    - dialogueEvent: 10
+  playerResponseUnits: []
   responseNo: 
   responseYes: Listen, let's just debug
   spokenToCriterion:
@@ -71,9 +40,7 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
-  onPlayerRespondYes:
-    m_PersistentCalls:
-      m_Calls: []
   onPlayerRespondNo:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 0
+  onPlayerRespondYes:
+  - dialogueEvent: 0

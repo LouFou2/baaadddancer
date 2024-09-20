@@ -42,6 +42,10 @@ public class CharacterStatsManager : MonoBehaviour
                 { CharacterStat.Eliminator, characterStats[i].EliminatorInt },
                 { CharacterStat.VoteTarget, characterStats[i].VoteTargetInt },
                 { CharacterStat.EliminationVoteCounts, characterStats[i].EliminationVoteCountsInt },
+                { CharacterStat.Eliminated, characterStats[i].EliminatedInt },
+
+                { CharacterStat.SideGud, characterStats[i].SideGudInt },
+                { CharacterStat.SideCurse, characterStats[i].SideCursedInt },
 
                 // Every scene these can start with defaults:
                 { CharacterStat.SpokenAmount, 0 },
@@ -106,6 +110,14 @@ public class CharacterStatsManager : MonoBehaviour
             characterStats[i].VoteTargetInt = -1;
             statsDictionaries[i][CharacterStat.EliminationVoteCounts] = 0;
             characterStats[i].EliminationVoteCountsInt = 0;
+            statsDictionaries[i][CharacterStat.Eliminated] = 0;
+            characterStats[i].EliminatedInt = 0;
+            statsDictionaries[i][CharacterStat.SideGud] = 0;
+            characterStats[i].SideGudInt = 0;
+            statsDictionaries[i][CharacterStat.SideCurse] = 0;
+            characterStats[i].SideCursedInt = 0;
+
+
             // influence and perception is handled below
         }
 
@@ -201,10 +213,18 @@ public class CharacterStatsManager : MonoBehaviour
     {
         for (int i = 0; i < characterStats.Length; i++)
         {
+            // first we set eliminated stat
+            if (characterManager.characterDataSOs[i].wasEliminated)
+            {
+                characterStats[i].EliminatedInt = 1;
+                ModifyCharacterStat(i, CharacterStat.Eliminated, 1);
+            }
+
             //== The Curse Stats gets handled differently: ==
             // (because cursing happens between dialogue scenes, and gets stored in characterDataSOs)
 
             // --The last cursed character:
+            characterStats[i].LastCursedInt = 0;
             ModifyCharacterStat(i, CharacterStat.LastCursed, 0); // reset all 
             if (characterManager.characterDataSOs[i].lastCursedCharacter)
             {
@@ -277,6 +297,10 @@ public class CharacterStatsManager : MonoBehaviour
 
         for (int i = 0; i < statsDictionaries.Length; i++)
         {
+            if (statsDictionaries[i][CharacterStat.Eliminated] == 1)
+            {
+                continue;
+            }
             bool match = true;
             //Debug.Log("Checking character index: " + i);
             foreach (var criterion in queryCriteria)
@@ -359,8 +383,6 @@ public class CharacterStatsManager : MonoBehaviour
         }
     }
 
-
-
     public void HandleSpeakerWantsElimination() 
     {
         int speakerIndex = -1;
@@ -403,7 +425,9 @@ public class CharacterStatsManager : MonoBehaviour
         // we update any compliant characters' stats to "Eliminator". They can be compliant if they have low influence.
         for(int i = 0; i < statsDictionaries.Length; i++)  //(CharacterStatsSO charStat in characterStats)
         {
-            if (compliantChars > 0 && characterStats[i].EliminatorInt == 0 && characterStats[i].InfluenceInt == 0) 
+            if (compliantChars > 0 && 
+                characterStats[i].EliminatorInt == 0 && 
+                characterStats[i].InfluenceInt == 0) 
             {
                 ModifyCharacterStat(i, CharacterStat.Eliminator, 1);
                 characterStats[i].EliminatorInt = 1;
@@ -420,5 +444,30 @@ public class CharacterStatsManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void HandleSpeakerSidesGud()
+    {
+        int speakerIndex = -1;
+        for (int i = 0; i < statsDictionaries.Length; i++)
+        {
+            speakerIndex = (GetCharacterStats(i)[CharacterStat.LastSpeaker] == 1) ? i : speakerIndex;
+        }
+        ModifyCharacterStat(speakerIndex, CharacterStat.SideGud, 1);
+        characterStats[speakerIndex].SideGudInt = 1;
+        ModifyCharacterStat(speakerIndex, CharacterStat.SideCurse, 0);
+        characterStats[speakerIndex].SideCursedInt = 0;
+    }
+    public void HandleSpeakerSidesCursed()
+    {
+        int speakerIndex = -1;
+        for (int i = 0; i < statsDictionaries.Length; i++)
+        {
+            speakerIndex = (GetCharacterStats(i)[CharacterStat.LastSpeaker] == 1) ? i : speakerIndex;
+        }
+        ModifyCharacterStat(speakerIndex, CharacterStat.SideGud, 0);
+        characterStats[speakerIndex].SideGudInt = 0;
+        ModifyCharacterStat(speakerIndex, CharacterStat.SideCurse, 1);
+        characterStats[speakerIndex].SideCursedInt = 1;
     }
 }

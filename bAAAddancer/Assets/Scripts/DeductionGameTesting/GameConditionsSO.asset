@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5e8fb268605624eaea97e995a39b51, type: 3}
-  m_Name: BubbleData
+  m_Script: {fileID: 11500000, guid: c1fa302675f871f4e9ed1e258f08dcf3, type: 3}
+  m_Name: GameConditionsSO
   m_EditorClassIdentifier: 
-  characterRoleSelect: 2
-  infectionLevel: 0
-  wasDebuggedLastRound: 0
-  lastCursedCharacter: 0
-  wasEliminated: 0
+  TeamCursedAmountInt: 2
+  GitGudMembersInt: 1
+  GitCursedMembersInt: 2

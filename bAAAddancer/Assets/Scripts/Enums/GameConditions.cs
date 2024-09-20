@@ -5,4 +5,7 @@ public enum GameCondition
     DeceptionDetected,
     TeamCursedAmount,
     EliminationCalled,
+    GudBeatsCursed,
+    GitGudMembersCount,
+    GitCursedMembersCount,
 }
