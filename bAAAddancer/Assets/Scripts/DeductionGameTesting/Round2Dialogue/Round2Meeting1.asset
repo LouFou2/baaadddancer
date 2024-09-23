@@ -26,9 +26,7 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 9
-      intArgument: 1
     - dialogueEvent: 14
-      intArgument: 1
   - dialogueText: Don't say that!
     gameCriteria: []
     speakerCriteria:
@@ -44,7 +42,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: It's like a strange kind of power...
     gameCriteria: []
     speakerCriteria:
@@ -58,7 +55,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   playerResponseUnits: []
   responseNo: No, it looks weird
   responseYes: Hmm yeah, like rave-bending
@@ -71,10 +67,8 @@ MonoBehaviour:
   playerCamZoom: 0
   playerCamShake: 0
   onPlayerRespondNo:
+  - dialogueEvent: 13
   - dialogueEvent: 1
-    intArgument: 0
   onPlayerRespondYes:
   - dialogueEvent: 14
-    intArgument: 0
   - dialogueEvent: 1
-    intArgument: 0
