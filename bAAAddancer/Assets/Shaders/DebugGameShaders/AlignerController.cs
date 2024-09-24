@@ -45,15 +45,31 @@ public class AlignerController : MonoBehaviour
             float shaderVectorYR = controlInputR.y;
             //float shaderVectorYR = Mathf.InverseLerp(-1, 1, controlInputR.y); //this is only if the input value needs to be normalized
 
+            Vector2 controllersPosition = new Vector2(shaderVectorXL, shaderVectorYR);
+            Vector2 targetPosition = new Vector2(randomAlignValueX, randomAlignValueY);
+
+            Vector2 toFrom = controllersPosition - targetPosition;
+            float distance = Vector2.Distance(controllersPosition, targetPosition);
+
             //then we measure the difference between the x and y controller input values
             //and the "target" values
             float differenceX = (randomAlignValueX - shaderVectorXL);
             float differenceY = (randomAlignValueY - shaderVectorYR);
 
-            float clampedX = Mathf.Clamp(differenceX, -1, 1);
-            float clampedY = Mathf.Clamp(differenceY, -1, 1);
+            //float clampedX = Mathf.Clamp(differenceX, -1, 1);
+            //float clampedY = Mathf.Clamp(differenceY, -1, 1);
 
-            Vector2 shaderVector = new Vector2(clampedX, clampedY);
+            float invLerpX = Mathf.InverseLerp(-1, 1, differenceX) ;
+            float invLerpY = Mathf.InverseLerp(-1, 1, differenceY) ;
+
+            float lerpX = Mathf.Lerp(-1, 1, invLerpX);
+            float lerpY = Mathf.Lerp(-1, 1, invLerpY);
+
+            Debug.Log("lerpX: " + lerpX);
+            Debug.Log("lerpY: " + lerpY);
+
+            Vector2 shaderVector = new Vector2(lerpX, lerpY);
+            //Vector2 shaderVector = new Vector2(clampedX, clampedY);
 
             alignShaderMat.SetVector("_ControllerXY", shaderVector);
         }
@@ -62,6 +78,10 @@ public class AlignerController : MonoBehaviour
         if (playerControls.GenericInput.RTrigger.IsPressed())
         {
             alignmentLocked = true;
+        }
+        if (playerControls.GenericInput.LTrigger.IsPressed() && alignmentLocked == true)
+        {
+            alignmentLocked = false;
         }
     }
 }
