@@ -346,6 +346,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LThumb",
+                    "type": "Value",
+                    "id": "4748ca15-edbe-4fc9-99c0-d1bbe6538178",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "RThumb",
+                    "type": "Value",
+                    "id": "e2296513-abcb-435d-8908-b7b9c9d940b4",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -478,6 +496,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "RBumper",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9209164d-e0d1-46e5-b639-59bc3cb0256e",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LThumb",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ca537e4-2306-4516-8a8a-faf9565d13c9",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RThumb",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

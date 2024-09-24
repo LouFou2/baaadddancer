@@ -368,6 +368,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LThumb"",
+                    ""type"": ""Value"",
+                    ""id"": ""4748ca15-edbe-4fc9-99c0-d1bbe6538178"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RThumb"",
+                    ""type"": ""Value"",
+                    ""id"": ""e2296513-abcb-435d-8908-b7b9c9d940b4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -502,6 +520,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""RBumper"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9209164d-e0d1-46e5-b639-59bc3cb0256e"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LThumb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ca537e4-2306-4516-8a8a-faf9565d13c9"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RThumb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -532,6 +572,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_GenericInput_AButton = m_GenericInput.FindAction("AButton", throwIfNotFound: true);
         m_GenericInput_LBumper = m_GenericInput.FindAction("LBumper", throwIfNotFound: true);
         m_GenericInput_RBumper = m_GenericInput.FindAction("RBumper", throwIfNotFound: true);
+        m_GenericInput_LThumb = m_GenericInput.FindAction("LThumb", throwIfNotFound: true);
+        m_GenericInput_RThumb = m_GenericInput.FindAction("RThumb", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -749,6 +791,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_GenericInput_AButton;
     private readonly InputAction m_GenericInput_LBumper;
     private readonly InputAction m_GenericInput_RBumper;
+    private readonly InputAction m_GenericInput_LThumb;
+    private readonly InputAction m_GenericInput_RThumb;
     public struct GenericInputActions
     {
         private @PlayerControls m_Wrapper;
@@ -759,6 +803,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @AButton => m_Wrapper.m_GenericInput_AButton;
         public InputAction @LBumper => m_Wrapper.m_GenericInput_LBumper;
         public InputAction @RBumper => m_Wrapper.m_GenericInput_RBumper;
+        public InputAction @LThumb => m_Wrapper.m_GenericInput_LThumb;
+        public InputAction @RThumb => m_Wrapper.m_GenericInput_RThumb;
         public InputActionMap Get() { return m_Wrapper.m_GenericInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -786,6 +832,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RBumper.started += instance.OnRBumper;
             @RBumper.performed += instance.OnRBumper;
             @RBumper.canceled += instance.OnRBumper;
+            @LThumb.started += instance.OnLThumb;
+            @LThumb.performed += instance.OnLThumb;
+            @LThumb.canceled += instance.OnLThumb;
+            @RThumb.started += instance.OnRThumb;
+            @RThumb.performed += instance.OnRThumb;
+            @RThumb.canceled += instance.OnRThumb;
         }
 
         private void UnregisterCallbacks(IGenericInputActions instance)
@@ -808,6 +860,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RBumper.started -= instance.OnRBumper;
             @RBumper.performed -= instance.OnRBumper;
             @RBumper.canceled -= instance.OnRBumper;
+            @LThumb.started -= instance.OnLThumb;
+            @LThumb.performed -= instance.OnLThumb;
+            @LThumb.canceled -= instance.OnLThumb;
+            @RThumb.started -= instance.OnRThumb;
+            @RThumb.performed -= instance.OnRThumb;
+            @RThumb.canceled -= instance.OnRThumb;
         }
 
         public void RemoveCallbacks(IGenericInputActions instance)
@@ -850,5 +908,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnAButton(InputAction.CallbackContext context);
         void OnLBumper(InputAction.CallbackContext context);
         void OnRBumper(InputAction.CallbackContext context);
+        void OnLThumb(InputAction.CallbackContext context);
+        void OnRThumb(InputAction.CallbackContext context);
     }
 }
