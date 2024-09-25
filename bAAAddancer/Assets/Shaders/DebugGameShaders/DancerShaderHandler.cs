@@ -10,6 +10,7 @@ public class DancerShaderHandler : MonoBehaviour
     private void Start()
     {
         counter = FindObjectOfType<SimpleCounter>();
+        dancerAbstractMat = GetComponent<MeshRenderer>().material;
     }
     void Update()
     {

@@ -3,11 +3,17 @@ using UnityEngine;
 public class AlignerController : MonoBehaviour
 {
     private PlayerControls playerControls;
+    private DebugManager debugManager;
+
     [SerializeField] private Material alignShaderMat;
     [SerializeField] [Range(-0.99f, 0.99f)] private float randomAlignValueX;
     [SerializeField] [Range(-0.99f, 0.99f)] private float randomAlignValueY;
 
     bool alignmentLocked = false;
+
+    [SerializeField] private GameObject endObject;
+
+    private float totalDiscrepency;
 
     private void Awake()
     {
@@ -15,6 +21,10 @@ public class AlignerController : MonoBehaviour
 
         randomAlignValueX = Random.Range(-0.99f, 0.99f);
         randomAlignValueY = Random.Range(-0.99f, 0.99f);
+
+        endObject.SetActive(false);
+
+        debugManager = FindObjectOfType<DebugManager>();
     }
     private void OnEnable()
     {
@@ -48,9 +58,6 @@ public class AlignerController : MonoBehaviour
             Vector2 controllersPosition = new Vector2(shaderVectorXL, shaderVectorYR);
             Vector2 targetPosition = new Vector2(randomAlignValueX, randomAlignValueY);
 
-            Vector2 toFrom = controllersPosition - targetPosition;
-            float distance = Vector2.Distance(controllersPosition, targetPosition);
-
             //then we measure the difference between the x and y controller input values
             //and the "target" values
             float differenceX = (randomAlignValueX - shaderVectorXL);
@@ -65,23 +72,34 @@ public class AlignerController : MonoBehaviour
             float lerpX = Mathf.Lerp(-1, 1, invLerpX);
             float lerpY = Mathf.Lerp(-1, 1, invLerpY);
 
-            Debug.Log("lerpX: " + lerpX);
-            Debug.Log("lerpY: " + lerpY);
-
             Vector2 shaderVector = new Vector2(lerpX, lerpY);
-            //Vector2 shaderVector = new Vector2(clampedX, clampedY);
+
+            totalDiscrepency = (Mathf.Abs(lerpX) + Mathf.Abs(lerpY)) * 0.5f;
 
             alignShaderMat.SetVector("_ControllerXY", shaderVector);
         }
         
-
-        if (playerControls.GenericInput.RTrigger.IsPressed())
+        if (playerControls.GenericInput.LTrigger.IsPressed())
         {
             alignmentLocked = true;
+            endObject.SetActive(true);
         }
-        if (playerControls.GenericInput.LTrigger.IsPressed() && alignmentLocked == true)
+        if (playerControls.GenericInput.RTrigger.IsPressed() && alignmentLocked == true)
         {
             alignmentLocked = false;
+            endObject.SetActive(false);
         }
+
+        if (alignmentLocked && playerControls.GenericInput.AButton.IsPressed()) 
+        {
+            debugManager.EndAlignment(totalDiscrepency);
+            Debug.Log("total discrepency: " + totalDiscrepency);
+        }
+    }
+
+    public void UnlockAlignment()
+    {
+        alignmentLocked = false;
+        endObject.SetActive(false);
     }
 }

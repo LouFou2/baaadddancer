@@ -21,6 +21,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _SampleTexture2D_2b0d76ccc69c4f5c98e879671f663ba9_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 95caa5b6973e40d40974e4f94d3c9ca3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6a35a573e21e4e92837a6c7fdce71e45_Texture_1:
+        m_Texture: {fileID: 2800000, guid: b645597591406ae4786e4fce6f25d751, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -38,7 +46,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _ControllerXY: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _ControllerXY: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8037955407116776027
 MonoBehaviour:
