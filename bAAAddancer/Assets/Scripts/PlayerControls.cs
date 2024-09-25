@@ -386,6 +386,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""XButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""2be9d226-b5c5-4026-98c5-a91a4f683409"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -542,6 +551,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""RThumb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""481e366e-f275-40a0-9a8e-6636ebb2324d"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""XButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -574,6 +594,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_GenericInput_RBumper = m_GenericInput.FindAction("RBumper", throwIfNotFound: true);
         m_GenericInput_LThumb = m_GenericInput.FindAction("LThumb", throwIfNotFound: true);
         m_GenericInput_RThumb = m_GenericInput.FindAction("RThumb", throwIfNotFound: true);
+        m_GenericInput_XButton = m_GenericInput.FindAction("XButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -793,6 +814,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_GenericInput_RBumper;
     private readonly InputAction m_GenericInput_LThumb;
     private readonly InputAction m_GenericInput_RThumb;
+    private readonly InputAction m_GenericInput_XButton;
     public struct GenericInputActions
     {
         private @PlayerControls m_Wrapper;
@@ -805,6 +827,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @RBumper => m_Wrapper.m_GenericInput_RBumper;
         public InputAction @LThumb => m_Wrapper.m_GenericInput_LThumb;
         public InputAction @RThumb => m_Wrapper.m_GenericInput_RThumb;
+        public InputAction @XButton => m_Wrapper.m_GenericInput_XButton;
         public InputActionMap Get() { return m_Wrapper.m_GenericInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -838,6 +861,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RThumb.started += instance.OnRThumb;
             @RThumb.performed += instance.OnRThumb;
             @RThumb.canceled += instance.OnRThumb;
+            @XButton.started += instance.OnXButton;
+            @XButton.performed += instance.OnXButton;
+            @XButton.canceled += instance.OnXButton;
         }
 
         private void UnregisterCallbacks(IGenericInputActions instance)
@@ -866,6 +892,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RThumb.started -= instance.OnRThumb;
             @RThumb.performed -= instance.OnRThumb;
             @RThumb.canceled -= instance.OnRThumb;
+            @XButton.started -= instance.OnXButton;
+            @XButton.performed -= instance.OnXButton;
+            @XButton.canceled -= instance.OnXButton;
         }
 
         public void RemoveCallbacks(IGenericInputActions instance)
@@ -910,5 +939,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnRBumper(InputAction.CallbackContext context);
         void OnLThumb(InputAction.CallbackContext context);
         void OnRThumb(InputAction.CallbackContext context);
+        void OnXButton(InputAction.CallbackContext context);
     }
 }
