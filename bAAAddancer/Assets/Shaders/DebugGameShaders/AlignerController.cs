@@ -93,7 +93,6 @@ public class AlignerController : MonoBehaviour
         if (alignmentLocked && playerControls.GenericInput.AButton.IsPressed()) 
         {
             debugManager.EndAlignment(totalDiscrepency);
-            Debug.Log("total discrepency: " + totalDiscrepency);
         }
     }
 

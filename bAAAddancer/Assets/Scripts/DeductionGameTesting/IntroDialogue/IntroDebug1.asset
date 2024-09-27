@@ -21,14 +21,13 @@ MonoBehaviour:
     - key: 3
       value: 1
     spokenToCriteria: []
-    camera: 0
+    camera: 2
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: I don't believe you are the Rave Demon
     gameCriteria:
     - key: 0
@@ -37,14 +36,13 @@ MonoBehaviour:
     - key: 3
       value: 1
     spokenToCriteria: []
-    camera: 0
+    camera: 2
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: But you have to figure it out
     gameCriteria:
     - key: 0
@@ -53,14 +51,13 @@ MonoBehaviour:
     - key: 3
       value: 1
     spokenToCriteria: []
-    camera: 0
+    camera: 2
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: Or we ALL might cursed
     gameCriteria:
     - key: 0
@@ -69,27 +66,25 @@ MonoBehaviour:
     - key: 3
       value: 1
     spokenToCriteria: []
-    camera: 0
+    camera: 2
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
+  playerResponseUnits: []
   responseNo: 
   responseYes: I'll try to figure it out
   spokenToCriterion:
     key: 0
     value: 0
-  playerCamera: 0
+  playerCamera: 2
   playerCamDistance: 0
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
   onPlayerRespondNo:
   - dialogueEvent: 0
-    intArgument: 0
   onPlayerRespondYes:
   - dialogueEvent: 1
-    intArgument: 0

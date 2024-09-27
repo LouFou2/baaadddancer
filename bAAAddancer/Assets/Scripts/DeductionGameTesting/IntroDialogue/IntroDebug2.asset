@@ -21,7 +21,7 @@ MonoBehaviour:
     - key: 3
       value: 1
     spokenToCriteria: []
-    camera: 0
+    camera: 2
     distance: 0
     angle: 0
     zoom: 0
@@ -35,18 +35,19 @@ MonoBehaviour:
     - key: 3
       value: 1
     spokenToCriteria: []
-    camera: 0
+    camera: 2
     distance: 0
     angle: 0
     zoom: 0
     shake: 0
     onDialogueTriggered: []
+  playerResponseUnits: []
   responseNo: 
   responseYes: Let's do this
   spokenToCriterion:
     key: 0
     value: 0
-  playerCamera: 0
+  playerCamera: 2
   playerCamDistance: 0
   playerCamAngle: 0
   playerCamZoom: 0
@@ -54,4 +55,3 @@ MonoBehaviour:
   onPlayerRespondNo: []
   onPlayerRespondYes:
   - dialogueEvent: 6
-    intArgument: 0
