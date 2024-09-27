@@ -118,8 +118,8 @@ public class DebugManager : MonoBehaviour
 
             if (!isTweening && !endOption)
             {
-                charSelectObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-                charSelectObject.transform.DOScale(0.25f, 0.4f).SetLoops(-1, LoopType.Yoyo);
+                charSelectObject.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+                charSelectObject.transform.DOScale(0.8f, 0.4f).SetLoops(-1, LoopType.Yoyo);
                 isTweening = true;
             }
         }
@@ -144,8 +144,8 @@ public class DebugManager : MonoBehaviour
 
         if (endOption && !isTweening)
         {
-            endButtonObject.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-            endButtonObject.transform.DOScale(0.45f, 0.4f).SetLoops(-1, LoopType.Yoyo);
+            endButtonObject.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            endButtonObject.transform.DOScale(0.8f, 0.4f).SetLoops(-1, LoopType.Yoyo);
             isTweening = true;
         }
         if (endOption && playerControls.GenericInput.XButton.IsPressed())
@@ -186,7 +186,7 @@ public class DebugManager : MonoBehaviour
         {
             LLockObject.SetActive(true);
             RUnlockObject.SetActive(false);
-            LLockObject.transform.DOScale(0.65f, 0.4f).SetLoops(8, LoopType.Yoyo);
+            LLockObject.transform.DOScale(1f, 0.4f).SetLoops(8, LoopType.Yoyo);
         }
     }
     void UnlockButtonTween()
@@ -195,12 +195,12 @@ public class DebugManager : MonoBehaviour
         {
             LLockObject.SetActive(false);
             RUnlockObject.SetActive(true);
-            RUnlockObject.transform.DOScale(0.65f, 0.4f).SetLoops(8, LoopType.Yoyo).OnComplete(TweenReturnButton);
+            RUnlockObject.transform.DOScale(1f, 0.4f).SetLoops(8, LoopType.Yoyo).OnComplete(TweenReturnButton);
         }
     }
     void TweenReturnButton()
     {
-        exitAlignObject.transform.DOScale(0.55f, 0.4f).SetLoops(8, LoopType.Yoyo);
+        exitAlignObject.transform.DOScale(0.8f, 0.4f).SetLoops(8, LoopType.Yoyo);
     }
 
     public void EndAlignment(float finalDiscrepencyValue)
