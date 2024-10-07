@@ -21,6 +21,8 @@ public class DialogueEventsManager : MonoBehaviour
     public UnityEvent LoadVoteScene;
     public UnityEvent SpeakerChooseGud;
     public UnityEvent SpeakerChooseCurse;
+    public UnityEvent PlayerChooseGud;
+    public UnityEvent PlayerChooseCurse;
 
     public void HandleEvents(DialogueEventData[] dialogueEvents)
     {
@@ -77,6 +79,12 @@ public class DialogueEventsManager : MonoBehaviour
                 break;
             case DialogueEvents.SpeakerChooseCurse:
                 SpeakerChooseCurse.Invoke();
+                break;
+            case DialogueEvents.PlayerChooseGud:
+                PlayerChooseGud.Invoke();
+                break;
+            case DialogueEvents.PlayerChooseCurse:
+                PlayerChooseCurse.Invoke();
                 break;
             // Add more cases for other events
             default:

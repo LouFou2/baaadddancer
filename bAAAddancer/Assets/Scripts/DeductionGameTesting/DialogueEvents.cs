@@ -17,6 +17,8 @@ public enum DialogueEvents
     LoadVoteScene,
     SpeakerChooseGud,
     SpeakerChooseCurse,
+    PlayerChooseGud,
+    PlayerChooseCurse,
 }
 
 [System.Serializable]

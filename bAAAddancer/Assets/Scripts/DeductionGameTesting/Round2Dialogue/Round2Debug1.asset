@@ -23,8 +23,7 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
   - dialogueText: Can we just TELL the others you did the debug?
     gameCriteria: []
     speakerCriteria: []
@@ -35,8 +34,8 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+  playerResponseUnits: []
   responseNo: No we need to fix this
   responseYes: Should we see what happens?
   spokenToCriterion:
@@ -47,9 +46,7 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
-  onPlayerRespondYes:
-    m_PersistentCalls:
-      m_Calls: []
   onPlayerRespondNo:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 6
+  onPlayerRespondYes:
+  - dialogueEvent: 6

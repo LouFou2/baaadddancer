@@ -1115,6 +1115,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bubble.002
       objectReference: {fileID: 0}
+    - target: {fileID: 2444027865858116415, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3071805456118796677, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
       propertyPath: m_RootOrder
@@ -3858,6 +3863,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wonky.002
       objectReference: {fileID: 0}
+    - target: {fileID: 5627502537885533446, guid: 4d0f9f92e028ed34c84dc80208a80523,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5934831504515529819, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -5418,6 +5428,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab071bf766bb0e74ca8adce043843024, type: 2}
   - {fileID: 11400000, guid: fff83e3ef08745746bcb1711dd6bde98, type: 2}
   - {fileID: 11400000, guid: cf398b03e0f02a94a91b9e1951fec279, type: 2}
+  sceneSwitcher: {fileID: 1881658199}
   playerIndex: -1
   demonIndex: -1
   lastSpeakerIndex: -1
@@ -5432,6 +5443,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_DefaultBlend.m_Time
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6852680913360360744, guid: 2fb9b9e11f7221e4da69957778db4a69,
+        type: 3}
+      propertyPath: m_DefaultBlend.m_Style
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6852680913360360744, guid: 2fb9b9e11f7221e4da69957778db4a69,
         type: 3}
@@ -5778,6 +5794,84 @@ MonoBehaviour:
       - m_Target: {fileID: 6522463995895946351}
         m_TargetAssemblyTypeName: CharacterStatsManager, Assembly-CSharp
         m_MethodName: HandleSpeakerSidesCursed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1117094153}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: CountGudVsCursedMembers
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  PlayerChooseGud:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6522463995895946351}
+        m_TargetAssemblyTypeName: CharacterStatsManager, Assembly-CSharp
+        m_MethodName: HandleSpeakerSidesGud
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1117094153}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: PlayerChooseGud
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1117094153}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: CountGudVsCursedMembers
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  PlayerChooseCurse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6522463995895946351}
+        m_TargetAssemblyTypeName: CharacterStatsManager, Assembly-CSharp
+        m_MethodName: HandleSpeakerSidesCursed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1117094153}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: PlayerChooseCurse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

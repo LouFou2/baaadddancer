@@ -30,7 +30,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: I'm fine, all better
     gameCriteria:
     - key: 0
@@ -48,7 +47,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: Im fine, all butter
     gameCriteria:
     - key: 0
@@ -66,9 +64,7 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 7
-      intArgument: 0
     - dialogueEvent: 9
-      intArgument: 0
   - dialogueText: You don't look quite right though
     gameCriteria:
     - key: 0
@@ -90,7 +86,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: Glad to hear your'e back to normal
     gameCriteria:
     - key: 0
@@ -112,7 +107,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   playerResponseUnits:
   - gameCriteria:
     - key: 2
@@ -131,7 +125,6 @@ MonoBehaviour:
     onPlayerRespondNo: []
     onPlayerRespondYes:
     - dialogueEvent: 1
-      intArgument: 0
   - gameCriteria:
     - key: 2
       value: 1
@@ -148,14 +141,11 @@ MonoBehaviour:
     playerCamShake: 0
     onPlayerRespondNo:
     - dialogueEvent: 8
-      intArgument: 0
     - dialogueEvent: 1
-      intArgument: 0
     onPlayerRespondYes:
     - dialogueEvent: 7
-      intArgument: 0
+    - dialogueEvent: 16
     - dialogueEvent: 1
-      intArgument: 0
   responseNo: I think I missed a bug or two...
   responseYes: I got all the boogs!
   spokenToCriterion:
@@ -168,11 +158,7 @@ MonoBehaviour:
   playerCamShake: 0
   onPlayerRespondNo:
   - dialogueEvent: 8
-    intArgument: 0
   - dialogueEvent: 1
-    intArgument: 0
   onPlayerRespondYes:
   - dialogueEvent: 7
-    intArgument: 0
   - dialogueEvent: 1
-    intArgument: 0

@@ -5,6 +5,7 @@ public class CharacterStatsManager : MonoBehaviour
 {
     [SerializeField] private CharacterManager characterManager;
     public CharacterStatsSO[] characterStats;
+    [SerializeField] SceneSwitcher sceneSwitcher; // assign in inspector
 
     public int playerIndex = -1;
     public int demonIndex = -1;
@@ -25,6 +26,19 @@ public class CharacterStatsManager : MonoBehaviour
             // should find a way to update the Deception between scenes
             // should find a way to update the Eliminator between scenes
             // should find a way to update the VoteTarget between scenes
+
+            if (sceneSwitcher != null)
+            {
+                if (sceneSwitcher.GetCurrentSceneName() != "VoteScene2") // need the vote targets to persist for vote scene
+                {
+                    characterStats[i].VoteTargetInt = -1;
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Please assign scene switcher in inspector");
+            }
+
             characterStats[i].DeceptionInt = 0; 
             characterStats[i].EliminatorInt = 0;
             characterStats[i].EliminationVoteCountsInt = 0;
@@ -54,9 +68,7 @@ public class CharacterStatsManager : MonoBehaviour
                 { CharacterStat.SpeakToGroup, 0 },
                 { CharacterStat.SpeakToCamera, 0 },
             };
-            
         }
-        
     }
 
     private void Start()
@@ -238,7 +250,11 @@ public class CharacterStatsManager : MonoBehaviour
                 ModifyCharacterStat(i, CharacterStat.Cursed, 1);
             }
             else
+            {
+                characterStats[i].CursedInt = 0;
                 ModifyCharacterStat(i, CharacterStat.Cursed, 0);
+            }
+                
         }
     }
 
@@ -380,6 +396,47 @@ public class CharacterStatsManager : MonoBehaviour
 
             ModifyCharacterStat(suspiciousChar, CharacterStat.Eliminator, 1); // suspicious Char also becomes an eliminator
             characterStats[suspiciousChar].EliminatorInt = 1;
+        }
+    }
+
+    public void HandleCurseVsGudTargeting() // a method that sets vote targets depending on Gud vs Cursed Alignment
+    {
+        //first check if char is Team Gud or Team Cursed
+        for (int i = 0; i < characterStats.Length; i++)
+        {
+            if (characterStats[i].SideGudInt == 1 && characterStats[i].InfluenceInt == 2) // ===== if Team Gud and high influence
+            {
+                // we look for most cursed character
+                int mostCursedIndex = -1;
+                float mostCursedAmount = 0;
+                for (int j = 0; j < characterManager.characterDataSOs.Length; j++)
+                {
+                    if (characterManager.characterDataSOs[j].wasEliminated) continue;
+
+                    if (characterManager.characterDataSOs[j].infectionLevel > mostCursedAmount)
+                    {
+                        mostCursedAmount = characterManager.characterDataSOs[j].infectionLevel;
+                        mostCursedIndex = j;
+                    }
+                }
+                // then the most cursed character becomes the vote target
+                characterStats[i].VoteTargetInt = mostCursedIndex;
+                ModifyCharacterStat(i, CharacterStat.VoteTarget, mostCursedIndex);
+            }
+            if (characterStats[i].SideCursedInt == 1) // ========================================= if Team Cursed
+            {
+                // we find characters that are team gud + Eliminator + not cursed
+                for (int targetIndex = 0; targetIndex < characterStats.Length; targetIndex++)
+                {
+                    if (characterManager.characterDataSOs[targetIndex].wasEliminated) continue;
+
+                    if (characterStats[targetIndex].SideGudInt == 1 && characterStats[targetIndex].EliminatorInt == 1 && characterStats[targetIndex].CursedInt == 0)
+                    {
+                        characterStats[i].VoteTargetInt = targetIndex;
+                        break;
+                    }
+                }
+            }
         }
     }
 

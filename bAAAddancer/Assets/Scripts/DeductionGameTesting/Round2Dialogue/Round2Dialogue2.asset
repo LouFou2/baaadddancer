@@ -34,7 +34,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: I'm happy to take your word for it
     gameCriteria:
     - key: 0
@@ -56,7 +55,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 10
-      intArgument: 0
   - dialogueText: The more we get cursed, the less we GET GOOD!
     gameCriteria:
     - key: 0
@@ -80,7 +78,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: Time is ticking, we need more moves to GET GOOD
     gameCriteria:
     - key: 0
@@ -104,7 +101,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: What if I don't WANT to GET GOOD?
     gameCriteria:
     - key: 0
@@ -122,7 +118,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: I'm just glad we can get on with it
     gameCriteria:
     - key: 0
@@ -140,7 +135,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: You're freaking me out!
     gameCriteria:
     - key: 0
@@ -162,7 +156,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: Yay let's get good!
     gameCriteria:
     - key: 0
@@ -184,7 +177,6 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: I think we should eliminate!
     gameCriteria:
     - key: 0
@@ -208,10 +200,9 @@ MonoBehaviour:
     shake: 0
     onDialogueTriggered:
     - dialogueEvent: 10
-      intArgument: 0
   playerResponseUnits:
   - gameCriteria:
-    - key: 2
+    - key: 3
       value: 1
     speakerCriteria: []
     responseNo: Isn't that a bit harsh?
@@ -226,16 +217,12 @@ MonoBehaviour:
     playerCamShake: 0
     onPlayerRespondNo:
     - dialogueEvent: 11
-      intArgument: 0
     - dialogueEvent: 1
-      intArgument: 0
     onPlayerRespondYes:
     - dialogueEvent: 10
-      intArgument: 0
     - dialogueEvent: 1
-      intArgument: 0
   - gameCriteria:
-    - key: 2
+    - key: 3
       value: 0
     speakerCriteria: []
     responseNo: 
@@ -250,12 +237,9 @@ MonoBehaviour:
     playerCamShake: 0
     onPlayerRespondNo:
     - dialogueEvent: 0
-      intArgument: 0
     onPlayerRespondYes:
     - dialogueEvent: 2
-      intArgument: 0
     - dialogueEvent: 4
-      intArgument: 0
   responseNo: Isn't that a bit harsh?
   responseYes: Elimination might be our best option
   spokenToCriterion:
@@ -268,11 +252,7 @@ MonoBehaviour:
   playerCamShake: 0
   onPlayerRespondNo:
   - dialogueEvent: 11
-    intArgument: 0
   - dialogueEvent: 1
-    intArgument: 0
   onPlayerRespondYes:
   - dialogueEvent: 10
-    intArgument: 0
   - dialogueEvent: 1
-    intArgument: 0

@@ -10,44 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6312f688535d7543937c8a966ca00f5, type: 3}
-  m_Name: _Round3DebugQueries
+  m_Name: _Round4DialogueQueries1
   m_EditorClassIdentifier: 
   queries:
-  - identifier: PleaseRid
+  - identifier: OneMoreMove
     gameCriteria:
     - key: 0
       value: 0
-    speakerCriteria:
-    - key: 3
-      value: 1
     - key: 4
       value: 0
-  - identifier: RidOrNot
-    gameCriteria:
+    speakerCriteria:
     - key: 0
       value: 0
-    speakerCriteria:
-    - key: 3
-      value: 1
-    - key: 4
-      value: 1
-  - identifier: NotRid
-    gameCriteria:
-    - key: 0
-      value: 0
-    speakerCriteria:
-    - key: 3
-      value: 1
     - key: 4
       value: 2
-  playerResponseQueries:
-  - identifier: RidResponse
+  - identifier: Elimination
     gameCriteria:
+    - key: 0
+      value: 0
     - key: 4
       value: 1
-    speakerCriteria: []
-  - identifier: NotRidResponse
-    gameCriteria:
-    - key: 4
+    speakerCriteria:
+    - key: 0
       value: 0
+    - key: 2
+      value: 0
+  playerResponseQueries:
+  - identifier: NoEliminationResponse
+    gameCriteria:
+    - key: 3
+      value: 0
+    speakerCriteria: []
+  - identifier: EliminationResponse
+    gameCriteria:
+    - key: 3
+      value: 1
     speakerCriteria: []

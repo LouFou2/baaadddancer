@@ -10581,6 +10581,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab071bf766bb0e74ca8adce043843024, type: 2}
   - {fileID: 11400000, guid: fff83e3ef08745746bcb1711dd6bde98, type: 2}
   - {fileID: 11400000, guid: cf398b03e0f02a94a91b9e1951fec279, type: 2}
+  sceneSwitcher: {fileID: 2245521104080138899}
   playerIndex: -1
   demonIndex: -1
   lastSpeakerIndex: -1
@@ -10845,3 +10846,81 @@ MonoBehaviour:
   SpeakerChooseCurse:
     m_PersistentCalls:
       m_Calls: []
+  PlayerChooseGud:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5136341049213950411}
+        m_TargetAssemblyTypeName: CharacterStatsManager, Assembly-CSharp
+        m_MethodName: HandleSpeakerSidesGud
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 300511167}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: PlayerChooseGud
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 300511167}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: CountGudVsCursedMembers
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  PlayerChooseCurse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5136341049213950411}
+        m_TargetAssemblyTypeName: CharacterStatsManager, Assembly-CSharp
+        m_MethodName: HandleSpeakerSidesCursed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 300511167}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: PlayerChooseCurse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 300511167}
+        m_TargetAssemblyTypeName: GameConditionsManager, Assembly-CSharp
+        m_MethodName: CountGudVsCursedMembers
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

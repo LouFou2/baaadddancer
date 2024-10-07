@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: 1CharacterStatsSO_Zap
   m_EditorClassIdentifier: 
   IsPlayerInt: 0
-  IsDemonInt: 0
-  CursedInt: 1
-  LastCursedInt: 1
+  IsDemonInt: 1
+  CursedInt: 0
+  LastCursedInt: 0
   InfluenceInt: 0
   PerceptionInt: 2
   DeceptionInt: 0
   EliminatorInt: 0
-  VoteTargetInt: 0
+  VoteTargetInt: -1
   EliminationVoteCountsInt: 0
   EliminatedInt: 0
+  SideGudInt: 0
+  SideCursedInt: 0

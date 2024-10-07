@@ -14,8 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneDialogueUnits:
   - dialogueText: It's honestly not me
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 2
+    speakerCriteria:
+    - key: 2
+      value: 0
+    - key: 0
+      value: 0
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -23,11 +29,16 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
   - dialogueText: Hm, "honestly".. sure
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 3
+    speakerCriteria:
+    - key: 0
+      value: 0
+    - key: 2
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -35,8 +46,8 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+  playerResponseUnits: []
   responseNo: time's running out
   responseYes: i'll try to debug
   spokenToCriterion:
@@ -48,8 +59,8 @@ MonoBehaviour:
   playerCamZoom: 0
   playerCamShake: 0
   onPlayerRespondNo:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 2
+  - dialogueEvent: 4
   onPlayerRespondYes:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 2
+  - dialogueEvent: 4

@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneDialogueUnits:
   - dialogueText: The rave is about to start
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 0
+    speakerCriteria:
+    - key: 5
+      value: 2
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -23,11 +27,16 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
   - dialogueText: We need at least two more moves
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 1
+    speakerCriteria:
+    - key: 5
+      value: 2
+    - key: 7
+      value: 0
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -35,11 +44,50 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+  - dialogueText: We can't go to the rave all cursed!
+    gameCriteria:
+    - key: 0
+      value: 2
+    speakerCriteria:
+    - key: 4
+      value: 2
+    - key: 16
+      value: 1
+    - key: 2
+      value: 0
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+    - dialogueEvent: 10
+  - dialogueText: Our dance is evolving into something interesting...
+    gameCriteria:
+    - key: 0
+      value: 2
+    speakerCriteria:
+    - key: 4
+      value: 2
+    - key: 17
+      value: 1
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+    - dialogueEvent: 0
   - dialogueText: Are we just going to the rave all cursed?
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 2
+    speakerCriteria:
+    - key: 4
+      value: 2
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -47,21 +95,49 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
-  - dialogueText: Yeah, and with a Rave Demon among us?
-    gameCriteria: []
+    - dialogueEvent: 0
+  playerResponseUnits:
+  - gameCriteria:
+    - key: 3
+      value: 0
     speakerCriteria: []
-    spokenToCriteria: []
-    camera: 0
-    distance: 0
-    angle: 0
-    zoom: 0
-    shake: 0
-    onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
-  responseNo: We'll figure it out
+    responseNo: We're doing fine
+    responseYes: Let's focus on our dance
+    spokenToCriterion:
+      key: 0
+      value: 0
+    playerCamera: 0
+    playerCamDistance: 0
+    playerCamAngle: 0
+    playerCamZoom: 0
+    playerCamShake: 0
+    onPlayerRespondNo:
+    - dialogueEvent: 2
+    - dialogueEvent: 4
+    onPlayerRespondYes:
+    - dialogueEvent: 2
+    - dialogueEvent: 4
+  - gameCriteria:
+    - key: 3
+      value: 1
+    speakerCriteria: []
+    responseNo: We don't have to eliminate!
+    responseYes: Fine let's do a vote
+    spokenToCriterion:
+      key: 0
+      value: 0
+    playerCamera: 0
+    playerCamDistance: 0
+    playerCamAngle: 0
+    playerCamZoom: 0
+    playerCamShake: 0
+    onPlayerRespondNo:
+    - dialogueEvent: 11
+    - dialogueEvent: 1
+    onPlayerRespondYes:
+    - dialogueEvent: 10
+    - dialogueEvent: 1
+  responseNo: We're doing fine
   responseYes: Let's just focus on our dance
   spokenToCriterion:
     key: 0
@@ -72,8 +148,8 @@ MonoBehaviour:
   playerCamZoom: 0
   playerCamShake: 0
   onPlayerRespondNo:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 2
+  - dialogueEvent: 4
   onPlayerRespondYes:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 2
+  - dialogueEvent: 4

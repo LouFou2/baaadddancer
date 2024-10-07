@@ -65,6 +65,7 @@ public class DebugManager : MonoBehaviour
             if (charsData[i].lastCursedCharacter)
             {
                 chars[i].SetActive(true);
+                charsData[i].wasDebuggedLastRound = true;
             }
         }
 

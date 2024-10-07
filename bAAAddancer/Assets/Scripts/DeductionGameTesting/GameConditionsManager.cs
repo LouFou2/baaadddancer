@@ -17,6 +17,7 @@ public class GameConditionsManager : MonoBehaviour
             gameConditionsSO.GitGudMembersInt = 0;
             gameConditionsSO.GitCursedMembersInt = 0;
             gameConditionsSO.TeamCursedAmountInt = 0;
+            gameConditionsSO.PlayerChooseGudInt = -1; // 0 = player choose cursed, 1 = player choose gud
         }
 
         SetGameCondition(GameCondition.DialogueLine, 0);
@@ -27,6 +28,7 @@ public class GameConditionsManager : MonoBehaviour
         SetGameCondition(GameCondition.GudBeatsCursed, DoesGudBeatCursed());
         SetGameCondition(GameCondition.GitGudMembersCount, gameConditionsSO.GitGudMembersInt);
         SetGameCondition(GameCondition.GitCursedMembersCount, gameConditionsSO.GitCursedMembersInt);
+        SetGameCondition(GameCondition.PlayerChooseGud, gameConditionsSO.PlayerChooseGudInt);
     }
 
     public int GetGameCondition(GameCondition gameCondition)
@@ -98,5 +100,16 @@ public class GameConditionsManager : MonoBehaviour
             return 0;
         else
             return -1; // if they are equal, default to -1
+    }
+
+    public void PlayerChooseGud()
+    {
+        gameConditionsSO.PlayerChooseGudInt = 1;
+        SetGameCondition(GameCondition.PlayerChooseGud, 1);
+    }
+    public void PlayerChooseCurse()
+    {
+        gameConditionsSO.PlayerChooseGudInt = 0;
+        SetGameCondition(GameCondition.PlayerChooseGud, 0);
     }
 }

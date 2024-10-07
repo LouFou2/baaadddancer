@@ -14,8 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneDialogueUnits:
   - dialogueText: Please get rid of this curse
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 0
+    speakerCriteria:
+    - key: 3
+      value: 1
+    - key: 4
+      value: 0
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -23,9 +29,83 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
-  responseNo: 
+    - dialogueEvent: 0
+  - dialogueText: Do you think this curse is a bad thing?
+    gameCriteria:
+    - key: 0
+      value: 0
+    speakerCriteria:
+    - key: 3
+      value: 1
+    - key: 4
+      value: 1
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+    - dialogueEvent: 0
+  - dialogueText: I think this curse gives me moves no-one's ever seen before
+    gameCriteria:
+    - key: 0
+      value: 0
+    speakerCriteria:
+    - key: 3
+      value: 1
+    - key: 4
+      value: 2
+    spokenToCriteria: []
+    camera: 0
+    distance: 0
+    angle: 0
+    zoom: 0
+    shake: 0
+    onDialogueTriggered:
+    - dialogueEvent: 0
+  playerResponseUnits:
+  - gameCriteria:
+    - key: 4
+      value: 1
+    speakerCriteria: []
+    responseNo: Enough of this weird nonsense
+    responseYes: I say we see what this curse could do for us
+    spokenToCriterion:
+      key: 0
+      value: 0
+    playerCamera: 0
+    playerCamDistance: 0
+    playerCamAngle: 0
+    playerCamZoom: 0
+    playerCamShake: 0
+    onPlayerRespondNo:
+    - dialogueEvent: 13
+    - dialogueEvent: 6
+    onPlayerRespondYes:
+    - dialogueEvent: 14
+    - dialogueEvent: 6
+  - gameCriteria:
+    - key: 4
+      value: 0
+    speakerCriteria: []
+    responseNo: I just wanna get good
+    responseYes: I think this curse is fun
+    spokenToCriterion:
+      key: 0
+      value: 0
+    playerCamera: 0
+    playerCamDistance: 0
+    playerCamAngle: 0
+    playerCamZoom: 0
+    playerCamShake: 0
+    onPlayerRespondNo:
+    - dialogueEvent: 13
+    - dialogueEvent: 6
+    onPlayerRespondYes:
+    - dialogueEvent: 14
+    - dialogueEvent: 6
+  responseNo: I just want a normal dance
   responseYes: I've got you
   spokenToCriterion:
     key: 0
@@ -36,8 +116,6 @@ MonoBehaviour:
   playerCamZoom: 0
   playerCamShake: 0
   onPlayerRespondNo:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 0
   onPlayerRespondYes:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 0

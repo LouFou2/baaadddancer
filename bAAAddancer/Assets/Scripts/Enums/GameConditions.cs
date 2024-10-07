@@ -8,4 +8,5 @@ public enum GameCondition
     GudBeatsCursed,
     GitGudMembersCount,
     GitCursedMembersCount,
+    PlayerChooseGud,
 }
