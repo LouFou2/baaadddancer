@@ -19,7 +19,11 @@ MonoBehaviour:
       value: 0
     - key: 4
       value: 0
-    speakerCriteria: []
+    speakerCriteria:
+    - key: 0
+      value: 0
+    - key: 4
+      value: 2
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -85,7 +89,7 @@ MonoBehaviour:
     onPlayerRespondYes:
     - dialogueEvent: 10
   responseNo: 
-  responseYes: We need one more move
+  responseYes: Let's practice one more move
   spokenToCriterion:
     key: 0
     value: 0
@@ -94,7 +98,7 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
-  onPlayerRespondNo:
-  - dialogueEvent: 0
+  onPlayerRespondNo: []
   onPlayerRespondYes:
-  - dialogueEvent: 0
+  - dialogueEvent: 2
+  - dialogueEvent: 4

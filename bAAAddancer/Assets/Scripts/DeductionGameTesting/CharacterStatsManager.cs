@@ -248,6 +248,9 @@ public class CharacterStatsManager : MonoBehaviour
             {
                 characterStats[i].CursedInt = 1;
                 ModifyCharacterStat(i, CharacterStat.Cursed, 1);
+
+                characterStats[i].SideCursedInt = 1; // also, cursed characters are automatically on team cursed
+                ModifyCharacterStat(i, CharacterStat.SideCurse, 1);
             }
             else
             {

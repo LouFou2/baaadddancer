@@ -69,7 +69,7 @@ MonoBehaviour:
     - key: 4
       value: 1
     speakerCriteria: []
-    responseNo: Enough of this weird nonsense
+    responseNo: Let's debug this weird nonsense
     responseYes: I say we see what this curse could do for us
     spokenToCriterion:
       key: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
     - key: 4
       value: 0
     speakerCriteria: []
-    responseNo: I just wanna get good
+    responseNo: I'll get rid of the curse
     responseYes: I think this curse is fun
     spokenToCriterion:
       key: 0
@@ -105,8 +105,8 @@ MonoBehaviour:
     onPlayerRespondYes:
     - dialogueEvent: 14
     - dialogueEvent: 6
-  responseNo: I just want a normal dance
-  responseYes: I've got you
+  responseNo: I just wanna get good
+  responseYes: I think this curse is fun
   spokenToCriterion:
     key: 0
     value: 0
@@ -116,6 +116,8 @@ MonoBehaviour:
   playerCamZoom: 0
   playerCamShake: 0
   onPlayerRespondNo:
-  - dialogueEvent: 0
+  - dialogueEvent: 13
+  - dialogueEvent: 6
   onPlayerRespondYes:
-  - dialogueEvent: 0
+  - dialogueEvent: 14
+  - dialogueEvent: 6
