@@ -16,4 +16,5 @@ public class CharacterStatsSO : ScriptableObject
     public int EliminatedInt;
     public int SideGudInt;
     public int SideCursedInt;
+    public int NpcIndexInt;
 }

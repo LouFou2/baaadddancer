@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneDialogueUnits:
   - dialogueText: C'mon you don't think its me right?
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 7
+    speakerCriteria:
+    - key: 1
+      value: 1
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -23,11 +27,16 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
   - dialogueText: I don't think it's you no
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 8
+    speakerCriteria:
+    - key: 0
+      value: 0
+    - key: 7
+      value: 0
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -35,11 +44,16 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
   - dialogueText: I think you're the most suspicous
-    gameCriteria: []
-    speakerCriteria: []
+    gameCriteria:
+    - key: 0
+      value: 9
+    speakerCriteria:
+    - key: 0
+      value: 0
+    - key: 1
+      value: 0
     spokenToCriteria: []
     camera: 0
     distance: 0
@@ -47,8 +61,8 @@ MonoBehaviour:
     zoom: 0
     shake: 0
     onDialogueTriggered:
-      m_PersistentCalls:
-        m_Calls: []
+    - dialogueEvent: 0
+  playerResponseUnits: []
   responseNo: I don't agree they are suspicious
   responseYes: Oh for sure you're the rave demon
   spokenToCriterion:
@@ -60,8 +74,6 @@ MonoBehaviour:
   playerCamZoom: 0
   playerCamShake: 0
   onPlayerRespondNo:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 1
   onPlayerRespondYes:
-    m_PersistentCalls:
-      m_Calls: []
+  - dialogueEvent: 1

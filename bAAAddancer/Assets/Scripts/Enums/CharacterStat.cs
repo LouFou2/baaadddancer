@@ -26,4 +26,6 @@ public enum CharacterStat
 
     SideGud,
     SideCurse,
+
+    NpcIndex,
 }

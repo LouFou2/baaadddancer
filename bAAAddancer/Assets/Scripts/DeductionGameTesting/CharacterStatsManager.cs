@@ -31,7 +31,7 @@ public class CharacterStatsManager : MonoBehaviour
             {
                 if (sceneSwitcher.GetCurrentSceneName() != "VoteScene2") // need the vote targets to persist for vote scene
                 {
-                    characterStats[i].VoteTargetInt = -1;
+                    characterStats[i].VoteTargetInt = -1; // but otherwise we reset it
                 }
             }
             else
@@ -60,6 +60,8 @@ public class CharacterStatsManager : MonoBehaviour
 
                 { CharacterStat.SideGud, characterStats[i].SideGudInt },
                 { CharacterStat.SideCurse, characterStats[i].SideCursedInt },
+
+                { CharacterStat.NpcIndex, characterStats[i].NpcIndexInt },
 
                 // Every scene these can start with defaults:
                 { CharacterStat.SpokenAmount, 0 },
@@ -128,9 +130,22 @@ public class CharacterStatsManager : MonoBehaviour
             characterStats[i].SideGudInt = 0;
             statsDictionaries[i][CharacterStat.SideCurse] = 0;
             characterStats[i].SideCursedInt = 0;
-
+            statsDictionaries[i][CharacterStat.NpcIndex] = -1;
+            characterStats[i].NpcIndexInt = -1;
 
             // influence and perception is handled below
+        }
+
+        // Assign Indices for NPCs (not player or Demon)
+        int NpcIndexer = -1;
+        for (int i = 0; i < characterStats.Length; i++)
+        {
+            if (i != playerIndex && i != demonIndex)
+            {
+                NpcIndexer += 1;
+                statsDictionaries[i][CharacterStat.NpcIndex] = NpcIndexer;
+                characterStats[i].NpcIndexInt = NpcIndexer;
+            }
         }
 
         // == Now Assign the basic stats == 
@@ -249,8 +264,15 @@ public class CharacterStatsManager : MonoBehaviour
                 characterStats[i].CursedInt = 1;
                 ModifyCharacterStat(i, CharacterStat.Cursed, 1);
 
-                characterStats[i].SideCursedInt = 1; // also, cursed characters are automatically on team cursed
-                ModifyCharacterStat(i, CharacterStat.SideCurse, 1);
+                if (characterManager.characterDataSOs[i].infectionLevel > 0.1)
+                {
+                    characterStats[i].SideCursedInt = 1;
+                    ModifyCharacterStat(i, CharacterStat.SideCurse, 1);
+                }
+                else
+                {
+                    DetermineAlignment(i); // this method will use char's influence to determine if it aligns with the norm, or accepts curse
+                }
             }
             else
             {
@@ -258,6 +280,54 @@ public class CharacterStatsManager : MonoBehaviour
                 ModifyCharacterStat(i, CharacterStat.Cursed, 0);
             }
                 
+        }
+    }
+    public void DetermineAlignment(int charIndex)
+    {
+        int charInfluence = GetCharacterStats(charIndex)[CharacterStat.Influence];
+        bool groupAlignedGud = true;
+        bool influenceCursed = false;
+        int sideGudMembers = 0;
+        int sideCursedMembers = 0;
+        for (int i = 0; i < statsDictionaries.Length; i++)
+        {
+            if (statsDictionaries[i][CharacterStat.SideCurse] == 1)
+            {
+                sideCursedMembers += 1;
+                //we can also check if this char has high influence
+                if (statsDictionaries[i][CharacterStat.Influence] == 2)
+                {
+                    influenceCursed = true; // if at least one high influence char is side curse
+                }
+            }
+            if (statsDictionaries[i][CharacterStat.SideGud] == 1)
+            {
+                sideGudMembers += 1;
+            }
+        }
+        if (sideCursedMembers > sideGudMembers)
+        {
+            groupAlignedGud = false;
+        }
+        if (charInfluence == 2) // if the char has high influence, it will be proud of curse
+        {
+            characterStats[charIndex].SideCursedInt = 1;
+            ModifyCharacterStat(charIndex, CharacterStat.SideCurse, 1);
+        }
+        else if (charInfluence == 1 && !groupAlignedGud) // the medium influence char goes with group alignment
+        {
+            characterStats[charIndex].SideCursedInt = 1;
+            ModifyCharacterStat(charIndex, CharacterStat.SideCurse, 1);
+        }
+        else if (charInfluence == 0 && !groupAlignedGud && influenceCursed) // the low influence is very insecure
+        {
+            characterStats[charIndex].SideCursedInt = 1;
+            ModifyCharacterStat(charIndex, CharacterStat.SideCurse, 1);
+        }
+        else
+        {
+            characterStats[charIndex].SideCursedInt = 0;
+            ModifyCharacterStat(charIndex, CharacterStat.SideCurse, 0); // so there is a chance a cursed character sides with "git gud" chars
         }
     }
 
