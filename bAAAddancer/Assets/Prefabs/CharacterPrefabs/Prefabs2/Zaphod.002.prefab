@@ -1686,6 +1686,7 @@ GameObject:
   - component: {fileID: 5143940742456649406}
   - component: {fileID: 5017538785588304381}
   - component: {fileID: 4454086225116495562}
+  - component: {fileID: 4873662982814726303}
   m_Layer: 0
   m_Name: Zaphod.002
   m_TagString: Untagged
@@ -2677,6 +2678,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4873662982814726303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2316524955874613048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51cc84ac737dcec47abb4f6d00fcb2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinnedMeshRenderer: {fileID: 8569115961611011698}
+  hairAnchor: {fileID: 9163510643547750227}
+  hairSpring: {fileID: 4381609073838677593}
+  hairU_Index: 2
+  hairD_Index: 3
+  hairL_Index: 4
+  hairR_Index: 5
+  hairF_Index: 6
+  hairB_Index: 7
+  shapeValueMultiplier: 200
 --- !u!1 &2360712188506096712
 GameObject:
   m_ObjectHideFlags: 0
