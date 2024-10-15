@@ -505,7 +505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &636620166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,16 +519,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 4a352b6963baad444bf413b450c85e53, type: 2}
-  shadeSmooth: 1
-  rotateTriangles: 0
-  rotateTriangleSpeed: 0.1
-  flickerShading: 0
-  flickerSpeed: 6
-  flickerIntensity: 0.5
-  displacementAmount: 0
-  alignNormalsToView: 0
-  normalAlignmentThreshold: 2
-  normalAlignFactor: 1
+  updateInterval: 0.1
+  headBone: {fileID: 0}
+  hand_L_Bone: {fileID: 0}
+  hand_R_Bone: {fileID: 0}
+  foot_L_Bone: {fileID: 0}
+  foot_R_Bone: {fileID: 0}
+  pelvisBone: {fileID: 0}
+  torsoBone: {fileID: 0}
+  headControlTarget: {fileID: 0}
+  hand_L_ControlTarget: {fileID: 0}
+  hand_R_ControlTarget: {fileID: 0}
+  foot_L_ControlTarget: {fileID: 0}
+  foot_R_ControlTarget: {fileID: 0}
+  pelvisControlTarget: {fileID: 0}
+  torsoControlTarget: {fileID: 0}
+  headFollower1: {fileID: 0}
+  hand_L_Follower1: {fileID: 0}
+  hand_R_Follower1: {fileID: 0}
+  foot_L_Follower1: {fileID: 0}
+  foot_R_Follower1: {fileID: 0}
+  pelvisFollower1: {fileID: 0}
+  torsoFollower1: {fileID: 0}
+  moveAmountMultiplier: 1
 --- !u!4 &636620167
 Transform:
   m_ObjectHideFlags: 0
@@ -953,6 +966,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WonkyShaderModel
       objectReference: {fileID: 0}
+    - target: {fileID: 3542518156169703015, guid: ebe7fff8014e20344b0cc51dd5cdaa32,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4207028162442147037, guid: ebe7fff8014e20344b0cc51dd5cdaa32,
         type: 3}
       propertyPath: m_RootOrder
@@ -1017,6 +1035,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1925650969512427422, guid: d6205e1c08d675c4ead561695434af55,
+        type: 3}
+      propertyPath: m_Spring
+      value: 134
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065028493470835432, guid: d6205e1c08d675c4ead561695434af55,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2316524955874613048, guid: d6205e1c08d675c4ead561695434af55,
         type: 3}
       propertyPath: m_Name
@@ -1025,7 +1053,7 @@ PrefabInstance:
     - target: {fileID: 2316524955874613048, guid: d6205e1c08d675c4ead561695434af55,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3129477824244321666, guid: d6205e1c08d675c4ead561695434af55,
         type: 3}
@@ -1222,6 +1250,26 @@ PrefabInstance:
       propertyPath: m_Data.m_ConstrainedObject
       value: 
       objectReference: {fileID: 3996568517877014018}
+    - target: {fileID: 7462766195113964694, guid: d6205e1c08d675c4ead561695434af55,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540338332441335638, guid: d6205e1c08d675c4ead561695434af55,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0000001872535
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540338332441335638, guid: d6205e1c08d675c4ead561695434af55,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8540338332441335638, guid: d6205e1c08d675c4ead561695434af55,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 8569115961611011698, guid: d6205e1c08d675c4ead561695434af55,
         type: 3}
       propertyPath: m_BlendShapeWeights.Array.size
