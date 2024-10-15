@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -161,6 +160,7 @@ public class NewVoteManager : MonoBehaviour
 
         int highestVoteCount = -1;
 
+        // ***WE NEED TO SKIP VOTE IF THERES NOT ENOUGH VOTES FOR CHAR
         for(int i = 0; i < statsManager.characterStats.Length; i++)
         {
             if (statsManager.characterStats[i].EliminationVoteCountsInt > highestVoteCount)
@@ -204,10 +204,19 @@ public class NewVoteManager : MonoBehaviour
 
     private void EndScene()
     {
+        // as long as player wasn't eliminated:
         if (characterManager.characterDataSOs[voteIndex].characterRoleSelect != CharacterData.CharacterRole.Player)
         {
-            sceneSwitcher.SwitchToNextLevelKey();
-            sceneSwitcher.LoadSceneByName("MakeDance");
+            //if its the last vote scene, we go to the Rave
+            if (GameManager.Instance.GetCurrentLevelKey() == LevelKey.Round4Meeting)
+            {
+                sceneSwitcher.LoadSceneByName("RaveScene");
+            }
+            else
+            {
+                sceneSwitcher.SwitchToNextLevelKey();
+                sceneSwitcher.LoadSceneByName("MakeDance");
+            }
         }
         else
         {
