@@ -1724,7 +1724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3071805456118796677
 Transform:
   m_ObjectHideFlags: 0
@@ -3333,10 +3333,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3254844365059708790}
   - component: {fileID: 3254844365059708789}
-  - component: {fileID: 3254844365059708788}
   - component: {fileID: 3254844365059708791}
   m_Layer: 0
-  m_Name: PonyTarget (1)
+  m_Name: PonyTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3373,19 +3372,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &3254844365059708788
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844365059708793}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1773428102 &3254844365059708791
 ParentConstraint:
   m_ObjectHideFlags: 0
@@ -12373,10 +12359,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3254844367119802110}
   - component: {fileID: 3254844367119802109}
-  - component: {fileID: 3254844367119802108}
   - component: {fileID: 3254844367119802111}
   m_Layer: 0
-  m_Name: PonyTarget
+  m_Name: PonySpring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12406,26 +12391,13 @@ Rigidbody:
   m_GameObject: {fileID: 3254844367119802049}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 3
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &3254844367119802108
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254844367119802049}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!145 &3254844367119802111
 SpringJoint:
   m_ObjectHideFlags: 0
@@ -12439,7 +12411,7 @@ SpringJoint:
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: -0.00000021281458, y: 0.00000011923018, z: 0.000000029718885}
   serializedVersion: 2
-  m_Spring: 10
+  m_Spring: 67
   m_Damper: 1
   m_MinDistance: 0
   m_MaxDistance: 0
