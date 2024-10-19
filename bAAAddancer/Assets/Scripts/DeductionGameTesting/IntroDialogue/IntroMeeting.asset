@@ -26,9 +26,13 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 8300000, guid: db119c8ed94d9bf459a363efdcc4b3d6, type: 3}
+    voxEmote: 5
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: Oh no! Not the curse!
     gameCriteria:
     - key: 0
@@ -44,9 +48,14 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 8300000, guid: 34b2f6daf183f0747b8920900df712a1,
+      type: 3}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 5
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: What curse?
     gameCriteria:
     - key: 0
@@ -60,9 +69,13 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 1
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: It's the curse of the Rave Demon
     gameCriteria:
     - key: 0
@@ -78,9 +91,13 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 5
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: Someone on this team
     gameCriteria:
     - key: 0
@@ -96,9 +113,13 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 3
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: Is possessed by the Rave Demon!
     gameCriteria:
     - key: 0
@@ -114,9 +135,13 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 3
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: And they have cursed me!
     gameCriteria:
     - key: 0
@@ -130,9 +155,13 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 5
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: Can we do something about it?
     gameCriteria:
     - key: 0
@@ -146,9 +175,13 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 0
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: Can you debug me?
     gameCriteria:
     - key: 0
@@ -162,9 +195,13 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 4
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   playerResponseUnits: []
   responseNo: 
   responseYes: I'll do my best...
@@ -176,11 +213,13 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
+  newMusicTrackToPlay: {fileID: 0}
+  oneshotClipToPlay: {fileID: 0}
+  voxEmote: 0
+  animEmote: 0
+  animMood: 0
   onPlayerRespondNo:
   - dialogueEvent: 0
-    intArgument: 0
   onPlayerRespondYes:
   - dialogueEvent: 2
-    intArgument: 0
   - dialogueEvent: 4
-    intArgument: 0

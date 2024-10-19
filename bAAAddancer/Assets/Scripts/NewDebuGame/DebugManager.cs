@@ -41,6 +41,8 @@ public class DebugManager : MonoBehaviour
 
     private bool isLocked = false;
 
+    public bool xCurrentlyPressed = false; // this flag just stops the x being processed immediately when returning from alignment
+
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -66,6 +68,15 @@ public class DebugManager : MonoBehaviour
             {
                 chars[i].SetActive(true);
                 charsData[i].wasDebuggedLastRound = true;
+            }
+            if (charsData[i].characterRoleSelect == CharacterData.CharacterRole.Player)
+            {
+                chars[i].SetActive(true);
+                // Deactivate all child objects
+                foreach (Transform child in chars[i].transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
             }
         }
 
@@ -149,7 +160,11 @@ public class DebugManager : MonoBehaviour
             endButtonObject.transform.DOScale(0.8f, 0.4f).SetLoops(-1, LoopType.Yoyo);
             isTweening = true;
         }
-        if (endOption && playerControls.GenericInput.XButton.IsPressed())
+        if (endOption && xCurrentlyPressed && !playerControls.GenericInput.XButton.IsPressed())
+        {
+            xCurrentlyPressed = false;
+        }
+        if (endOption && !xCurrentlyPressed && playerControls.GenericInput.XButton.IsPressed())
         {
             EndDebug();
         }

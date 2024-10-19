@@ -90,8 +90,9 @@ public class AlignerController : MonoBehaviour
             endObject.SetActive(false);
         }
 
-        if (alignmentLocked && playerControls.GenericInput.AButton.IsPressed()) 
+        if (alignmentLocked && playerControls.GenericInput.XButton.IsPressed()) 
         {
+            debugManager.xCurrentlyPressed = true;
             debugManager.EndAlignment(totalDiscrepency);
         }
     }

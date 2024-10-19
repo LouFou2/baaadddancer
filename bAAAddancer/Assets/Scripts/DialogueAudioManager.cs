@@ -26,19 +26,19 @@ public class DialogueAudioManager : MonoBehaviour
                 charVOXManagers[speakerIndex].PlayCasualVox();
                 break;
             case VoxEmote.confused:
-                charVOXManagers[speakerIndex].PlayCasualVox();
+                charVOXManagers[speakerIndex].PlayConfusedVox();
                 break;
             case VoxEmote.happy:
-                charVOXManagers[speakerIndex].PlayCasualVox();
+                charVOXManagers[speakerIndex].PlayHappyVox();
                 break;
             case VoxEmote.mad:
-                charVOXManagers[speakerIndex].PlayCasualVox();
+                charVOXManagers[speakerIndex].PlayMadVox();
                 break;
             case VoxEmote.pleading:
-                charVOXManagers[speakerIndex].PlayCasualVox();
+                charVOXManagers[speakerIndex].PlayPleadingVox();
                 break;
             case VoxEmote.worried:
-                charVOXManagers[speakerIndex].PlayCasualVox();
+                charVOXManagers[speakerIndex].PlayWorriedVox();
                 break;
             default:
                 charVOXManagers[speakerIndex].PlayCasualVox();

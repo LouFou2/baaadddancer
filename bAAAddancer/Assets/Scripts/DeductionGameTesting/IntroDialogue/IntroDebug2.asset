@@ -26,6 +26,11 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 4
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered: []
   - dialogueText: or the others might want to eliminate me
     gameCriteria:
@@ -40,6 +45,11 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 5
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered: []
   playerResponseUnits: []
   responseNo: 
@@ -52,6 +62,11 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
+  newMusicTrackToPlay: {fileID: 0}
+  oneshotClipToPlay: {fileID: 0}
+  voxEmote: 1
+  animEmote: 0
+  animMood: 0
   onPlayerRespondNo: []
   onPlayerRespondYes:
   - dialogueEvent: 6

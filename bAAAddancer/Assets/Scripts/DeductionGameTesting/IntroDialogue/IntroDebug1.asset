@@ -26,6 +26,12 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 8300000, guid: bb8ec6494f0753544b0e03d120cf1832,
+      type: 3}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 0
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
   - dialogueText: I don't believe you are the Rave Demon
@@ -41,6 +47,11 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 1
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
   - dialogueText: But you have to figure it out
@@ -56,6 +67,11 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 4
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
   - dialogueText: Or we ALL might cursed
@@ -71,6 +87,11 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    newMusicTrackToPlay: {fileID: 0}
+    oneshotClipToPlay: {fileID: 0}
+    voxEmote: 5
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
   playerResponseUnits: []
@@ -84,6 +105,11 @@ MonoBehaviour:
   playerCamAngle: 0
   playerCamZoom: 0
   playerCamShake: 0
+  newMusicTrackToPlay: {fileID: 0}
+  oneshotClipToPlay: {fileID: 0}
+  voxEmote: 5
+  animEmote: 0
+  animMood: 0
   onPlayerRespondNo:
   - dialogueEvent: 0
   onPlayerRespondYes:
