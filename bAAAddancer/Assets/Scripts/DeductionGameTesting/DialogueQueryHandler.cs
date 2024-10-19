@@ -15,6 +15,7 @@ public class DialogueQueryHandler : MonoBehaviour
     private DialogueEventsManager dialogueEventsManager;
 
     [SerializeField] private CamDirector camDirector;
+    [SerializeField] private DialogueAudioManager audioManager;
 
     [SerializeField] private DynamicDialogueUnits currentDialogueUnit;
     [SerializeField] private DialogueQueryCriteria currentQueryCriteria;
@@ -308,6 +309,9 @@ public class DialogueQueryHandler : MonoBehaviour
             // Increment Dialogue line
             gameConditionsManager.IncrementDialogueLine();
 
+            //AUDIO
+            HandleAudio(currentSpeaker, selectedUnit.oneshotClipToPlay, selectedUnit.newMusicTrackToPlay, selectedUnit.voxEmote);
+
             // CINEMATOGRAPHY
             HandleCinematography(selectedUnit.camera, selectedUnit.distance, selectedUnit.angle, selectedUnit.zoom, selectedUnit.shake);
 
@@ -573,6 +577,13 @@ public class DialogueQueryHandler : MonoBehaviour
             currentDialogueUnit.responseNo = matchingResponseUnit.responseNo;
             currentDialogueUnit.responseYes = matchingResponseUnit.responseYes;
 
+            currentDialogueUnit.newMusicTrackToPlay = matchingResponseUnit.newMusicTrackToPlay;
+            currentDialogueUnit.oneshotClipToPlay = matchingResponseUnit.oneshotClipToPlay;
+            currentDialogueUnit.voxEmote = matchingResponseUnit.voxEmote;
+
+            currentDialogueUnit.animEmote = matchingResponseUnit.animEmote;
+            currentDialogueUnit.animMood = matchingResponseUnit.animMood;
+
             currentDialogueUnit.onPlayerRespondNo = matchingResponseUnit.onPlayerRespondNo;
             currentDialogueUnit.onPlayerRespondYes = matchingResponseUnit.onPlayerRespondYes;
         }
@@ -595,6 +606,8 @@ public class DialogueQueryHandler : MonoBehaviour
 
         UpdateSpeakerAndSpokenToDicts();
 
+        HandleAudio(currentSpeaker, currentDialogueUnit.oneshotClipToPlay, currentDialogueUnit.newMusicTrackToPlay, currentDialogueUnit.voxEmote);
+
         HandleCinematography
             (currentDialogueUnit.playerCamera,
             currentDialogueUnit.playerCamDistance,
@@ -608,6 +621,11 @@ public class DialogueQueryHandler : MonoBehaviour
     private void HandleCinematography(CameraDirections camera, CameraDirections distance, CameraDirections angle, CameraDirections zoom, CameraDirections shake)
     {
         camDirector.SetCameraState(camera, currentSpeaker, currentSpokenTo, distance, angle, zoom, shake);
+    }
+
+    private void HandleAudio(int speakerIndex, AudioClip oneShotClip, AudioClip newMusicTrack, VoxEmote voxEmote)
+    {
+        audioManager.HandleAudio(speakerIndex, oneShotClip, newMusicTrack, voxEmote);
     }
 
 }

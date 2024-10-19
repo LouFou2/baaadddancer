@@ -26,6 +26,11 @@ MonoBehaviour:
     angle: 6
     zoom: 9
     shake: 14
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxEmote: 0
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered: []
   - dialogueText: I'm ready to SWALLOW the competition!
     gameCriteria:
@@ -42,6 +47,11 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxEmote: 0
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered: []
   - dialogueText: Me too!
     gameCriteria:
@@ -56,6 +66,11 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxEmote: 0
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered: []
   - dialogueText: Me three!
     gameCriteria:
@@ -72,6 +87,11 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxEmote: 0
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered: []
   - dialogueText: We only have an hour to get ready...
     gameCriteria:
@@ -86,6 +106,11 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxEmote: 0
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered: []
   - dialogueText: We need to GET GOOD!
     gameCriteria:
@@ -100,9 +125,13 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxEmote: 0
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered:
     - dialogueEvent: 0
-      intArgument: 0
   - dialogueText: That means we need some killer moves...
     gameCriteria:
     - key: 0
@@ -118,6 +147,11 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxEmote: 0
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered: []
   - dialogueText: Who's gonna do the choreography?
     gameCriteria:
@@ -134,6 +168,11 @@ MonoBehaviour:
     angle: 0
     zoom: 0
     shake: 0
+    oneshotClipToPlay: {fileID: 0}
+    newMusicTrackToPlay: {fileID: 0}
+    voxEmote: 0
+    animEmote: 0
+    animMood: 0
     onDialogueTriggered: []
   playerResponseUnits: []
   responseNo: 
@@ -149,6 +188,4 @@ MonoBehaviour:
   onPlayerRespondNo: []
   onPlayerRespondYes:
   - dialogueEvent: 2
-    intArgument: 0
   - dialogueEvent: 4
-    intArgument: 0

@@ -21,7 +21,7 @@ public class LookManager : MonoBehaviour
     private CharacterData[] characterDataSOs;
     private List<int> availableIndexes = new List<int>();
     private int playerIndex;
-    private int bugIndex;
+    private int demonIndex;
     private int lastBuggedCharacterIndex;
     private int npc1_Index, npc2_Index, npc3_Index; //remaining npcs
 
@@ -60,7 +60,7 @@ public class LookManager : MonoBehaviour
             }
             if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Demon)
             {
-                bugIndex = i;
+                demonIndex = i;
                 availableIndexes.Remove(i); // Remove bug index
             }
             if (characterDataSOs[i].lastCursedCharacter == true)
@@ -113,7 +113,7 @@ public class LookManager : MonoBehaviour
                 speakingCharacter = playerIndex;
                 break;
             case DialogueData.SpeakingCharacter.demonSpeaking:
-                speakingCharacter = bugIndex;
+                speakingCharacter = demonIndex;
                 break;
             case DialogueData.SpeakingCharacter.lastBuggedSpeaking:
                 speakingCharacter = lastBuggedCharacterIndex;
@@ -141,7 +141,7 @@ public class LookManager : MonoBehaviour
                 TweenLookTargets(playerIndex);
                 break;
             case DialogueData.LookPosition.LookatDemon:
-                TweenLookTargets(bugIndex);
+                TweenLookTargets(demonIndex);
                 break;
             case DialogueData.LookPosition.LookatNPC2:
                 TweenLookTargets(npc1_Index);
@@ -172,7 +172,7 @@ public class LookManager : MonoBehaviour
                 TweenSpeakerLookTarget(playerIndex);
                 break;
             case DialogueData.LookPosition.LookatDemon:
-                TweenSpeakerLookTarget(bugIndex);
+                TweenSpeakerLookTarget(demonIndex);
                 break;
             case DialogueData.LookPosition.LookatNPC2:
                 TweenSpeakerLookTarget(npc1_Index);

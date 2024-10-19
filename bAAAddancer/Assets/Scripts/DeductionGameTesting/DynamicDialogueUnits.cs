@@ -14,6 +14,13 @@ public class DynamicDialogueUnits : ScriptableObject
         public List<CharCriterion> spokenToCriteria;
         [Tooltip("Camera Directions")]
         public CameraDirections camera, distance, angle, zoom, shake;
+        [Tooltip("Audio")]
+        public AudioClip newMusicTrackToPlay; //if needed
+        public AudioClip oneshotClipToPlay;
+        public VoxEmote voxEmote;
+        [Tooltip("Anims")]
+        public AnimEmote animEmote;
+        public AnimMood animMood;
         public DialogueEventData[] onDialogueTriggered;
     }
 
@@ -25,6 +32,13 @@ public class DynamicDialogueUnits : ScriptableObject
     public string responseYes;
     public CharCriterion spokenToCriterion;
     public CameraDirections playerCamera, playerCamDistance, playerCamAngle, playerCamZoom, playerCamShake;
+    [Tooltip("Audio")]
+    public AudioClip newMusicTrackToPlay; //if needed
+    public AudioClip oneshotClipToPlay;
+    public VoxEmote voxEmote;
+    [Tooltip("Anims")]
+    public AnimEmote animEmote;
+    public AnimMood animMood;
     public DialogueEventData[] onPlayerRespondNo;
     public DialogueEventData[] onPlayerRespondYes;
 
@@ -37,7 +51,26 @@ public class DynamicDialogueUnits : ScriptableObject
         public string responseYes;
         public CharCriterion spokenToCriterion;
         public CameraDirections playerCamera, playerCamDistance, playerCamAngle, playerCamZoom, playerCamShake;
+        [Tooltip("Audio")]
+        public AudioClip newMusicTrackToPlay; //if needed
+        public AudioClip oneshotClipToPlay;
+        public VoxEmote voxEmote;
+        [Tooltip("Anims")]
+        public AnimEmote animEmote;
+        public AnimMood animMood;
         public DialogueEventData[] onPlayerRespondNo;
         public DialogueEventData[] onPlayerRespondYes;
+    }
+    
+    [System.Serializable]
+    public enum AnimEmote
+    { 
+        excited, worried, mad, indignant, proud, sly, wicked,
+    }
+
+    [System.Serializable]
+    public enum AnimMood
+    {
+        docile, afraid, exuberant, hostile,
     }
 }
