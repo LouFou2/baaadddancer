@@ -67,14 +67,12 @@ public class DanceSequencer : MonoBehaviour
             //===First we add any root transforms updates (like jumping and moving around)
             Vector3 currentRecordedPosition = objControlScripts[i].GetRecordedPosition();
             Vector3 addedRootTransforms = currentRecordedPosition + rootTransforms.GetRootPosition();
+
             recordingDataObjects[i].recordedPositions[beatCount] = addedRootTransforms;
 
             if (objControlScripts[i].isActive && objControlScripts[i].isRecording)
             {
                 objControlScripts[i].useRecordedPositions = false;
-
-                // Record the position for the current GameObject for the current beat
-                Vector3 positionToRecord = objControlScripts[i].GetPositionToRecord();
 
                 recordingDataObjects[i].recordedPositions[beatCount] = objControlScripts[i].GetPositionToRecord();
             }

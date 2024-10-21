@@ -120,7 +120,7 @@ public class ObjectControls : MonoBehaviour
         }
 
         // add root Transforms Updates to object position
-        Vector3 addedRootTransforms = currentRecordedPosition + rootTransforms.GetRootPosition();
+        Vector3 addedRootTransforms = currentRecordedPosition + rootTransforms.GetRootPosition(); // problem here is we can keep adding more "jump" (adding y value)
         controlObject.transform.position = addedRootTransforms;
         //old command:
         //controlObject.transform.position = currentRecordedPosition;
