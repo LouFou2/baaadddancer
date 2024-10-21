@@ -7,6 +7,7 @@ public class DanceSequencer : MonoBehaviour
     [SerializeField] private RoundsRecData[] recDataObjSequencers; // Arrays (representing the game rounds) that hold Rec Data SO's
     [SerializeField] private RecordingData[] recordingDataObjects; // Array to store recording data for each GameObject
     [SerializeField] private ObjectControls[] objControlScripts;
+    [SerializeField] private RootTransforms rootTransforms; // root object movement will be added, e.g. jumps and spins
     [SerializeField] private PlayerControls playerControls;
 
     private void Awake()
@@ -27,6 +28,7 @@ public class DanceSequencer : MonoBehaviour
     void Start()
     {
         clockCounter = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
+        rootTransforms = FindObjectOfType<RootTransforms>();
 
         int currentRound = GameManager.Instance.GetCurrentRound();
 
@@ -62,11 +64,18 @@ public class DanceSequencer : MonoBehaviour
 
         for (int i = 0; i < objControlScripts.Length; i++)
         {
+            //===First we add any root transforms updates (like jumping and moving around)
+            Vector3 currentRecordedPosition = objControlScripts[i].GetRecordedPosition();
+            Vector3 addedRootTransforms = currentRecordedPosition + rootTransforms.GetRootPosition();
+            recordingDataObjects[i].recordedPositions[beatCount] = addedRootTransforms;
+
             if (objControlScripts[i].isActive && objControlScripts[i].isRecording)
             {
                 objControlScripts[i].useRecordedPositions = false;
 
                 // Record the position for the current GameObject for the current beat
+                Vector3 positionToRecord = objControlScripts[i].GetPositionToRecord();
+
                 recordingDataObjects[i].recordedPositions[beatCount] = objControlScripts[i].GetPositionToRecord();
             }
         }

@@ -8,6 +8,7 @@ public class ObjectControls : MonoBehaviour
     private ViewSwitcher viewSwitcher;
 
     private GameObject controlObject; // the actual control object
+    private RootTransforms rootTransforms; // *** we use the root Transforms to modify recorded positions in DANCE SEQUENCER
     [SerializeField] GameObject controlGizmoObject; // the gizmo of the control object (to visualise if its active)
 
     [SerializeField] private RoundsRecData recordingDataOfRounds;
@@ -58,6 +59,7 @@ public class ObjectControls : MonoBehaviour
     {
         clockCounter = FindObjectOfType<ClockCounter>();
         viewSwitcher = FindObjectOfType<ViewSwitcher>();
+        rootTransforms = FindObjectOfType<RootTransforms>();
 
         initialPosition = controlObject.transform.position;
         currentRecordedPosition = initialPosition;
@@ -117,7 +119,11 @@ public class ObjectControls : MonoBehaviour
 
         }
 
-        controlObject.transform.position = currentRecordedPosition;
+        // add root Transforms Updates to object position
+        Vector3 addedRootTransforms = currentRecordedPosition + rootTransforms.GetRootPosition();
+        controlObject.transform.position = addedRootTransforms;
+        //old command:
+        //controlObject.transform.position = currentRecordedPosition;
 
         if (isActive && isRecording)
         {
@@ -247,6 +253,10 @@ public class ObjectControls : MonoBehaviour
     public Vector3 GetPositionToRecord()
     {
         return finalUpdatePosition;
+    }
+    public Vector3 GetRecordedPosition()
+    {
+        return currentRecordedPosition;
     }
     void On_Q_BeatHandler()
     {
