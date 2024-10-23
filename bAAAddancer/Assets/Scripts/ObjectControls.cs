@@ -8,7 +8,7 @@ public class ObjectControls : MonoBehaviour
     private ViewSwitcher viewSwitcher;
 
     private GameObject controlObject; // the actual control object
-    private RootTransforms rootTransforms; // *** we use the root Transforms to modify recorded positions in DANCE SEQUENCER
+    private RootControl rootTransforms; // *** we use the root Transforms to modify recorded positions in DANCE SEQUENCER
     [SerializeField] GameObject controlGizmoObject; // the gizmo of the control object (to visualise if its active)
 
     [SerializeField] private RoundsRecData recordingDataOfRounds;
@@ -59,9 +59,9 @@ public class ObjectControls : MonoBehaviour
     {
         clockCounter = FindObjectOfType<ClockCounter>();
         viewSwitcher = FindObjectOfType<ViewSwitcher>();
-        rootTransforms = FindObjectOfType<RootTransforms>();
+        rootTransforms = FindObjectOfType<RootControl>();
 
-        initialPosition = controlObject.transform.position;
+        initialPosition = controlObject.transform.localPosition;
         currentRecordedPosition = initialPosition;
         //currentRecordedRotation = initialRotation;
 
@@ -119,11 +119,7 @@ public class ObjectControls : MonoBehaviour
 
         }
 
-        // add root Transforms Updates to object position
-        Vector3 addedRootTransforms = currentRecordedPosition + rootTransforms.GetRootPosition(); // problem here is we can keep adding more "jump" (adding y value)
-        controlObject.transform.position = addedRootTransforms;
-        //old command:
-        //controlObject.transform.position = currentRecordedPosition;
+        controlObject.transform.localPosition = currentRecordedPosition;
 
         if (isActive && isRecording)
         {
@@ -163,14 +159,14 @@ public class ObjectControls : MonoBehaviour
                     else
                     {
                         //---NEW MOVEMENT:
-                        controlObject.transform.position = new Vector3(controlObject.transform.position.x, controlObject.transform.position.y, currentRecordedPosition.z);
+                        controlObject.transform.localPosition = new Vector3(controlObject.transform.localPosition.x, controlObject.transform.localPosition.y, currentRecordedPosition.z);
 
                         // Calculate movement based on time and speed
                         float moveX = moveInput.x * moveSpeed * Time.deltaTime;
                         float moveY = moveInput.y * moveSpeed * Time.deltaTime;
 
                         // Update object's position based on movement
-                        Vector3 newPosition = controlObject.transform.position + new Vector3(-moveX, moveY, 0f);
+                        Vector3 newPosition = controlObject.transform.localPosition + new Vector3(-moveX, moveY, 0f);
                         
                         //Clamp in Min-Max Range
                         float newX = Mathf.Clamp(newPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);
@@ -225,26 +221,26 @@ public class ObjectControls : MonoBehaviour
 
             if (!useMovementLimit) // logic below: stop objects from crossing over each other
             {
-                controlObject.transform.position = finalUpdatePosition;
+                controlObject.transform.localPosition = finalUpdatePosition;
             }
             else 
             {
                 if (leftObject && opposingObject != null) 
                 {
-                    float limitedX = Mathf.Clamp(finalUpdatePosition.x, x_RangeMin, opposingObject.transform.position.x);
+                    float limitedX = Mathf.Clamp(finalUpdatePosition.x, x_RangeMin, opposingObject.transform.localPosition.x);
 
                     finalUpdatePosition = new Vector3(limitedX, finalUpdatePosition.y, finalUpdatePosition.z);
-                    controlObject.transform.position = finalUpdatePosition;
+                    controlObject.transform.localPosition = finalUpdatePosition;
                 }
                 else if (rightObject && opposingObject != null) 
                 { 
-                    float limitedX = Mathf.Clamp(finalUpdatePosition.x, opposingObject.transform.position.x, x_RangeMax);
+                    float limitedX = Mathf.Clamp(finalUpdatePosition.x, opposingObject.transform.localPosition.x, x_RangeMax);
                     finalUpdatePosition = new Vector3(limitedX, finalUpdatePosition.y, finalUpdatePosition.z);
-                    controlObject.transform.position = finalUpdatePosition;
+                    controlObject.transform.localPosition = finalUpdatePosition;
                 }
                 else 
                 {
-                    controlObject.transform.position = finalUpdatePosition;
+                    controlObject.transform.localPosition = finalUpdatePosition;
                 }
             }
             

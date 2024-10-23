@@ -4,10 +4,13 @@ public class DanceSequencer : MonoBehaviour
 {
     private ClockCounter clockCounter;
     private int beatCount = 0;
+    [SerializeField] private RoundsRecData rootRecDataSequencer; // Arrays (representing the game rounds) that hold Rec Data SO's
+    [SerializeField] private RecordingData rootRecordingData;
     [SerializeField] private RoundsRecData[] recDataObjSequencers; // Arrays (representing the game rounds) that hold Rec Data SO's
     [SerializeField] private RecordingData[] recordingDataObjects; // Array to store recording data for each GameObject
     [SerializeField] private ObjectControls[] objControlScripts;
-    [SerializeField] private RootTransforms rootTransforms; // root object movement will be added, e.g. jumps and spins
+    [SerializeField] private RootControl rootControl; // root object movement will be added, e.g. jumps and spins
+
     [SerializeField] private PlayerControls playerControls;
 
     private void Awake()
@@ -28,9 +31,18 @@ public class DanceSequencer : MonoBehaviour
     void Start()
     {
         clockCounter = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
-        rootTransforms = FindObjectOfType<RootTransforms>();
+        rootControl = FindObjectOfType<RootControl>();
 
         int currentRound = GameManager.Instance.GetCurrentRound();
+
+        //Root Object:
+        rootRecDataSequencer.currentRoundRecData = rootRecDataSequencer.recordingDataOfRounds[currentRound];
+        rootRecordingData = rootRecDataSequencer.currentRoundRecData;
+        for (int rootPositions = 0; rootPositions < rootRecordingData.recordedPositions.Length; rootPositions++)
+        {
+            rootRecordingData.initialPositions[rootPositions] = Vector3.zero;
+            rootRecordingData.recordedPositions[rootPositions] = Vector3.zero;
+        }
 
         // For each Control Object:
         // Initialize the array of Vector3 positions and fill each element with the starting position
@@ -60,16 +72,15 @@ public class DanceSequencer : MonoBehaviour
     // === RECORDING === //
     void OnBeatTriggerHandler() // Method to handle beat trigger event
     {
-        // === CHECKING INPUT === //
+        Vector3 rootPos = rootControl.GetRootPosition();
 
+        if (rootPos != Vector3.zero)
+        {
+            rootRecordingData.recordedPositions[beatCount] = rootPos;
+        }
+        // === CHECKING INPUT === //
         for (int i = 0; i < objControlScripts.Length; i++)
         {
-            //===First we add any root transforms updates (like jumping and moving around)
-            Vector3 currentRecordedPosition = objControlScripts[i].GetRecordedPosition();
-            Vector3 addedRootTransforms = currentRecordedPosition + rootTransforms.GetRootPosition();
-
-            recordingDataObjects[i].recordedPositions[beatCount] = addedRootTransforms;
-
             if (objControlScripts[i].isActive && objControlScripts[i].isRecording)
             {
                 objControlScripts[i].useRecordedPositions = false;
