@@ -61,26 +61,60 @@ public class CopyDance : MonoBehaviour
         for(int i = 0; i < objectsAndMoveData.Length; i++) // for each object referenced in the script
         {
             objectsAndMoveData[i].recordingDataSO = objectsAndMoveData[i].recDataObjSequencer.currentRoundRecData;
+            
+            //initialising the positions arrays
             objectsAndMoveData[i].targetRecordedPositions = new Vector3[objectsAndMoveData[i].recordingDataSO.recordedPositions.Length];
             objectsAndMoveData[i].offset = new Vector3[objectsAndMoveData[i].recordingDataSO.recordedPositions.Length];
 
             objectsAndMoveData[i].demonTransitioning = false;
 
+            
             for (int j = 0; j < objectsAndMoveData[i].targetRecordedPositions.Length; j++) // for each recorded Vector3 position
             {
-                // Calculate the offset between the control character objects and the dancer character objects:
-                float offsetX = objectsAndMoveData[i].copyObject.transform.position.x - objectsAndMoveData[i].recordingDataSO.initialPositions[j].x;
-                float offsetY = objectsAndMoveData[i].copyObject.transform.position.y - objectsAndMoveData[i].recordingDataSO.initialPositions[j].y;
-                float offsetZ = objectsAndMoveData[i].copyObject.transform.position.z - objectsAndMoveData[i].recordingDataSO.initialPositions[j].z;
+                if (i == 0) //index 0 is the root control: the root object uses world space (transform.position)
+                {
+                    /*
+                    // Calculate the offset between the control character objects and the dancer character objects:
+                    float offsetX = objectsAndMoveData[i].copyObject.transform.position.x - objectsAndMoveData[i].recordingDataSO.initialPositions[j].x;
+                    float offsetY = objectsAndMoveData[i].copyObject.transform.position.y - objectsAndMoveData[i].recordingDataSO.initialPositions[j].y;
+                    float offsetZ = objectsAndMoveData[i].copyObject.transform.position.z - objectsAndMoveData[i].recordingDataSO.initialPositions[j].z;
 
-                objectsAndMoveData[i].offset[j] = new Vector3(offsetX, offsetY, offsetZ); //store the offset so we can use it in UpdateDanceSequence
+                    //objectsAndMoveData[i].offset[j] = objectsAndMoveData[i].copyObject.transform.position // initialpositions are 0,0,0
 
-                // introduce "noise" to offsets?
+                    objectsAndMoveData[i].offset[j] = new Vector3(offsetX, offsetY, offsetZ); //store the offset so we can use it in UpdateDanceSequence
 
-                float adjustedX = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].x + offsetX;
-                float adjustedY = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].y + offsetY; ;
-                float adjustedZ = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].z + offsetZ; ;
-                objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ);
+                    // introduce "noise" to offsets?
+
+                    float adjustedX = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].x + offsetX;
+                    float adjustedY = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].y + offsetY;
+                    float adjustedZ = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].z + offsetZ;
+                    */
+                    //(Vector3 adjustedPosition = objectsAndMoveData[i].recordingDataSO.recordedPositions[j] + objectsAndMoveData[i].copyObject.transform.position;)
+
+                    //old:
+                    //objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ);
+                    objectsAndMoveData[i].targetRecordedPositions[j] = objectsAndMoveData[i].recordingDataSO.recordedPositions[j] + objectsAndMoveData[i].copyObject.transform.position;
+
+
+                }
+                else
+                {
+                    // Calculate the offset between the control character objects and the dancer character objects:
+                    float offsetX = objectsAndMoveData[i].copyObject.transform.localPosition.x - objectsAndMoveData[i].recordingDataSO.initialPositions[j].x;
+                    float offsetY = objectsAndMoveData[i].copyObject.transform.localPosition.y - objectsAndMoveData[i].recordingDataSO.initialPositions[j].y;
+                    float offsetZ = objectsAndMoveData[i].copyObject.transform.localPosition.z - objectsAndMoveData[i].recordingDataSO.initialPositions[j].z;
+
+                    objectsAndMoveData[i].offset[j] = new Vector3(offsetX, offsetY, offsetZ); //store the offset so we can use it in UpdateDanceSequence
+
+                    // introduce "noise" to offsets?
+
+                    float adjustedX = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].x + offsetX;
+                    float adjustedY = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].y + offsetY;
+                    float adjustedZ = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].z + offsetZ;
+                    // * we also have to add root position changes ("objectsAndMoveData[0]....")
+                    objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ) + objectsAndMoveData[0].targetRecordedPositions[j]; //*0 is root
+                }
+                
             }
         }
         
@@ -92,22 +126,16 @@ public class CopyDance : MonoBehaviour
             if (playerControls.GenericInput.LBumper.triggered && !updatingRoundSequence)
             {
                 UpdateDanceSequence(-1);
-                //Debug.Log("left bumper");
             }
             if (playerControls.GenericInput.RBumper.triggered && !updatingRoundSequence) 
             {
                 UpdateDanceSequence(1);
-                //Debug.Log("right bumper");
-
             }
         }
-        
-
     }
     private void UpdateDanceSequence(int posOrNegInt) 
     {
         updatingRoundSequence = true;
-        //Debug.Log("Updating round sequence");
         roundSwitcherIndex += posOrNegInt;
         if (roundSwitcherIndex > currentRound) roundSwitcherIndex = 0; // loop, also limit switch index to amount of rounds
         if (roundSwitcherIndex < 0) roundSwitcherIndex = currentRound; // loop, also limit switch index to amount of rounds
@@ -120,25 +148,18 @@ public class CopyDance : MonoBehaviour
 
             for (int j = 0; j < objectsAndMoveData[i].targetRecordedPositions.Length; j++) // for each recorded Vector3 position
             {
-                /*// Calculate the offset between the control character objects and the dancer character objects:
-                float offsetX = objectsAndMoveData[i].copyObject.transform.position.x - objectsAndMoveData[i].recordingDataSO.initialPositions[j].x;
-                float offsetY = objectsAndMoveData[i].copyObject.transform.position.y - objectsAndMoveData[i].recordingDataSO.initialPositions[j].y;
-                float offsetZ = objectsAndMoveData[i].copyObject.transform.position.z - objectsAndMoveData[i].recordingDataSO.initialPositions[j].z;*/
-
                 // introduce "noise" to offsets?
 
                 float adjustedX = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].x + objectsAndMoveData[i].offset[j].x; //using offsets stored in Start
                 float adjustedY = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].y + objectsAndMoveData[i].offset[j].y;
                 float adjustedZ = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].z + objectsAndMoveData[i].offset[j].z;
                 objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ);
-
-                //objectsAndMoveData[i].targetRecordedPositions[j] = objectsAndMoveData[i].recordingDataSO.recordedPositions[j];
             }
         }
         updatingRoundSequence = false;
     }
 
-    private void On_Q_BeatHandler() 
+    private void On_Q_BeatHandler() // ***TOCHECK: check here for extra offset added to char positions. The extra offset isn't on root control object, just the others
     {
         if (!raveDemonReveal)
         {
@@ -155,7 +176,15 @@ public class CopyDance : MonoBehaviour
                 if (targetBeatIndex < 0) targetBeatIndex = 0;
                 float tweenDuration = clockCounter.Get_Q_BeatInterval();
 
-                copyingObject.transform.DOMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
+                if (objectsIndex == 0) // if its the Root Object, we use world space
+                {
+                    copyingObject.transform.DOMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
+                }
+                else // else its local space
+                {
+                    copyingObject.transform.DOLocalMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
+                }
+                
             }
         }
         else 
