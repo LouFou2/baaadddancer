@@ -7,6 +7,7 @@ public class RootControl : MonoBehaviour
     private ClockCounter clockCounter;
     private PlayerControls playerControls;
     private Vector3 rootPosition = Vector3.zero;
+    private Quaternion rootRotation = Quaternion.identity;
 
     //Data SO's:
     [SerializeField] private RoundsRecData recordingDataOfRounds;
@@ -14,10 +15,14 @@ public class RootControl : MonoBehaviour
 
     [SerializeField] private bool grounded = true;
     [SerializeField] private float jumpHeight = 0.5f;
-    [SerializeField] private float jumpTime = 0f;
+    private float jumpTime = 0f;
     [SerializeField] private float jumpDuration = 0f;
 
-    [SerializeField] private bool useRecordedPositions = true;
+    [SerializeField] private bool isJumping = false;
+    [SerializeField] private bool isMoving = false;
+    [SerializeField] private bool isTurning = false;
+    public bool isRecording = true;
+
     private Vector3 currentRecordedPosition = Vector3.zero;
 
     private void Awake()
@@ -39,31 +44,34 @@ public class RootControl : MonoBehaviour
     private void Start()
     {
         clockCounter = FindObjectOfType<ClockCounter>();
-        jumpDuration = clockCounter.GetBeatInterval();
+        jumpDuration = clockCounter.GetBeatInterval() * 4;
 
         recordingDataSO = recordingDataOfRounds.currentRoundRecData;
+
+        currentRecordedPosition = transform.position;
+        rootPosition = currentRecordedPosition;
     }
 
     void Update()
     {
-        if (transform.position.y > 0)
-        {
-            grounded = false;
-        }
+        transform.position = currentRecordedPosition;
 
+        grounded = (transform.position.y == 0) ? true : false;
+        
         if (playerControls.GenericInput.AButton.IsPressed() && grounded)
         {
+            isJumping = true;
             Jump();
         }
 
-        rootPosition = transform.position;
+        isRecording = true ? (isJumping || isMoving || isTurning) : false;
+
         Debug.Log(rootPosition);
     }
     
     private void Jump()
     {
         grounded = false;
-        //Animate a jump with maths
         jumpTime = 0;
         StartCoroutine(JumpCoroutine());
     }
@@ -76,13 +84,15 @@ public class RootControl : MonoBehaviour
             float normalizedTime = jumpTime / jumpDuration; // Scale time to the duration
             float yPosition = jumpHeight * Mathf.Sin(normalizedTime * Mathf.PI); // Peak at jumpHeight
 
-            transform.position = new Vector3(transform.position.x, yPosition, transform.position.z);
+            rootPosition = new Vector3(rootPosition.x, yPosition, rootPosition.z);
+            transform.position = rootPosition;
             yield return null;
         }
         //securing the conclusion of the animation:
         jumpTime = jumpDuration;
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        rootPosition = new Vector3(rootPosition.x, 0, rootPosition.z);
         grounded = true;
+        isJumping = false;
     }
 
     public Vector3 GetRootPosition()
@@ -102,7 +112,7 @@ public class RootControl : MonoBehaviour
         float tweenDuration = clockCounter.Get_Q_BeatInterval();
         Vector3 tweenTargetPosition = recordingDataSO.recordedPositions[targetPositionIndex];
 
-        if (transform.position != recordingDataSO.recordedPositions[currentPositionIndex])
+        if (!isRecording)
         {
             // Tween the object's position to the next recorded position
             transform.DOMove(tweenTargetPosition, tweenDuration).SetEase(Ease.Linear);

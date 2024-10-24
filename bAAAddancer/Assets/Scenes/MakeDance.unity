@@ -1923,6 +1923,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021057081538, guid: c2f38aca245f47f4d9b41b6fb6f365c4,
         type: 3}
+      propertyPath: rootProxyObject
+      value: 
+      objectReference: {fileID: 880661489}
+    - target: {fileID: 5866666021057081538, guid: c2f38aca245f47f4d9b41b6fb6f365c4,
+        type: 3}
       propertyPath: proxyObjects.Array.data[0]
       value: 
       objectReference: {fileID: 628731417}
@@ -5628,6 +5633,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021161656258, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,
         type: 3}
+      propertyPath: rootProxyObject
+      value: 
+      objectReference: {fileID: 880661489}
+    - target: {fileID: 5866666021161656258, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,
+        type: 3}
       propertyPath: proxyObjects.Array.data[0]
       value: 
       objectReference: {fileID: 628731417}
@@ -6574,6 +6584,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 919132147699613101, guid: d6205e1c08d675c4ead561695434af55,
         type: 3}
+      propertyPath: rootProxyObject
+      value: 
+      objectReference: {fileID: 880661489}
+    - target: {fileID: 919132147699613101, guid: d6205e1c08d675c4ead561695434af55,
+        type: 3}
       propertyPath: proxyObjects.Array.data[0]
       value: 
       objectReference: {fileID: 628731417}
@@ -7439,10 +7454,12 @@ MonoBehaviour:
     type: 2}
   recordingDataSO: {fileID: 0}
   grounded: 1
-  jumpHeight: 0.7
-  jumpTime: 0
+  jumpHeight: 1
   jumpDuration: 0
-  useRecordedPositions: 1
+  isJumping: 0
+  isMoving: 0
+  isTurning: 0
+  isRecording: 1
 --- !u!1 &904956655
 GameObject:
   m_ObjectHideFlags: 0
@@ -10484,6 +10501,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 919132148340544334, guid: 16b7a2a336056a54593cf9292a17ca1b,
         type: 3}
+      propertyPath: rootProxyObject
+      value: 
+      objectReference: {fileID: 880661489}
+    - target: {fileID: 919132148340544334, guid: 16b7a2a336056a54593cf9292a17ca1b,
+        type: 3}
       propertyPath: proxyObjects.Array.data[0]
       value: 
       objectReference: {fileID: 628731417}
@@ -10963,6 +10985,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666020564149848, guid: 4d0f9f92e028ed34c84dc80208a80523,
+        type: 3}
+      propertyPath: rootProxyObject
+      value: 
+      objectReference: {fileID: 880661489}
     - target: {fileID: 5866666020564149848, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
       propertyPath: proxyObjects.Array.data[0]
@@ -11526,6 +11553,12 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
+--- !u!1 &1706580276 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4380230829971006103, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
+    type: 3}
+  m_PrefabInstance: {fileID: 5038991312021028232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1707823747
 GameObject:
   m_ObjectHideFlags: 0
@@ -14781,7 +14814,7 @@ PrefabInstance:
     - target: {fileID: 3071805456118796677, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3071805456118796677, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
@@ -14796,17 +14829,17 @@ PrefabInstance:
     - target: {fileID: 3071805456118796677, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3071805456118796677, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3071805456118796677, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3071805456118796677, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
@@ -14828,6 +14861,16 @@ PrefabInstance:
       propertyPath: solver.boneMappings.Array.data[0].maintainRotationWeight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666020052305507, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
+        type: 3}
+      propertyPath: rootProxyObject
+      value: 
+      objectReference: {fileID: 880661489}
+    - target: {fileID: 5866666020052305507, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
+        type: 3}
+      propertyPath: rootControlObject
+      value: 
+      objectReference: {fileID: 1706580276}
     - target: {fileID: 5866666020052305507, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
       propertyPath: proxyObjects.Array.data[0]

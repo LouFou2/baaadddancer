@@ -74,7 +74,7 @@ public class DanceSequencer : MonoBehaviour
     {
         Vector3 rootPos = rootControl.GetRootPosition();
 
-        if (rootPos != Vector3.zero)
+        if (rootControl.isRecording)
         {
             rootRecordingData.recordedPositions[beatCount] = rootPos;
         }

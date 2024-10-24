@@ -23,7 +23,7 @@ public class MakeDanceSceneSetup : MonoBehaviour
     }
     void Start()
     {
-        //GameManager.Instance.NewRound(); //***### UN-UNCOMMENT THIS!!!
+        GameManager.Instance.NewRound();
 
         sceneSwitcher = FindObjectOfType<SceneSwitcher>();
         characterManager = FindObjectOfType<CharacterManager>();

@@ -87,10 +87,6 @@ public class CopyDance : MonoBehaviour
     }
     private void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Space) && !updatingRoundSequence) //replace this with correct input logic
-        {
-            UpdateDanceSequence();
-        }*/
         if (currentRound >= 1) 
         {
             if (playerControls.GenericInput.LBumper.triggered && !updatingRoundSequence)
