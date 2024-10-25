@@ -26,7 +26,7 @@ public class CopyDance : MonoBehaviour
     public bool charRightScreen;
 
     int currentRound = -1;
-    int roundSwitcherIndex = -1;
+    [SerializeField] int roundSwitcherIndex = -1;
     [SerializeField] bool updatingRoundSequence = false;
 
     private void Awake()
@@ -68,9 +68,10 @@ public class CopyDance : MonoBehaviour
 
             objectsAndMoveData[i].demonTransitioning = false;
 
-            for (int j = 0; j < objectsAndMoveData[i].targetRecordedPositions.Length; j++) // for each recorded Vector3 position
+            // for each recorded Vector3 position
+            for (int j = objectsAndMoveData[i].targetRecordedPositions.Length - 1; j > -1; j--) // we count down so we can do 0 last*
             {
-                if (i != 0) //index 0 is the root control: the root object uses world space (transform.position)
+                if (i > 0) 
                 {
                     // Calculate the offset between the control character objects and the dancer character objects:
                     float offsetX = objectsAndMoveData[i].copyObject.transform.localPosition.x - objectsAndMoveData[i].recordingDataSO.initialPositions[j].x;
@@ -87,15 +88,24 @@ public class CopyDance : MonoBehaviour
                     // * we also have to add root positions ("objectsAndMoveData[0]....") because the root doesn't function as a parent in the rig
                     objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ) + objectsAndMoveData[0].recordingDataSO.recordedPositions[j]; //*0 is root
                 }
+                //we add offset to each root object's positions array AFTER adding the recorded root positions to all the other objects' arrays
+                //index 0 is the root control: the root object uses world space (transform.position)
+                if (i == 0)
+                {
+                    objectsAndMoveData[0].targetRecordedPositions[0] // each recorded position of the root object 
+                    = objectsAndMoveData[0].recordingDataSO.recordedPositions[0]
+                    + objectsAndMoveData[0].copyObject.transform.position; // add the position of this characters root object as offset
+                }
             }
         }
+        /*
         //we add offset to each root object's positions array AFTER adding the recorded root positions to all the other objects' arrays
         for (int rootPositionIndex = 0; rootPositionIndex < objectsAndMoveData[0].targetRecordedPositions.Length; rootPositionIndex++)
         {
             objectsAndMoveData[0].targetRecordedPositions[rootPositionIndex] // each recorded position of the root object 
                 = objectsAndMoveData[0].recordingDataSO.recordedPositions[rootPositionIndex] 
                 + objectsAndMoveData[rootPositionIndex].copyObject.transform.position; // add the position of this characters root object as offset
-        }
+        }*/
     }
     private void Update()
     {
@@ -124,25 +134,32 @@ public class CopyDance : MonoBehaviour
             objectsAndMoveData[i].recordingDataSO = objectsAndMoveData[i].recDataObjSequencer.recordingDataOfRounds[roundSwitcherIndex];
             objectsAndMoveData[i].targetRecordedPositions = new Vector3[objectsAndMoveData[i].recordingDataSO.recordedPositions.Length];
 
-            for (int j = 0; j < objectsAndMoveData[i].targetRecordedPositions.Length; j++) // for each recorded Vector3 position
+            for (int j = objectsAndMoveData[i].targetRecordedPositions.Length - 1; j > -1; j--) // we count down so we can do 0 last*
             {
-                if (i != 0)
+                if (i > 0)
                 {
                     // introduce "noise" to offsets?
                     float adjustedX = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].x + objectsAndMoveData[i].offset[j].x; //using offsets stored in Start
                     float adjustedY = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].y + objectsAndMoveData[i].offset[j].y;
                     float adjustedZ = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].z + objectsAndMoveData[i].offset[j].z;
-                    objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ);
+                    objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ) + objectsAndMoveData[0].recordingDataSO.recordedPositions[j]; //*0 is root
+                }
+                if (i == 0)
+                {
+                    objectsAndMoveData[0].targetRecordedPositions[0] // each recorded position of the root object 
+                        = objectsAndMoveData[0].recordingDataSO.recordedPositions[0]
+                        + objectsAndMoveData[0].copyObject.transform.position; // add the position of this characters root object as offset
                 }
             }
         }
+/*
         for (int rootPositionIndex = 0; rootPositionIndex < objectsAndMoveData[0].targetRecordedPositions.Length; rootPositionIndex++)
         {
             objectsAndMoveData[0].targetRecordedPositions[rootPositionIndex] // each recorded position of the root object 
                 = objectsAndMoveData[0].recordingDataSO.recordedPositions[rootPositionIndex]
                 + objectsAndMoveData[rootPositionIndex].copyObject.transform.position; // add the position of this characters root object as offset
         }
-
+*/
         updatingRoundSequence = false;
     }
 

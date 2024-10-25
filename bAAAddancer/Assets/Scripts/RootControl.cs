@@ -10,7 +10,7 @@ public class RootControl : MonoBehaviour
     private Quaternion rootRotation = Quaternion.identity;
 
     //Data SO's:
-    [SerializeField] private RoundsRecData recordingDataOfRounds;
+    [SerializeField] private RoundsRecData recordingDataSequencer;
     [SerializeField] private RecordingData recordingDataSO;
 
     [SerializeField] private bool grounded = true;
@@ -46,7 +46,9 @@ public class RootControl : MonoBehaviour
         clockCounter = FindObjectOfType<ClockCounter>();
         jumpDuration = clockCounter.GetBeatInterval() * 4;
 
-        recordingDataSO = recordingDataOfRounds.currentRoundRecData;
+        int currentRound = GameManager.Instance.GetCurrentRound();
+        recordingDataSequencer.currentRoundRecData = recordingDataSequencer.recordingDataOfRounds[currentRound];
+        recordingDataSO = recordingDataSequencer.currentRoundRecData;
 
         currentRecordedPosition = transform.position;
         rootPosition = currentRecordedPosition;
