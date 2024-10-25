@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ControlObjectSwitcher : MonoBehaviour
 {
-    public enum ControlObjects { Pelvis, Legs, Hands, Shoulders, Head }
+    public enum ControlObjects { Pelvis, Legs, Hands, Shoulders, Head, Root, }
 
     private Color activeImageColor = new Color(0.7f, 0.4f, 1f, 0.15f); // Example active color (RGB and alpha)
     private Color inactiveImageColor = new Color(1f, 1f, 1f, 0.05f); // Example inactive color (RGB and alpha)
@@ -20,12 +20,19 @@ public class ControlObjectSwitcher : MonoBehaviour
         public Image uiImageVisualiser;
         public TextMeshProUGUI uiTextVisualiser;
     }
+    // Root Object: * the root is handled differently, as it uses its won control script
+    [SerializeField]
+    private ControlObjects rootControlObject;
+    [SerializeField] private RootControl rootControlScript;
+    [SerializeField] private Image rootUI_Image;
+    [SerializeField] private TextMeshProUGUI rootUI_Text;
 
+    // Other Objects:
     [SerializeField] private ControlObjectData[] controlObjectData;
 
     [SerializeField] private GameObject finishedButton;
 
-    private int currentObjectIndex = 0;
+    [SerializeField] private int currentObjectIndex = 0;
 
     private PlayerControls playerControls;
 
@@ -69,6 +76,13 @@ public class ControlObjectSwitcher : MonoBehaviour
             case ControlObjects.Hands:
             case ControlObjects.Shoulders:
             case ControlObjects.Head:
+
+                //reset the root
+                rootControlScript.isActive = false;
+                rootUI_Image.color = inactiveImageColor;
+                rootUI_Text.color = inactiveTextColor;
+
+                //then handle the rest
                 for (int i = 0; i < controlObjectData.Length; i++)
                 {
                     foreach (ObjectControls controlScript in controlObjectData[i].controlScripts)
@@ -95,6 +109,29 @@ public class ControlObjectSwitcher : MonoBehaviour
                     if (currentObject == ControlObjects.Head) finishedButton.SetActive(true);
                     else finishedButton.SetActive(false);
                 }
+                break;
+
+            case ControlObjects.Root: // * Special case Root
+                foreach (var controlObject in controlObjectData)
+                {
+                    foreach (var controlScript in controlObject.controlScripts)
+                    {
+                        controlScript.isActive = false;
+                    }
+                    // Set colors to inactive colors
+                    if (controlObject.uiImageVisualiser != null)
+                    {
+                        controlObject.uiImageVisualiser.color = inactiveImageColor;
+                    }
+                    if (controlObject.uiTextVisualiser != null)
+                    {
+                        controlObject.uiTextVisualiser.color = inactiveTextColor;
+                    }
+                }
+                rootControlScript.isActive = true;
+                rootUI_Image.color = activeImageColor;
+                rootUI_Text.color = activeTextColor;
+
                 break;
             default:
                 Debug.LogError("Unknown control object!");
