@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     // Singleton instance of the GameManager
     public static GameManager Instance { get; private set; }
 
-    private LevelKey currentLevelKey;
-    private bool gameStarted = false;
+    [SerializeField] private LevelKey currentLevelKey;
+    [SerializeField] private bool gameStarted = false;
 
     private void Awake()
     {
@@ -27,9 +27,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // Destroy any duplicate instances
         }
-    }
-    private void Start()
-    {
         currentLevelKey = gameData.currentLevelKey;
         dataResetter = FindObjectOfType<DataResetter>();
         if (!gameStarted && SceneManager.GetActiveScene().buildIndex == 0)
@@ -41,6 +38,20 @@ public class GameManager : MonoBehaviour
                 dataResetter.ResetAllData();
             gameStarted = true;
         }
+    }
+    private void Start()
+    {
+        /*currentLevelKey = gameData.currentLevelKey;
+        dataResetter = FindObjectOfType<DataResetter>();
+        if (!gameStarted && SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            // If this is the first loading of the game, reset the currentLevelKey
+            ResetCurrentLevelKey();
+            ResetRoundNr();
+            if (dataResetter != null)
+                dataResetter.ResetAllData();
+            gameStarted = true;
+        }*/
     }
     private void ResetCurrentLevelKey()
     {
