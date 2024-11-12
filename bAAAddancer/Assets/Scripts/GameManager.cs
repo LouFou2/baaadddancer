@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
         currentLevelKey = gameData.currentLevelKey;
 
         dataResetter = FindObjectOfType<DataResetter>();
-        Debug.Log("Game Started: " + gameStarted);
 
         if (!gameStarted && SceneManager.GetActiveScene().buildIndex == 0)
         {
