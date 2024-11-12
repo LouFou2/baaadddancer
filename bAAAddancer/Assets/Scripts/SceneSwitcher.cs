@@ -6,6 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
+    private void Update() // only need this while debugging
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SwitchToNextLevelKey();
+            LoadNextScene();
+        }
+    }
+
     public string GetCurrentSceneName()
     {
         // Get the name of the current active scene
