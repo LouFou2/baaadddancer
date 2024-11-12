@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PearlyGeomShader2
+  m_Name: SkirtGeomShader 1
   m_Shader: {fileID: 4800000, guid: 1a8dc3ebc0d61eb4c8f94d1e4580a021, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -40,25 +40,27 @@ Material:
     - _FresnelEdge: 0.507
     - _FresnelPower: 1.13
     - _IncrementValue: 0.0291
-    - _IrridescenceBlend: 0.318
-    - _IsFeet: 0
-    - _IsHands: 0
-    - _IsHead: 0
-    - _Metal: 0.187
+    - _IrridescenceBlend: 0.2835912
+    - _IsFeet: 1
+    - _IsHands: 1
+    - _IsHead: 1
+    - _Metal: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smooth: 0.5
+    - _Smooth: 0.208
+    - _SmoothShading: 0.48437965
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.7107104, b: 0.29716977, a: 0}
-    - _Foot_L_BonePosition: {r: -0.086360596, g: 0.09172998, b: -0.0007626191, a: 0}
+    - _BaseColor: {r: 0.5372549, g: 0.42352942, b: 0.90588236, a: 1}
+    - _Foot_L_BonePosition: {r: 0.10200277, g: 0.1219972, b: 4.9961653, a: 0}
     - _Foot_L_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
-    - _Foot_R_BonePosition: {r: 0.08505301, g: 0.091766715, b: -0.00021329522, a: 0}
+    - _Foot_R_BonePosition: {r: -0.102002434, g: 0.121997096, b: 4.9961653, a: 0}
     - _Foot_R_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
-    - _Hand_L_BonePosition: {r: -0.18692775, g: 0.8190538, b: -0.0023978949, a: 0}
-    - _Hand_L_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
-    - _Hand_R_BonePosition: {r: 0.17717643, g: 0.8187718, b: -0.00274992, a: 0}
-    - _Hand_R_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
-    - _HeadBonePosition: {r: -0.000000536597, g: 1.4541188, b: 0.018999815, a: 0}
+    - _Hand_L_BonePosition: {r: 0.54953855, g: 1.1442348, b: 4.885687, a: 0}
+    - _Hand_L_FollowerDirection: {r: -0.26838312, g: 0.009325107, b: -0.96326715,
+        a: 0}
+    - _Hand_R_BonePosition: {r: -0.548739, g: 1.1442622, b: 4.882847, a: 0}
+    - _Hand_R_FollowerDirection: {r: 0.2771107, g: 0.00938418, b: -0.9607921, a: 0}
+    - _HeadBonePosition: {r: 0.00007671543, g: 1.289125, b: 4.9749, a: 0}
     - _HeadFollowerDirection: {r: 0, g: 0, b: 0, a: 0}
     - _IrriColorEdge1: {r: 0, g: 0.55888957, b: 1, a: 1}
     - _IrriColorEdge2: {r: 0.079324685, g: 1, b: 0, a: 1}

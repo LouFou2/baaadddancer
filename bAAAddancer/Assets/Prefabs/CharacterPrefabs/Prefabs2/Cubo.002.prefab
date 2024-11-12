@@ -14699,6 +14699,7 @@ GameObject:
   - component: {fileID: 364242913056961226}
   - component: {fileID: 4672909827273278994}
   - component: {fileID: 8216314738722620615}
+  - component: {fileID: 2919250179779192599}
   m_Layer: 0
   m_Name: Cubo.002
   m_TagString: Untagged
@@ -15723,6 +15724,42 @@ MonoBehaviour:
   hairF_Index: 6
   hairB_Index: 7
   shapeValueMultiplier: 200
+--- !u!114 &2919250179779192599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6631851765770614766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b4e8c31d193f24d9966707e02d085b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials: []
+  updateInterval: 0.1
+  headBone: {fileID: 0}
+  hand_L_Bone: {fileID: 0}
+  hand_R_Bone: {fileID: 0}
+  foot_L_Bone: {fileID: 0}
+  foot_R_Bone: {fileID: 0}
+  pelvisBone: {fileID: 0}
+  torsoBone: {fileID: 0}
+  headControlTarget: {fileID: 0}
+  hand_L_ControlTarget: {fileID: 0}
+  hand_R_ControlTarget: {fileID: 0}
+  foot_L_ControlTarget: {fileID: 0}
+  foot_R_ControlTarget: {fileID: 0}
+  pelvisControlTarget: {fileID: 0}
+  torsoControlTarget: {fileID: 0}
+  headFollower1: {fileID: 0}
+  hand_L_Follower1: {fileID: 0}
+  hand_R_Follower1: {fileID: 0}
+  foot_L_Follower1: {fileID: 0}
+  foot_R_Follower1: {fileID: 0}
+  pelvisFollower1: {fileID: 0}
+  torsoFollower1: {fileID: 0}
+  moveAmountMultiplier: 1
 --- !u!1 &6634329970900710530
 GameObject:
   m_ObjectHideFlags: 0

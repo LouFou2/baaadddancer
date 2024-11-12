@@ -5349,6 +5349,7 @@ GameObject:
   - component: {fileID: 6802256752637198788}
   - component: {fileID: 1250700489946499784}
   - component: {fileID: 177526955943416153}
+  - component: {fileID: 4559159878421738341}
   m_Layer: 0
   m_Name: Lava.002
   m_TagString: Untagged
@@ -6447,6 +6448,42 @@ MonoBehaviour:
   hairF_Index: 5
   hairB_Index: 6
   shapeValueMultiplier: 200
+--- !u!114 &4559159878421738341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8375150705462544363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b4e8c31d193f24d9966707e02d085b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials: []
+  updateInterval: 0.1
+  headBone: {fileID: 0}
+  hand_L_Bone: {fileID: 0}
+  hand_R_Bone: {fileID: 0}
+  foot_L_Bone: {fileID: 0}
+  foot_R_Bone: {fileID: 0}
+  pelvisBone: {fileID: 0}
+  torsoBone: {fileID: 0}
+  headControlTarget: {fileID: 0}
+  hand_L_ControlTarget: {fileID: 0}
+  hand_R_ControlTarget: {fileID: 0}
+  foot_L_ControlTarget: {fileID: 0}
+  foot_R_ControlTarget: {fileID: 0}
+  pelvisControlTarget: {fileID: 0}
+  torsoControlTarget: {fileID: 0}
+  headFollower1: {fileID: 0}
+  hand_L_Follower1: {fileID: 0}
+  hand_R_Follower1: {fileID: 0}
+  foot_L_Follower1: {fileID: 0}
+  foot_R_Follower1: {fileID: 0}
+  pelvisFollower1: {fileID: 0}
+  torsoFollower1: {fileID: 0}
+  moveAmountMultiplier: 1
 --- !u!1 &8382333001338399892
 GameObject:
   m_ObjectHideFlags: 0

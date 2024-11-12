@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class ShaderBender : MonoBehaviour
 {
-    public Material material; // Assign your material in the inspector
+    public Material[] materials; // Assign your material in the inspector
 
+    [SerializeField] private CharacterData charData;
     [SerializeField] private float updateInterval = 0.1f; // Time in seconds between updates
     private float timeSinceLastUpdate = 0f;
 
@@ -46,7 +47,13 @@ public class ShaderBender : MonoBehaviour
     private Vector3 pelvisFollowerDirection;
     private Vector3 torsoFollowerDirection;
 
+    [SerializeField] [Range(0, 1)] private float cursedness = 0;
     [SerializeField] private float moveAmountMultiplier = 1;
+    [SerializeField] private float moveAmountMax = 50;
+    [SerializeField] private float irridescence = 0;
+    [SerializeField] private float irridescenceMax = 0;
+    [SerializeField] [Range(0, 1)] private float flatShading = 0;
+
     private float headMoveAmount;
     private float hand_L_MoveAmount;
     private float hand_R_MoveAmount;
@@ -55,11 +62,11 @@ public class ShaderBender : MonoBehaviour
     private float pelvisMoveAmount;
     private float torsoMoveAmount;
 
-    private float isHead = 0;
-    private float isHands = 0;
-    private float isFeet = 0;
-    private float isPelvis = 0;
-    private float isTorso = 0;
+    private float isHead = 1;
+    private float isHands = 1;
+    private float isFeet = 1;
+    private float isPelvis = 1;
+    private float isTorso = 1;
 
     private void Awake()
     {
@@ -76,7 +83,8 @@ public class ShaderBender : MonoBehaviour
 
     void Update()
     {
-        HandleInput();
+        //HandleInput();
+        HandleCursedness();
 
         timeSinceLastUpdate += Time.deltaTime;
 
@@ -134,31 +142,46 @@ public class ShaderBender : MonoBehaviour
         torsoMoveAmount = Vector3.Distance(torsoTargetPos, torsoFollowerPos) * moveAmountMultiplier;
 
         // set bone positions in material properties
-        material.SetVector("_HeadBonePosition", headPos);
-        material.SetVector("_Hand_L_BonePosition", handLPos);
-        material.SetVector("_Hand_R_BonePosition", handRPos);
-        material.SetVector("_Foot_L_BonePosition", footLPos);
-        material.SetVector("_Foot_R_BonePosition", footRPos);
-        material.SetVector("_PelvisBonePosition", pelvisPos);
-        material.SetVector("_TorsoBonePosition", torsoPos);
+        foreach (Material material in materials)
+        {
+            material.SetVector("_HeadBonePosition", headPos);
+            material.SetVector("_Hand_L_BonePosition", handLPos);
+            material.SetVector("_Hand_R_BonePosition", handRPos);
+            material.SetVector("_Foot_L_BonePosition", footLPos);
+            material.SetVector("_Foot_R_BonePosition", footRPos);
+            material.SetVector("_PelvisBonePosition", pelvisPos);
+            material.SetVector("_TorsoBonePosition", torsoPos);
 
-        // set follower directions in material properties
-        material.SetVector("_HeadFollowerDirection", headFollowerDirection);
-        material.SetVector("_Hand_L_FollowerDirection", hand_L_FollowerDirection);
-        material.SetVector("_Hand_R_FollowerDirection", hand_R_FollowerDirection);
-        material.SetVector("_Foot_L_FollowerDirection", foot_L_FollowerDirection);
-        material.SetVector("_Foot_R_FollowerDirection", foot_R_FollowerDirection);
-        material.SetVector("_PelvisFollowerDirection", pelvisFollowerDirection);
-        material.SetVector("_TorsoFollowerDirection", torsoFollowerDirection);
+            // set follower directions in material properties
+            material.SetVector("_HeadFollowerDirection", headFollowerDirection);
+            material.SetVector("_Hand_L_FollowerDirection", hand_L_FollowerDirection);
+            material.SetVector("_Hand_R_FollowerDirection", hand_R_FollowerDirection);
+            material.SetVector("_Foot_L_FollowerDirection", foot_L_FollowerDirection);
+            material.SetVector("_Foot_R_FollowerDirection", foot_R_FollowerDirection);
+            material.SetVector("_PelvisFollowerDirection", pelvisFollowerDirection);
+            material.SetVector("_TorsoFollowerDirection", torsoFollowerDirection);
 
-        // set moveAmounts in material properties
-        material.SetFloat("_HeadMoveAmount", headMoveAmount);
-        material.SetFloat("_Hand_L_MoveAmount", hand_L_MoveAmount);
-        material.SetFloat("_Hand_R_MoveAmount", hand_R_MoveAmount);
-        material.SetFloat("_Foot_L_MoveAmount", foot_L_MoveAmount);
-        material.SetFloat("_Foot_R_MoveAmount", foot_R_MoveAmount);
-        material.SetFloat("_PelvisMoveAmount", pelvisMoveAmount);
-        material.SetFloat("_TorsoMoveAmount", torsoMoveAmount);
+            // set moveAmounts in material properties
+            material.SetFloat("_HeadMoveAmount", headMoveAmount);
+            material.SetFloat("_Hand_L_MoveAmount", hand_L_MoveAmount);
+            material.SetFloat("_Hand_R_MoveAmount", hand_R_MoveAmount);
+            material.SetFloat("_Foot_L_MoveAmount", foot_L_MoveAmount);
+            material.SetFloat("_Foot_R_MoveAmount", foot_R_MoveAmount);
+            material.SetFloat("_PelvisMoveAmount", pelvisMoveAmount);
+            material.SetFloat("_TorsoMoveAmount", torsoMoveAmount);
+
+            // shading
+            material.SetFloat("_SmoothShading", 1 - flatShading);
+            material.SetFloat("_IrridescenceBlend", irridescence);
+
+            //=== was previously switched between, depending on which controls where active
+            material.SetFloat("_IsHead", isHead);
+            material.SetFloat("_IsHands", isHands);
+            material.SetFloat("_IsFeet", isFeet);
+            material.SetFloat("_IsPelvis", isPelvis);
+            material.SetFloat("_IsTorso", isTorso);
+        }
+        
 
     }
 
@@ -213,12 +236,22 @@ public class ShaderBender : MonoBehaviour
                 break;
         }
 
-        material.SetFloat("_IsHead", isHead);
-        material.SetFloat("_IsHands", isHands);
-        material.SetFloat("_IsFeet", isFeet);
-        material.SetFloat("_IsPelvis", isPelvis);
-        material.SetFloat("_IsTorso", isTorso);
+        foreach (Material material in materials)
+        {
+            material.SetFloat("_IsHead", isHead);
+            material.SetFloat("_IsHands", isHands);
+            material.SetFloat("_IsFeet", isFeet);
+            material.SetFloat("_IsPelvis", isPelvis);
+            material.SetFloat("_IsTorso", isTorso);
+        }
+ 
     }
     
-
+    void HandleCursedness()
+    {
+        cursedness = Mathf.Clamp(charData.infectionLevel, 0, 1);
+        moveAmountMultiplier = Mathf.Lerp(0, moveAmountMax, cursedness);
+        flatShading = cursedness;
+        irridescence = Mathf.Lerp(0, irridescenceMax, cursedness);
+    }
 }

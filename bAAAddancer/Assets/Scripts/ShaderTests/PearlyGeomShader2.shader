@@ -41,6 +41,8 @@ Shader "PearlyGeomShader2"
         _DisplaceAmount("Displace Amount", Float) = 0.1
         [Header(Cubify)]
         _IncrementValue("Increment Spacing Max", Range(0.0001,0.1)) = 0.1
+        [Header(Shading)]
+        _SmoothShading("Smooth Shading", Range(0,1)) = 1
 
     }
     SubShader
@@ -100,6 +102,7 @@ Shader "PearlyGeomShader2"
 
         float _IncrementValue;
 
+        uniform float _SmoothShading;
 
         struct GeomData
         {
@@ -164,9 +167,9 @@ Shader "PearlyGeomShader2"
             float3 flatNormal = normalize(cross(normalizedEdge1, normalizedEdge2));
 
             // to flatten the tri:
-            vert1.normalWS = flatNormal;
-            vert2.normalWS = flatNormal;
-            vert3.normalWS = flatNormal;
+            vert1.normalWS = lerp(flatNormal, vert1.normalWS, _SmoothShading);
+            vert2.normalWS = lerp(flatNormal, vert2.normalWS, _SmoothShading);
+            vert3.normalWS = lerp(flatNormal, vert3.normalWS, _SmoothShading);
 
             // general displacement (along normals):
             //vert1.positionWS += flatNormal * _DisplaceAmount;
