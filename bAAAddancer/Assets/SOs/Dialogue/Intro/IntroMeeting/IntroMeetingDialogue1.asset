@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicTrackToPlay: {fileID: 0}
   dialogueUnits:
-  - speakingCharacter: 2
-    sentence: Someone cursed me!
-    Camera: 11
-    charsLookPosition: 3
+  - sentence: Someone cursed me!
+    speakingCharacter: 2
+    Camera: 5
     speakerLookPosition: 0
+    charsLookPosition: 3
     oneshotClipToPlay: {fileID: 8300000, guid: 74f7c7b8aa46b204d9435445602e2728, type: 3}
     newMusicTrackToPlay: {fileID: 8300000, guid: db119c8ed94d9bf459a363efdcc4b3d6,
       type: 3}
     voxClipToPlay: {fileID: 0}
     voxEmote: 3
-  - speakingCharacter: 3
-    sentence: It's the curse
-    Camera: 5
-    charsLookPosition: 4
+  - sentence: It's the curse
+    speakingCharacter: 3
+    Camera: 7
     speakerLookPosition: 0
+    charsLookPosition: 4
     oneshotClipToPlay: {fileID: 8300000, guid: bae56661d42c8e94a987e48564ce38ea, type: 3}
     newMusicTrackToPlay: {fileID: 8300000, guid: 34b2f6daf183f0747b8920900df712a1,
       type: 3}

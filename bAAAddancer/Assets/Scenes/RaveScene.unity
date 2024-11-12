@@ -19245,6 +19245,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 3309d3c6b81c34b4382fc6b1fd78a061, type: 2}
   dataResetter: {fileID: 0}
+  currentLevelKey: 0
+  gameStarted: 0
 --- !u!1 &1233187825
 GameObject:
   m_ObjectHideFlags: 0
@@ -53330,7 +53332,7 @@ MonoBehaviour:
   - {fileID: 619157979}
   characterDataSOs: []
   playerIndex: 0
-  bugIndex: 0
+  demonIndex: 0
 --- !u!1 &5143518698245273212
 GameObject:
   m_ObjectHideFlags: 0
