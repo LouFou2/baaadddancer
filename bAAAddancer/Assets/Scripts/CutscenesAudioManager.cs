@@ -154,13 +154,13 @@ public class CutscenesAudioManager : MonoBehaviour
             case DialogueData.SpeakingCharacter.lastBuggedSpeaking:
                 speakingCharacter = lastBuggedCharacterIndex;
                 break;
-            case DialogueData.SpeakingCharacter.npc02Speaking:
+            case DialogueData.SpeakingCharacter.npc01Speaking:
                 speakingCharacter = npc1_Index;
                 break;
-            case DialogueData.SpeakingCharacter.npc03Speaking:
+            case DialogueData.SpeakingCharacter.npc02Speaking:
                 speakingCharacter = npc2_Index;
                 break;
-            case DialogueData.SpeakingCharacter.npc04Speaking:
+            case DialogueData.SpeakingCharacter.npc03Speaking:
                 speakingCharacter = npc3_Index;
                 break;
             default:

@@ -131,27 +131,27 @@ public class CameraManager : MonoBehaviour
                 cameraAnimator.SetBool(cameraFlags[demonIndex], true);
                 cameraAnimator.SetFloat("MedToClose", 1);
                 break;
-            case DialogueData.CameraToSwitch.npc02CamM:
+            case DialogueData.CameraToSwitch.npc01CamM:
                 cameraAnimator.SetBool(cameraFlags[npc1_Index], true);
+                cameraAnimator.SetFloat("MedToClose", 0);
+                break;
+            case DialogueData.CameraToSwitch.npc01CamC:
+                cameraAnimator.SetBool(cameraFlags[npc1_Index], true);
+                cameraAnimator.SetFloat("MedToClose", 1);
+                break;
+            case DialogueData.CameraToSwitch.npc02CamM:
+                cameraAnimator.SetBool(cameraFlags[npc2_Index], true);
                 cameraAnimator.SetFloat("MedToClose", 0);
                 break;
             case DialogueData.CameraToSwitch.npc02CamC:
-                cameraAnimator.SetBool(cameraFlags[npc1_Index], true);
+                cameraAnimator.SetBool(cameraFlags[npc2_Index], true);
                 cameraAnimator.SetFloat("MedToClose", 1);
                 break;
             case DialogueData.CameraToSwitch.npc03CamM:
-                cameraAnimator.SetBool(cameraFlags[npc2_Index], true);
-                cameraAnimator.SetFloat("MedToClose", 0);
-                break;
-            case DialogueData.CameraToSwitch.npc03CamC:
-                cameraAnimator.SetBool(cameraFlags[npc2_Index], true);
-                cameraAnimator.SetFloat("MedToClose", 1);
-                break;
-            case DialogueData.CameraToSwitch.npc04CamM:
                 cameraAnimator.SetBool(cameraFlags[npc3_Index], true);
                 cameraAnimator.SetFloat("MedToClose", 0);
                 break;
-            case DialogueData.CameraToSwitch.npc04CamC:
+            case DialogueData.CameraToSwitch.npc03CamC:
                 cameraAnimator.SetBool(cameraFlags[npc3_Index], true);
                 cameraAnimator.SetFloat("MedToClose", 1);
                 break;

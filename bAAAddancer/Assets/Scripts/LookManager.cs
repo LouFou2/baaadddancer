@@ -118,13 +118,13 @@ public class LookManager : MonoBehaviour
             case DialogueData.SpeakingCharacter.lastBuggedSpeaking:
                 speakingCharacter = lastBuggedCharacterIndex;
                 break;
-            case DialogueData.SpeakingCharacter.npc02Speaking:
+            case DialogueData.SpeakingCharacter.npc01Speaking:
                 speakingCharacter = npc1_Index;
                 break;
-            case DialogueData.SpeakingCharacter.npc03Speaking:
+            case DialogueData.SpeakingCharacter.npc02Speaking:
                 speakingCharacter = npc2_Index;
                 break;
-            case DialogueData.SpeakingCharacter.npc04Speaking:
+            case DialogueData.SpeakingCharacter.npc03Speaking:
                 speakingCharacter = npc3_Index;
                 break;
             default:
@@ -143,13 +143,13 @@ public class LookManager : MonoBehaviour
             case DialogueData.LookPosition.LookatDemon:
                 TweenLookTargets(bugIndex);
                 break;
-            case DialogueData.LookPosition.LookatNPC2:
+            case DialogueData.LookPosition.LookatNPC1:
                 TweenLookTargets(npc1_Index);
                 break;
-            case DialogueData.LookPosition.LookatNPC3:
+            case DialogueData.LookPosition.LookatNPC2:
                 TweenLookTargets(npc2_Index);
                 break;
-            case DialogueData.LookPosition.LookatNPC4:
+            case DialogueData.LookPosition.LookatNPC3:
                 TweenLookTargets(npc3_Index);
                 break;
             case DialogueData.LookPosition.LookatLastBuggedNPC:
@@ -174,13 +174,13 @@ public class LookManager : MonoBehaviour
             case DialogueData.LookPosition.LookatDemon:
                 TweenSpeakerLookTarget(bugIndex);
                 break;
-            case DialogueData.LookPosition.LookatNPC2:
+            case DialogueData.LookPosition.LookatNPC1:
                 TweenSpeakerLookTarget(npc1_Index);
                 break;
-            case DialogueData.LookPosition.LookatNPC3:
+            case DialogueData.LookPosition.LookatNPC2:
                 TweenSpeakerLookTarget(npc2_Index);
                 break;
-            case DialogueData.LookPosition.LookatNPC4:
+            case DialogueData.LookPosition.LookatNPC3:
                 TweenSpeakerLookTarget(npc3_Index);
                 break;
             case DialogueData.LookPosition.LookatLastBuggedNPC:

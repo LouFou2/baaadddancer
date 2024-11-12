@@ -36,7 +36,7 @@ public class DialogueData : ScriptableObject
 
     public enum SpeakingCharacter
     {
-        playerSpeaking, demonSpeaking, lastBuggedSpeaking, npc01Speaking, npc02Speaking, npc03Speaking, npc04Speaking, npc05Speaking
+        playerSpeaking, demonSpeaking, lastBuggedSpeaking, npc01Speaking, npc02Speaking, npc03Speaking, 
     }
 
     public enum VoxEmote
@@ -58,15 +58,13 @@ public class DialogueData : ScriptableObject
         npc01CamM, npc01CamC,
         npc02CamM, npc02CamC,
         npc03CamM, npc03CamC,
-        npc04CamM, npc04CamC,
-        npc05CamM, npc05CamC,
 
     }
     public enum LookPosition
     {
         LookatCamera,
         LookatPlayer, LookatDemon, LookatLastBuggedNPC,
-        LookatNPC1, LookatNPC2, LookatNPC3, LookatNPC4, LookatNPC5,
+        LookatNPC1, LookatNPC2, LookatNPC3,
         LookAround,
     }
 
