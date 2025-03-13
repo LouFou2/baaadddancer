@@ -10,6 +10,9 @@ public class ObjectControls : MonoBehaviour
     private GameObject controlObject; // the actual control object
     private RootControl rootTransforms; // *** we use the root Transforms to modify recorded positions in DANCE SEQUENCER
     [SerializeField] GameObject controlGizmoObject; // the gizmo of the control object (to visualise if its active)
+    // we need to keep one foot on the ground if other foot is in the air:
+    [SerializeField] private bool isFoot = false; // the feet will be handled differently
+    [SerializeField] private FeetPlanter feetPlanter;
 
     [SerializeField] private RoundsRecData recordingDataOfRounds;
     [SerializeField] private RecordingData recordingDataSO;
@@ -26,9 +29,6 @@ public class ObjectControls : MonoBehaviour
     [SerializeField] private float z_RangeMin = -0.5f;
     [SerializeField] private float z_RangeMax = 0.5f;
     [SerializeField] private float moveSpeed = 2f;
-
-    [SerializeField] private bool newControls = false;
-    //[SerializeField] private float dampingFactor = 0.1f; // Adjust the damping factor as needed
 
     private Vector2 moveInput;
 
@@ -63,6 +63,7 @@ public class ObjectControls : MonoBehaviour
 
         initialPosition = controlObject.transform.localPosition;
         currentRecordedPosition = initialPosition;
+
         //currentRecordedRotation = initialRotation;
 
         if (controlGizmoObject != null)
@@ -116,10 +117,30 @@ public class ObjectControls : MonoBehaviour
                 leftObject = false;
                 moveInput = playerControls.DanceControls.MoveR.ReadValue<Vector2>();
             }
-
+        }
+        else
+        {
+            moveInput = Vector2.zero;
         }
 
         controlObject.transform.localPosition = currentRecordedPosition;
+
+        // if feet: check if they are "planted" (a.i. not able to shift, bearing weight)
+
+        if ((isFoot && controlObject.transform.localPosition.y > (initialPosition.y + 0.002f)) || (isFoot && moveInput.magnitude > 0.002f))
+        {
+            if (leftObject)
+                feetPlanter.leftFootPlanted = false;
+            if (rightObject)
+                feetPlanter.rightFootPlanted = false;
+        }
+        else if ((isFoot && controlObject.transform.localPosition.y <= (initialPosition.y + 0.002f)) || (isFoot && moveInput.magnitude <= 0.002f))
+        {
+            if (leftObject)
+                feetPlanter.leftFootPlanted = true;
+            if (rightObject)
+                feetPlanter.rightFootPlanted = true;
+        }
 
         if (isActive && isRecording)
         {
@@ -140,43 +161,36 @@ public class ObjectControls : MonoBehaviour
                     // swap the range max and min values so object movement in world space corresponds with controller input:
                     // also, if input is negative, we lerp from object default to object min position using negated input value
                     // (lerp uses 0-1 range) so if input value is nagative, we make it positive (-input)
+
+                    // keeping one foot grounded if other foot is in the air:
+                    if (isFoot && leftObject && !feetPlanter.rightFootPlanted) 
+                        moveInput = Vector2.zero;
+                    if (isFoot && rightObject && !feetPlanter.leftFootPlanted)
+                        moveInput = Vector2.zero;
+
+                    rangedX = Mathf.Clamp(-moveInput.x, x_RangeMin, x_RangeMax); // Assuming x_RangeMax is positive
+                    rangedY = Mathf.Clamp(moveInput.y, y_RangeMin, y_RangeMax); // Assuming y_RangeMax is positive
+
+                    rangedPosition = new Vector3(rangedX + initialPosition.x, rangedY + initialPosition.y, currentRecordedPosition.z); // note: we use the current position for the uncontrolled axis
+
+                    clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax); // but: initial position to set the clamp range
+                    clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
+
+                    //also adjust feet positions inverse to root movement, if the foot is planted:
+                    Vector3 rootPos = rootTransforms.GetRootPosition();
+                    if (isFoot && leftObject && feetPlanter.leftFootPlanted)
+                    {
+                        clampedX += rootPos.x;
+                        currentRecordedPosition.z += rootPos.z;
+                    }
+                    if (isFoot && rightObject && feetPlanter.rightFootPlanted)
+                    {
+                        clampedX += rootPos.x;
+                        currentRecordedPosition.z += rootPos.z;
+                    }
+
+                    finalUpdatePosition = new Vector3(clampedX, clampedY, currentRecordedPosition.z); // current position again for the uncontrolled axis
                     
-                    if(!newControls) //can remove this condition once controls are decided
-                    {
-                        /*rangedX = (moveInput.x <= 0) ? Mathf.Lerp(0, x_RangeMax, -moveInput.x) : Mathf.Lerp(0, x_RangeMin, moveInput.x);
-                        rangedY = (moveInput.y <= 0) ? Mathf.Lerp(0, y_RangeMin, -moveInput.y) : Mathf.Lerp(0, y_RangeMax, moveInput.y);*/
-
-                        rangedX = Mathf.Clamp(-moveInput.x, x_RangeMin, x_RangeMax); // Assuming x_RangeMax is positive
-                        rangedY = Mathf.Clamp(moveInput.y, y_RangeMin, y_RangeMax); // Assuming y_RangeMax is positive
-
-                        rangedPosition = new Vector3(rangedX + initialPosition.x, rangedY + initialPosition.y, currentRecordedPosition.z); // note: we use the current position for the uncontrolled axis
-
-                        clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax); // but: initial position to set the clamp range
-                        clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
-
-                        finalUpdatePosition = new Vector3(clampedX, clampedY, currentRecordedPosition.z); // current position again for the uncontrolled axis
-                    }
-                    else
-                    {
-                        //---NEW MOVEMENT:
-                        controlObject.transform.localPosition = new Vector3(controlObject.transform.localPosition.x, controlObject.transform.localPosition.y, currentRecordedPosition.z);
-
-                        // Calculate movement based on time and speed
-                        float moveX = moveInput.x * moveSpeed * Time.deltaTime;
-                        float moveY = moveInput.y * moveSpeed * Time.deltaTime;
-
-                        // Update object's position based on movement
-                        Vector3 newPosition = controlObject.transform.localPosition + new Vector3(-moveX, moveY, 0f);
-                        
-                        //Clamp in Min-Max Range
-                        float newX = Mathf.Clamp(newPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax);
-                        float newY = Mathf.Clamp(newPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
-
-                        Vector3 clampedPosition = new Vector3(newX, newY, currentRecordedPosition.z);
-
-                        // Update object's position
-                        finalUpdatePosition = clampedPosition;
-                    }
                     break;
 
                 case ViewSwitcher.ViewSwitch.top:

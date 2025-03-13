@@ -5943,6 +5943,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5e4af18d67d7e7b40970504a7a83f831, type: 2}
+    - target: {fileID: 6886773111643989373, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7072403807972083108, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -24667,6 +24672,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 13b099a0b4db50241973b565d9b58c2c, type: 2}
+    - target: {fileID: 5098225752689066440, guid: 16b7a2a336056a54593cf9292a17ca1b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000011920929
+      objectReference: {fileID: 0}
     - target: {fileID: 6993059129713413561, guid: 16b7a2a336056a54593cf9292a17ca1b,
         type: 3}
       propertyPath: m_Materials.Array.data[3]
@@ -29966,6 +29976,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[3]
       value: 
       objectReference: {fileID: 2100000, guid: 12b9430582a52de46a7da3024986f703, type: 2}
+    - target: {fileID: 8540338332441335638, guid: d6205e1c08d675c4ead561695434af55,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000011920929
+      objectReference: {fileID: 0}
     - target: {fileID: 8569115961611011698, guid: d6205e1c08d675c4ead561695434af55,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -36687,9 +36702,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDataSO: {fileID: 11400000, guid: fa6a3b99d944a024ca560ab340bd20af, type: 2}
-  isPlayer: 0
-  isNPC: 0
-  isBug: 0
 --- !u!4 &360745655032680001
 Transform:
   m_ObjectHideFlags: 0
@@ -51881,9 +51893,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDataSO: {fileID: 11400000, guid: db1d2a1ab36d2c14f8fe1f98eff04b20, type: 2}
-  isPlayer: 0
-  isNPC: 0
-  isBug: 0
 --- !u!1 &4694939331415022963
 GameObject:
   m_ObjectHideFlags: 0
@@ -53354,8 +53363,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab071bf766bb0e74ca8adce043843024, type: 2}
   - {fileID: 11400000, guid: fff83e3ef08745746bcb1711dd6bde98, type: 2}
   - {fileID: 11400000, guid: cf398b03e0f02a94a91b9e1951fec279, type: 2}
-  demonIndex: -1
+  sceneSwitcher: {fileID: 0}
   playerIndex: -1
+  demonIndex: -1
+  lastSpeakerIndex: -1
 --- !u!1 &5143518698245273212
 GameObject:
   m_ObjectHideFlags: 0
@@ -57234,9 +57245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDataSO: {fileID: 11400000, guid: 8a9370ba4b2c97a46bdc597c7b267f29, type: 2}
-  isPlayer: 0
-  isNPC: 0
-  isBug: 0
 --- !u!4 &6185223145364521061
 Transform:
   m_ObjectHideFlags: 0
@@ -57375,9 +57383,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDataSO: {fileID: 11400000, guid: 74058c245c16f7444afbfad598cfec5e, type: 2}
-  isPlayer: 0
-  isNPC: 0
-  isBug: 0
 --- !u!4 &6226032433614464056
 Transform:
   m_ObjectHideFlags: 0
@@ -66968,9 +66973,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterDataSO: {fileID: 11400000, guid: 18485facb075edd40be3a0605845f3c8, type: 2}
-  isPlayer: 0
-  isNPC: 0
-  isBug: 0
 --- !u!1 &9051747246179034028
 GameObject:
   m_ObjectHideFlags: 0

@@ -1687,6 +1687,7 @@ GameObject:
   - component: {fileID: 5017538785588304381}
   - component: {fileID: 4454086225116495562}
   - component: {fileID: 4873662982814726303}
+  - component: {fileID: 5953259277303030540}
   m_Layer: 0
   m_Name: Zaphod.002
   m_TagString: Untagged
@@ -2711,6 +2712,48 @@ MonoBehaviour:
   hairF_Index: 6
   hairB_Index: 7
   shapeValueMultiplier: 200
+--- !u!114 &5953259277303030540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2316524955874613048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b4e8c31d193f24d9966707e02d085b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials: []
+  charData: {fileID: 0}
+  updateInterval: 0.1
+  headBone: {fileID: 0}
+  hand_L_Bone: {fileID: 0}
+  hand_R_Bone: {fileID: 0}
+  foot_L_Bone: {fileID: 0}
+  foot_R_Bone: {fileID: 0}
+  pelvisBone: {fileID: 0}
+  torsoBone: {fileID: 0}
+  headControlTarget: {fileID: 0}
+  hand_L_ControlTarget: {fileID: 0}
+  hand_R_ControlTarget: {fileID: 0}
+  foot_L_ControlTarget: {fileID: 0}
+  foot_R_ControlTarget: {fileID: 0}
+  pelvisControlTarget: {fileID: 0}
+  torsoControlTarget: {fileID: 0}
+  headFollower1: {fileID: 0}
+  hand_L_Follower1: {fileID: 0}
+  hand_R_Follower1: {fileID: 0}
+  foot_L_Follower1: {fileID: 0}
+  foot_R_Follower1: {fileID: 0}
+  pelvisFollower1: {fileID: 0}
+  torsoFollower1: {fileID: 0}
+  cursedness: 0
+  moveAmountMultiplier: 1
+  moveAmountMax: 50
+  irridescence: 0
+  irridescenceMax: 0
+  flatShading: 0
 --- !u!1 &2360712188506096712
 GameObject:
   m_ObjectHideFlags: 0

@@ -605,7 +605,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -1.738
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2831894089624434207, guid: d6205e1c08d675c4ead561695434af55, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d6205e1c08d675c4ead561695434af55, type: 3}
 --- !u!1 &49453108
 GameObject:
@@ -4619,7 +4620,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab071bf766bb0e74ca8adce043843024, type: 2}
   - {fileID: 11400000, guid: fff83e3ef08745746bcb1711dd6bde98, type: 2}
   - {fileID: 11400000, guid: cf398b03e0f02a94a91b9e1951fec279, type: 2}
-  sceneSwitcher: {fileID: 0}
+  sceneSwitcher: {fileID: 299929338}
   playerIndex: -1
   demonIndex: -1
   lastSpeakerIndex: -1
