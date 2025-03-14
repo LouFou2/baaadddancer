@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 845442653}
   isFoot: 0
-  feetPlanter: {fileID: 1655697741}
+  feetPlanter: {fileID: 0}
   recordingDataOfRounds: {fileID: 11400000, guid: 6b3839844d4c805428f982c66cc9114d,
     type: 2}
   recordingDataSO: {fileID: 0}
@@ -194,7 +194,7 @@ Transform:
   m_Children:
   - {fileID: 845442657}
   m_Father: {fileID: 880661490}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &20253227
 GameObject:
@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 844117296}
   isFoot: 0
-  feetPlanter: {fileID: 1655697741}
+  feetPlanter: {fileID: 0}
   recordingDataOfRounds: {fileID: 11400000, guid: f6ff362c78975e34ba874df8e1f81264,
     type: 2}
   recordingDataSO: {fileID: 0}
@@ -1494,7 +1494,7 @@ Transform:
   m_Children:
   - {fileID: 844117300}
   m_Father: {fileID: 880661490}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &186292809
 GameObject:
@@ -3306,7 +3306,7 @@ Transform:
   m_Children:
   - {fileID: 1711232706}
   m_Father: {fileID: 880661490}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &379040658
 MonoBehaviour:
@@ -3322,7 +3322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 1711232705}
   isFoot: 0
-  feetPlanter: {fileID: 1655697741}
+  feetPlanter: {fileID: 0}
   recordingDataOfRounds: {fileID: 11400000, guid: 6fbd8ede107eb45419a8f6b217cfdf73,
     type: 2}
   recordingDataSO: {fileID: 0}
@@ -3394,7 +3394,7 @@ Transform:
   m_Children:
   - {fileID: 621206418}
   m_Father: {fileID: 880661490}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &410065295
 MonoBehaviour:
@@ -3410,7 +3410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 621206417}
   isFoot: 0
-  feetPlanter: {fileID: 1655697741}
+  feetPlanter: {fileID: 0}
   recordingDataOfRounds: {fileID: 11400000, guid: 93b13063448af7e44ae11a71a31e30c0,
     type: 2}
   recordingDataSO: {fileID: 0}
@@ -5507,7 +5507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 53903205}
   isFoot: 0
-  feetPlanter: {fileID: 1655697741}
+  feetPlanter: {fileID: 0}
   recordingDataOfRounds: {fileID: 11400000, guid: daad094e5dae26e4cb170fe214748990,
     type: 2}
   recordingDataSO: {fileID: 0}
@@ -5538,7 +5538,7 @@ Transform:
   m_Children:
   - {fileID: 53903209}
   m_Father: {fileID: 880661490}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &649253650
 PrefabInstance:
@@ -6404,7 +6404,7 @@ Transform:
   m_Children:
   - {fileID: 514036829}
   m_Father: {fileID: 880661490}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &777729773
 MonoBehaviour:
@@ -6420,7 +6420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 514036828}
   isFoot: 0
-  feetPlanter: {fileID: 1655697741}
+  feetPlanter: {fileID: 0}
   recordingDataOfRounds: {fileID: 11400000, guid: cc815ad354b2dbc419182f52e00816f0,
     type: 2}
   recordingDataSO: {fileID: 0}
@@ -6972,7 +6972,7 @@ Transform:
   m_Children:
   - {fileID: 556655060}
   m_Father: {fileID: 880661490}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &822098188
 MonoBehaviour:
@@ -6988,7 +6988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 556655059}
   isFoot: 1
-  feetPlanter: {fileID: 1655697741}
+  feetPlanter: {fileID: 0}
   recordingDataOfRounds: {fileID: 11400000, guid: cac328b5211fa7d4988cb51cd1dee90a,
     type: 2}
   recordingDataSO: {fileID: 0}
@@ -7446,7 +7446,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1655697742}
   - {fileID: 628731420}
   - {fileID: 777729772}
   - {fileID: 1095326737}
@@ -8445,7 +8444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 1347343615}
   isFoot: 1
-  feetPlanter: {fileID: 1655697741}
+  feetPlanter: {fileID: 0}
   recordingDataOfRounds: {fileID: 11400000, guid: f818ac50cca81aa4aa6b14b72e34764f,
     type: 2}
   recordingDataSO: {fileID: 0}
@@ -8476,7 +8475,7 @@ Transform:
   m_Children:
   - {fileID: 1347343619}
   m_Father: {fileID: 880661490}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1105813131
 GameObject:
@@ -8989,7 +8988,7 @@ Transform:
   m_Children:
   - {fileID: 1846491587}
   m_Father: {fileID: 880661490}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1160715426
 MonoBehaviour:
@@ -9005,7 +9004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 1846491586}
   isFoot: 0
-  feetPlanter: {fileID: 1655697741}
+  feetPlanter: {fileID: 0}
   recordingDataOfRounds: {fileID: 11400000, guid: 58f57d89047697740935f7b48245fb09,
     type: 2}
   recordingDataSO: {fileID: 0}
@@ -11119,36 +11118,6 @@ MonoBehaviour:
   isActive: 0
   isRecording: 0
   useRecordedPositions: 0
---- !u!114 &1594915027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594915022}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  isFoot: 0
-  feetPlanter: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 1
-  rightObject: 0
-  opposingObject: {fileID: 1594915021}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!4 &1594915030 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8717819755592437480, guid: 16b7a2a336056a54593cf9292a17ca1b,
@@ -11658,54 +11627,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654689721}
   m_CullTransparentMesh: 1
---- !u!1 &1655697740
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1655697742}
-  - component: {fileID: 1655697741}
-  m_Layer: 8
-  m_Name: FeetPlanter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1655697741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1655697740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7465cd520fd681a48b9118ead7ab66c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftFootPlanted: 1
-  rightFootPlanted: 1
-  leftFootObjCnrlScript: {fileID: 0}
-  righttFootObjCnrlScript: {fileID: 0}
---- !u!4 &1655697742
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1655697740}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 880661490}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1667232614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13695,7 +13616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlGizmoObject: {fileID: 1901670518}
   isFoot: 0
-  feetPlanter: {fileID: 1655697741}
+  feetPlanter: {fileID: 0}
   recordingDataOfRounds: {fileID: 11400000, guid: d74fefd1e8dc47e40ab0a9993c1bbf08,
     type: 2}
   recordingDataSO: {fileID: 0}
@@ -13726,7 +13647,7 @@ Transform:
   m_Children:
   - {fileID: 1901670522}
   m_Father: {fileID: 880661490}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1986536070
 GameObject:

@@ -42,6 +42,9 @@ public class DanceSequencer : MonoBehaviour
         {
             rootRecordingData.initialPositions[rootPositions] = Vector3.zero;
             rootRecordingData.recordedPositions[rootPositions] = Vector3.zero;
+
+            rootRecordingData.initialRotations[rootPositions] = Quaternion.identity;
+            rootRecordingData.recordedRotations[rootPositions] = Quaternion.identity;
         }
 
         // For each Control Object:
@@ -73,10 +76,12 @@ public class DanceSequencer : MonoBehaviour
     void OnBeatTriggerHandler() // Method to handle beat trigger event
     {
         Vector3 rootPos = rootControl.GetRootPosition();
+        Quaternion rootRot = rootControl.GetRootRotation();
 
         if (rootControl.isRecording)
         {
             rootRecordingData.recordedPositions[beatCount] = rootPos;
+            rootRecordingData.recordedRotations[beatCount] = rootRot;
         }
         // === CHECKING INPUT === //
         for (int i = 0; i < objControlScripts.Length; i++)

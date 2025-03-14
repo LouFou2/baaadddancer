@@ -20,6 +20,11 @@ public class RootControl : MonoBehaviour
     private float jumpTime = 0f;
     [SerializeField] private float jumpDuration = 0f;
 
+    private float spinTime = 0f;
+    private float spinDuration = 0f;
+    private bool spinLeft = false;
+    private bool spinRight = false;
+
     [SerializeField] private bool isJumping = false;
     [SerializeField] private bool isMoving = false;
     [SerializeField] private bool isTurning = false;
@@ -28,6 +33,7 @@ public class RootControl : MonoBehaviour
     public bool isRecording = true;
 
     private Vector3 currentRecordedPosition = Vector3.zero;
+    private Quaternion currentRecordedRotation = Quaternion.identity;
 
     private void Awake()
     {
@@ -51,18 +57,23 @@ public class RootControl : MonoBehaviour
         viewSwitcher = FindObjectOfType<ViewSwitcher>();
 
         jumpDuration = clockCounter.GetBeatInterval();
+        spinDuration = jumpDuration;
 
         int currentRound = GameManager.Instance.GetCurrentRound();
         recordingDataSequencer.currentRoundRecData = recordingDataSequencer.recordingDataOfRounds[currentRound];
         recordingDataSO = recordingDataSequencer.currentRoundRecData;
 
         currentRecordedPosition = transform.position;
+        currentRecordedRotation = transform.rotation;
+
         rootPosition = currentRecordedPosition;
+        rootRotation = currentRecordedRotation;
     }
 
     void Update()
     {
         rootPosition = transform.position;
+        rootRotation = transform.rotation;
 
         if (isActive)
         {
@@ -92,6 +103,7 @@ public class RootControl : MonoBehaviour
                         break;
                 }
             }
+
             //===Jumping
             grounded = (transform.position.y == 0) ? true : false;
 
@@ -115,42 +127,60 @@ public class RootControl : MonoBehaviour
                 jumpTime = 0;
                 isJumping = false;
             }
+
+            //===Spinning
+            if (playerControls.GenericInput.LTrigger.IsPressed() && !isTurning)
+            {
+                isTurning = true;
+                spinLeft = true;
+                spinRight = false;
+            }
+            if (playerControls.GenericInput.RTrigger.IsPressed() && !isTurning)
+            {
+                isTurning = true;
+                spinRight = true;
+                spinLeft = false;
+            }
+            if (isTurning && spinTime < spinDuration)
+            {
+                spinTime += Time.deltaTime;
+                float normalizedTime = spinTime / spinDuration;
+                float normalizedAngle = Mathf.Lerp(0, 360, normalizedTime);
+                if (spinLeft)
+                {
+                    rootRotation = Quaternion.Euler(0, normalizedAngle, 0);
+                }
+                if (spinRight)
+                {
+                    rootRotation = Quaternion.Euler(0, -normalizedAngle, 0);
+                }
+
+            }
+            if (isTurning && spinTime >= spinDuration)
+            {
+                spinTime = 0;
+                isTurning = false;
+
+                spinLeft = false;
+                spinRight = false;
+            }
+
         }
         
         isRecording = true ? (isActive && (isJumping || isMoving || isTurning)) : false;
 
         transform.position = rootPosition;
+        transform.rotation = rootRotation;
     }
     
-    /*private void Jump()
-    {
-        grounded = false;
-        jumpTime = 0;
-        StartCoroutine(JumpCoroutine());
-    }
-    private IEnumerator JumpCoroutine()
-    {
-        while (jumpTime <= jumpDuration)
-        {
-            jumpTime += Time.deltaTime;
-
-            float normalizedTime = jumpTime / jumpDuration; // Scale time to the duration
-            float yPosition = Mathf.Sin(normalizedTime * Mathf.PI) * jumpHeight; // Peak at jumpHeight
-
-            rootPosition = new Vector3(rootPosition.x, yPosition, rootPosition.z);
-            transform.position = rootPosition;
-            yield return null;
-        }
-        //securing the conclusion of the animation:
-        jumpTime = jumpDuration;
-        rootPosition = new Vector3(rootPosition.x, 0, rootPosition.z);
-        grounded = true;
-        isJumping = false;
-    }*/
 
     public Vector3 GetRootPosition()
     {
         return rootPosition;
+    }
+    public Quaternion GetRootRotation()
+    {
+        return rootRotation;
     }
     
     void On_Q_BeatHandler()
@@ -164,11 +194,14 @@ public class RootControl : MonoBehaviour
 
         float tweenDuration = clockCounter.Get_Q_BeatInterval();
         Vector3 tweenTargetPosition = recordingDataSO.recordedPositions[targetPositionIndex];
+        Quaternion targetRotation = recordingDataSO.recordedRotations[targetPositionIndex];
+        Vector3 tweenTargetRotation = targetRotation.eulerAngles;
 
         if (!isRecording)
         {
             // Tween the object's position to the next recorded position
             transform.DOMove(tweenTargetPosition, tweenDuration).SetEase(Ease.Linear);
+            transform.DORotate(tweenTargetRotation, tweenDuration).SetEase(Ease.Linear);
         }
 
         // This tween is moving a Vector3 that can be used for axis not controlled by player input (depending on view switching)

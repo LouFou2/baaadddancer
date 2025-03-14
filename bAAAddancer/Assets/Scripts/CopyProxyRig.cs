@@ -14,11 +14,10 @@ public class CopyProxyRig : MonoBehaviour
     private Quaternion rootRotationOffset;
 
     private Vector3[] initialPositions;
-    //private Quaternion[] initialRotations; //***DONT THINK THIS SCRIPT NEEDS TO HANDLE GIZMO ROTATIONS
     private Vector3[] positionOffsets;
-    //private Quaternion[] rotationOffsets;
 
-    //set up varibles to use as position offset and rotation offset
+    private Vector3[] orbitPositionOfsets; // it should be moved like children of a rotating parent object (a.i. the root... but its not actually a parent)
+
 
     private void Start()
     {
@@ -29,18 +28,18 @@ public class CopyProxyRig : MonoBehaviour
         rootRotationOffset = Quaternion.Inverse(rootInitialRotation) * rootControlObject.transform.rotation;
 
         initialPositions = new Vector3[proxyObjects.Length];
-        //initialRotations = new Quaternion[proxyObjects.Length];
         positionOffsets = new Vector3[proxyObjects.Length];
-        //rotationOffsets = new Quaternion[proxyObjects.Length];
+
+        orbitPositionOfsets = new Vector3[proxyObjects.Length];
 
         for (int i = 0; i < controlObjects.Length; i++)
         {
             initialPositions[i] = proxyObjects[i].transform.localPosition;
-            //initialRotations[i] = proxyObjects[i].transform.localRotation;
 
             // calculate the offset position and rotation values
             positionOffsets[i] = controlObjects[i].transform.localPosition - initialPositions[i];
-            //rotationOffsets[i] = Quaternion.Inverse(initialRotations[i]) * controlObjects[i].transform.rotation;
+
+            orbitPositionOfsets[i] = controlObjects[i].transform.localPosition - rootControlObject.transform.position;
         }
     }
     void LateUpdate() // using late update else the "copy" doesn't get all the constraint (rotation) updates
@@ -50,8 +49,12 @@ public class CopyProxyRig : MonoBehaviour
 
         for (int i = 0; i < controlObjects.Length; i++) 
         {
-            controlObjects[i].transform.localPosition = proxyObjects[i].transform.localPosition + positionOffsets[i] + rootControlObject.transform.position; //do i really have to add this here?
-            //controlObjects[i].transform.localRotation = proxyObjects[i].transform.localRotation * rotationOffsets[i] * rootControlObject.transform.rotation;
+            Vector3 x_z_OrbitOffset = new Vector3(orbitPositionOfsets[i].x, 0, orbitPositionOfsets[i].z);
+            Vector3 rotatedOffset = rootControlObject.transform.rotation * x_z_OrbitOffset;
+            controlObjects[i].transform.localPosition = proxyObjects[i].transform.localPosition 
+                + positionOffsets[i] 
+                + rootControlObject.transform.position
+                + rotatedOffset; 
         }
     }
 }

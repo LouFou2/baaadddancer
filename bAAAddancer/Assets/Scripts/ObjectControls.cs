@@ -144,12 +144,6 @@ public class ObjectControls : MonoBehaviour
                     // also, if input is negative, we lerp from object default to object min position using negated input value
                     // (lerp uses 0-1 range) so if input value is nagative, we make it positive (-input)
 
-                    // keeping one foot grounded if other foot is in the air:
-                    if (isFoot && leftObject && !feetPlanter.rightFootPlanted) 
-                        moveInput = Vector2.zero;
-                    if (isFoot && rightObject && !feetPlanter.leftFootPlanted)
-                        moveInput = Vector2.zero;
-
                     rangedX = Mathf.Clamp(-moveInput.x, x_RangeMin, x_RangeMax); // Assuming x_RangeMax is positive
                     rangedY = Mathf.Clamp(moveInput.y, y_RangeMin, y_RangeMax); // Assuming y_RangeMax is positive
 

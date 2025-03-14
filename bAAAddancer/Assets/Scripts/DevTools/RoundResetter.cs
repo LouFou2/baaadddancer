@@ -8,6 +8,6 @@ public class RoundResetter : MonoBehaviour
 
     private void OnDisable()
     {
-        gameManagerData.currentRound = 0;
+        gameManagerData.currentRound = -1;
     }
 }
