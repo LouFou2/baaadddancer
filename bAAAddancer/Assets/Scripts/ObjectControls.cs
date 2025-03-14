@@ -28,7 +28,6 @@ public class ObjectControls : MonoBehaviour
     [SerializeField] private float y_RangeMax = 0.5f;
     [SerializeField] private float z_RangeMin = -0.5f;
     [SerializeField] private float z_RangeMax = 0.5f;
-    [SerializeField] private float moveSpeed = 2f;
 
     private Vector2 moveInput;
 
@@ -125,23 +124,6 @@ public class ObjectControls : MonoBehaviour
 
         controlObject.transform.localPosition = currentRecordedPosition;
 
-        // if feet: check if they are "planted" (a.i. not able to shift, bearing weight)
-
-        if ((isFoot && controlObject.transform.localPosition.y > (initialPosition.y + 0.002f)) || (isFoot && moveInput.magnitude > 0.002f))
-        {
-            if (leftObject)
-                feetPlanter.leftFootPlanted = false;
-            if (rightObject)
-                feetPlanter.rightFootPlanted = false;
-        }
-        else if ((isFoot && controlObject.transform.localPosition.y <= (initialPosition.y + 0.002f)) || (isFoot && moveInput.magnitude <= 0.002f))
-        {
-            if (leftObject)
-                feetPlanter.leftFootPlanted = true;
-            if (rightObject)
-                feetPlanter.rightFootPlanted = true;
-        }
-
         if (isActive && isRecording)
         {
             // map input to limit ranges
@@ -175,19 +157,6 @@ public class ObjectControls : MonoBehaviour
 
                     clampedX = Mathf.Clamp(rangedPosition.x, initialPosition.x + x_RangeMin, initialPosition.x + x_RangeMax); // but: initial position to set the clamp range
                     clampedY = Mathf.Clamp(rangedPosition.y, initialPosition.y + y_RangeMin, initialPosition.y + y_RangeMax);
-
-                    //also adjust feet positions inverse to root movement, if the foot is planted:
-                    Vector3 rootPos = rootTransforms.GetRootPosition();
-                    if (isFoot && leftObject && feetPlanter.leftFootPlanted)
-                    {
-                        clampedX += rootPos.x;
-                        currentRecordedPosition.z += rootPos.z;
-                    }
-                    if (isFoot && rightObject && feetPlanter.rightFootPlanted)
-                    {
-                        clampedX += rootPos.x;
-                        currentRecordedPosition.z += rootPos.z;
-                    }
 
                     finalUpdatePosition = new Vector3(clampedX, clampedY, currentRecordedPosition.z); // current position again for the uncontrolled axis
                     
@@ -257,8 +226,8 @@ public class ObjectControls : MonoBehaviour
                     controlObject.transform.localPosition = finalUpdatePosition;
                 }
             }
-            
         }
+        
     }
     public Vector3 GetPositionToRecord()
     {

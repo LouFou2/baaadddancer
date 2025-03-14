@@ -36,7 +36,7 @@ public class CharacterStatsManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Please assign scene switcher in inspector");
+                //Debug.LogWarning("Please assign scene switcher in inspector");
             }
 
             characterStats[i].DeceptionInt = 0; 

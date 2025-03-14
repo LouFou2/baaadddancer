@@ -50,7 +50,7 @@ public class RootControl : MonoBehaviour
         clockCounter = FindObjectOfType<ClockCounter>();
         viewSwitcher = FindObjectOfType<ViewSwitcher>();
 
-        jumpDuration = clockCounter.GetBeatInterval() * 2;
+        jumpDuration = clockCounter.GetBeatInterval();
 
         int currentRound = GameManager.Instance.GetCurrentRound();
         recordingDataSequencer.currentRoundRecData = recordingDataSequencer.recordingDataOfRounds[currentRound];
@@ -58,8 +58,6 @@ public class RootControl : MonoBehaviour
 
         currentRecordedPosition = transform.position;
         rootPosition = currentRecordedPosition;
-
-        rootPosition = transform.position;
     }
 
     void Update()
