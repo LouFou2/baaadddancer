@@ -8,53 +8,46 @@ public class CopyProxyRig : MonoBehaviour
     public GameObject[] controlObjects;
     public GameObject[] proxyObjects;
 
-    private Vector3 rootInitialPosition;
-    private Quaternion rootInitialRotation;
-    private Vector3 rootPositionOffset;
-    private Quaternion rootRotationOffset;
-
     private Vector3[] initialPositions;
     private Vector3[] positionOffsets;
 
-    private Vector3[] orbitPositionOfsets; // it should be moved like children of a rotating parent object (a.i. the root... but its not actually a parent)
+    private float[] orbitPositionOffsets; // using a float because this is just a distance
+    private Vector3[] orbitObjectDirections; // this is a normalised vector. We will multiply the "orbit object position" * "direction"
 
 
     private void Start()
     {
-        rootInitialPosition = rootProxyObject.transform.position;
-        rootInitialRotation = rootProxyObject.transform.rotation;
-
-        rootPositionOffset = rootControlObject.transform.position - rootInitialPosition;
-        rootRotationOffset = Quaternion.Inverse(rootInitialRotation) * rootControlObject.transform.rotation;
-
+        // Just a note about "Root Offsets" : 
+        // the root "proxy" and every character's "root control" is always at 0,0,0 (at least for the scene this script is used in)
+        // so offests are also 0,0,0.
+        // meaning we can just use the proxy object's position as is, no "offset" calculation necesarry
+        
         initialPositions = new Vector3[proxyObjects.Length];
         positionOffsets = new Vector3[proxyObjects.Length];
 
-        orbitPositionOfsets = new Vector3[proxyObjects.Length];
+        orbitPositionOffsets = new float[proxyObjects.Length];
+        orbitObjectDirections = new Vector3[proxyObjects.Length];
 
         for (int i = 0; i < controlObjects.Length; i++)
         {
-            initialPositions[i] = proxyObjects[i].transform.localPosition;
+            initialPositions[i] = proxyObjects[i].transform.position;
+            positionOffsets[i] = controlObjects[i].transform.position - initialPositions[i];
 
-            // calculate the offset position and rotation values
-            positionOffsets[i] = controlObjects[i].transform.localPosition - initialPositions[i];
-
-            orbitPositionOfsets[i] = controlObjects[i].transform.localPosition - rootControlObject.transform.position;
+            // *** !! I changed the position calculations for proxy objects as well as control objects to use world space and not localPosition.
+            // This might mess things up, so if there are problems, change it back !! (also below) ***
         }
     }
     void LateUpdate() // using late update else the "copy" doesn't get all the constraint (rotation) updates
     {
-        rootControlObject.transform.position = rootProxyObject.transform.position + rootPositionOffset;
-        rootControlObject.transform.rotation = rootProxyObject.transform.rotation * rootRotationOffset;
+        rootControlObject.transform.position = rootProxyObject.transform.position;
+        rootControlObject.transform.rotation = rootProxyObject.transform.rotation;
 
         for (int i = 0; i < controlObjects.Length; i++) 
         {
-            Vector3 x_z_OrbitOffset = new Vector3(orbitPositionOfsets[i].x, 0, orbitPositionOfsets[i].z);
-            Vector3 rotatedOffset = rootControlObject.transform.rotation * x_z_OrbitOffset;
-            controlObjects[i].transform.localPosition = proxyObjects[i].transform.localPosition 
-                + positionOffsets[i] 
-                + rootControlObject.transform.position
-                + rotatedOffset; 
+            controlObjects[i].transform.position =
+                proxyObjects[i].transform.position
+                + positionOffsets[i]
+                + rootControlObject.transform.position;
         }
     }
 }

@@ -10,9 +10,6 @@ public class ObjectControls : MonoBehaviour
     private GameObject controlObject; // the actual control object
     private RootControl rootTransforms; // *** we use the root Transforms to modify recorded positions in DANCE SEQUENCER
     [SerializeField] GameObject controlGizmoObject; // the gizmo of the control object (to visualise if its active)
-    // we need to keep one foot on the ground if other foot is in the air:
-    [SerializeField] private bool isFoot = false; // the feet will be handled differently
-    [SerializeField] private FeetPlanter feetPlanter;
 
     [SerializeField] private RoundsRecData recordingDataOfRounds;
     [SerializeField] private RecordingData recordingDataSO;

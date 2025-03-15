@@ -98,14 +98,6 @@ public class CopyDance : MonoBehaviour
                 }
             }
         }
-        /*
-        //we add offset to each root object's positions array AFTER adding the recorded root positions to all the other objects' arrays
-        for (int rootPositionIndex = 0; rootPositionIndex < objectsAndMoveData[0].targetRecordedPositions.Length; rootPositionIndex++)
-        {
-            objectsAndMoveData[0].targetRecordedPositions[rootPositionIndex] // each recorded position of the root object 
-                = objectsAndMoveData[0].recordingDataSO.recordedPositions[rootPositionIndex] 
-                + objectsAndMoveData[rootPositionIndex].copyObject.transform.position; // add the position of this characters root object as offset
-        }*/
     }
     private void Update()
     {
@@ -152,14 +144,7 @@ public class CopyDance : MonoBehaviour
                 }
             }
         }
-/*
-        for (int rootPositionIndex = 0; rootPositionIndex < objectsAndMoveData[0].targetRecordedPositions.Length; rootPositionIndex++)
-        {
-            objectsAndMoveData[0].targetRecordedPositions[rootPositionIndex] // each recorded position of the root object 
-                = objectsAndMoveData[0].recordingDataSO.recordedPositions[rootPositionIndex]
-                + objectsAndMoveData[rootPositionIndex].copyObject.transform.position; // add the position of this characters root object as offset
-        }
-*/
+
         updatingRoundSequence = false;
     }
 
