@@ -579,7 +579,17 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8717819754800356466}
+  - {fileID: 8717819755592437480}
+  - {fileID: 8717819755241754956}
+  - {fileID: 8717819755781936906}
+  - {fileID: 8717819755568784665}
+  - {fileID: 8717819753739251112}
+  - {fileID: 8717819754544527941}
+  - {fileID: 8717819755744009992}
+  - {fileID: 8717819755728600289}
+  - {fileID: 8717819754436051596}
   m_Father: {fileID: 8717819754113150500}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6306,6 +6316,7 @@ MonoBehaviour:
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: d76d5375c9dfb564e88b636825c99f8c, type: 2}
     targetRecordedPositions: []
+    targetRecordedRotations: []
     offset: []
   - copyObject: {fileID: 8717819754800356467}
     copyDemonObject: {fileID: 0}
@@ -6314,6 +6325,7 @@ MonoBehaviour:
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2e905e78a65ceba478a74ac0d007e44f, type: 2}
     targetRecordedPositions: []
+    targetRecordedRotations: []
     offset: []
   - copyObject: {fileID: 8717819755592437481}
     copyDemonObject: {fileID: 0}
@@ -6322,6 +6334,7 @@ MonoBehaviour:
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: a8df1aca02d4f334aa6e807d0353dd2c, type: 2}
     targetRecordedPositions: []
+    targetRecordedRotations: []
     offset: []
   - copyObject: {fileID: 8717819755728600290}
     copyDemonObject: {fileID: 0}
@@ -6330,6 +6343,7 @@ MonoBehaviour:
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2ad65a1a76abbe3488440caa8d3eb0b5, type: 2}
     targetRecordedPositions: []
+    targetRecordedRotations: []
     offset: []
   - copyObject: {fileID: 8717819754436051597}
     copyDemonObject: {fileID: 0}
@@ -6338,6 +6352,7 @@ MonoBehaviour:
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 10bd87e33a3b8d04698b0e816573c2dc, type: 2}
     targetRecordedPositions: []
+    targetRecordedRotations: []
     offset: []
   - copyObject: {fileID: 8717819754544527942}
     copyDemonObject: {fileID: 0}
@@ -6346,6 +6361,7 @@ MonoBehaviour:
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 0806166a0368b0046a462c765528d361, type: 2}
     targetRecordedPositions: []
+    targetRecordedRotations: []
     offset: []
   - copyObject: {fileID: 8717819755744009993}
     copyDemonObject: {fileID: 0}
@@ -6354,6 +6370,7 @@ MonoBehaviour:
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 357810fdb4bd9b145b14f92ed73b3507, type: 2}
     targetRecordedPositions: []
+    targetRecordedRotations: []
     offset: []
   - copyObject: {fileID: 8717819755241754957}
     copyDemonObject: {fileID: 0}
@@ -6362,6 +6379,7 @@ MonoBehaviour:
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 91cc6a70b8dbc934b9376823941c4d3f, type: 2}
     targetRecordedPositions: []
+    targetRecordedRotations: []
     offset: []
   - copyObject: {fileID: 8717819755781936907}
     copyDemonObject: {fileID: 0}
@@ -6370,6 +6388,7 @@ MonoBehaviour:
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: a12f6b44ccf8ae147a9fc168ba33ed8a, type: 2}
     targetRecordedPositions: []
+    targetRecordedRotations: []
     offset: []
   - copyObject: {fileID: 8717819755568784666}
     copyDemonObject: {fileID: 0}
@@ -6378,6 +6397,7 @@ MonoBehaviour:
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 11a0d09323df422498d40ab20065412d, type: 2}
     targetRecordedPositions: []
+    targetRecordedRotations: []
     offset: []
   - copyObject: {fileID: 8717819753739251113}
     copyDemonObject: {fileID: 0}
@@ -6386,6 +6406,7 @@ MonoBehaviour:
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: d76d5375c9dfb564e88b636825c99f8c, type: 2}
     targetRecordedPositions: []
+    targetRecordedRotations: []
     offset: []
   charLeftScreen: 0
   charCenterScreen: 0
@@ -6601,7 +6622,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8375150705462544363}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26b4e8c31d193f24d9966707e02d085b, type: 3}
   m_Name: 
@@ -6827,7 +6848,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 12
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8717819753678641379
 MonoBehaviour:
@@ -7399,7 +7420,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 7
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8717819753729051137
 GameObject:
@@ -7500,7 +7521,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8717819753739251112}
   - component: {fileID: 8717819753739251127}
-  - component: {fileID: 668093559}
   m_Layer: 0
   m_Name: Head_R_Gizmo
   m_TagString: Untagged
@@ -7520,8 +7540,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 6
+  m_Father: {fileID: 8852039873834104262}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!895512359 &8717819753739251127
 AimConstraint:
@@ -7547,36 +7567,6 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 8717819755568784665}
     weight: 1
---- !u!114 &668093559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717819753739251113}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  isFoot: 0
-  feetPlanter: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 0
-  rightObject: 1
-  opposingObject: {fileID: 8717819755568784666}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &8717819753741164401
 GameObject:
   m_ObjectHideFlags: 0
@@ -8369,7 +8359,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 8
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8717819753838084497
 MonoBehaviour:
@@ -9343,12 +9333,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8852039873834104262}
-  - {fileID: 8717819754800356466}
-  - {fileID: 8717819755592437480}
-  - {fileID: 8717819755241754956}
-  - {fileID: 8717819755781936906}
-  - {fileID: 8717819755568784665}
-  - {fileID: 8717819753739251112}
   - {fileID: 8717819753720399738}
   - {fileID: 8717819753838084498}
   - {fileID: 8717819755771657934}
@@ -10658,7 +10642,6 @@ GameObject:
   - component: {fileID: 8717819754436051596}
   - component: {fileID: 8717819754436051594}
   - component: {fileID: 8717819754436051595}
-  - component: {fileID: 1594915024}
   m_Layer: 0
   m_Name: IKLegRCntrl
   m_TagString: Untagged
@@ -10679,8 +10662,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8717819755768846106}
-  m_RootOrder: 4
+  m_Father: {fileID: 8852039873834104262}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8717819754436051594
 Rigidbody:
@@ -10711,36 +10694,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1594915024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717819754436051597}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  isFoot: 0
-  feetPlanter: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 0
-  rightObject: 1
-  opposingObject: {fileID: 8717819755728600290}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &8717819754449061299
 GameObject:
   m_ObjectHideFlags: 0
@@ -11010,7 +10963,6 @@ GameObject:
   - component: {fileID: 8717819754544527941}
   - component: {fileID: 8717819754544527939}
   - component: {fileID: 8717819754544527940}
-  - component: {fileID: 1594915023}
   m_Layer: 0
   m_Name: IKArmLCntrl
   m_TagString: Untagged
@@ -11030,8 +10982,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8717819755768846106}
-  m_RootOrder: 1
+  m_Father: {fileID: 8852039873834104262}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8717819754544527939
 Rigidbody:
@@ -11062,36 +11014,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1594915023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717819754544527942}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  isFoot: 0
-  feetPlanter: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 1
-  rightObject: 0
-  opposingObject: {fileID: 8717819755744009993}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &8717819754549294266
 GameObject:
   m_ObjectHideFlags: 0
@@ -11163,7 +11085,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 11
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8717819754590900499
 MonoBehaviour:
@@ -11966,7 +11888,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 10
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8717819754724716215
 MonoBehaviour:
@@ -12379,8 +12301,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 1
+  m_Father: {fileID: 8852039873834104262}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8717819754803440554
 GameObject:
@@ -13548,7 +13470,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717819755241754956}
-  - component: {fileID: 1177455240}
   m_Layer: 0
   m_Name: Torso_L_Gizmo
   m_TagString: Untagged
@@ -13569,39 +13490,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 3
+  m_Father: {fileID: 8852039873834104262}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1177455240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717819755241754957}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  isFoot: 0
-  feetPlanter: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 1
-  rightObject: 0
-  opposingObject: {fileID: 8717819755781936907}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &8717819755255402465
 GameObject:
   m_ObjectHideFlags: 0
@@ -14976,7 +14867,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8717819755568784665}
-  - component: {fileID: 1835652600}
   m_Layer: 0
   m_Name: Head_L_Gizmo
   m_TagString: Untagged
@@ -14996,39 +14886,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 5
+  m_Father: {fileID: 8852039873834104262}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1835652600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717819755568784666}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  isFoot: 0
-  feetPlanter: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 1
-  rightObject: 0
-  opposingObject: {fileID: 8717819753739251113}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &8717819755577739134
 GameObject:
   m_ObjectHideFlags: 0
@@ -15193,7 +15053,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8717819755592437480}
   - component: {fileID: 8717819755592437495}
-  - component: {fileID: 1594915026}
   m_Layer: 0
   m_Name: Hip_R_Gizmo
   m_TagString: Untagged
@@ -15213,8 +15072,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 2
+  m_Father: {fileID: 8852039873834104262}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!895512359 &8717819755592437495
 AimConstraint:
@@ -15240,36 +15099,6 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 8717819754800356466}
     weight: 1
---- !u!114 &1594915026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717819755592437481}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  isFoot: 0
-  feetPlanter: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 0
-  rightObject: 1
-  opposingObject: {fileID: 8717819754800356467}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &8717819755593120724
 GameObject:
   m_ObjectHideFlags: 0
@@ -15797,7 +15626,6 @@ GameObject:
   - component: {fileID: 8717819755728600289}
   - component: {fileID: 8717819755728600303}
   - component: {fileID: 8717819755728600288}
-  - component: {fileID: 1594915025}
   m_Layer: 0
   m_Name: IKLegLCntrl
   m_TagString: Untagged
@@ -15818,8 +15646,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8717819755768846106}
-  m_RootOrder: 3
+  m_Father: {fileID: 8852039873834104262}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8717819755728600303
 Rigidbody:
@@ -15850,36 +15678,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1594915025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717819755728600290}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  isFoot: 0
-  feetPlanter: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 1
-  rightObject: 0
-  opposingObject: {fileID: 8717819754436051597}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &8717819755744009993
 GameObject:
   m_ObjectHideFlags: 0
@@ -15891,7 +15689,6 @@ GameObject:
   - component: {fileID: 8717819755744009992}
   - component: {fileID: 8717819755744010006}
   - component: {fileID: 8717819755744010007}
-  - component: {fileID: 1932187598}
   m_Layer: 0
   m_Name: IKArmRCntrl
   m_TagString: Untagged
@@ -15911,8 +15708,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8717819755768846106}
-  m_RootOrder: 2
+  m_Father: {fileID: 8852039873834104262}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8717819755744010006
 Rigidbody:
@@ -15943,36 +15740,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1932187598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717819755744009993}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  isFoot: 0
-  feetPlanter: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 0
-  rightObject: 1
-  opposingObject: {fileID: 8717819754544527942}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &8717819755768846107
 GameObject:
   m_ObjectHideFlags: 0
@@ -16002,10 +15769,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8717819755136924412}
-  - {fileID: 8717819754544527941}
-  - {fileID: 8717819755744009992}
-  - {fileID: 8717819755728600289}
-  - {fileID: 8717819754436051596}
   m_Father: {fileID: 8717819754196944239}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16040,7 +15803,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 9
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8717819755771657933
 MonoBehaviour:
@@ -16153,7 +15916,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8717819755781936906}
   - component: {fileID: 8717819755781936905}
-  - component: {fileID: 831695840}
   m_Layer: 0
   m_Name: Torso_R_Gizmo
   m_TagString: Untagged
@@ -16173,8 +15935,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8717819754113150500}
-  m_RootOrder: 4
+  m_Father: {fileID: 8852039873834104262}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!895512359 &8717819755781936905
 AimConstraint:
@@ -16200,36 +15962,6 @@ AimConstraint:
   m_Sources:
   - sourceTransform: {fileID: 8717819755241754956}
     weight: 1
---- !u!114 &831695840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8717819755781936907}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb604d6fe2056aa48ae75b2391cadbaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controlGizmoObject: {fileID: 0}
-  isFoot: 0
-  feetPlanter: {fileID: 0}
-  recordingDataOfRounds: {fileID: 0}
-  recordingDataSO: {fileID: 0}
-  leftObject: 0
-  rightObject: 1
-  opposingObject: {fileID: 8717819755241754957}
-  useMovementLimit: 0
-  x_RangeMin: -0.5
-  x_RangeMax: 0.5
-  y_RangeMin: -0.5
-  y_RangeMax: 0.5
-  z_RangeMin: -0.5
-  z_RangeMax: 0.5
-  isActive: 0
-  isRecording: 0
-  useRecordedPositions: 0
 --- !u!1 &8726834545281884740
 GameObject:
   m_ObjectHideFlags: 0

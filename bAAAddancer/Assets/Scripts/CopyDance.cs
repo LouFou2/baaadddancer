@@ -14,6 +14,7 @@ public class CopyDance : MonoBehaviour
         public RoundsRecData recDataObjSequencer;
         public RecordingData recordingDataSO;
         public Vector3[] targetRecordedPositions;
+        public Quaternion[] targetRecordedRotations;
         public Vector3[] offset;
     }
     [SerializeField] private CopyTransforms[] objectsAndMoveData;
@@ -57,8 +58,11 @@ public class CopyDance : MonoBehaviour
         currentRound = GameManager.Instance.GetCurrentRound();
         roundSwitcherIndex = GameManager.Instance.GetCurrentRound();
 
+
+        objectsAndMoveData[0].targetRecordedRotations = new Quaternion[objectsAndMoveData[0].recordingDataSO.recordedRotations.Length]; //only root rotates, so we can only initialise for the first index object (the root)
+
         // Adjust Vector3 positions according to offsets
-        for(int i = 0; i < objectsAndMoveData.Length; i++) // for each object referenced in the script
+        for (int i = objectsAndMoveData.Length - 1; i > -1; i--) // for each object referenced in the script // we count down so we can do 0 last*
         {
             objectsAndMoveData[i].recordingDataSO = objectsAndMoveData[i].recDataObjSequencer.currentRoundRecData;
             
@@ -69,7 +73,7 @@ public class CopyDance : MonoBehaviour
             objectsAndMoveData[i].demonTransitioning = false;
 
             // for each recorded Vector3 position
-            for (int j = objectsAndMoveData[i].targetRecordedPositions.Length - 1; j > -1; j--) // we count down so we can do 0 last*
+            for (int j = 0; j < objectsAndMoveData[i].targetRecordedPositions.Length; j++)
             {
                 if (i > 0) 
                 {
@@ -86,15 +90,17 @@ public class CopyDance : MonoBehaviour
                     float adjustedY = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].y + offsetY;
                     float adjustedZ = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].z + offsetZ;
                     // * we also have to add root positions ("objectsAndMoveData[0]....") because the root doesn't function as a parent in the rig
-                    objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ) + objectsAndMoveData[0].recordingDataSO.recordedPositions[j]; //*0 is root
+                    objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ);// + objectsAndMoveData[0].recordingDataSO.recordedPositions[j]; //*0 is root
                 }
                 //we add offset to each root object's positions array AFTER adding the recorded root positions to all the other objects' arrays
                 //index 0 is the root control: the root object uses world space (transform.position)
                 if (i == 0)
                 {
-                    objectsAndMoveData[0].targetRecordedPositions[0] // each recorded position of the root object 
-                    = objectsAndMoveData[0].recordingDataSO.recordedPositions[0]
+                    objectsAndMoveData[0].targetRecordedPositions[j] // each recorded position of the root object 
+                    = objectsAndMoveData[0].recordingDataSO.recordedPositions[j]
                     + objectsAndMoveData[0].copyObject.transform.position; // add the position of this characters root object as offset
+
+                    objectsAndMoveData[0].targetRecordedRotations[j] = objectsAndMoveData[0].recordingDataSO.recordedRotations[j];
                 }
             }
         }
@@ -120,13 +126,15 @@ public class CopyDance : MonoBehaviour
         if (roundSwitcherIndex > currentRound) roundSwitcherIndex = 0; // loop, also limit switch index to amount of rounds
         if (roundSwitcherIndex < 0) roundSwitcherIndex = currentRound; // loop, also limit switch index to amount of rounds
 
+        objectsAndMoveData[0].targetRecordedRotations = new Quaternion[objectsAndMoveData[0].recordingDataSO.recordedRotations.Length]; //only the root rotates
+
         // Adjust Vector3 positions according to offsets
-        for (int i = 0; i < objectsAndMoveData.Length; i++) // for each object referenced in the script
+        for (int i = objectsAndMoveData.Length - 1; i > -1; i--) // for each object referenced in the script // we count down so we can do 0 last*
         {
             objectsAndMoveData[i].recordingDataSO = objectsAndMoveData[i].recDataObjSequencer.recordingDataOfRounds[roundSwitcherIndex];
             objectsAndMoveData[i].targetRecordedPositions = new Vector3[objectsAndMoveData[i].recordingDataSO.recordedPositions.Length];
 
-            for (int j = objectsAndMoveData[i].targetRecordedPositions.Length - 1; j > -1; j--) // we count down so we can do 0 last*
+            for (int j = 0; j < objectsAndMoveData[i].targetRecordedPositions.Length; j++) 
             {
                 if (i > 0)
                 {
@@ -134,13 +142,15 @@ public class CopyDance : MonoBehaviour
                     float adjustedX = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].x + objectsAndMoveData[i].offset[j].x; //using offsets stored in Start
                     float adjustedY = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].y + objectsAndMoveData[i].offset[j].y;
                     float adjustedZ = objectsAndMoveData[i].recordingDataSO.recordedPositions[j].z + objectsAndMoveData[i].offset[j].z;
-                    objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ) + objectsAndMoveData[0].recordingDataSO.recordedPositions[j]; //*0 is root
+                    objectsAndMoveData[i].targetRecordedPositions[j] = new Vector3(adjustedX, adjustedY, adjustedZ);// + objectsAndMoveData[0].recordingDataSO.recordedPositions[j]; //*0 is root
                 }
                 if (i == 0)
                 {
-                    objectsAndMoveData[0].targetRecordedPositions[0] // each recorded position of the root object 
-                        = objectsAndMoveData[0].recordingDataSO.recordedPositions[0]
+                    objectsAndMoveData[0].targetRecordedPositions[j] // each recorded position of the root object 
+                        = objectsAndMoveData[0].recordingDataSO.recordedPositions[j]
                         + objectsAndMoveData[0].copyObject.transform.position; // add the position of this characters root object as offset
+
+                    objectsAndMoveData[0].targetRecordedRotations[j] = objectsAndMoveData[0].recordingDataSO.recordedRotations[j];
                 }
             }
         }
@@ -148,15 +158,17 @@ public class CopyDance : MonoBehaviour
         updatingRoundSequence = false;
     }
 
-    private void On_Q_BeatHandler() // ***TOCHECK: check here for extra offset added to char positions. The extra offset isn't on root control object, just the others
+    private void On_Q_BeatHandler()
     {
         if (!raveDemonReveal)
         {
+            Quaternion[] targetRecordedRotations = objectsAndMoveData[0].targetRecordedRotations;
+
             for (int objectsIndex = 0; objectsIndex < objectsAndMoveData.Length; objectsIndex++)
             {
                 GameObject copyingObject = objectsAndMoveData[objectsIndex].copyObject;
                 Vector3[] targetRecordedPositions = objectsAndMoveData[objectsIndex].targetRecordedPositions;
-
+                
                 int currentBeatIndex = clockCounter.GetCurrent_Q_Beat(); //the indexes of the positions corresponds to the beats (the beats are used to record them)
                 int targetBeatIndex = currentBeatIndex + 1;
 
@@ -165,9 +177,12 @@ public class CopyDance : MonoBehaviour
                 if (targetBeatIndex < 0) targetBeatIndex = 0;
                 float tweenDuration = clockCounter.Get_Q_BeatInterval();
 
+                Vector3 rootBeatRotation = targetRecordedRotations[targetBeatIndex].eulerAngles;
+
                 if (objectsIndex == 0) // if its the Root Object, we use world space
                 {
                     copyingObject.transform.DOMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
+                    copyingObject.transform.DORotate(rootBeatRotation, tweenDuration).SetEase(Ease.Linear);
                 }
                 else // else its local space
                 {
