@@ -13,6 +13,7 @@ public class CopyDance : MonoBehaviour
         public bool demonTransitioning = false;
         public RoundsRecData recDataObjSequencer;
         public RecordingData recordingDataSO;
+        public Vector3 initialRootPosition;
         public Vector3[] targetRecordedPositions;
         public Quaternion[] targetRecordedRotations;
         public Vector3[] offset;
@@ -58,6 +59,8 @@ public class CopyDance : MonoBehaviour
         currentRound = GameManager.Instance.GetCurrentRound();
         roundSwitcherIndex = GameManager.Instance.GetCurrentRound();
 
+        //grab the initial root position (before any position changes)
+        objectsAndMoveData[0].initialRootPosition = objectsAndMoveData[0].copyObject.transform.position; //*** the script that re-positions characters at the start of the scene might mess this up
 
         objectsAndMoveData[0].targetRecordedRotations = new Quaternion[objectsAndMoveData[0].recordingDataSO.recordedRotations.Length]; //only root rotates, so we can only initialise for the first index object (the root)
 
@@ -98,7 +101,7 @@ public class CopyDance : MonoBehaviour
                 {
                     objectsAndMoveData[0].targetRecordedPositions[j] // each recorded position of the root object 
                     = objectsAndMoveData[0].recordingDataSO.recordedPositions[j]
-                    + objectsAndMoveData[0].copyObject.transform.position; // add the position of this characters root object as offset
+                    + objectsAndMoveData[0].initialRootPosition; // add the position of this characters root object as offset
 
                     objectsAndMoveData[0].targetRecordedRotations[j] = objectsAndMoveData[0].recordingDataSO.recordedRotations[j];
                 }
@@ -148,7 +151,7 @@ public class CopyDance : MonoBehaviour
                 {
                     objectsAndMoveData[0].targetRecordedPositions[j] // each recorded position of the root object 
                         = objectsAndMoveData[0].recordingDataSO.recordedPositions[j]
-                        + objectsAndMoveData[0].copyObject.transform.position; // add the position of this characters root object as offset
+                        + objectsAndMoveData[0].initialRootPosition; // add the position of this characters root object as offset
 
                     objectsAndMoveData[0].targetRecordedRotations[j] = objectsAndMoveData[0].recordingDataSO.recordedRotations[j];
                 }
