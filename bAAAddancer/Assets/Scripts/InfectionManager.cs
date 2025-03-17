@@ -22,6 +22,9 @@ public class InfectionManager : MonoBehaviour
         // Temporary list to track characters that have had their infection level increased
         List<CharacterData> infectedCharacters = new List<CharacterData>();
 
+        //store a float to calculate average infection level
+        float averageInfection = 0;
+
         foreach (CharacterData characterData in characterManager.characterDataSOs)
         {
             characterData.lastCursedCharacter = false;
@@ -37,11 +40,24 @@ public class InfectionManager : MonoBehaviour
             if(characterData.infectionLevel > 0  && !infectedCharacters.Contains(characterData) )
             {
                 characterData.infectionLevel += Random.Range(0.1f, 0.25f);
+                averageInfection += characterData.infectionLevel;
 
                 // Add character to the list of processed characters
                 infectedCharacters.Add(characterData);
             }
         }
+
+        // INFECTING THE PLAYER
+        foreach (CharacterData characterData in characterManager.characterDataSOs)
+        {
+            if (characterData != null && characterData.characterRoleSelect == CharacterData.CharacterRole.Player)
+            {
+                //Player gets average of all chars' infections
+                averageInfection /= 5; // 5 players, not counting player
+                characterData.infectionLevel = averageInfection;
+            }
+        }
+        
 
         // Check if there are eligible characters to infect
         if (eligibleCharacters.Count == 0)
