@@ -209,21 +209,21 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1f32e8c151f026049ad64bbda939018a, type: 2}
-  - {fileID: 2100000, guid: 6f2a29778fe2c194d8bdddd86974686e, type: 2}
-  - {fileID: 2100000, guid: 7864fa8a42962174f9e4c399cf891735, type: 2}
-  - {fileID: 2100000, guid: 3e5cfd1365785054c82f1692f1ee3631, type: 2}
-  - {fileID: 2100000, guid: 50e41b8817a206f4c8ccc5c3987eb559, type: 2}
-  - {fileID: 2100000, guid: e8dfb2ff8d3030449bf372f8bf77bb43, type: 2}
+  - {fileID: 2100000, guid: a673e77ce7405df489f43cde9142f094, type: 2}
+  - {fileID: 2100000, guid: 95492af2b8c8ab14b967ccb4b97c0b64, type: 2}
+  - {fileID: 2100000, guid: 19518029021a0294bb93738c3d2c716b, type: 2}
+  - {fileID: 2100000, guid: ca821570ee38c6746bbd35046956fd05, type: 2}
+  - {fileID: 2100000, guid: 07ac6fbad588f254c899c49c41161b60, type: 2}
+  - {fileID: 2100000, guid: ca821570ee38c6746bbd35046956fd05, type: 2}
   - {fileID: 2100000, guid: c3e015418e9d79444b3652200b0cd9f0, type: 2}
   - {fileID: 2100000, guid: 897b23d2b59cdaf4181d8c879de60733, type: 2}
   - {fileID: 2100000, guid: 794d37747d3341d49b666bc1eff1d991, type: 2}
   - {fileID: 2100000, guid: 1ae1934f58ebf914bacd4d48b39bcca4, type: 2}
   - {fileID: 2100000, guid: 0e743028cfdd47a44bdbec7b8e2c11e0, type: 2}
   - {fileID: 2100000, guid: ecea7cca696ecd14191d5b931abb5e93, type: 2}
-  - {fileID: 2100000, guid: 2c2b847a7565f6e4bb02e30abd5326ff, type: 2}
-  - {fileID: 2100000, guid: 91e907a0cef3e9e4d956a1c6615c0db7, type: 2}
-  - {fileID: 2100000, guid: 0ffdd21b7f09f094dbee605efce6253b, type: 2}
+  - {fileID: 2100000, guid: b1cb63923f637bf4a87da28321a3f5b1, type: 2}
+  - {fileID: 2100000, guid: 08368c357254a8640b054d483ab1ae92, type: 2}
+  - {fileID: 2100000, guid: 4f16cb00696644a4a924029b931712ae, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6622,12 +6622,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8375150705462544363}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26b4e8c31d193f24d9966707e02d085b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materials: []
+  materials:
+  - {fileID: 2100000, guid: a673e77ce7405df489f43cde9142f094, type: 2}
+  - {fileID: 2100000, guid: 95492af2b8c8ab14b967ccb4b97c0b64, type: 2}
+  - {fileID: 2100000, guid: 19518029021a0294bb93738c3d2c716b, type: 2}
+  - {fileID: 2100000, guid: ca821570ee38c6746bbd35046956fd05, type: 2}
+  - {fileID: 2100000, guid: 07ac6fbad588f254c899c49c41161b60, type: 2}
+  - {fileID: 2100000, guid: ca821570ee38c6746bbd35046956fd05, type: 2}
+  - {fileID: 2100000, guid: b1cb63923f637bf4a87da28321a3f5b1, type: 2}
+  - {fileID: 2100000, guid: 08368c357254a8640b054d483ab1ae92, type: 2}
+  - {fileID: 2100000, guid: 4f16cb00696644a4a924029b931712ae, type: 2}
   charData: {fileID: 11400000, guid: db1d2a1ab36d2c14f8fe1f98eff04b20, type: 2}
   updateInterval: 0.1
   headBone: {fileID: 1437908837922787123}
@@ -6649,8 +6658,8 @@ MonoBehaviour:
   hand_R_Follower1: {fileID: 8717819754198271764}
   foot_L_Follower1: {fileID: 8717819755438724278}
   foot_R_Follower1: {fileID: 8717819754146972049}
-  pelvisFollower1: {fileID: 0}
-  torsoFollower1: {fileID: 0}
+  pelvisFollower1: {fileID: 1525068630623959212}
+  torsoFollower1: {fileID: 1875993387220740996}
   cursedness: 0
   moveAmountMultiplier: 1
   moveAmountMax: 50

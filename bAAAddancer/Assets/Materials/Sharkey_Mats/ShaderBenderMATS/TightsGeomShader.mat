@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TightsGeomShader
+  m_Shader: {fileID: 4800000, guid: 1a8dc3ebc0d61eb4c8f94d1e4580a021, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _DisplaceAmount: 0.1
+    - _EdgeLengthThreshold: 0.01
+    - _FalloffRange: 0.5
+    - _FresnelEdge: 0.507
+    - _FresnelPower: 1.13
+    - _IncrementValue: 0.0291
+    - _IrridescenceBlend: 0
+    - _IsFeet: 1
+    - _IsHands: 1
+    - _IsHead: 1
+    - _Metal: 0.187
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Smooth: 0.5
+    - _SmoothShading: 1
+    m_Colors:
+    - _BaseColor: {r: 0.7921569, g: 0.37254903, b: 1, a: 1}
+    - _Foot_L_BonePosition: {r: -1.1020027, g: 0.12199772, b: 0.0038346276, a: 0}
+    - _Foot_L_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _Foot_R_BonePosition: {r: -0.8979976, g: 0.12199729, b: 0.003834866, a: 0}
+    - _Foot_R_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _Hand_L_BonePosition: {r: -1.5495384, g: 1.1442348, b: 0.11431253, a: 0}
+    - _Hand_L_FollowerDirection: {r: -0.9507904, g: 0.23580657, b: -0.20097962, a: 0}
+    - _Hand_R_BonePosition: {r: -0.45126122, g: 1.1442626, b: 0.117153406, a: 0}
+    - _Hand_R_FollowerDirection: {r: -0.2770984, g: 0.009383763, b: 0.9607957, a: 0}
+    - _HeadBonePosition: {r: -1.0000756, g: 1.2892468, b: 0.024130821, a: 0}
+    - _HeadFollowerDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _IrriColorEdge1: {r: 0, g: 0.55888957, b: 1, a: 1}
+    - _IrriColorEdge2: {r: 0.079324685, g: 1, b: 0, a: 1}
+    - _IrriColorView1: {r: 1, g: 0.36320752, b: 0.94755816, a: 1}
+    - _IrriColorView2: {r: 0.5481434, g: 0, b: 1, a: 1}
+  m_BuildTextureStacks: []
