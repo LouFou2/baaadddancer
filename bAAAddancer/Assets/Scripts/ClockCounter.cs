@@ -3,52 +3,42 @@ using System.Collections;
 
 public class ClockCounter : MonoBehaviour
 {
-    public static event System.Action On_Q_BeatTrigger;
-    public static event System.Action OnBeatTrigger;
+    public static event System.Action On_Q_Beat_Trigger;
+    public static event System.Action On_Beat_Trigger;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip audioClip;
     public float beatsPerMinute = 120f; // Default tempo
-    public int beatsPerBar = 16; // Total beats in one bar
+    [SerializeField] private float steps = 1f;
+
     public int q_BeatsPerBar = 64; // Total quarter beats in one bar
     public bool isRunning = false; // To control whether the clock is running or not
 
-    private float beatInterval; // Duration of one beat in seconds
     private float q_BeatInterval; // Duration of one quarter beat in seconds
+    private float beatInterval; // Duration of one beat in seconds
     private int current_Q_Beat = 0; // Current quarter beat count
     private int currentBeat = 0;
+    private int lastInterval;
 
     void Start()
     {
         SetTempo(beatsPerMinute);
-        //StartClock(); // *** Maybe we will call this method another way, to time with scene events
-    }
-
-    void Update()
-    {
-        SetTempo(beatsPerMinute); // in case bpm updates during runtime
     }
 
     // Method to set the tempo
     public void SetTempo(float bpm)
     {
         beatsPerMinute = bpm;
-        beatInterval = 60f / beatsPerMinute;
+        beatInterval = 60f / (bpm * steps);
         q_BeatInterval = beatInterval * 0.25f; // calculate for quarter beats
     }
-
-    // Method to start the clock
-    public void StartClock()
+    private void Update()
     {
-        isRunning = true;
-        StartCoroutine(BeatCoroutine());
+        audioClip = audioSource.clip;
+        float sampledTime = (audioSource.timeSamples / (audioSource.clip.frequency * q_BeatInterval));
+        CheckForNewInterval(sampledTime);
     }
-
-    // Method to stop the clock
-    public void StopClock()
-    {
-        isRunning = false;
-        StopAllCoroutines();
-    }
-
+/*
     // Coroutine for beat timing
     private IEnumerator BeatCoroutine()
     {
@@ -59,8 +49,36 @@ public class ClockCounter : MonoBehaviour
             Q_Beat(); // Quarter beats are used for music sequencer
         }
     }
+*/
+    
+    public void CheckForNewInterval(float interval)
+    {
+        if (Mathf.FloorToInt(interval) != lastInterval)
+        {
+            lastInterval = Mathf.FloorToInt(interval);
+            // Invoke event for beat trigger
+            On_Q_Beat_Trigger?.Invoke();
+            IncrementCounts();
+        }
+    }
+    public void IncrementCounts() //this method should be triggered every quarter beat
+    {
+        current_Q_Beat++;
 
-    // Method to handle each beat
+        if (current_Q_Beat > q_BeatsPerBar - 1)
+        {
+            current_Q_Beat = 0; // Reset to the first beat of the bar
+        }
+
+        if (current_Q_Beat == 0 || current_Q_Beat % 4 == 0)
+        {
+            On_Beat_Trigger.Invoke();
+            currentBeat = (int)(current_Q_Beat * 0.25f);
+        }
+    }
+
+/*
+    // Old Method to handle each beat
     private void Q_Beat() // Quarter beats are used for music sequencer
     {
         current_Q_Beat++;
@@ -70,15 +88,16 @@ public class ClockCounter : MonoBehaviour
         }
 
         // Invoke event for beat trigger
-        On_Q_BeatTrigger?.Invoke();
+        On_Interval_Trigger?.Invoke();
 
         // Invoke event for beat trigger (every 4 quarter beats)
         if (current_Q_Beat == 0 || current_Q_Beat % 4 == 0)
         {
-            OnBeatTrigger?.Invoke();
             currentBeat = current_Q_Beat == 0 ? 0 : (int)(current_Q_Beat * 0.25f);
         }
     }
+*/
+
     // Method to get the current beat count
     public int GetCurrent_Q_Beat()
     {
@@ -90,10 +109,17 @@ public class ClockCounter : MonoBehaviour
     }
     public float Get_Q_BeatInterval()
     {
-        return q_BeatInterval;
+        if (audioSource.clip == null) return q_BeatInterval;
+        float samplesPerBeat = audioSource.clip.frequency * (60f / (beatsPerMinute * steps));
+        return samplesPerBeat * 0.25f / audioSource.clip.frequency;
     }
     public float GetBeatInterval() 
     {
-        return beatInterval;
+        if (audioSource.clip == null) return beatInterval;
+
+        float samplesPerBeat = audioSource.clip.frequency * (60f / (beatsPerMinute * steps));
+        return samplesPerBeat / audioSource.clip.frequency;
     }
 }
+
+

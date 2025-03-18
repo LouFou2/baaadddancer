@@ -14,13 +14,13 @@ public class AudioSequencer : MonoBehaviour
         clock = FindObjectOfType<ClockCounter>(); // Find the ClockCounter script in the scene
 
         // Subscribe to the OnBeatTrigger event
-        ClockCounter.On_Q_BeatTrigger += On_Q_BeatTriggered;
+        ClockCounter.On_Q_Beat_Trigger += On_Q_BeatTriggered;
     }
 
     void OnDestroy()
     {
         // Unsubscribe from the OnBeatTrigger event to avoid memory leaks
-        ClockCounter.On_Q_BeatTrigger -= On_Q_BeatTriggered;
+        ClockCounter.On_Q_Beat_Trigger -= On_Q_BeatTriggered;
     }
 
     // Method called when a beat is triggered

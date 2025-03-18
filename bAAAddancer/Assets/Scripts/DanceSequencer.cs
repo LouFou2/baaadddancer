@@ -20,12 +20,12 @@ public class DanceSequencer : MonoBehaviour
     private void OnEnable()
     {
         playerControls.Enable();
-        ClockCounter.On_Q_BeatTrigger += OnBeatTriggerHandler; // Subscribe to the beat trigger event
+        ClockCounter.On_Q_Beat_Trigger += OnBeatTriggerHandler; // Subscribe to the beat trigger event
     }
     private void OnDisable()
     {
         playerControls.Disable();
-        ClockCounter.On_Q_BeatTrigger -= OnBeatTriggerHandler; // Unsubscribe from the beat trigger event
+        ClockCounter.On_Q_Beat_Trigger -= OnBeatTriggerHandler; // Unsubscribe from the beat trigger event
     }
 
     void Start()

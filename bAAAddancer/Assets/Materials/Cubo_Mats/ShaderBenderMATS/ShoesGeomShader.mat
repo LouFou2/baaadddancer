@@ -40,7 +40,7 @@ Material:
     - _FresnelEdge: 0.507
     - _FresnelPower: 1.13
     - _IncrementValue: 0.0291
-    - _IrridescenceBlend: 0.4
+    - _IrridescenceBlend: 0.125
     - _IsFeet: 1
     - _IsHands: 1
     - _IsHead: 1
@@ -48,19 +48,20 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smooth: 0.5
-    - _SmoothShading: 0
+    - _SmoothShading: 0.75
     m_Colors:
     - _BaseColor: {r: 0.4, g: 0.78039217, b: 0.53333336, a: 1}
-    - _Foot_L_BonePosition: {r: -0.59956306, g: 0.33052278, b: -0.060124397, a: 0}
-    - _Foot_L_FollowerDirection: {r: 0.85010314, g: -0.3409998, b: 0.40130273, a: 0}
-    - _Foot_R_BonePosition: {r: -0.09894669, g: 0.08349219, b: -0.060124062, a: 0}
-    - _Foot_R_FollowerDirection: {r: 0.8408029, g: 0.008488731, b: 0.54127485, a: 0}
-    - _Hand_L_BonePosition: {r: -0.024697999, g: 1.3100736, b: -0.20011938, a: 0}
-    - _Hand_L_FollowerDirection: {r: -0.47677627, g: 0.37115866, b: -0.7968222, a: 0}
-    - _Hand_R_BonePosition: {r: 0.12595995, g: 1.0555131, b: 0.045669794, a: 0}
-    - _Hand_R_FollowerDirection: {r: -0.41287175, g: 0.57019866, b: 0.7102186, a: 0}
-    - _HeadBonePosition: {r: 0.002198919, g: 1.2003487, b: -0.049072504, a: 0}
-    - _HeadFollowerDirection: {r: -0.06207223, g: -0.9636275, b: -0.25994045, a: 0}
+    - _Foot_L_BonePosition: {r: -1.1171719, g: 0.0834928, b: 0.0021381974, a: 0}
+    - _Foot_L_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _Foot_R_BonePosition: {r: -0.88282895, g: 0.08349249, b: 0.0021382421, a: 0}
+    - _Foot_R_FollowerDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _Hand_L_BonePosition: {r: -1.5825243, g: 1.2491626, b: 0.1143198, a: 0}
+    - _Hand_L_FollowerDirection: {r: -0.29447195, g: -0.011547919, b: -0.9555903,
+        a: 0}
+    - _Hand_R_BonePosition: {r: -0.41558504, g: 1.2490996, b: 0.10793233, a: 0}
+    - _Hand_R_FollowerDirection: {r: -0.27981165, g: 0.009260549, b: 0.9600103, a: 0}
+    - _HeadBonePosition: {r: -0.99981046, g: 1.3852919, b: 0.030299902, a: 0}
+    - _HeadFollowerDirection: {r: 0.000009906287, g: -0.532354, b: 0.8465218, a: 0}
     - _IrriColorEdge1: {r: 0, g: 0.55888957, b: 1, a: 1}
     - _IrriColorEdge2: {r: 0.079324685, g: 1, b: 0, a: 1}
     - _IrriColorView1: {r: 1, g: 0.36320752, b: 0.94755816, a: 1}

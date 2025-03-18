@@ -38,12 +38,12 @@ public class CopyDance : MonoBehaviour
     private void OnEnable()
     {
         playerControls.Enable();
-        ClockCounter.On_Q_BeatTrigger += On_Q_BeatHandler; // Subscribe to the beat trigger event
+        ClockCounter.On_Q_Beat_Trigger += On_Q_BeatHandler; // Subscribe to the beat trigger event
     }
     private void OnDisable()
     {
         playerControls.Disable();
-        ClockCounter.On_Q_BeatTrigger -= On_Q_BeatHandler; // Subscribe to the beat trigger event
+        ClockCounter.On_Q_Beat_Trigger -= On_Q_BeatHandler; // Subscribe to the beat trigger event
     }
 
     void Start()
