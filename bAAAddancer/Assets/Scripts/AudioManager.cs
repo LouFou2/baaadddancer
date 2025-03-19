@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] private AudioSource music;
-    [SerializeField] private AudioSource countIn;
+    /*[SerializeField] private AudioSource music;
+    [SerializeField] private AudioSource countIn;*/
     [SerializeField] private ClockCounter clockCounter;
 
     private bool isCountingIn = false;
@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip[] musicTracks = new AudioClip[8];
     [SerializeField] private AudioClip[] countInClips = new AudioClip[8];
 
-    private AudioClip currentMusicClip;
+    private AudioClip currentMusicClip; 
 
     private int countInIndex = -1;
 
@@ -36,8 +36,8 @@ public class AudioManager : MonoBehaviour
         clockCounter = FindObjectOfType<ClockCounter>();
         LevelKey currentLevelKey = GameManager.Instance.GetCurrentLevelKey();
 
-        AudioClip musicTrack = music.clip;
-        AudioClip countInClip = countIn.clip;
+        AudioClip musicTrack = null;
+        AudioClip countInClip = null;
 
         switch (currentLevelKey) 
         {

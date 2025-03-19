@@ -5,10 +5,6 @@ public class ShaderBender : MonoBehaviour
     public Material[] materials; // Assign your material in the inspector
 
     [SerializeField] private CharacterData charData;
-    [SerializeField] private float updateInterval = 0.1f; // Time in seconds between updates
-    private float timeSinceLastUpdate = 0f;
-
-    //private float timer = 0f; // this can be used for something else
 
     private PlayerControls playerControls;
     private int controlObjectIndex = 0;
@@ -54,6 +50,9 @@ public class ShaderBender : MonoBehaviour
     [SerializeField] private float irridescenceMax = 0;
     [SerializeField] [Range(0, 1)] private float flatShading = 0;
 
+    //control how intensely the beat "pulses" the glitches
+    [SerializeField] [Range(0, 1)] private float beatPulseFactor = 0.5f;
+
     private float headMoveAmount;
     private float hand_L_MoveAmount;
     private float hand_R_MoveAmount;
@@ -68,6 +67,10 @@ public class ShaderBender : MonoBehaviour
     private float isPelvis = 1;
     private float isTorso = 1;
 
+    //timing parameters, to use with "beat" timing
+    private int q_BeatCount = -1;
+    private float beatPulse = 0;
+
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -75,24 +78,33 @@ public class ShaderBender : MonoBehaviour
     private void OnEnable()
     {
         playerControls.Enable();
+        ClockCounter.On_Q_Beat_Trigger += On_Q_BeatHandler;
     }
     private void OnDisable()
     {
         playerControls.Disable();
+        ClockCounter.On_Q_Beat_Trigger -= On_Q_BeatHandler;
     }
-
-    void Update()
+    void On_Q_BeatHandler()
     {
-        //HandleInput();
-        HandleCursedness();
-
-        timeSinceLastUpdate += Time.deltaTime;
-
-        if (timeSinceLastUpdate >= updateInterval)
+        q_BeatCount++;
+        if (q_BeatCount == 4)
         {
-            timeSinceLastUpdate = 0f; // Reset the timer
-            UpdateProperties();
+            q_BeatCount = 0;
         }
+        beatPulse = ((4 - q_BeatCount) * 0.25f); // count is 0-3. thus at 0 it is  4 * 0.25 = 1, and at count 3 is 0.25.
+        ProcessSpectrumData();
+        HandleCursedness();
+        UpdateProperties();
+    }
+    void ProcessSpectrumData()
+    {
+        //** trying something here: use frequency data to control glitches on different parts of the body
+        isPelvis = AudioFrequalizer.freqBand5[0];
+        isTorso = AudioFrequalizer.freqBand5[1];
+        isFeet = AudioFrequalizer.freqBand5[2];
+        isHands = AudioFrequalizer.freqBand5[3];
+        isHead = AudioFrequalizer.freqBand5[4];
     }
 
     void UpdateProperties()
@@ -181,8 +193,6 @@ public class ShaderBender : MonoBehaviour
             material.SetFloat("_IsPelvis", isPelvis);
             material.SetFloat("_IsTorso", isTorso);
         }
-        
-
     }
 
     Vector3 CalculateFollowerDirection(Vector3 bonePosition, Vector3 followerPosition) 
@@ -250,7 +260,11 @@ public class ShaderBender : MonoBehaviour
     void HandleCursedness()
     {
         cursedness = Mathf.Clamp(charData.infectionLevel, 0, 1);
-        moveAmountMultiplier = Mathf.Lerp(0, moveAmountMax, cursedness);
+
+        float beatPulseCursedness = cursedness * beatPulse * beatPulseFactor; // makes the cursed amount "pulse" with the beat
+
+        //moveAmountMultiplier = Mathf.Lerp(0, moveAmountMax, cursedness); // the old one
+        moveAmountMultiplier = Mathf.Lerp(0, moveAmountMax, beatPulseCursedness); // using the beat to "pulse" it
         flatShading = cursedness;
         irridescence = Mathf.Lerp(0, irridescenceMax, cursedness);
     }

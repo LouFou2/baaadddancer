@@ -18,18 +18,17 @@ Shader "PearlyGeomShader2"
         [HideInInspector][NoScaleOffset]unity_LightmapsInd("unity_LightmapsInd", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
 
-        //***EVENTUALLY REMOVE PROPERTIES NOT NEEDED IN INSPECTOR: CONTROLLED VIA C#
-        _IsHead("Is Head", Float) = 0
+        [HideInInspector]_IsHead("Is Head", Float) = 0
         [HideInInspector]_HeadBonePosition("Head Bone Position", Vector) = (0,0,0,0)
         [HideInInspector]_HeadFollowerDirection("Head Follower Direction", Vector) = (0,0,0,0)
 
-        _IsHands("Is Hands", Float) = 0
+        [HideInInspector]_IsHands("Is Hands", Float) = 0
         [HideInInspector]_Hand_L_BonePosition("Hand L Position", Vector) = (0,0,0,0)
         [HideInInspector]_Hand_L_FollowerDirection("Hand L Follower Direction", Vector) = (0,0,0,0)
         [HideInInspector]_Hand_R_BonePosition("Hand R Position", Vector) = (0,0,0,0)
         [HideInInspector]_Hand_R_FollowerDirection("Hand R Follower Direction", Vector) = (0,0,0,0)
 
-        _IsFeet("Is Feet", Float) = 0
+        [HideInInspector]_IsFeet("Is Feet", Float) = 0
         [HideInInspector]_Foot_L_BonePosition("Foot L Position", Vector) = (0,0,0,0)
         [HideInInspector]_Foot_L_FollowerDirection("Foot L Follower Direction", Vector) = (0,0,0,0)
         [HideInInspector]_Foot_R_BonePosition("Foot R Position", Vector) = (0,0,0,0)

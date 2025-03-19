@@ -5,6 +5,7 @@ using UnityEngine;
 public class CopyDance : MonoBehaviour
 {
     [SerializeField] private bool raveDemonReveal = false;
+
     [Serializable]
     public class CopyTransforms
     {
@@ -30,6 +31,10 @@ public class CopyDance : MonoBehaviour
     int currentRound = -1;
     [SerializeField] int roundSwitcherIndex = -1;
     [SerializeField] bool updatingRoundSequence = false;
+
+    //For the Count in...
+    private bool isCountingIn = true;
+    private int countInIndex = -1;
 
     private void Awake()
     {
@@ -163,52 +168,65 @@ public class CopyDance : MonoBehaviour
 
     private void On_Q_BeatHandler()
     {
-        if (!raveDemonReveal)
+        if (isCountingIn)
         {
-            Quaternion[] targetRecordedRotations = objectsAndMoveData[0].targetRecordedRotations;
-
-            for (int objectsIndex = 0; objectsIndex < objectsAndMoveData.Length; objectsIndex++)
+            countInIndex++;
+            if (countInIndex == 20) // 4* 4 qbeats = 16 ..+4 -> to start on the next beat ...=20
             {
-                GameObject copyingObject = objectsAndMoveData[objectsIndex].copyObject;
-                Vector3[] targetRecordedPositions = objectsAndMoveData[objectsIndex].targetRecordedPositions;
-                
-                int currentBeatIndex = clockCounter.GetCurrent_Q_Beat(); //the indexes of the positions corresponds to the beats (the beats are used to record them)
-                int targetBeatIndex = currentBeatIndex + 1;
-
-                // make the beat + target count loop:
-                if (targetBeatIndex > objectsAndMoveData[objectsIndex].recordingDataSO.recordedPositions.Length - 1) targetBeatIndex = 0;
-                if (targetBeatIndex < 0) targetBeatIndex = 0;
-                float tweenDuration = clockCounter.Get_Q_BeatInterval();
-
-                Vector3 rootBeatRotation = targetRecordedRotations[targetBeatIndex].eulerAngles;
-
-                if (objectsIndex == 0) // if its the Root Object, we use world space
-                {
-                    copyingObject.transform.DOMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
-                    copyingObject.transform.DORotate(rootBeatRotation, tweenDuration).SetEase(Ease.Linear);
-                }
-                else // else its local space
-                {
-                    copyingObject.transform.DOLocalMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
-                }
-                
+                isCountingIn = false;
             }
         }
-        else 
+        
+        if (!isCountingIn)
         {
-            for (int objectsIndex = 0; objectsIndex < objectsAndMoveData.Length; objectsIndex++)
+            if (!raveDemonReveal)
             {
-                GameObject copyingObject = objectsAndMoveData[objectsIndex].copyObject;
-                GameObject objectToCopy = objectsAndMoveData[objectsIndex].copyDemonObject;
-                bool isDemonTransitionInProgress = objectsAndMoveData[objectsIndex].demonTransitioning;
+                Quaternion[] targetRecordedRotations = objectsAndMoveData[0].targetRecordedRotations;
 
-                if (objectToCopy != null && !isDemonTransitionInProgress) 
+                for (int objectsIndex = 0; objectsIndex < objectsAndMoveData.Length; objectsIndex++)
                 {
-                    objectsAndMoveData[objectsIndex].demonTransitioning = true;
-                    TweenDemonTransition(copyingObject, objectToCopy);
+                    GameObject copyingObject = objectsAndMoveData[objectsIndex].copyObject;
+                    Vector3[] targetRecordedPositions = objectsAndMoveData[objectsIndex].targetRecordedPositions;
+
+                    int currentBeatIndex = clockCounter.GetCurrent_Q_Beat(); //the indexes of the positions corresponds to the beats (the beats are used to record them)
+                    int targetBeatIndex = currentBeatIndex + 1;
+
+                    // make the beat + target count loop:
+                    if (targetBeatIndex > objectsAndMoveData[objectsIndex].recordingDataSO.recordedPositions.Length - 1) targetBeatIndex = 0;
+                    if (targetBeatIndex < 0) targetBeatIndex = 0;
+                    float tweenDuration = clockCounter.Get_Q_BeatInterval();
+
+                    Vector3 rootBeatRotation = targetRecordedRotations[targetBeatIndex].eulerAngles;
+
+                    if (objectsIndex == 0) // if its the Root Object, we use world space
+                    {
+                        copyingObject.transform.DOMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
+                        copyingObject.transform.DORotate(rootBeatRotation, tweenDuration).SetEase(Ease.Linear);
+                    }
+                    else // else its local space
+                    {
+                        copyingObject.transform.DOLocalMove(targetRecordedPositions[targetBeatIndex], tweenDuration).SetEase(Ease.Linear);
+                    }
+
+                }
+            }
+            else
+            {
+                for (int objectsIndex = 0; objectsIndex < objectsAndMoveData.Length; objectsIndex++)
+                {
+                    GameObject copyingObject = objectsAndMoveData[objectsIndex].copyObject;
+                    GameObject objectToCopy = objectsAndMoveData[objectsIndex].copyDemonObject;
+                    bool isDemonTransitionInProgress = objectsAndMoveData[objectsIndex].demonTransitioning;
+
+                    if (objectToCopy != null && !isDemonTransitionInProgress)
+                    {
+                        objectsAndMoveData[objectsIndex].demonTransitioning = true;
+                        TweenDemonTransition(copyingObject, objectToCopy);
+                    }
                 }
             }
         }
+        
     }
     public void CharacterBecomeDemon() 
     {

@@ -9194,7 +9194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1232127439
 Transform:
   m_ObjectHideFlags: 0
@@ -10406,6 +10406,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1569276124}
   m_CullTransparentMesh: 1
+--- !u!1 &1574619659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1574619660}
+  - component: {fileID: 1574619662}
+  - component: {fileID: 1574619661}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1574619660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574619659}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2245521105354904636}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1574619661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574619659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce2bc0f38226d7348a5beeb11e5a0fc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 1894888610}
+  hertz: 0
+--- !u!114 &1574619662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574619659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62e1c8df586d5774aa2a52addbd269a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clockCounter: {fileID: 532574482}
+  trackAudio: {fileID: 1894888610}
+  musicTracks:
+  - {fileID: 8300000, guid: 4db0bd0a5024abb4ca7816cf083ec020, type: 3}
+  - {fileID: 8300000, guid: 17c99c3c91ab64a45a5623ec5c6747e6, type: 3}
+  - {fileID: 8300000, guid: d0ae85c8dde8a904f85088ce3cb5b46e, type: 3}
+  - {fileID: 8300000, guid: cf800320311001d4d9833d3bd5a9bd24, type: 3}
+  - {fileID: 8300000, guid: 9a8b7bf1cd1e76f4a8f93078f283b792, type: 3}
+  - {fileID: 8300000, guid: 385cde3cc2174ab408acef3b9ad988b6, type: 3}
+  - {fileID: 8300000, guid: 123363f8e0e223348ac7f0cd278f3424, type: 3}
+  - {fileID: 8300000, guid: 8b895c9dc324ea348895a0db94a5387d, type: 3}
+  countInClips:
+  - {fileID: 8300000, guid: a9dde5d3cd521a54596b9af9753b7d01, type: 3}
+  - {fileID: 8300000, guid: 65476300daed77a448a9fd556894ef5e, type: 3}
+  - {fileID: 8300000, guid: a157b4e42ef77c844a836c4810ffacc7, type: 3}
+  - {fileID: 8300000, guid: abf5069bf9f164242b8edfd00e0f34e7, type: 3}
+  - {fileID: 8300000, guid: 24d5bfed3cebf8f41abd99d252ac7344, type: 3}
+  - {fileID: 8300000, guid: d1005ab93c858f5409926888d5ab2167, type: 3}
+  - {fileID: 8300000, guid: 0d938cb096535bf4cb6e61293dbd8ccb, type: 3}
+  - {fileID: 8300000, guid: b16a3ce4f574c1b45b3fc239f2911dcf, type: 3}
 --- !u!4 &1586794227 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 891239952057260398, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,
@@ -14698,6 +14777,7 @@ Transform:
   - {fileID: 2245521104424477909}
   - {fileID: 2245521104646846455}
   - {fileID: 5020884655807404863}
+  - {fileID: 1574619660}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14821,6 +14901,7 @@ PrefabInstance:
       objectReference: {fileID: 532574482}
     m_RemovedComponents:
     - {fileID: 2658773493431526341, guid: 676a15ed8c0799f4282da511607a3139, type: 3}
+    - {fileID: 2658773492327158851, guid: 676a15ed8c0799f4282da511607a3139, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 676a15ed8c0799f4282da511607a3139, type: 3}
 --- !u!4 &5020884655807404863
 Transform:

@@ -7,8 +7,8 @@ public class ClockCounter : MonoBehaviour
     public static event System.Action On_Beat_Trigger;
 
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip audioClip;
-    public float beatsPerMinute = 120f; // Default tempo
+    [SerializeField] private AudioClip audioClip; // *** CAN REMOVE THIS, IT IS JUST FOR DEBUGGING
+    public float beatsPerMinute = 134f; // Default tempo
     [SerializeField] private float steps = 1f;
 
     public int q_BeatsPerBar = 64; // Total quarter beats in one bar
