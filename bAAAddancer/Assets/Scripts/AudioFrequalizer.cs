@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI; //** only needed for debug viz
+
 public class AudioFrequalizer : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
@@ -11,12 +13,24 @@ public class AudioFrequalizer : MonoBehaviour
     public static float[] bandBuffer = new float[8];
     static float[] bufferDecrease = new float[8];
 
-    public float hertz;
+    [SerializeField] private float[] bandPusher5 = new float[5];
 
-    /*void Start()
+    // THis is to calculate an average value for each frequency band 5:
+    public static float[] freqBand5Sum = new float[5];
+    public static int sampleCount = 0;
+    public static float[] averagedFreqBand5 = new float[5];
+
+    // Debugging Visualisers ** REMOVE LATER
+    [SerializeField] private Image[] freq5BandViz;    // Array to hold the cubes for each frequency band
+
+    private void OnEnable()
     {
-        hertz = audioSource.clip.frequency;
-    }*/
+        ClockCounter.On_Q_Beat_Trigger += On_Q_BeatHandler; // Subscribe to the beat trigger event
+    }
+    private void OnDisable()
+    {
+        ClockCounter.On_Q_Beat_Trigger -= On_Q_BeatHandler; // Subscribe to the beat trigger event
+    }
 
     void Update()
     {
@@ -24,6 +38,11 @@ public class AudioFrequalizer : MonoBehaviour
         MakeFrequencyBands();
         BandBuffer();
         Make5FrequencyBands();
+        
+    }
+    void On_Q_BeatHandler()
+    {
+        Average5BandFreqs();
     }
 
     void GetSpectrumAudioSource()
@@ -91,5 +110,36 @@ public class AudioFrequalizer : MonoBehaviour
         freqBand5[2] = freqBand8[4];  // Keep this as a single band
         freqBand5[3] = freqBand8[5];  // Keep this as a single band
         freqBand5[4] = (freqBand8[6] + freqBand8[7]) / 2f;
+
+        for (int i = 0; i < freqBand5.Length; i++)
+        {
+            freqBand5[i] *= bandPusher5[i];
+
+            // Accumulate values for averaging
+            freqBand5Sum[i] += freqBand5[i];
+        }
+        sampleCount++;
+    }
+    void Average5BandFreqs()
+    {
+        if (sampleCount == 0) return;
+
+        // Calculate the average
+        for (int i = 0; i < 5; i++)
+        {
+            averagedFreqBand5[i] = freqBand5Sum[i] / sampleCount;
+        }
+
+        // Reset accumulators
+        freqBand5Sum = new float[5];
+        sampleCount = 0;
+
+        //*** REMOVE LATER: VIZUALIZERS
+        // Update the cubes based on the frequency data every frame
+        for (int i = 0; i < 5; i++)
+        {
+            float height = averagedFreqBand5[i] * 10;  // Scale to make it more visible
+            freq5BandViz[i].rectTransform.localScale = new Vector3(freq5BandViz[i].rectTransform.localScale.x, height, freq5BandViz[i].rectTransform.localScale.z);  // Adjust height (y-axis scale)
+        }
     }
 }

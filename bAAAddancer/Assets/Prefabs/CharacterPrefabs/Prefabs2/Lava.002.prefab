@@ -1026,7 +1026,7 @@ Rigidbody:
   m_GameObject: {fileID: 1525068630623959212}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.05
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1607,7 +1607,7 @@ Rigidbody:
   m_GameObject: {fileID: 1875993387220740996}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.05
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -6315,6 +6315,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: 4abbd205320b47c4388ba0f4d5ec4530,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: d76d5375c9dfb564e88b636825c99f8c, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -6324,6 +6325,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: daad094e5dae26e4cb170fe214748990,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2e905e78a65ceba478a74ac0d007e44f, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -6333,6 +6335,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: cc815ad354b2dbc419182f52e00816f0,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: a8df1aca02d4f334aa6e807d0353dd2c, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -6342,6 +6345,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: f818ac50cca81aa4aa6b14b72e34764f,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2ad65a1a76abbe3488440caa8d3eb0b5, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -6351,6 +6355,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: cac328b5211fa7d4988cb51cd1dee90a,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 10bd87e33a3b8d04698b0e816573c2dc, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -6360,6 +6365,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: 6b3839844d4c805428f982c66cc9114d,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 0806166a0368b0046a462c765528d361, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -6369,6 +6375,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: 93b13063448af7e44ae11a71a31e30c0,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 357810fdb4bd9b145b14f92ed73b3507, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -6378,6 +6385,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: f6ff362c78975e34ba874df8e1f81264,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 91cc6a70b8dbc934b9376823941c4d3f, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -6387,6 +6395,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: 58f57d89047697740935f7b48245fb09,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: a12f6b44ccf8ae147a9fc168ba33ed8a, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -6396,6 +6405,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: d74fefd1e8dc47e40ab0a9993c1bbf08,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 11a0d09323df422498d40ab20065412d, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -6405,6 +6415,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: 6fbd8ede107eb45419a8f6b217cfdf73,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: d76d5375c9dfb564e88b636825c99f8c, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -6638,7 +6649,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 08368c357254a8640b054d483ab1ae92, type: 2}
   - {fileID: 2100000, guid: 4f16cb00696644a4a924029b931712ae, type: 2}
   charData: {fileID: 11400000, guid: db1d2a1ab36d2c14f8fe1f98eff04b20, type: 2}
-  updateInterval: 0.1
   headBone: {fileID: 1437908837922787123}
   hand_L_Bone: {fileID: 1307504728427310298}
   hand_R_Bone: {fileID: 5047054678313796181}
@@ -6666,6 +6676,14 @@ MonoBehaviour:
   irridescence: 0
   irridescenceMax: 0.5
   flatShading: 0
+  pulseWithBeat: 0
+  beatPulseFactor: 0.5
+  bodypartMovementViz:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &8382333001338399892
 GameObject:
   m_ObjectHideFlags: 0
@@ -9477,7 +9495,7 @@ Rigidbody:
   m_GameObject: {fileID: 8717819754146972049}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -9900,7 +9918,7 @@ Rigidbody:
   m_GameObject: {fileID: 8717819754198271764}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -12839,7 +12857,7 @@ Rigidbody:
   m_GameObject: {fileID: 8717819754977353068}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -14340,7 +14358,7 @@ Rigidbody:
   m_GameObject: {fileID: 8717819755438724278}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -14638,7 +14656,7 @@ Rigidbody:
   m_GameObject: {fileID: 8717819755488513908}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0

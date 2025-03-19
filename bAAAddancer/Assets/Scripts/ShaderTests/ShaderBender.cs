@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using UnityEngine.UI; //** only needed for debug viz
+
 public class ShaderBender : MonoBehaviour
 {
     public Material[] materials; // Assign your material in the inspector
@@ -51,7 +53,9 @@ public class ShaderBender : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float flatShading = 0;
 
     //control how intensely the beat "pulses" the glitches
+    [SerializeField] private bool pulseWithBeat = false;
     [SerializeField] [Range(0, 1)] private float beatPulseFactor = 0.5f;
+
 
     private float headMoveAmount;
     private float hand_L_MoveAmount;
@@ -71,6 +75,10 @@ public class ShaderBender : MonoBehaviour
     private int q_BeatCount = -1;
     private float beatPulse = 0;
 
+    // Debug Viz Objects
+    [SerializeField] private Image[] bodypartMovementViz = new Image[5];
+
+
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -84,6 +92,11 @@ public class ShaderBender : MonoBehaviour
     {
         playerControls.Disable();
         ClockCounter.On_Q_Beat_Trigger -= On_Q_BeatHandler;
+    }
+    private void Start()
+    {
+        // Reset properties
+        UpdateProperties();
     }
     void On_Q_BeatHandler()
     {
@@ -99,12 +112,21 @@ public class ShaderBender : MonoBehaviour
     }
     void ProcessSpectrumData()
     {
+        isPelvis = AudioFrequalizer.averagedFreqBand5[0];
+        isTorso = AudioFrequalizer.averagedFreqBand5[1];
+        isFeet = AudioFrequalizer.averagedFreqBand5[2];
+        isHands = AudioFrequalizer.averagedFreqBand5[3];
+        isHead = AudioFrequalizer.averagedFreqBand5[4];
+
+        /* old code
         //** trying something here: use frequency data to control glitches on different parts of the body
         isPelvis = AudioFrequalizer.freqBand5[0];
         isTorso = AudioFrequalizer.freqBand5[1];
         isFeet = AudioFrequalizer.freqBand5[2];
         isHands = AudioFrequalizer.freqBand5[3];
         isHead = AudioFrequalizer.freqBand5[4];
+        */
+
     }
 
     void UpdateProperties()
@@ -193,6 +215,17 @@ public class ShaderBender : MonoBehaviour
             material.SetFloat("_IsPelvis", isPelvis);
             material.SetFloat("_IsTorso", isTorso);
         }
+
+        // *** Debug Vizualisation
+        if (bodypartMovementViz.Length != 0)
+        {
+            bodypartMovementViz[0].rectTransform.localScale = new Vector3(0.1f, headMoveAmount, 0.1f);
+            bodypartMovementViz[1].rectTransform.localScale = new Vector3(0.1f, (hand_L_MoveAmount + hand_R_MoveAmount) / 2, 0.1f);
+            bodypartMovementViz[2].rectTransform.localScale = new Vector3(0.1f, (foot_L_MoveAmount + foot_R_MoveAmount) / 2, 0.1f);
+            bodypartMovementViz[3].rectTransform.localScale = new Vector3(0.1f, pelvisMoveAmount, 0.1f);
+            bodypartMovementViz[4].rectTransform.localScale = new Vector3(0.1f, torsoMoveAmount, 0.1f);
+        }
+        
     }
 
     Vector3 CalculateFollowerDirection(Vector3 bonePosition, Vector3 followerPosition) 
@@ -263,9 +296,17 @@ public class ShaderBender : MonoBehaviour
 
         float beatPulseCursedness = cursedness * beatPulse * beatPulseFactor; // makes the cursed amount "pulse" with the beat
 
-        //moveAmountMultiplier = Mathf.Lerp(0, moveAmountMax, cursedness); // the old one
-        moveAmountMultiplier = Mathf.Lerp(0, moveAmountMax, beatPulseCursedness); // using the beat to "pulse" it
+        if (!pulseWithBeat)
+        {
+            moveAmountMultiplier = Mathf.Lerp(0, moveAmountMax, cursedness); // the old one
+        }
+        else
+        {
+            moveAmountMultiplier = Mathf.Lerp(0, moveAmountMax, beatPulseCursedness); // using the beat to "pulse" it
+        }
         flatShading = cursedness;
         irridescence = Mathf.Lerp(0, irridescenceMax, cursedness);
     }
+
+
 }
