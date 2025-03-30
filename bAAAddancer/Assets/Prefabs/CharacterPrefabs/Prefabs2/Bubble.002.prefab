@@ -475,6 +475,37 @@ Transform:
   m_Father: {fileID: 4712753182518496037}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &941927265291691730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3460700400707435299}
+  m_Layer: 0
+  m_Name: HeadShaderOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3460700400707435299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941927265291691730}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.116, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2000912057787332986}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1035474167147867486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,6 +2476,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: 4abbd205320b47c4388ba0f4d5ec4530,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: d76d5375c9dfb564e88b636825c99f8c, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -2454,6 +2486,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: daad094e5dae26e4cb170fe214748990,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2e905e78a65ceba478a74ac0d007e44f, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -2463,6 +2496,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: cc815ad354b2dbc419182f52e00816f0,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: a8df1aca02d4f334aa6e807d0353dd2c, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -2472,6 +2506,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: f818ac50cca81aa4aa6b14b72e34764f,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 2ad65a1a76abbe3488440caa8d3eb0b5, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -2481,6 +2516,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: cac328b5211fa7d4988cb51cd1dee90a,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 10bd87e33a3b8d04698b0e816573c2dc, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -2490,6 +2526,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: 6b3839844d4c805428f982c66cc9114d,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 0806166a0368b0046a462c765528d361, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -2499,6 +2536,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: 93b13063448af7e44ae11a71a31e30c0,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 357810fdb4bd9b145b14f92ed73b3507, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -2508,6 +2546,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: f6ff362c78975e34ba874df8e1f81264,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 91cc6a70b8dbc934b9376823941c4d3f, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -2517,6 +2556,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: 58f57d89047697740935f7b48245fb09,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: a12f6b44ccf8ae147a9fc168ba33ed8a, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -2526,6 +2566,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: d74fefd1e8dc47e40ab0a9993c1bbf08,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: 11a0d09323df422498d40ab20065412d, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -2535,6 +2576,7 @@ MonoBehaviour:
     recDataObjSequencer: {fileID: 11400000, guid: 6fbd8ede107eb45419a8f6b217cfdf73,
       type: 2}
     recordingDataSO: {fileID: 11400000, guid: d76d5375c9dfb564e88b636825c99f8c, type: 2}
+    initialRootPosition: {x: 0, y: 0, z: 0}
     targetRecordedPositions: []
     targetRecordedRotations: []
     offset: []
@@ -2747,8 +2789,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: c359fa588f152f04daa051c6c789653f, type: 2}
   - {fileID: 2100000, guid: 6eee19fb46d0c304ebc38c35554ca712, type: 2}
   charData: {fileID: 11400000, guid: fa6a3b99d944a024ca560ab340bd20af, type: 2}
-  updateInterval: 0.1
-  headBone: {fileID: 4789413287053996130}
+  headBone: {fileID: 941927265291691730}
   hand_L_Bone: {fileID: 8295770451713420833}
   hand_R_Bone: {fileID: 5999118910074812982}
   foot_L_Bone: {fileID: 7066716589025115732}
@@ -2775,6 +2816,9 @@ MonoBehaviour:
   irridescence: 0
   irridescenceMax: 0.55
   flatShading: 0
+  pulseWithBeat: 0
+  beatPulseFactor: 0.5
+  bodypartMovementViz: []
 --- !u!1 &2484176349756523997
 GameObject:
   m_ObjectHideFlags: 0
@@ -3424,7 +3468,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3254844365059708793}
   m_LocalRotation: {x: -0.99999994, y: 2.301067e-10, z: 0.0000006553873, w: 0.00035110035}
-  m_LocalPosition: {x: 0.00000011920929, y: 1.5219127, z: -0.30642125}
+  m_LocalPosition: {x: 0.000000012635049, y: 1.5219127, z: -0.30642125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13408,6 +13452,7 @@ Transform:
   m_Children:
   - {fileID: 913502174869851165}
   - {fileID: 5494507847869800370}
+  - {fileID: 3460700400707435299}
   m_Father: {fileID: 1446156870328346114}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

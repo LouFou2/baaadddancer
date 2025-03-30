@@ -981,6 +981,7 @@ Transform:
   m_Children:
   - {fileID: 6712200170243533657}
   - {fileID: 2955258766364291487}
+  - {fileID: 7286921539500069316}
   m_Father: {fileID: 3491500117807425664}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2147,6 +2148,37 @@ Transform:
   - {fileID: 7230302507281195453}
   m_Father: {fileID: 3588142418812685343}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2885641195442321508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7286921539500069316}
+  m_Layer: 0
+  m_Name: HeadShaderOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7286921539500069316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2885641195442321508}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.12, z: 0.016}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5465773394465732710}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2952888617199760051
 GameObject:
@@ -6649,7 +6681,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 08368c357254a8640b054d483ab1ae92, type: 2}
   - {fileID: 2100000, guid: 4f16cb00696644a4a924029b931712ae, type: 2}
   charData: {fileID: 11400000, guid: db1d2a1ab36d2c14f8fe1f98eff04b20, type: 2}
-  headBone: {fileID: 1437908837922787123}
+  headBone: {fileID: 2885641195442321508}
   hand_L_Bone: {fileID: 1307504728427310298}
   hand_R_Bone: {fileID: 5047054678313796181}
   foot_L_Bone: {fileID: 3787381713323086221}
@@ -6678,12 +6710,7 @@ MonoBehaviour:
   flatShading: 0
   pulseWithBeat: 0
   beatPulseFactor: 0.5
-  bodypartMovementViz:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  bodypartMovementViz: []
 --- !u!1 &8382333001338399892
 GameObject:
   m_ObjectHideFlags: 0

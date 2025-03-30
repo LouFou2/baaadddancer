@@ -75,8 +75,8 @@ public class ShaderBender : MonoBehaviour
     private int q_BeatCount = -1;
     private float beatPulse = 0;
 
-    // Debug Viz Objects
-    [SerializeField] private Image[] bodypartMovementViz = new Image[5];
+    // *** REMOVE LATER: Debug Viz Objects ***
+    [SerializeField] private Image[] bodypartMovementViz;
 
 
     private void Awake()
@@ -216,8 +216,8 @@ public class ShaderBender : MonoBehaviour
             material.SetFloat("_IsTorso", isTorso);
         }
 
-        // *** Debug Vizualisation
-        if (bodypartMovementViz.Length != 0)
+        // *** REMOVE LATER: Debug Vizualisation
+        if (bodypartMovementViz.Length == 5)
         {
             bodypartMovementViz[0].rectTransform.localScale = new Vector3(0.1f, headMoveAmount, 0.1f);
             bodypartMovementViz[1].rectTransform.localScale = new Vector3(0.1f, (hand_L_MoveAmount + hand_R_MoveAmount) / 2, 0.1f);

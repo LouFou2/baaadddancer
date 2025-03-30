@@ -1001,7 +1001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919938060386941173}
   m_LocalRotation: {x: -0.0005855417, y: -0.00000018725348, z: -1.0964473e-10, w: 0.9999998}
-  m_LocalPosition: {x: -0.00000011920929, y: 1.3858508, z: 0.020914078}
+  m_LocalPosition: {x: -0.0000001211554, y: 1.3858508, z: 0.020914078}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2071,6 +2071,7 @@ Transform:
   m_Children:
   - {fileID: 8978984850261867167}
   - {fileID: 3217897914122117909}
+  - {fileID: 8598319003276493101}
   m_Father: {fileID: 5255726553181958634}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3317,6 +3318,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 525837800144746383}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4341256479722518059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8598319003276493101}
+  m_Layer: 0
+  m_Name: HeadShaderOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8598319003276493101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4341256479722518059}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.123, z: 0.027}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4267768760328605530}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4429227237557907201
 GameObject:
@@ -15609,7 +15641,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 1b9cd7f5987fe69428b56415f87b1523, type: 2}
   - {fileID: 2100000, guid: b8082955fbd5e4c4fa6fc4ee03b7f7a9, type: 2}
   charData: {fileID: 11400000, guid: 74058c245c16f7444afbfad598cfec5e, type: 2}
-  headBone: {fileID: 2167408924579895967}
+  headBone: {fileID: 4341256479722518059}
   hand_L_Bone: {fileID: 2601618736777866651}
   hand_R_Bone: {fileID: 4843284165176655116}
   foot_L_Bone: {fileID: 6254297308099519432}
@@ -15638,12 +15670,7 @@ MonoBehaviour:
   flatShading: 0
   pulseWithBeat: 0
   beatPulseFactor: 0.5
-  bodypartMovementViz:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  bodypartMovementViz: []
 --- !u!1 &6634329970900710530
 GameObject:
   m_ObjectHideFlags: 0
