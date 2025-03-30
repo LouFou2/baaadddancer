@@ -31,7 +31,7 @@ public class InfectionManager : MonoBehaviour
 
             if (characterData != null 
                 && characterData.characterRoleSelect != CharacterData.CharacterRole.Player 
-                && characterData.characterRoleSelect != CharacterData.CharacterRole.Demon
+                /*&& characterData.characterRoleSelect != CharacterData.CharacterRole.Demon*/
                 && !characterData.wasDebuggedLastRound)
             {
                 eligibleCharacters.Add(characterData);
@@ -47,18 +47,6 @@ public class InfectionManager : MonoBehaviour
             }
         }
 
-        // INFECTING THE PLAYER
-        foreach (CharacterData characterData in characterManager.characterDataSOs)
-        {
-            if (characterData != null && characterData.characterRoleSelect == CharacterData.CharacterRole.Player)
-            {
-                //Player gets average of all chars' infections
-                averageInfection /= 5; // 5 players, not counting player
-                characterData.infectionLevel = averageInfection;
-            }
-        }
-        
-
         // Check if there are eligible characters to infect
         if (eligibleCharacters.Count == 0)
         {
@@ -72,9 +60,22 @@ public class InfectionManager : MonoBehaviour
 
         // Infect the selected character
         selectedCharacter.infectionLevel += 0.25f;
-        if (selectedCharacter.infectionLevel > 1) selectedCharacter.infectionLevel = 1; //clamp at max 1
+        
         selectedCharacter.lastCursedCharacter = true;
         //Debug.Log(selectedCharacter.name + " was infected");
+
+        foreach (CharacterData characterData in characterManager.characterDataSOs)
+        {
+            if (characterData.infectionLevel > 1) characterData.infectionLevel = 1; //clamp at max 1
+
+            // INFECTING THE PLAYER
+            if (characterData != null && characterData.characterRoleSelect == CharacterData.CharacterRole.Player)
+            {
+                //Player gets average of all chars' infections
+                averageInfection /= infectedCharacters.Count; // average "infection level" of all infected characters 
+                characterData.infectionLevel = averageInfection;
+            }
+        }
     }
 
 }

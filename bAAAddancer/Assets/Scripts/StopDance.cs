@@ -47,15 +47,7 @@ public class StopDance : MonoBehaviour
             }
             yield return new WaitForSeconds(yieldDuration);
         }
-        SwitchScene();
+        StopDanceEvent.Invoke(); // Switches Scene + Round
     }
-    void SwitchScene() 
-    {
-        int currentRound = GameManager.Instance.GetCurrentRound();
-        StopDanceEvent.Invoke();
-
-        //sceneSwitcher.SwitchToNextLevelKey();
-        //sceneSwitcher.LoadNextScene();
-    }
-
+    
 }

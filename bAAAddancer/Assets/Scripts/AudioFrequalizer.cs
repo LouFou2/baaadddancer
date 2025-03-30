@@ -136,17 +136,17 @@ public class AudioFrequalizer : MonoBehaviour
 
         //*** REMOVE LATER: VIZUALIZERS
         // Update the cubes based on the frequency data every frame
-        if (freq5BandViz.Length == 5)
+        if (freq5BandViz.Length != 5)
+        {
+            return;
+        }
+        else
         {
             for (int i = 0; i < 5; i++)
             {
                 float height = averagedFreqBand5[i] * 10;  // Scale to make it more visible
                 freq5BandViz[i].rectTransform.localScale = new Vector3(freq5BandViz[i].rectTransform.localScale.x, height, freq5BandViz[i].rectTransform.localScale.z);  // Adjust height (y-axis scale)
             }
-        }
-        else
-        {
-            return;
         }
         
     }

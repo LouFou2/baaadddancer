@@ -151,12 +151,19 @@ public class ShaderBender : MonoBehaviour
 
         // the follower positions
         Vector3 head_FollowerPos = headFollower1.transform.position;
+        head_FollowerPos += (head_FollowerPos == headTargetPos) ? new Vector3(0, 0, 0.001f) : Vector3.zero; // just ensures its not the exact same pos, coz dividing by 0 will cause errors 
         Vector3 handL_FollowerPos = hand_L_Follower1.transform.position;
+        handL_FollowerPos += (handL_FollowerPos == handLTargetPos) ? new Vector3(0, 0, 0.001f) : Vector3.zero;
         Vector3 handR_FollowerPos = hand_R_Follower1.transform.position;
+        handR_FollowerPos += (handR_FollowerPos == handRTargetPos) ? new Vector3(0, 0, 0.001f) : Vector3.zero;
         Vector3 footL_FollowerPos = foot_L_Follower1.transform.position;
+        footL_FollowerPos += (footL_FollowerPos == footLTargetPos) ? new Vector3(0, 0, 0.001f) : Vector3.zero;
         Vector3 footR_FollowerPos = foot_R_Follower1.transform.position;
+        footR_FollowerPos += (footR_FollowerPos == footRTargetPos) ? new Vector3(0, 0, 0.001f) : Vector3.zero;
         Vector3 pelvisFollowerPos = pelvisFollower1.transform.position;
+        pelvisFollowerPos += (pelvisFollowerPos == pelvisTargetPos) ? new Vector3(0, 0, 0.001f) : Vector3.zero;
         Vector3 torsoFollowerPos = torsoFollower1.transform.position;
+        torsoFollowerPos += (torsoFollowerPos == torsoTargetPos) ? new Vector3(0, 0, 0.001f) : Vector3.zero;
 
         headFollowerDirection = CalculateFollowerDirection(headTargetPos, head_FollowerPos);
         hand_L_FollowerDirection = CalculateFollowerDirection(handLTargetPos, handL_FollowerPos);
@@ -293,16 +300,19 @@ public class ShaderBender : MonoBehaviour
     void HandleCursedness()
     {
         cursedness = Mathf.Clamp(charData.infectionLevel, 0, 1);
+        if (cursedness == 0) cursedness += 0.001f;
+        if (beatPulse == 0) beatPulse += 0.001f;
+        if (beatPulseFactor == 0) beatPulseFactor += 0.001f;
 
         float beatPulseCursedness = cursedness * beatPulse * beatPulseFactor; // makes the cursed amount "pulse" with the beat
 
         if (!pulseWithBeat)
         {
-            moveAmountMultiplier = Mathf.Lerp(0, moveAmountMax, cursedness); // the old one
+            moveAmountMultiplier = Mathf.Lerp(0.001f, moveAmountMax, cursedness); // the old one
         }
         else
         {
-            moveAmountMultiplier = Mathf.Lerp(0, moveAmountMax, beatPulseCursedness); // using the beat to "pulse" it
+            moveAmountMultiplier = Mathf.Lerp(0.001f, moveAmountMax, beatPulseCursedness); // using the beat to "pulse" it
         }
         flatShading = cursedness;
         irridescence = Mathf.Lerp(0, irridescenceMax, cursedness);
