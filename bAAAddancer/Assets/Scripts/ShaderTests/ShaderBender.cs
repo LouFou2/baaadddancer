@@ -317,6 +317,4 @@ public class ShaderBender : MonoBehaviour
         flatShading = cursedness;
         irridescence = Mathf.Lerp(0, irridescenceMax, cursedness);
     }
-
-
 }

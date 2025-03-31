@@ -25,7 +25,8 @@ public class CopyDanceSceneSetup : MonoBehaviour
 
             if (characterProfile.characterDataSO.characterRoleSelect == CharacterData.CharacterRole.Player)
             {
-                copyDanceScript.enabled = false;
+                //copyDanceScript.enabled = false;
+                copyDanceScript.enabled = true;
                 character.transform.position = playerSetupTransforms.transform.position;
                 character.transform.rotation = playerSetupTransforms.transform.rotation;
             }

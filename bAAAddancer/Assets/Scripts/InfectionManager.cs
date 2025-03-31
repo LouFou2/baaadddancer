@@ -60,9 +60,10 @@ public class InfectionManager : MonoBehaviour
 
         // Infect the selected character
         selectedCharacter.infectionLevel += 0.25f;
-        
+        averageInfection += 0.25f;
+        infectedCharacters.Add(selectedCharacter);
+
         selectedCharacter.lastCursedCharacter = true;
-        //Debug.Log(selectedCharacter.name + " was infected");
 
         foreach (CharacterData characterData in characterManager.characterDataSOs)
         {
