@@ -12,6 +12,7 @@ public class DataResetter : MonoBehaviour
         for (int i = 0; i < characterDataSOs.Length; i++)
         {
             characterDataSOs[i].characterRoleSelect = CharacterData.CharacterRole.NPC; //this just resets all characters to NPC's
+            characterDataSOs[i].charAlignment = CharacterData.CharacterAlignment.Neutral; // reset: all characters are neutral;
             characterDataSOs[i].infectionLevel = 0;
             characterDataSOs[i].wasDebuggedLastRound = false;
             characterDataSOs[i].lastCursedCharacter = false;

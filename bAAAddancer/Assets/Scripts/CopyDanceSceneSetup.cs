@@ -6,8 +6,12 @@ public class CopyDanceSceneSetup : MonoBehaviour
     [SerializeField] private GameObject playerSetupTransforms;
     [SerializeField] private GameObject[] npcSetupTransforms;
 
+    public bool charsPositionedInScene;
+
     void Start()
     {
+        charsPositionedInScene = false;
+
         characterManager = FindObjectOfType<CharacterManager>();
 
         int npcIndex = 0;
@@ -35,16 +39,11 @@ public class CopyDanceSceneSetup : MonoBehaviour
                 copyDanceScript.enabled = true;
                 character.transform.position = npcSetupTransforms[npcIndex].transform.position;
                 character.transform.rotation = npcSetupTransforms[npcIndex].transform.rotation;
+
                 npcIndex++;
-                //set character as left screen, center screen, or right screen:
-                if(npcIndex < 3) // 3 is the center character
-                    copyDanceScript.charLeftScreen = true;
-                else if(npcIndex == 3)
-                    copyDanceScript.charCenterScreen = true;
-                else
-                    copyDanceScript.charRightScreen = true;
             }
         }
+        charsPositionedInScene = true;
     }
 
 }

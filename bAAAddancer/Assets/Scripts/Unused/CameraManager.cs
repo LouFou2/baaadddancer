@@ -3,81 +3,91 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 
-// THIS SCRIPT IS FOR DIALOGUE SCENE and MEETING SCENE
+// THIS SCRIPT IS FOR DIALOGUE SCENE and MEETING SCENE *** CLEAN UP A LOT OF THIS FOR NEW GAME OVERHAUL
 public class CameraManager : MonoBehaviour
 {
-    [SerializeField] private DialogueSwitcher dialogueSwitcher;
+    //[SerializeField] private DialogueSwitcher dialogueSwitcher;
     [SerializeField] private Animator cameraAnimator; // script should be attached to GameObject with Camera Animator Controller
-    [SerializeField] private CharacterManager characterManager;
+    //[SerializeField] private CharacterManager characterManager;
     [SerializeField] private string[] cameraFlags; // the camera flags are the bool names in the Animator
 
-    private CharacterData[] characterDataSOs;
-    private List<int> availableIndexes = new List<int>();
-    private int playerIndex;
-    private int demonIndex;
-    private int lastBuggedCharacterIndex;
-    private int npc1_Index, npc2_Index, npc3_Index; //remaining npcs
+   // private CharacterData[] characterDataSOs;
+    //private List<int> availableIndexes = new List<int>();
+   // private int playerIndex;
+    //private int demonIndex;
+    //private int lastBuggedCharacterIndex;
+   // private int npc1_Index, npc2_Index, npc3_Index; //remaining npcs
 
-    private Queue<DialogueData.DialogueUnit> dialogueUnitQueue = new Queue<DialogueData.DialogueUnit>();
-    private DialogueData.DialogueUnit currentDialogueUnit;
+   // private Queue<DialogueData.DialogueUnit> dialogueUnitQueue = new Queue<DialogueData.DialogueUnit>();
+   // private DialogueData.DialogueUnit currentDialogueUnit;
     
     void Start()
     {
-        dialogueSwitcher = FindObjectOfType<DialogueSwitcher>();
-        cameraAnimator = GetComponent<Animator>();
-        characterManager = FindObjectOfType<CharacterManager>();
+        //dialogueSwitcher = FindObjectOfType<DialogueSwitcher>();
+        //cameraAnimator = GetComponent<Animator>();
+        //characterManager = FindObjectOfType<CharacterManager>();
         
-        characterDataSOs = new CharacterData[6];
+        //characterDataSOs = new CharacterData[6];
         cameraFlags = new string[6];
 
-        // the camera flags are the bool names in the Animator
-        cameraFlags[0] = "CharCam1"; // the caracters these cameras are aimed at are arranged in same order as in Character Manager
-        cameraFlags[1] = "CharCam2"; // which is why we need logic below to figure out which indexes are the player, ravedemon, and last bugged character
-        cameraFlags[2] = "CharCam3"; // (for the sake of the dialogue moments)
-        cameraFlags[3] = "CharCam4";
-        cameraFlags[4] = "CharCam5";
-        cameraFlags[5] = "CharCam6";
+        cameraFlags[0] = "CharCam0"; // the caracters these cameras are aimed at are arranged in same order as in Character Manager
+        cameraFlags[1] = "CharCam1"; // which is why we need logic below to figure out which indexes are the player, last bugged character, etc
+        cameraFlags[2] = "CharCam2"; // (for the sake of the dialogue moments)
+        cameraFlags[3] = "CharCam3";
+        cameraFlags[4] = "CharCam4";
+        cameraFlags[5] = "CharCam5";
 
-        availableIndexes.Clear();
-        // Populate available indexes
-        for (int i = 0; i < characterManager.characterDataSOs.Length; i++)
-        {
-            availableIndexes.Add(i);
-        }
+        /*
+                // the camera flags are the bool names in the Animator
+                cameraFlags[0] = "CharCam1"; // the caracters these cameras are aimed at are arranged in same order as in Character Manager
+                cameraFlags[1] = "CharCam2"; // which is why we need logic below to figure out which indexes are the player, ravedemon, and last bugged character
+                cameraFlags[2] = "CharCam3"; // (for the sake of the dialogue moments)
+                cameraFlags[3] = "CharCam4";
+                cameraFlags[4] = "CharCam5";
+                cameraFlags[5] = "CharCam6";
 
-        for (int i = 0; i < characterManager.characterDataSOs.Length; i++)
-        {
-            characterDataSOs[i] = characterManager.characterDataSOs[i];
-            if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player) 
-            {
-                playerIndex = i;
-                availableIndexes.Remove(i); // Remove player index
-            }
-            if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Demon)
-            {
-                demonIndex = i;
-                availableIndexes.Remove(i); // Remove bug index
-            }
-            if (characterDataSOs[i].lastCursedCharacter == true)
-            {
-                lastBuggedCharacterIndex = i;
-                availableIndexes.Remove(i); // Remove last bugged character index
-            }
-        }
-        // Assign remaining indexes to NPC characters
-        npc1_Index = availableIndexes[0];
-        npc2_Index = availableIndexes[1];
-        npc3_Index = availableIndexes[2];
 
-        if(availableIndexes.Count == 4) //meaning there is no "lastBuggedCharacter" yet
-            lastBuggedCharacterIndex = availableIndexes[3];
 
-        // Get the current dialogue data
-        DialogueData currentDialogue = dialogueSwitcher.GetCurrentDialogue();
-        //make a queue of the dialogue units
-        QueueNewDialogueUnitsForCamera(currentDialogue);
+                availableIndexes.Clear();
+                // Populate available indexes
+                for (int i = 0; i < characterManager.characterDataSOs.Length; i++)
+                {
+                    availableIndexes.Add(i);
+                }
+
+                for (int i = 0; i < characterManager.characterDataSOs.Length; i++)
+                {
+                    characterDataSOs[i] = characterManager.characterDataSOs[i];
+                    if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player) 
+                    {
+                        playerIndex = i;
+                        availableIndexes.Remove(i); // Remove player index
+                    }
+                    if (characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Demon)
+                    {
+                        demonIndex = i;
+                        availableIndexes.Remove(i); // Remove bug index
+                    }
+                    if (characterDataSOs[i].lastCursedCharacter == true)
+                    {
+                        lastBuggedCharacterIndex = i;
+                        availableIndexes.Remove(i); // Remove last bugged character index
+                    }
+                }
+                // Assign remaining indexes to NPC characters
+                npc1_Index = availableIndexes[0];
+                npc2_Index = availableIndexes[1];
+                npc3_Index = availableIndexes[2];
+
+                if(availableIndexes.Count == 4) //meaning there is no "lastBuggedCharacter" yet
+                    lastBuggedCharacterIndex = availableIndexes[3];
+
+                // Get the current dialogue data
+                DialogueData currentDialogue = dialogueSwitcher.GetCurrentDialogue();
+                //make a queue of the dialogue units
+                QueueNewDialogueUnitsForCamera(currentDialogue);*/
     }
-
+/*
     public void QueueNewDialogueUnitsForCamera(DialogueData newDialogue)
     {
         dialogueUnitQueue.Clear();
@@ -167,6 +177,11 @@ public class CameraManager : MonoBehaviour
                 cameraAnimator.SetBool("LongCam", true);
                 break;
         }
+    }*/
+
+    public void SetCamera(int camIndex)
+    {
+        cameraAnimator.SetBool(cameraFlags[camIndex], true);
     }
 
 }

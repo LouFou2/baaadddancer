@@ -34,6 +34,7 @@ public class RaveSceneSetup : MonoBehaviour
                 {
                     character.transform.position = charSetupTransforms[charIndex].transform.position;
                     character.transform.rotation = charSetupTransforms[charIndex].transform.rotation;
+
                     charIndex++;
                 }
                 else
@@ -42,15 +43,6 @@ public class RaveSceneSetup : MonoBehaviour
                 }
             }
 
-
-            //set character as left screen, center screen, or right screen:
-            if (charIndex < 3) // 3 is the center character
-                copyDanceScript.charLeftScreen = true;
-            else if (charIndex == 3)
-                copyDanceScript.charCenterScreen = true;
-            else
-                copyDanceScript.charRightScreen = true;
-            
         }
     }
 }

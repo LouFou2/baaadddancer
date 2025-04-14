@@ -24,10 +24,6 @@ public class CopyDance : MonoBehaviour
     private ClockCounter clockCounter;
     private PlayerControls playerControls;
 
-    public bool charLeftScreen;
-    public bool charCenterScreen;
-    public bool charRightScreen;
-
     int currentRound = -1;
     [SerializeField] int roundSwitcherIndex = -1;
     [SerializeField] bool updatingRoundSequence = false;

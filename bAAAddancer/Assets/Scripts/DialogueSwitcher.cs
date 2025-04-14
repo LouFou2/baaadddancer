@@ -64,7 +64,7 @@ public class DialogueSwitcher : MonoBehaviour
         currentDialogue = currentDialogueSequence[currentIndex];
         
         dialoguePlayer.StartDialogue(currentDialogue);
-        cameraManager.QueueNewDialogueUnitsForCamera(currentDialogue);
+        //cameraManager.QueueNewDialogueUnitsForCamera(currentDialogue);
         if(lookManager != null)
             lookManager.QueueNewDialogueUnitsForLookTargets(currentDialogue);
         if (cutscenesAudioManager != null)

@@ -168,7 +168,34 @@ public class TitleSceneDirector : MonoBehaviour
         }
 
     }
-    void AssignDemonCharacter() 
+    void AssignNPCAlignments()
+    {
+        int totalCharacters = characterManager.characterDataSOs.Length;
+        List<int> indices = new List<int>();
+
+        // Add all indices except the player
+        for (int i = 0; i < totalCharacters; i++)
+        {
+            if (i != currentCharacterIndex) // exclude the player
+                indices.Add(i);
+        }
+
+        // Shuffle the list
+        for (int i = 0; i < indices.Count; i++)
+        {
+            int randomIndex = Random.Range(i, indices.Count);
+            (indices[i], indices[randomIndex]) = (indices[randomIndex], indices[i]);
+        }
+
+        characterManager.characterDataSOs[indices[0]].charAlignment = CharacterData.CharacterAlignment.Gud1;
+        characterManager.characterDataSOs[indices[1]].charAlignment = CharacterData.CharacterAlignment.Gud2;
+        characterManager.characterDataSOs[indices[2]].charAlignment = CharacterData.CharacterAlignment.Neutral;
+        characterManager.characterDataSOs[indices[3]].charAlignment = CharacterData.CharacterAlignment.Bent1;
+        characterManager.characterDataSOs[indices[4]].charAlignment = CharacterData.CharacterAlignment.Bent2;
+
+    }
+
+    void AssignDemonCharacter() // ***TODO gonna take this out
     {
         if (!demonIsAssigned) 
         {

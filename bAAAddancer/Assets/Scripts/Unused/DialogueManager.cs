@@ -60,7 +60,7 @@ public class DialogueManager : MonoBehaviour
                 if (button1clicked)
                 {
                     dialoguePlayer.DisplayNextSentence();
-                    cameraManager.SelectNewCamera();
+                    //cameraManager.SelectNewCamera();
                     if(lookManager != null)
                         lookManager.SelectNewLookPosition();
                     cutscenesAudioManager.ChangeSpeakerAndPlayVOX();
@@ -79,7 +79,7 @@ public class DialogueManager : MonoBehaviour
                 if (!string.IsNullOrEmpty(button0Text.text))
                 {
                     button0.gameObject.SetActive(true);
-                    cameraManager.SelectPlayerCamera(); // adding it here because sometimes it is only the Yes response
+                    //cameraManager.SelectPlayerCamera(); // adding it here because sometimes it is only the Yes response
                     if (lookManager != null)
                         lookManager.SetLooksToPlayer();
                 }
@@ -90,7 +90,7 @@ public class DialogueManager : MonoBehaviour
                 if (!string.IsNullOrEmpty(button1Text.text))
                 {
                     button1.gameObject.SetActive(true);
-                    cameraManager.SelectPlayerCamera(); // adding it here because sometimes it is only the Yes response
+                    //cameraManager.SelectPlayerCamera(); // adding it here because sometimes it is only the Yes response
                     if(lookManager != null)
                         lookManager.SetLooksToPlayer();
                 }

@@ -6,10 +6,18 @@ public class CharacterData : ScriptableObject
     public enum CharacterRole { NPC, Demon, Player }
     public CharacterRole characterRoleSelect;
 
+    // Alignment
+    public enum CharacterAlignment { Gud1, Gud2, Neutral, Bent1, Bent2 }
+    public CharacterAlignment charAlignment;
+
+    // Speakers
+    public int speakerIndex;
+    public int spokenToIndex;
+
     [Range(0f, 1f)] public float infectionLevel = 0f;
-    //[Range(0, 16)] public int infectionLevel = 0;
 
     public bool wasDebuggedLastRound;
     public bool lastCursedCharacter;
+
     public bool wasEliminated;
 }
