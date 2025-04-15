@@ -115,7 +115,8 @@ public class TitleSceneDirector : MonoBehaviour
                 rightBumperImage.gameObject.SetActive(false);
                 selectButtonImage.gameObject.SetActive(false);
 
-                AssignDemonCharacter();
+                AssignDemonCharacter(); //*** REMOVE 
+                AssignNPCAlignments();
                 HandleSceneEnd();
 
                 break;

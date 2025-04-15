@@ -17,10 +17,10 @@ public class DialogueManager : MonoBehaviour
     public DialogueState dialogueState;
 
     [SerializeField] private Button button0; // No button
-    private TextMeshProUGUI button0Text;
+    [SerializeField] private TextMeshProUGUI button0Text;
     private bool button0clicked = false;
     [SerializeField] private Button button1; // yes button
-    private TextMeshProUGUI button1Text;
+    [SerializeField] private TextMeshProUGUI button1Text;
     private bool button1clicked = false;
 
     // Unity Events for responses
