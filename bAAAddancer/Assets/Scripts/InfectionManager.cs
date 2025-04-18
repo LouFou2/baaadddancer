@@ -16,8 +16,8 @@ public class InfectionManager : MonoBehaviour
             return;
         }
 
-        // Generate a list of eligible characters (excluding player and bug characters)
-        List<CharacterData> eligibleCharacters = new List<CharacterData>();
+        /*// Generate a list of eligible characters (excluding player and bug characters)
+        List<CharacterData> eligibleCharacters = new List<CharacterData>();*/
 
         // Temporary list to track characters that have had their infection level increased
         List<CharacterData> infectedCharacters = new List<CharacterData>();
@@ -29,13 +29,14 @@ public class InfectionManager : MonoBehaviour
         {
             characterData.lastCursedCharacter = false;
 
-            if (characterData != null 
+            /*if (characterData != null 
                 && characterData.characterRoleSelect != CharacterData.CharacterRole.Player 
-                /*&& characterData.characterRoleSelect != CharacterData.CharacterRole.Demon*/
+                *//*&& characterData.characterRoleSelect != CharacterData.CharacterRole.Demon*//*
                 && !characterData.wasDebuggedLastRound)
             {
                 eligibleCharacters.Add(characterData);
-            }
+            }*/
+
             //increase current infection level
             if(characterData.infectionLevel > 0  && !infectedCharacters.Contains(characterData) )
             {
@@ -47,16 +48,45 @@ public class InfectionManager : MonoBehaviour
             }
         }
 
-        // Check if there are eligible characters to infect
+        /*// Check if there are eligible characters to infect
         if (eligibleCharacters.Count == 0)
         {
             Debug.LogWarning("No eligible characters to infect!");
             return;
+        }*/
+
+        /*// Select a random character from the eligible list
+        int randomIndex = Random.Range(0, eligibleCharacters.Count);*/  // *** THE OLD SYSTEM DID A RANDOM PICK, I AM GOING TO DO MANUAL SELECTION:
+
+        // *** Manual Selection ***
+        int roundIndex = GameManager.Instance.GetCurrentRound();
+        int selectCharIndex = -1;
+        switch (roundIndex) 
+        {
+            case 0:
+                selectCharIndex = GetCharByAlignment(CharacterData.CharacterAlignment.Neutral); // this is how we pick character to curse, by alignment.
+                break;
+            case 1:
+                selectCharIndex = GetCharByAlignment(CharacterData.CharacterAlignment.Bent1);
+                break;
+            case 2:
+                selectCharIndex = GetCharByAlignment(CharacterData.CharacterAlignment.Gud2);
+                break;
+            case 3:
+                selectCharIndex = GetCharByAlignment(CharacterData.CharacterAlignment.Bent2);
+                break;
+            case 4:
+                selectCharIndex = GetCharByAlignment(CharacterData.CharacterAlignment.Gud1);
+                break;
+            default:
+                Debug.LogWarning("Round: " + roundIndex + "is not useable");
+                Debug.LogWarning("Character to curse not selected");
+                break;
         }
 
-        // Select a random character from the eligible list
-        int randomIndex = Random.Range(0, eligibleCharacters.Count);
-        CharacterData selectedCharacter = eligibleCharacters[randomIndex];
+
+        //CharacterData selectedCharacter = eligibleCharacters[randomIndex]; // *** So we don't need this can do :
+        CharacterData selectedCharacter = characterManager.characterDataSOs[selectCharIndex];
 
         // Infect the selected character
         selectedCharacter.infectionLevel += 0.25f;
@@ -77,6 +107,20 @@ public class InfectionManager : MonoBehaviour
                 characterData.infectionLevel = averageInfection;
             }
         }
+    }
+
+    private int GetCharByAlignment(CharacterData.CharacterAlignment charAlignment)
+    {
+        int charIndex = -1;
+
+        for(int i = 0; i < characterManager.characterDataSOs.Length; i++)
+        {
+            if (characterManager.characterDataSOs[i].charAlignment == charAlignment)
+            {
+                charIndex = i;
+            }
+        }
+        return charIndex;
     }
 
 }

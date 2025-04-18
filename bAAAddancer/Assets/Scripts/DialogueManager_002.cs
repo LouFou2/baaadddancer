@@ -99,7 +99,7 @@ public class DialogueManager_002 : MonoBehaviour
                     break;
 
                 case 0:
-                    //Round 1 Dialogue
+                    //Round 1 Dialogue [Neutral Character is cursed]
                     if (dialogueLineCount == 0)
                     {
                         CursedCharResponse("what's happening?");
@@ -120,32 +120,61 @@ public class DialogueManager_002 : MonoBehaviour
                     }
                     if (skipDialogueTriggered && dialogueLineCount == 3)
                     {
-                        NPCResponse(CharacterData.CharacterAlignment.Gud1, "it's the curse");
+                        NPCResponse(CharacterData.CharacterAlignment.Gud2, "it's the curse");
                         dialogueLineCount = 4;
                         skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
                     }
                     if (skipDialogueTriggered && dialogueLineCount == 4)
                     {
-                        NPCResponse(CharacterData.CharacterAlignment.Neutral, "what curse?!");
+                        NPCResponse(CharacterData.CharacterAlignment.Bent2, "what curse?!");
                         dialogueLineCount = 5;
                         skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
                     }
                     if (skipDialogueTriggered && dialogueLineCount == 5)
                     {
-                        NPCResponse(CharacterData.CharacterAlignment.Gud2, "THE CURSE OF THE RAVE DEMON!");
+                        NPCResponse(CharacterData.CharacterAlignment.Gud1, "THE CURSE OF THE RAVE DEMON!");
                         dialogueLineCount = 6;
+                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    if (skipDialogueTriggered && dialogueLineCount == 6)
+                    {
+                        NPCResponse(CharacterData.CharacterAlignment.Bent1, "ooh that sounds wicked");
+                        dialogueLineCount = 7;
+                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    if (skipDialogueTriggered && dialogueLineCount == 7)
+                    {
+                        NPCResponse(CharacterData.CharacterAlignment.Gud1, "it's messing with our moves!");
+                        dialogueLineCount = 8;
+                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    if (skipDialogueTriggered && dialogueLineCount == 8)
+                    {
+                        PlayerResponse("what can we do?", "");
+                        dialogueLineCount = 9;
+                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    if (skipDialogueTriggered && dialogueLineCount == 9)
+                    {
+                        NPCResponse(CharacterData.CharacterAlignment.Gud1, "debug! fix it!");
+                        dialogueLineCount = 10;
+                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    if (skipDialogueTriggered && dialogueLineCount == 10)
+                    {
+                        EndDialogue("keep dancing", "fix");
                         skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
                     }
 
                     break;
 
                 case 1:
-                    //Round 2 Dialogue
+                    //Round 2 Dialogue [Bent Char is cursed - positive reaction]
 
                     break;
 
                 case 2:
-                    //Round 3 Dialogue
+                    //Round 3 Dialogue [Gud Char is Cursed - angsty response]
 
                     break;
 
@@ -220,6 +249,9 @@ public class DialogueManager_002 : MonoBehaviour
             }
         }
     }
-    
+    void EndDialogue(string endText1, string endText2)
+    {
+
+    }
 
 }

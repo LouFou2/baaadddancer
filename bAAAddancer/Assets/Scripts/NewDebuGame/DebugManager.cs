@@ -14,7 +14,7 @@ public class DebugManager : MonoBehaviour
     [SerializeField] private GameObject dialogueObjectParent;
 
     [SerializeField] private CharacterData[] charsData;
-    [SerializeField] private GameObject[] chars;
+    //[SerializeField] private GameObject[] chars;
     [SerializeField] private GameObject[] charQuadObjects;
     [SerializeField] private GameObject charSelectObject;
 
@@ -60,16 +60,16 @@ public class DebugManager : MonoBehaviour
     {
         sceneSwitcher = FindObjectOfType<SceneSwitcher>();
 
-        for(int i = 0; i < chars.Length; i++)
+        for(int i = 0; i < charsData.Length; i++)
         {
-            chars[i].SetActive(false);
+            //chars[i].SetActive(false);
 
             if (charsData[i].lastCursedCharacter)
             {
-                chars[i].SetActive(true);
+                //chars[i].SetActive(true);
                 charsData[i].wasDebuggedLastRound = true;
             }
-            if (charsData[i].characterRoleSelect == CharacterData.CharacterRole.Player)
+            /*if (charsData[i].characterRoleSelect == CharacterData.CharacterRole.Player)
             {
                 chars[i].SetActive(true);
                 // Deactivate all child objects
@@ -77,7 +77,7 @@ public class DebugManager : MonoBehaviour
                 {
                     child.gameObject.SetActive(false);
                 }
-            }
+            }*/
         }
 
         foreach (GameObject panel1Object in panel1Objects)
@@ -98,10 +98,10 @@ public class DebugManager : MonoBehaviour
         dialogueObjectParent.SetActive(false);
         isChoosingDebugChar = true;
 
-        foreach (GameObject character in chars)
+        /*foreach (GameObject character in chars)
         {
             character.SetActive(false);
-        }
+        }*/
         foreach (GameObject panel1Object in panel1Objects)
         {
             panel1Object.SetActive(true);

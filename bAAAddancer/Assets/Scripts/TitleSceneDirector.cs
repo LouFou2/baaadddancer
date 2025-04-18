@@ -164,6 +164,7 @@ public class TitleSceneDirector : MonoBehaviour
             charSelectAudioSource.Play();
             // this is probably a bad way to do this, but oh well:
             characterManager.characterDataSOs[currentCharacterIndex].characterRoleSelect = CharacterData.CharacterRole.Player;
+            characterManager.characterDataSOs[currentCharacterIndex].charAlignment = CharacterData.CharacterAlignment.Player;
             currentCharacter.SetActive(false);
             titleSceneState = TitleSceneState.SceneEnd;
         }

@@ -7,7 +7,7 @@ public class CharacterData : ScriptableObject
     public CharacterRole characterRoleSelect;
 
     // Alignment
-    public enum CharacterAlignment { Gud1, Gud2, Neutral, Bent1, Bent2 }
+    public enum CharacterAlignment { Gud1, Gud2, Neutral, Bent1, Bent2, Player }
     public CharacterAlignment charAlignment;
 
     // Speakers
