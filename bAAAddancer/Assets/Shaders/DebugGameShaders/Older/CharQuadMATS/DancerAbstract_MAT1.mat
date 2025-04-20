@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DancerAbstract_MAT2
+  m_Name: DancerAbstract_MAT1
   m_Shader: {fileID: -6465566751694194690, guid: bd61c693af6b88f4f883aefe08b37dae,
     type: 3}
   m_ValidKeywords: []
@@ -48,9 +48,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Bar: 0.5
-    - _Beat: 0.25
+    - _Bar: 0
+    - _Beat: 0.5
     - _Count: 0
+    - _GlitchLerp: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:

@@ -4,19 +4,54 @@ using UnityEngine;
 
 public class DancerShaderHandler : MonoBehaviour
 {
-    [SerializeField] private Material dancerAbstractMat;
-    private SimpleCounter counter;
+    [SerializeField] private Material[] dancerAbstractMat; //assign in inspector
+    [SerializeField] private ClockCounter counter;
+    [SerializeField] private CharacterManager charManager;
+
+    [SerializeField] float time = 0;
+    float beatDuration; // to be used to lerp glitch effect
+    [SerializeField] float lerpValue;
+
+    private void OnEnable()
+    {
+        ClockCounter.On_Q_Beat_Trigger += On_Q_BeatHandler; // Subscribe to the beat trigger event
+    }
+    private void OnDisable()
+    {
+        ClockCounter.On_Q_Beat_Trigger -= On_Q_BeatHandler; // Subscribe to the beat trigger event
+    }
 
     private void Start()
     {
-        counter = FindObjectOfType<SimpleCounter>();
-        dancerAbstractMat = GetComponent<MeshRenderer>().material;
+        counter = FindObjectOfType<ClockCounter>();
+        charManager = FindObjectOfType<CharacterManager>();
+
+        CharacterData[] characterData = new CharacterData[6];
+
+        for (int i = 0; i < characterData.Length; i++)
+        {
+            characterData[i] = charManager.characterDataSOs[i];
+            dancerAbstractMat[i].SetFloat("_CursedAmount", characterData[i].infectionLevel);
+        }
     }
     void Update()
     {
-        float beat = Mathf.InverseLerp(0, 4, counter.beat);
-        float bar = Mathf.InverseLerp(0, 4, counter.bar);
-        dancerAbstractMat.SetFloat("_Beat", beat);
-        dancerAbstractMat.SetFloat("_Bar", bar);
+        time += Time.deltaTime;
+        float elapsedTime = beatDuration - time;
+        if (elapsedTime <= 0) time = 0;
+
+        lerpValue = Mathf.InverseLerp(0, beatDuration, elapsedTime);
+
+        for (int i = 0; i < dancerAbstractMat.Length; i++)
+        {
+            dancerAbstractMat[i].SetFloat("_beatDuration", beatDuration);
+            dancerAbstractMat[i].SetFloat("_beatElapsed", lerpValue);
+        }
+        
+    }
+
+    void On_Q_BeatHandler()
+    {
+        beatDuration = counter.Get_Q_BeatInterval() * 4;
     }
 }
