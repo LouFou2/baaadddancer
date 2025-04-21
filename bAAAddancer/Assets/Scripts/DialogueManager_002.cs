@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
@@ -9,11 +10,12 @@ public class DialogueManager_002 : MonoBehaviour
     [SerializeField] private CameraManager camManager;
     [SerializeField] private CharacterManager charManager;
     [SerializeField] private CopyDanceSceneSetup sceneSetup;
+    [SerializeField] private DebugUI_Manager debugUI_Manager;
+    [SerializeField] private GameObject debuggerUIParent;
+    [SerializeField] private GameObject renderTexture; // will deactivate this while it's only UI (doesn't need to be rendering in background)
+    [SerializeField] StopDance stopDanceScript;
 
-    //[SerializeField] private GameObject[] cameraAimTargets; // assign each character's aim target (example head bone) in inspector
     [SerializeField] private int lastCursedIndex;
-
-    //[SerializeField] private Cinemachine.CinemachineVirtualCamera[] virtualCameras;
 
     private bool dialogueStarted;
 
@@ -21,16 +23,17 @@ public class DialogueManager_002 : MonoBehaviour
     private int dialogueLineCount = 0;
 
     private PlayerControls playerControls;
-    private bool skipDialogueTriggered;
 
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private Button button0; // No button
     [SerializeField] private TextMeshProUGUI button0Text;
-    private bool button0clicked = false;
     [SerializeField] private Button button1; // yes button
     [SerializeField] private TextMeshProUGUI button1Text;
+    private bool button0clicked = false;
     private bool button1clicked = false;
+
+    public bool isDebugging = false;
 
 
     private void Awake()
@@ -48,6 +51,8 @@ public class DialogueManager_002 : MonoBehaviour
 
     void Start()
     {
+        debuggerUIParent.SetActive(false);
+
         dialogueStarted = false;
         dialoguePanel.SetActive(false);
         button0.gameObject.SetActive(false);
@@ -75,22 +80,21 @@ public class DialogueManager_002 : MonoBehaviour
     public void StartDancerDialogue() // called from signal emmitter on Timeline
     {
         dialogueStarted = true;
+
+        button0.gameObject.SetActive(true); // button 0 is always in use, for skipping + yes/no options
+        // Select button0
+        EventSystem.current.SetSelectedGameObject(button0.gameObject);
+        button0.Select();
+        button0clicked = false;
+        button1clicked = false;
     }
 
     void Update()
     {
-        // Check Input
-        skipDialogueTriggered = false;
-        if (playerControls.GenericInput.AButton.triggered)
-        {
-            skipDialogueTriggered = true;
-        }
-
         if (!dialogueStarted)
         {
             return;
         }
-
         else
         {
             switch (roundIndex)
@@ -104,66 +108,81 @@ public class DialogueManager_002 : MonoBehaviour
                     {
                         CursedCharResponse("what's happening?");
                         dialogueLineCount = 1;
-                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-                    if (skipDialogueTriggered && dialogueLineCount == 1)
+                    if (button0clicked && dialogueLineCount == 1)
                     {
                         NPCResponse(CharacterData.CharacterAlignment.Gud1, "oh no");
                         dialogueLineCount = 2;
-                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-                    if (skipDialogueTriggered && dialogueLineCount == 2)
+                    if (button0clicked && dialogueLineCount == 2)
                     {
                         PlayerResponse("what?", "");
                         dialogueLineCount = 3;
-                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-                    if (skipDialogueTriggered && dialogueLineCount == 3)
+                    if (button0clicked && dialogueLineCount == 3)
                     {
                         NPCResponse(CharacterData.CharacterAlignment.Gud2, "it's the curse");
                         dialogueLineCount = 4;
-                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-                    if (skipDialogueTriggered && dialogueLineCount == 4)
+                    if (button0clicked && dialogueLineCount == 4)
                     {
                         NPCResponse(CharacterData.CharacterAlignment.Bent2, "what curse?!");
                         dialogueLineCount = 5;
-                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-                    if (skipDialogueTriggered && dialogueLineCount == 5)
+                    if (button0clicked && dialogueLineCount == 5)
                     {
                         NPCResponse(CharacterData.CharacterAlignment.Gud1, "THE CURSE OF THE RAVE DEMON!");
                         dialogueLineCount = 6;
-                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-                    if (skipDialogueTriggered && dialogueLineCount == 6)
+                    if (button0clicked && dialogueLineCount == 6)
                     {
                         NPCResponse(CharacterData.CharacterAlignment.Bent1, "ooh that sounds wicked");
                         dialogueLineCount = 7;
-                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-                    if (skipDialogueTriggered && dialogueLineCount == 7)
+                    if (button0clicked && dialogueLineCount == 7)
                     {
                         NPCResponse(CharacterData.CharacterAlignment.Gud1, "it's messing with our moves!");
                         dialogueLineCount = 8;
-                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-                    if (skipDialogueTriggered && dialogueLineCount == 8)
+                    if (button0clicked && dialogueLineCount == 8)
                     {
                         PlayerResponse("what can we do?", "");
                         dialogueLineCount = 9;
-                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-                    if (skipDialogueTriggered && dialogueLineCount == 9)
+                    if (button0clicked && dialogueLineCount == 9)
                     {
                         NPCResponse(CharacterData.CharacterAlignment.Gud1, "debug! fix it!");
                         dialogueLineCount = 10;
-                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-                    if (skipDialogueTriggered && dialogueLineCount == 10)
+                    if (button0clicked && dialogueLineCount == 10)
                     {
-                        EndDialogue("keep dancing", "fix");
-                        skipDialogueTriggered = false; // ensures it doesn't skip to next line in same frame
+                        DebugChoice("keep dancing", "fix");
+                        dialogueLineCount = 11;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    //this is the debug choice
+                    if (dialogueLineCount == 11 && button0clicked)
+                    {
+                        stopDanceScript.StopTheDance();
+                        dialogueLineCount = 12;
+                        button0clicked = false;
+                    }
+                    // debug choice 2
+                    if (dialogueLineCount == 11 && button1clicked)
+                    {
+                        StartDebugGame();
+                        dialogueLineCount = 12;
+                        button1clicked = false;
                     }
 
                     break;
@@ -195,7 +214,7 @@ public class DialogueManager_002 : MonoBehaviour
     void NPCResponse(CharacterData.CharacterAlignment charAlignment, string dialogueLine)
     {
         dialoguePanel.SetActive(true);
-        button0.gameObject.SetActive(true);
+        button0.Select(); // button 0 is already active
         button1.gameObject.SetActive(false);
 
         for (int i = 0; i < charManager.characterDataSOs.Length; i++)
@@ -213,7 +232,7 @@ public class DialogueManager_002 : MonoBehaviour
     void CursedCharResponse(string dialogueLine)
     {
         dialoguePanel.SetActive(true);
-        button0.gameObject.SetActive(true);
+        button0.Select(); // button 0 is already active
         button1.gameObject.SetActive(false);
 
         for (int i = 0; i < charManager.characterDataSOs.Length; i++)
@@ -231,8 +250,8 @@ public class DialogueManager_002 : MonoBehaviour
     void PlayerResponse(string dialogueLine0, string dialogueLine1)
     {
         dialoguePanel.SetActive(false);
-        button0.gameObject.SetActive(true);
-        if(dialogueLine1 != "") // only need this option if there are two responses
+        button0.Select(); // button 0 is already active
+        if (dialogueLine1 != "") // only need this option if there are two responses
             button1.gameObject.SetActive(true);
 
         for (int i = 0; i < charManager.characterDataSOs.Length; i++)
@@ -249,9 +268,39 @@ public class DialogueManager_002 : MonoBehaviour
             }
         }
     }
-    void EndDialogue(string endText1, string endText2)
+    void DebugChoice(string choiceText1, string choiceText2)
     {
+        dialoguePanel.SetActive(false);
+        button0.Select(); // button 0 is already active
+        button1.gameObject.SetActive(true);
 
+        for (int i = 0; i < charManager.characterDataSOs.Length; i++)
+        {
+            if (charManager.characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player)
+            {
+                // flag the corresponding virtual camera related to current character's index
+                camManager.SetCamera(i);
+
+                // dialogue
+                button0Text.text = choiceText1;
+                button1Text.text = choiceText2;
+            }
+        }
+    }
+    public void Button0Clicked()
+    {
+        button0clicked = true;
+    }
+    public void Button1Clicked()
+    {
+        button1clicked = true;
     }
 
+    void StartDebugGame()
+    {
+        debuggerUIParent.SetActive(true);
+        renderTexture.SetActive(false);
+
+        debugUI_Manager.StartDebugUI();
+    }
 }

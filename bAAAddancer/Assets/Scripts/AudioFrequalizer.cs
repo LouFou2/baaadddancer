@@ -7,6 +7,8 @@ using UnityEngine.UI; //** only needed for debug viz
 public class AudioFrequalizer : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
+    private ClockCounter clockCounter;
+
     public static float[] samples = new float[512];
     public static float[] freqBand8 = new float[8];
     public static float[] freqBand5 = new float[5];
@@ -22,14 +24,24 @@ public class AudioFrequalizer : MonoBehaviour
 
     // Debugging Visualisers ** REMOVE LATER
     [SerializeField] private Image[] freq5BandViz;    // Array to hold the cubes for each frequency band
+    [SerializeField] private Image beatViz;
+    private float beatLightAmount = 0;
+    private float beatDuration;
+    private float beatTime = 0;
 
     private void OnEnable()
     {
         ClockCounter.On_Q_Beat_Trigger += On_Q_BeatHandler; // Subscribe to the beat trigger event
+        ClockCounter.On_Beat_Trigger += OnBeatHandler;
     }
     private void OnDisable()
     {
         ClockCounter.On_Q_Beat_Trigger -= On_Q_BeatHandler; // Subscribe to the beat trigger event
+        ClockCounter.On_Beat_Trigger -= OnBeatHandler;
+    }
+    void Start()
+    {
+        clockCounter = FindObjectOfType<ClockCounter>(); // needed to get beat duration
     }
 
     void Update()
@@ -38,11 +50,24 @@ public class AudioFrequalizer : MonoBehaviour
         MakeFrequencyBands();
         BandBuffer();
         Make5FrequencyBands();
+
+        PulseBeatLight();
         
     }
     void On_Q_BeatHandler()
     {
         Average5BandFreqs();
+    }
+    void OnBeatHandler()
+    {
+        beatLightAmount = 1;
+        beatDuration = clockCounter.GetBeatInterval();
+        beatTime = 0;
+    }
+    void PulseBeatLight()
+    {
+        beatTime += Time.deltaTime;
+        beatLightAmount -= Mathf.Lerp(0, beatDuration, beatTime);
     }
 
     void GetSpectrumAudioSource()
@@ -148,6 +173,8 @@ public class AudioFrequalizer : MonoBehaviour
                 freq5BandViz[i].rectTransform.localScale = new Vector3(freq5BandViz[i].rectTransform.localScale.x, height, freq5BandViz[i].rectTransform.localScale.z);  // Adjust height (y-axis scale)
             }
         }
-        
+        Color color = beatViz.color;
+        color.a = beatLightAmount;
+        beatViz.color = color;
     }
 }

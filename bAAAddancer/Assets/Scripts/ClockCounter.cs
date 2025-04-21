@@ -32,6 +32,10 @@ public class ClockCounter : MonoBehaviour
         beatInterval = 60f / (bpm * steps);
         q_BeatInterval = beatInterval * 0.25f; // calculate for quarter beats
     }
+    public float GetTempo()
+    {
+        return beatsPerMinute;
+    }
     private void Update()
     {
         audioClip = audioSource.clip;

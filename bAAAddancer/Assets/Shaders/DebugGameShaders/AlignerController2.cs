@@ -11,9 +11,15 @@ public class AlignerController2 : MonoBehaviour
     private Vector2 randomAlignVectorL;
     private Vector2 randomAlignVectorR;
 
+    private Vector2 storedInputX = Vector2.zero;
+    private Vector2 storedInputY = Vector2.zero;
+
     private float finalCurseAmount;
 
     private float time;
+
+    public bool isLocked = false;
+    public bool exitAligner = false;
 
     private void Awake()
     {
@@ -48,8 +54,18 @@ public class AlignerController2 : MonoBehaviour
         time += Time.deltaTime;
 
         // Input
-        Vector2 controlInputL = playerControls.GenericInput.LThumb.ReadValue<Vector2>();
-        Vector2 controlInputR = playerControls.GenericInput.RThumb.ReadValue<Vector2>();
+        if (!isLocked) // it will store the last input(or defaults) when the aligners get locked  
+        {
+            storedInputX = playerControls.GenericInput.LThumb.ReadValue<Vector2>();
+            storedInputY = playerControls.GenericInput.RThumb.ReadValue<Vector2>();
+        }
+        Vector2 controlInputL = storedInputX;
+        Vector2 controlInputR = storedInputY;
+
+        if (playerControls.GenericInput.RTrigger.triggered)
+        {
+            isLocked = !isLocked;
+        }
 
         // Interference / random movement
         // 1. the amplitude = the discrepency between the random mystery value and the input
@@ -57,12 +73,11 @@ public class AlignerController2 : MonoBehaviour
         float ampX = Vector2.Distance(randomAlignVectorL, controlInputL) * 0.5f; // we half this range because the range is 0-2
         float ampY = Vector2.Distance(randomAlignVectorR, controlInputR) * 0.5f; // e.g. (0,-1) - (0, 1) = (0, -2) 
 
-        float freqX = Mathf.Lerp(100f, 0.5f, ampX); // see how the speed will be faster the closer we are to the mystery value (the smaller the distance)
-        float freqY = Mathf.Lerp(100f, 0.5f, ampY);
+        float freqX = Mathf.Lerp(10f, 0.5f, ampX); // see how the speed will be faster the closer we are to the mystery value (the smaller the distance)
+        float freqY = Mathf.Lerp(20f, 0.5f, ampY);
 
         float xBarSineValue = Mathf.Sin(time * freqX) * ampX;
         float yBarSineValue = Mathf.Sin(time * freqY) * ampY;
-
 
         // Remap to 0-1 values
         float remapX = Mathf.InverseLerp(-1, 1, xBarSineValue);
@@ -86,5 +101,14 @@ public class AlignerController2 : MonoBehaviour
         // Calculate Final Curse Amount (Debugged)
         finalCurseAmount = (ampX + ampY) * 0.5f;  // can just use the amp calculations (as this is based on the difference between target and input)
 
+        // we check for Exit at the end of calculations
+        if (playerControls.GenericInput.YButton.triggered && isLocked) // can only exit if the aligner is locked
+        {
+
+        }
+    }
+    public float GetFinalCurseAmount()
+    {
+        return finalCurseAmount;
     }
 }
