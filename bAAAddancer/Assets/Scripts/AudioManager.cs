@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    /*[SerializeField] private AudioSource music;
-    [SerializeField] private AudioSource countIn;*/
     [SerializeField] private ClockCounter clockCounter;
 
     private bool isCountingIn = false;
@@ -20,6 +18,7 @@ public class AudioManager : MonoBehaviour
 
     private int countInIndex = -1;
 
+    public static event System.Action On_TrackStarted; //subscribed to by the debugGameAudioManager
 
     private void OnEnable()
     {
@@ -124,6 +123,8 @@ public class AudioManager : MonoBehaviour
                 trackAudio.Stop();
                 trackAudio.volume = 1;
                 trackAudio.Play();
+
+                On_TrackStarted?.Invoke(); // this is so the AudioSource parameters can be passed (to the debug audio manager) once its started 
             }
             //count to 4 and then switch to music
 

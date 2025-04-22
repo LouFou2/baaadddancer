@@ -47,7 +47,16 @@ public class DancerShaderHandler : MonoBehaviour
             dancerAbstractMat[i].SetFloat("_beatDuration", beatDuration);
             dancerAbstractMat[i].SetFloat("_beatElapsed", lerpValue);
         }
-        
+    }
+    public void UpdateDancerAbstractShaders() // will be called by the DebugUI_Manager after debug is finished: EndDebugUI()
+    {
+        CharacterData[] characterData = new CharacterData[6];
+
+        for (int i = 0; i < characterData.Length; i++)
+        {
+            characterData[i] = charManager.characterDataSOs[i];
+            dancerAbstractMat[i].SetFloat("_CursedAmount", characterData[i].infectionLevel);
+        }
     }
 
     void On_Q_BeatHandler()

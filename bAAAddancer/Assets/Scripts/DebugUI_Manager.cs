@@ -16,6 +16,7 @@ public class DebugUI_Manager : MonoBehaviour // this manager also supervises the
     [SerializeField] private CameraManager camManager;
     [SerializeField] private DebugGameAudioManager debugAudioManager;
     [SerializeField] private AlignerController2 alignerController;
+    [SerializeField] private DancerShaderHandler abstractsShadersHandler;
 
     private int selectedCharacter = -1;
     private float debuggedCharFinalAlignment = 0;
@@ -71,6 +72,8 @@ public class DebugUI_Manager : MonoBehaviour // this manager also supervises the
         renderTexturePanel.SetActive(false);
         exitButton.SetActive(false);
         alignerGroup.SetActive(false);
+
+        abstractsShadersHandler.UpdateDancerAbstractShaders();
 
         On_DebugComplete?.Invoke(); //subscribed to by the dialogue manager
     }

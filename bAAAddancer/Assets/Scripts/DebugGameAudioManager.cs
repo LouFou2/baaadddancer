@@ -19,11 +19,22 @@ public class DebugGameAudioManager : MonoBehaviour //the debug audio is supervis
     public bool debugUIRunning = false; //this gets triggered from the DebugUI_Manager
     public bool alignerGameRunning = false; //also this
 
+    private void OnEnable()
+    {
+        AudioManager.On_TrackStarted += TrackStartedHandler; // we use this so we only set all parameters AFTER track play starts (else volume is still 0)
+    }
+    private void OnDisable()
+    {
+        AudioManager.On_TrackStarted -= TrackStartedHandler;
+    }
+
     void Start()
     {
         clockCounter = FindObjectOfType<ClockCounter>();
         tempo = clockCounter.GetTempo();
-
+    }
+    void TrackStartedHandler()
+    {
         volume = audioSource.volume;
         pitch = audioSource.pitch;
         cutOff = audioSource.GetComponent<AudioLowPassFilter>().cutoffFrequency;
