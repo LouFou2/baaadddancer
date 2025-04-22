@@ -9,6 +9,7 @@ public class DialogueManager_002 : MonoBehaviour
 {
     [SerializeField] private CameraManager camManager;
     [SerializeField] private CharacterManager charManager;
+    [SerializeField] private CurseManager curseManager; // we need to check average team cursed level (to affect gud chars responses)
     [SerializeField] private CopyDanceSceneSetup sceneSetup;
     [SerializeField] private DebugUI_Manager debugUI_Manager;
     [SerializeField] private GameObject debuggerUIParent;
@@ -18,6 +19,7 @@ public class DialogueManager_002 : MonoBehaviour
     [SerializeField] private int lastCursedIndex;
 
     private bool dialogueStarted;
+    private bool debugRunning = false;
 
     [SerializeField] private int roundIndex;
     private int dialogueLineCount = 0;
@@ -43,10 +45,12 @@ public class DialogueManager_002 : MonoBehaviour
     private void OnEnable()
     {
         playerControls.Enable();
+        DebugUI_Manager.On_DebugComplete += EndDebugHandler;
     }
     private void OnDisable()
     {
         playerControls.Disable();
+        DebugUI_Manager.On_DebugComplete -= EndDebugHandler;
     }
 
     void Start()
@@ -184,7 +188,37 @@ public class DialogueManager_002 : MonoBehaviour
                         dialogueLineCount = 12;
                         button1clicked = false;
                     }
+                    // this is the end
+                    if (dialogueLineCount == 12 && !debugRunning) // this gets cued after debug game, not by button click
+                    {
+                        // we need to check the cursed level of the last character
+                        float averageTeamCurse = curseManager.GetAverageTeamInfection();
 
+                        if (averageTeamCurse >= 0.125f) // the first round the max average is 0.25, so this is half
+                        {
+                            NPCResponse(CharacterData.CharacterAlignment.Gud1, "i don't know how we will win like this");
+                            dialogueLineCount = 13;
+                            button0clicked = false; // ensures it doesn't skip to next line in same frame
+                        }
+                        if (averageTeamCurse < 0.125f) // the first round the max average is 0.25, so this is half
+                        {
+                            NPCResponse(CharacterData.CharacterAlignment.Gud1, "ok i guess you're trying your best");
+                            dialogueLineCount = 13;
+                            button0clicked = false; // ensures it doesn't skip to next line in same frame
+                        }
+                    }
+                    if (button0clicked && dialogueLineCount == 13)
+                    {
+                        EndSceneChoice("let's keep dancing", "");
+                        dialogueLineCount = 14; 
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    if (button0clicked && dialogueLineCount == 14)
+                    {
+                        //END THE SCENE
+                        dialogueLineCount = -1;
+                        stopDanceScript.StopTheDance();
+                    }
                     break;
 
                 case 1:
@@ -226,7 +260,6 @@ public class DialogueManager_002 : MonoBehaviour
                 dialogueText.text = dialogueLine;
                 button0Text.text = ">";
             }
-            
         }
     }
     void CursedCharResponse(string dialogueLine)
@@ -241,7 +274,7 @@ public class DialogueManager_002 : MonoBehaviour
             {
                 // flag the corresponding virtual camera related to current character's index
                 camManager.SetCamera(i);
-                CharacterData.CharacterAlignment charAlignment = charManager.characterDataSOs[i].charAlignment;
+                CharacterData.CharacterAlignment charAlignment = charManager.characterDataSOs[i].charAlignment; //**REMOVE?
                 dialogueText.text = dialogueLine;
                 button0Text.text = ">";
             }
@@ -302,5 +335,42 @@ public class DialogueManager_002 : MonoBehaviour
         renderTexture.SetActive(false);
 
         debugUI_Manager.StartDebugUI();
+
+        debugRunning = true;
+    }
+    void EndDebugHandler()
+    {
+        debugRunning = false;
+
+        debuggerUIParent.SetActive(false);
+        renderTexture.SetActive(true);
+
+        button0.gameObject.SetActive(true); // button 0 is always in use, for skipping + yes/no options
+        // Select button0
+        EventSystem.current.SetSelectedGameObject(button0.gameObject);
+        button0.Select();
+        button0clicked = false;
+        button1clicked = false;
+    }
+    void EndSceneChoice(string dialogueLine0, string dialogueLine1)
+    {
+        dialoguePanel.SetActive(false);
+        button0.Select(); // button 0 is already active
+        if (dialogueLine1 != "") // only need this option if there are two responses
+            button1.gameObject.SetActive(true);
+
+        for (int i = 0; i < charManager.characterDataSOs.Length; i++)
+        {
+            if (charManager.characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player)
+            {
+                // flag the corresponding virtual camera related to current character's index
+                camManager.SetCamera(i);
+
+                // dialogue
+                button0Text.text = dialogueLine0;
+                if (dialogueLine1 != "")
+                    button1Text.text = dialogueLine1;
+            }
+        }
     }
 }

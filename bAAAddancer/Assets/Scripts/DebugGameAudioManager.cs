@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebugGameAudioManager : MonoBehaviour
+public class DebugGameAudioManager : MonoBehaviour //the debug audio is supervised by the DebugUI_Manager
 {
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AlignerController2 alignController;
@@ -16,9 +16,8 @@ public class DebugGameAudioManager : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float delayWet;
     [SerializeField] [Range(10, 60)] private float delayAmount;
 
-    public bool alignerGameRunning = false; //this gets triggered from the DebugUI_Manager
-
-
+    public bool debugUIRunning = false; //this gets triggered from the DebugUI_Manager
+    public bool alignerGameRunning = false; //also this
 
     void Start()
     {
@@ -31,10 +30,31 @@ public class DebugGameAudioManager : MonoBehaviour
         delayAmount = audioSource.GetComponent<AudioEchoFilter>().delay;
         delayWet = audioSource.GetComponent<AudioEchoFilter>().wetMix;
     }
+    // these methods are called from DialogueManager_002 === 
+    public void StartDebugUIAudio() 
+    {
+        debugUIRunning = true;
+    }
+    public void EndDebugUIAudio()
+    {
+        debugUIRunning = false;
+    }
+    public void StartAlignerAudio()
+    {
+        alignerGameRunning = true;
+    }
+    public void EndAlignerAudio()
+    {
+        alignerGameRunning = false;
+    }
+    // ===
 
     void Update()
     {
-        //*** TODO: WE NEED LOGIC TO START "ALIGNER GAME RUNNING"
+        if (!debugUIRunning)
+        {
+            return;
+        }
 
 
 

@@ -14,12 +14,14 @@ public class AlignerController2 : MonoBehaviour
     private Vector2 storedInputX = Vector2.zero;
     private Vector2 storedInputY = Vector2.zero;
 
-    private float finalCurseAmount;
+    private float finalAlignedAmount;
 
     private float time;
 
     public bool isLocked = false;
-    public bool exitAligner = false;
+    public bool alignerRunning = false;
+
+    public static event System.Action On_AlignerComplete; // subscribed to by the DebugUI_Manager, and the Curse Manager
 
     private void Awake()
     {
@@ -51,6 +53,11 @@ public class AlignerController2 : MonoBehaviour
 
     void Update()
     {
+        if (!alignerRunning)
+        {
+            return;
+        }
+
         time += Time.deltaTime;
 
         // Input
@@ -99,16 +106,27 @@ public class AlignerController2 : MonoBehaviour
         alignerImageMAT.SetVector("_ThumbInputY", remapThumbR);
 
         // Calculate Final Curse Amount (Debugged)
-        finalCurseAmount = (ampX + ampY) * 0.5f;  // can just use the amp calculations (as this is based on the difference between target and input)
+        finalAlignedAmount = (ampX + ampY) * 0.5f;  // can just use the amp calculations (as this is based on the difference between target and input)
 
         // we check for Exit at the end of calculations
         if (playerControls.GenericInput.YButton.triggered && isLocked) // can only exit if the aligner is locked
         {
-
+            EndAligner();
         }
     }
-    public float GetFinalCurseAmount()
+    public void StartAligner() // called from the DebugUI_Manager
     {
-        return finalCurseAmount;
+        alignerRunning = true;
+    }
+    public void EndAligner() 
+    {
+        alignerRunning = false;
+        On_AlignerComplete?.Invoke(); // subscribed to by the DebugUI_Manager
+
+    }
+
+    public float GetFinalAlignedAmount()
+    {
+        return finalAlignedAmount;
     }
 }

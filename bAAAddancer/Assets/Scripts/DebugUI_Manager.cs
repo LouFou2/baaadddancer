@@ -4,35 +4,82 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class DebugUI_Manager : MonoBehaviour
+public class DebugUI_Manager : MonoBehaviour // this manager also supervises the debug audio
 {
     [SerializeField] private GameObject abstractsButtonsPanel;
     [SerializeField] private GameObject renderTexturePanel;
+    [SerializeField] private GameObject exitButton;
     [SerializeField] private GameObject alignerGroup;
 
     [SerializeField] private Button[] abstractButtons;
 
     [SerializeField] private CameraManager camManager;
     [SerializeField] private DebugGameAudioManager debugAudioManager;
+    [SerializeField] private AlignerController2 alignerController;
 
-    private int selectedButton = -1;
+    private int selectedCharacter = -1;
+    private float debuggedCharFinalAlignment = 0;
 
+    private bool debugRunning = false;
+    private bool alignerRunning = false;
+
+    private PlayerControls playerControls;
+
+    public static event System.Action On_DebugComplete; //subscribed to by the dialogue manager_002
+
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
+    private void OnEnable()
+    {
+        playerControls.Enable();
+        AlignerController2.On_AlignerComplete += AlignerCompleteHandler; // from the aligner controller
+    }
+    private void OnDisable()
+    {
+        playerControls.Disable();
+        AlignerController2.On_AlignerComplete -= AlignerCompleteHandler; // from the aligner controller
+    }
     private void Start()
     {
         abstractsButtonsPanel.SetActive(false);
         renderTexturePanel.SetActive(false);
+        exitButton.SetActive(false);
         alignerGroup.SetActive(false);
     }
     public void StartDebugUI()
     {
+        debugRunning = true;
+
+        debugAudioManager.StartDebugUIAudio(); // this is a lazy way to code I know
+
         abstractsButtonsPanel.SetActive(true);
         renderTexturePanel.SetActive(true);
+        exitButton.SetActive(true);
 
         EventSystem.current.SetSelectedGameObject(abstractButtons[0].gameObject);
         abstractButtons[0].Select();
     }
+    public void EndDebugUI()
+    {
+        debugRunning = false;
+
+        debugAudioManager.EndDebugUIAudio(); // this is a lazy way to code I know
+
+        abstractsButtonsPanel.SetActive(false);
+        renderTexturePanel.SetActive(false);
+        exitButton.SetActive(false);
+        alignerGroup.SetActive(false);
+
+        On_DebugComplete?.Invoke(); //subscribed to by the dialogue manager
+    }
     private void Update()
     {
+        if (!debugRunning || alignerRunning) // we don't need this button+camera switching logic to run all the time!
+        {
+            return;
+        }
         GameObject current = EventSystem.current.currentSelectedGameObject;
 
         if (current != null)
@@ -41,21 +88,51 @@ public class DebugUI_Manager : MonoBehaviour
             {
                 if (current == abstractButtons[i].gameObject)
                 {
-                    selectedButton = i;
+                    selectedCharacter = i;
                     camManager.SetCamera(i);
                 }
             }
         }
+
+        // exit
+        if (playerControls.GenericInput.YButton.triggered)
+        {
+            EndDebugUI();
+        }
     }
     public void ButtonClicked()
     {
+        alignerRunning = true;
+
         abstractsButtonsPanel.SetActive(false);
         renderTexturePanel.SetActive(false);
+        exitButton.SetActive(false);
         alignerGroup.SetActive(true);
 
-        debugAudioManager.alignerGameRunning = true; // this is a lazy way to code I know
+        // this is a lazy way to code I know
+        alignerController.StartAligner();
+        debugAudioManager.StartAlignerAudio();
 
-        // we can use the selectedButton index
+        // we can use the selectedButton index + "finalAlignedAmount" from alignerController
+        // to adjust character[at index] curse level
     }
-    
+    void AlignerCompleteHandler()
+    {
+        alignerRunning = false;
+
+        abstractsButtonsPanel.SetActive(true);
+        renderTexturePanel.SetActive(true);
+        exitButton.SetActive(true);
+        alignerGroup.SetActive(false);
+
+        debuggedCharFinalAlignment = alignerController.GetFinalAlignedAmount();
+    }
+    public int GetSelectedDebugChar()
+    {
+        return selectedCharacter;
+    }
+    public float GetDebugCharAlignment()
+    {
+        return debuggedCharFinalAlignment;
+    }
 }
