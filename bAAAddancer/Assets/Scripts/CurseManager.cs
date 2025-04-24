@@ -32,12 +32,6 @@ public class CurseManager : MonoBehaviour
         characterManager = FindObjectOfType<CharacterManager>();
         debugUI_Manager = FindObjectOfType<DebugUI_Manager>();
 
-        if (characterManager == null)
-        {
-            Debug.LogError("CharacterManager not found!");
-            return;
-        }
-
         // Temporary list to track characters that have had their infection level increased
         List<CharacterData> infectedCharacters = new List<CharacterData>();
 

@@ -11,10 +11,17 @@ public class StopDance : MonoBehaviour
     [SerializeField] private float pitchDecreaseSpeed = 0.1f;
     [SerializeField] private float yieldDuration = 0.1f;
 
+    private int roundIndex = -1;
+
     public UnityEvent StopDanceEvent;
+    public UnityEvent GotoRaveEvent;
+
+
     private void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
+
+        roundIndex = GameManager.Instance.GetCurrentRound();
     }
     public void StopTheDance()
     {
@@ -47,7 +54,10 @@ public class StopDance : MonoBehaviour
             }
             yield return new WaitForSeconds(yieldDuration);
         }
-        StopDanceEvent.Invoke(); // Switches Scene + Round
+        if (roundIndex <= 3)
+            StopDanceEvent?.Invoke(); // Switches Scene + Round
+        else if (roundIndex == 4)
+            GotoRaveEvent?.Invoke();
     }
     
 }

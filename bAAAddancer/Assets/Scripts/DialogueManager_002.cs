@@ -16,13 +16,14 @@ public class DialogueManager_002 : MonoBehaviour
     [SerializeField] private GameObject renderTexture; // will deactivate this while it's only UI (doesn't need to be rendering in background)
     [SerializeField] StopDance stopDanceScript;
 
-    [SerializeField] private int lastCursedIndex;
+    private int lastCursedIndex;
+    private int playerIndex;
 
     private bool dialogueStarted;
     private bool debugRunning = false;
 
     [SerializeField] private int roundIndex;
-    private int dialogueLineCount = 0;
+    [SerializeField] private int dialogueLineCount = 0;
 
     private PlayerControls playerControls;
 
@@ -63,19 +64,16 @@ public class DialogueManager_002 : MonoBehaviour
         button1.gameObject.SetActive(false);
 
         // find the last cursed character
-        if (charManager != null)
+        for(int i = 0; i < charManager.characterDataSOs.Length; i++)
         {
-            for(int i = 0; i < charManager.characterDataSOs.Length; i++)
+            if (charManager.characterDataSOs[i].lastCursedCharacter)
             {
-                if (charManager.characterDataSOs[i].lastCursedCharacter)
-                {
-                    lastCursedIndex = i;
-                }
+                lastCursedIndex = i;
             }
-        }
-        else
-        {
-            Debug.LogWarning("assign char manager in inspector");
+            if (charManager.characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player)
+            {
+                playerIndex = i;
+            }
         }
 
         roundIndex = GameManager.Instance.GetCurrentRound();
@@ -223,17 +221,88 @@ public class DialogueManager_002 : MonoBehaviour
 
                 case 1:
                     //Round 2 Dialogue [Bent Char is cursed - positive reaction]
+                    if (dialogueLineCount == 0)
+                    {
+                        CursedCharResponse("whoa check out these moves!");
+                        dialogueLineCount = 1;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
 
+
+                    if (button0clicked && dialogueLineCount == 1)
+                    {
+                        EndSceneChoice("gotta keep dancing", "");
+                        dialogueLineCount = 14;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    if (button0clicked && dialogueLineCount == 14)
+                    {
+                        //END THE SCENE
+                        dialogueLineCount = 0;
+                        stopDanceScript.StopTheDance();
+                    }
                     break;
 
                 case 2:
                     //Round 3 Dialogue [Gud Char is Cursed - angsty response]
+                    if (dialogueLineCount == 0)
+                    {
+                        // Here we need to track if player has been debuggin the team or letting things get bent...
+                        // because if game is played straight, the character will respond straight
+                        // or if game is played bent, character will respond more positively
+                        float averageTeamCurse = curseManager.GetAverageTeamInfection();
+                        if(averageTeamCurse >= 0.4) // *** adjust this if needed
+                            CursedCharResponse("i'm not sure, but i think i like this");
+                        else
+                            CursedCharResponse("whyyyyyy?!"); 
+                        dialogueLineCount = 1;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
 
+
+                    if (button0clicked && dialogueLineCount == 1)
+                    {
+                        EndSceneChoice("one more move", "");
+                        dialogueLineCount = 14;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    if (button0clicked && dialogueLineCount == 14)
+                    {
+                        //END THE SCENE
+                        dialogueLineCount = 0;
+                        stopDanceScript.StopTheDance();
+                    }
                     break;
 
                 case 3:
                     //Round 4 Dialogue
+                    if (dialogueLineCount == 0)
+                    {
+                        // Again, we need to track if player has been debuggin the team or letting things get bent...
+                        // because if game is played straight, the character will respond straight
+                        // or if game is played bent, character will respond more positively
+                        float averageTeamCurse = curseManager.GetAverageTeamInfection();
+                        if (averageTeamCurse >= 0.7) // *** adjust this if needed
+                            CursedCharResponse("...");
+                        else
+                            CursedCharResponse("i feel so stupid");
+                        dialogueLineCount = 1;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
 
+
+                    if (button0clicked && dialogueLineCount == 1)
+                    {
+                        EndSceneChoice("it's time...", "");
+                        dialogueLineCount = 14;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    if (button0clicked && dialogueLineCount == 14)
+                    {
+                        //END THE SCENE
+                        dialogueLineCount = 0;
+                        stopDanceScript.StopTheDance();
+                    }
                     break;
 
 
@@ -268,17 +337,10 @@ public class DialogueManager_002 : MonoBehaviour
         button0.Select(); // button 0 is already active
         button1.gameObject.SetActive(false);
 
-        for (int i = 0; i < charManager.characterDataSOs.Length; i++)
-        {
-            if (charManager.characterDataSOs[i].lastCursedCharacter)
-            {
-                // flag the corresponding virtual camera related to current character's index
-                camManager.SetCamera(i);
-                CharacterData.CharacterAlignment charAlignment = charManager.characterDataSOs[i].charAlignment; //**REMOVE?
-                dialogueText.text = dialogueLine;
-                button0Text.text = ">";
-            }
-        }
+        // flag the corresponding virtual camera related to current character's index
+        camManager.SetCamera(lastCursedIndex);
+        dialogueText.text = dialogueLine;
+        button0Text.text = ">";
     }
     void PlayerResponse(string dialogueLine0, string dialogueLine1)
     {
@@ -287,19 +349,11 @@ public class DialogueManager_002 : MonoBehaviour
         if (dialogueLine1 != "") // only need this option if there are two responses
             button1.gameObject.SetActive(true);
 
-        for (int i = 0; i < charManager.characterDataSOs.Length; i++)
-        {
-            if (charManager.characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player)
-            {
-                // flag the corresponding virtual camera related to current character's index
-                camManager.SetCamera(i);
-                
-                // dialogue
-                button0Text.text = dialogueLine0;
-                if (dialogueLine1 != "")
-                    button1Text.text = dialogueLine1;
-            }
-        }
+        camManager.SetCamera(playerIndex);
+        // dialogue
+        button0Text.text = dialogueLine0;
+        if (dialogueLine1 != "")
+            button1Text.text = dialogueLine1;
     }
     void DebugChoice(string choiceText1, string choiceText2)
     {
@@ -307,18 +361,10 @@ public class DialogueManager_002 : MonoBehaviour
         button0.Select(); // button 0 is already active
         button1.gameObject.SetActive(true);
 
-        for (int i = 0; i < charManager.characterDataSOs.Length; i++)
-        {
-            if (charManager.characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player)
-            {
-                // flag the corresponding virtual camera related to current character's index
-                camManager.SetCamera(i);
-
-                // dialogue
-                button0Text.text = choiceText1;
-                button1Text.text = choiceText2;
-            }
-        }
+        camManager.SetCamera(playerIndex);
+        // dialogue
+        button0Text.text = choiceText1;
+        button1Text.text = choiceText2;
     }
     public void Button0Clicked()
     {
@@ -359,18 +405,11 @@ public class DialogueManager_002 : MonoBehaviour
         if (dialogueLine1 != "") // only need this option if there are two responses
             button1.gameObject.SetActive(true);
 
-        for (int i = 0; i < charManager.characterDataSOs.Length; i++)
-        {
-            if (charManager.characterDataSOs[i].characterRoleSelect == CharacterData.CharacterRole.Player)
-            {
-                // flag the corresponding virtual camera related to current character's index
-                camManager.SetCamera(i);
-
-                // dialogue
-                button0Text.text = dialogueLine0;
-                if (dialogueLine1 != "")
-                    button1Text.text = dialogueLine1;
-            }
-        }
+        // flag the corresponding virtual camera related to current character's index
+        camManager.SetCamera(playerIndex);
+        // dialogue
+        button0Text.text = dialogueLine0;
+        if (dialogueLine1 != "")
+            button1Text.text = dialogueLine1;
     }
 }

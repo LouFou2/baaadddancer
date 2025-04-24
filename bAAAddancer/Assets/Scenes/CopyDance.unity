@@ -5262,14 +5262,41 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2245521105316463185}
         m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
-        m_MethodName: LoadSceneByIndex
-        m_Mode: 3
+        m_MethodName: LoadSceneByName
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
+          m_StringArgument: MakeDance
+          m_BoolArgument: 0
+        m_CallState: 2
+  GotoRaveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2245521105316463185}
+        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
+        m_MethodName: SwitchToNextLevelKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2245521105316463185}
+        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
+        m_MethodName: LoadSceneByName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: RaveScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!4 &764003289
@@ -11155,8 +11182,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655557442}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.05, y: 0.937, z: 3.87}
+  m_LocalRotation: {x: -0.0000000017511685, y: 0.9992587, z: -0.038497712, w: -0.00000004545388}
+  m_LocalPosition: {x: -1, y: 1.31, z: 1.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
