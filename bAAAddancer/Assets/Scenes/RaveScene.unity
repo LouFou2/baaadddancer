@@ -5831,7 +5831,7 @@ PrefabInstance:
     - target: {fileID: 3792555083311728394, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 3792555083311728394, guid: b5d074a6ba6a7fc4b85c77fdb040ebe3,
         type: 3}
@@ -9111,7 +9111,7 @@ PrefabInstance:
     - target: {fileID: 6287802055087992148, guid: c2f38aca245f47f4d9b41b6fb6f365c4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6287802055087992148, guid: c2f38aca245f47f4d9b41b6fb6f365c4,
         type: 3}
@@ -9221,7 +9221,7 @@ PrefabInstance:
     - target: {fileID: 7810042939209934836, guid: c2f38aca245f47f4d9b41b6fb6f365c4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0000001211554
+      value: -0.00000011920929
       objectReference: {fileID: 0}
     - target: {fileID: 9068449920813407905, guid: c2f38aca245f47f4d9b41b6fb6f365c4,
         type: 3}
@@ -15951,7 +15951,7 @@ PrefabInstance:
     - target: {fileID: 3071805456118796677, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3071805456118796677, guid: bbe790757afa2bb4aa2de0ff0aaf0ee1,
         type: 3}
@@ -19451,8 +19451,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9276578d198fdf47bff15f42a8643f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  audioClip: {fileID: 0}
   beatsPerMinute: 120
-  beatsPerBar: 16
+  steps: 1
   q_BeatsPerBar: 64
   isRunning: 0
 --- !u!4 &1236057303
@@ -20259,12 +20261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48bae3831730d024cb3c3e4a9a4b07ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charSetupTransforms:
-  - {fileID: 1935991305}
-  - {fileID: 1964474788}
-  - {fileID: 9996608}
-  - {fileID: 680499583}
-  - {fileID: 804597767}
 --- !u!1 &1267081984
 GameObject:
   m_ObjectHideFlags: 0
@@ -24705,7 +24701,7 @@ PrefabInstance:
     - target: {fileID: 5098225752689066440, guid: 16b7a2a336056a54593cf9292a17ca1b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00000011920929
+      value: -0.00000023841858
       objectReference: {fileID: 0}
     - target: {fileID: 6993059129713413561, guid: 16b7a2a336056a54593cf9292a17ca1b,
         type: 3}
@@ -24955,7 +24951,7 @@ PrefabInstance:
     - target: {fileID: 9183213052882148689, guid: 16b7a2a336056a54593cf9292a17ca1b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 9183213052882148689, guid: 16b7a2a336056a54593cf9292a17ca1b,
         type: 3}
@@ -27324,7 +27320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1675794013
 Transform:
   m_ObjectHideFlags: 0
@@ -29664,7 +29660,7 @@ PrefabInstance:
     - target: {fileID: 3129477824244321666, guid: d6205e1c08d675c4ead561695434af55,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3129477824244321666, guid: d6205e1c08d675c4ead561695434af55,
         type: 3}
@@ -30619,7 +30615,7 @@ PrefabInstance:
     - target: {fileID: 4995396964648918972, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4995396964648918972, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
@@ -30729,7 +30725,7 @@ PrefabInstance:
     - target: {fileID: 6536675739291684875, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00000012681056
+      value: -0.00000011920929
       objectReference: {fileID: 0}
     - target: {fileID: 7122832944459567341, guid: 4d0f9f92e028ed34c84dc80208a80523,
         type: 3}

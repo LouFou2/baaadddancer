@@ -5,14 +5,27 @@ using UnityEngine;
 public class RaveSceneSetup : MonoBehaviour
 {
     private CharacterManager characterManager;
-    [SerializeField] private GameObject[] charSetupTransforms;
+    //[SerializeField] private GameObject[] charSetupTransforms;
     void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
 
+        foreach (GameObject character in characterManager.characters)
+        {
+            CopyProxyRig copyProxyRig = character.GetComponent<CopyProxyRig>();
+            CopyDance copyDanceScript = character.GetComponent<CopyDance>();
+
+            character.SetActive(true);
+            copyProxyRig.enabled = false;
+            copyDanceScript.enabled = true;
+        }
+
+
+        // ** THIS IS THE OLDER LOGIC THAT HAD AN ELIMINATED CHARACTER
+        /*
         int charIndex = 0;
 
-        for (int i = 0; i < characterManager.characters.Length; i++) // we subtract 1 here because 1 of the characters are eliminated
+        for (int i = 0; i < characterManager.characters.Length; i++)
         {
             GameObject character = characterManager.characters[i];
             CharacterData charData = characterManager.characterDataSOs[i];
@@ -43,6 +56,6 @@ public class RaveSceneSetup : MonoBehaviour
                 }
             }
 
-        }
+        }*/
     }
 }

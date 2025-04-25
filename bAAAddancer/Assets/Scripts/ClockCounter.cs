@@ -42,18 +42,11 @@ public class ClockCounter : MonoBehaviour
         float sampledTime = (audioSource.timeSamples / (audioSource.clip.frequency * q_BeatInterval));
         CheckForNewInterval(sampledTime);
     }
-/*
-    // Coroutine for beat timing
-    private IEnumerator BeatCoroutine()
+    public void StartClock() // called from Timeline 
     {
-        while (isRunning)
-        {
-            yield return new WaitForSeconds(q_BeatInterval);
-
-            Q_Beat(); // Quarter beats are used for music sequencer
-        }
+        current_Q_Beat = 0; // Current quarter beat count
+        currentBeat = 0;
     }
-*/
     
     public void CheckForNewInterval(float interval)
     {
@@ -80,27 +73,6 @@ public class ClockCounter : MonoBehaviour
             currentBeat = (int)(current_Q_Beat * 0.25f);
         }
     }
-
-/*
-    // Old Method to handle each beat
-    private void Q_Beat() // Quarter beats are used for music sequencer
-    {
-        current_Q_Beat++;
-        if (current_Q_Beat > q_BeatsPerBar - 1)
-        {
-            current_Q_Beat = 0; // Reset to the first beat of the bar
-        }
-
-        // Invoke event for beat trigger
-        On_Interval_Trigger?.Invoke();
-
-        // Invoke event for beat trigger (every 4 quarter beats)
-        if (current_Q_Beat == 0 || current_Q_Beat % 4 == 0)
-        {
-            currentBeat = current_Q_Beat == 0 ? 0 : (int)(current_Q_Beat * 0.25f);
-        }
-    }
-*/
 
     // Method to get the current beat count
     public int GetCurrent_Q_Beat()

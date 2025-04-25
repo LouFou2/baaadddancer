@@ -6,7 +6,7 @@ public class CurseManager : MonoBehaviour
     private CharacterManager characterManager;
     private DebugUI_Manager debugUI_Manager;
 
-    private float averageInfection; // this is used to pass to the player at the end of the scene
+    [SerializeField] private float averageInfection; // this is used to pass to the player at the end of the scene
 
     private void OnEnable()
     {
@@ -68,9 +68,6 @@ public class CurseManager : MonoBehaviour
                 selectCharIndex = GetCharByAlignment(CharacterData.CharacterAlignment.Gud2);
                 break;
             case 3:
-                selectCharIndex = GetCharByAlignment(CharacterData.CharacterAlignment.Bent2);
-                break;
-            case 4:
                 selectCharIndex = GetCharByAlignment(CharacterData.CharacterAlignment.Gud1);
                 break;
             default:
@@ -92,7 +89,19 @@ public class CurseManager : MonoBehaviour
         foreach (CharacterData characterData in characterManager.characterDataSOs)
         {
             if (characterData.infectionLevel > 1) characterData.infectionLevel = 1; //clamp at max 1
+
+            // last round gives the remaining player the average curse level too
+            if (roundIndex == 3)
+            {
+                if (characterData != null && characterData.charAlignment == CharacterData.CharacterAlignment.Bent2)
+                {
+                    //Player gets average of all chars' infections
+                    characterData.infectionLevel = averageInfection;
+                }
+            }
         }
+
+        
     }
 
     private int GetCharByAlignment(CharacterData.CharacterAlignment charAlignment)

@@ -128,6 +128,9 @@ public class DebugUI_Manager : MonoBehaviour // this manager also supervises the
         exitButton.SetActive(true);
         alignerGroup.SetActive(false);
 
+        EventSystem.current.SetSelectedGameObject(abstractButtons[0].gameObject);
+        abstractButtons[0].Select();
+
         debuggedCharFinalAlignment = alignerController.GetFinalAlignedAmount();
     }
     public int GetSelectedDebugChar()

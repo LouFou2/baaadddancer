@@ -54,9 +54,9 @@ public class StopDance : MonoBehaviour
             }
             yield return new WaitForSeconds(yieldDuration);
         }
-        if (roundIndex <= 3)
+        if (roundIndex < 3) // until round 4 we do the practice gameloop
             StopDanceEvent?.Invoke(); // Switches Scene + Round
-        else if (roundIndex == 4)
+        else if (roundIndex == 3) // end of round 4 we go to the rave
             GotoRaveEvent?.Invoke();
     }
     

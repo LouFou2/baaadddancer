@@ -36,6 +36,8 @@ public class DialogueManager_002 : MonoBehaviour
     private bool button0clicked = false;
     private bool button1clicked = false;
 
+    [SerializeField] private float curseTolerance = 0.6f;
+
     public bool isDebugging = false;
 
 
@@ -99,6 +101,7 @@ public class DialogueManager_002 : MonoBehaviour
         }
         else
         {
+            float averageTeamCurse = curseManager.GetAverageTeamInfection();
             switch (roundIndex)
             {
                 case -1: // no dialogue/ not started
@@ -190,9 +193,9 @@ public class DialogueManager_002 : MonoBehaviour
                     if (dialogueLineCount == 12 && !debugRunning) // this gets cued after debug game, not by button click
                     {
                         // we need to check the cursed level of the last character
-                        float averageTeamCurse = curseManager.GetAverageTeamInfection();
+                        curseTolerance = 0.125f; // the first round the max average is 0.25, so this is half
 
-                        if (averageTeamCurse >= 0.125f) // the first round the max average is 0.25, so this is half
+                        if (averageTeamCurse >= curseTolerance) 
                         {
                             NPCResponse(CharacterData.CharacterAlignment.Gud1, "i don't know how we will win like this");
                             dialogueLineCount = 13;
@@ -228,8 +231,28 @@ public class DialogueManager_002 : MonoBehaviour
                         button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
 
-
                     if (button0clicked && dialogueLineCount == 1)
+                    {
+                        DebugChoice("keep dancing", "fix");
+                        dialogueLineCount = 11;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    //this is the debug choice
+                    if (dialogueLineCount == 11 && button0clicked)
+                    {
+                        stopDanceScript.StopTheDance();
+                        dialogueLineCount = 12;
+                        button0clicked = false;
+                    }
+                    // debug choice 2
+                    if (dialogueLineCount == 11 && button1clicked)
+                    {
+                        StartDebugGame();
+                        dialogueLineCount = 12;
+                        button1clicked = false;
+                    }
+
+                    if (button0clicked && dialogueLineCount == 12)
                     {
                         EndSceneChoice("gotta keep dancing", "");
                         dialogueLineCount = 14;
@@ -238,20 +261,21 @@ public class DialogueManager_002 : MonoBehaviour
                     if (button0clicked && dialogueLineCount == 14)
                     {
                         //END THE SCENE
-                        dialogueLineCount = 0;
+                        dialogueLineCount = -1;
                         stopDanceScript.StopTheDance();
                     }
                     break;
 
                 case 2:
                     //Round 3 Dialogue [Gud Char is Cursed - angsty response]
+                    curseTolerance = 0.4f;
+
                     if (dialogueLineCount == 0)
                     {
                         // Here we need to track if player has been debuggin the team or letting things get bent...
                         // because if game is played straight, the character will respond straight
                         // or if game is played bent, character will respond more positively
-                        float averageTeamCurse = curseManager.GetAverageTeamInfection();
-                        if(averageTeamCurse >= 0.4) // *** adjust this if needed
+                        if(averageTeamCurse >= curseTolerance) // *** adjust this if needed
                             CursedCharResponse("i'm not sure, but i think i like this");
                         else
                             CursedCharResponse("whyyyyyy?!"); 
@@ -259,8 +283,28 @@ public class DialogueManager_002 : MonoBehaviour
                         button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
 
-
                     if (button0clicked && dialogueLineCount == 1)
+                    {
+                        DebugChoice("keep dancing", "fix");
+                        dialogueLineCount = 11;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    //this is the debug choice
+                    if (dialogueLineCount == 11 && button0clicked)
+                    {
+                        stopDanceScript.StopTheDance();
+                        dialogueLineCount = 12;
+                        button0clicked = false;
+                    }
+                    // debug choice 2
+                    if (dialogueLineCount == 11 && button1clicked)
+                    {
+                        StartDebugGame();
+                        dialogueLineCount = 12;
+                        button1clicked = false;
+                    }
+
+                    if (button0clicked && dialogueLineCount == 12)
                     {
                         EndSceneChoice("one more move", "");
                         dialogueLineCount = 14;
@@ -269,29 +313,68 @@ public class DialogueManager_002 : MonoBehaviour
                     if (button0clicked && dialogueLineCount == 14)
                     {
                         //END THE SCENE
-                        dialogueLineCount = 0;
+                        dialogueLineCount = -1;
                         stopDanceScript.StopTheDance();
                     }
                     break;
 
                 case 3:
-                    //Round 4 Dialogue
+                    //Round 4 Dialogue [ Gud 1 is cursed, either turns proud cursed or stays extra gud ]
+                    curseTolerance = 0.6f; // *** adjust this if needed
+
                     if (dialogueLineCount == 0)
                     {
                         // Again, we need to track if player has been debuggin the team or letting things get bent...
                         // because if game is played straight, the character will respond straight
                         // or if game is played bent, character will respond more positively
-                        float averageTeamCurse = curseManager.GetAverageTeamInfection();
-                        if (averageTeamCurse >= 0.7) // *** adjust this if needed
+                        if (averageTeamCurse >= curseTolerance) 
                             CursedCharResponse("...");
                         else
                             CursedCharResponse("i feel so stupid");
                         dialogueLineCount = 1;
                         button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-
-
                     if (button0clicked && dialogueLineCount == 1)
+                    {
+                        if (averageTeamCurse >= curseTolerance)
+                            PlayerResponse("i think you look fabulous", "");
+                        else
+                            PlayerResponse("i'll straighten this out", "i think you look fabulous");
+                        dialogueLineCount = 2;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    if (dialogueLineCount == 2)
+                    {
+                        if (averageTeamCurse >= curseTolerance)
+                            CursedCharResponse("...i...think... this might be ...the new me");
+                        else
+                            CursedCharResponse("let's beat this game");
+                        dialogueLineCount = 3;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
+
+                    if (button0clicked && dialogueLineCount == 3)
+                    {
+                        DebugChoice("keep dancing", "straighten things out");
+                        dialogueLineCount = 11;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    //this is the debug choice
+                    if (dialogueLineCount == 11 && button0clicked)
+                    {
+                        stopDanceScript.StopTheDance();
+                        dialogueLineCount = 12;
+                        button0clicked = false;
+                    }
+                    // debug choice 2
+                    if (dialogueLineCount == 11 && button1clicked)
+                    {
+                        StartDebugGame();
+                        dialogueLineCount = 12;
+                        button1clicked = false;
+                    }
+
+                    if (button0clicked && dialogueLineCount == 12)
                     {
                         EndSceneChoice("it's time...", "");
                         dialogueLineCount = 14;
@@ -300,7 +383,7 @@ public class DialogueManager_002 : MonoBehaviour
                     if (button0clicked && dialogueLineCount == 14)
                     {
                         //END THE SCENE
-                        dialogueLineCount = 0;
+                        dialogueLineCount = -1;
                         stopDanceScript.StopTheDance();
                     }
                     break;
