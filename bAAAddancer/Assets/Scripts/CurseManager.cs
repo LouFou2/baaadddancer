@@ -76,6 +76,11 @@ public class CurseManager : MonoBehaviour
                 break;
         }
 
+        if (roundIndex == 4) // meaning, this is the rave scene
+        {
+            return; // * this could rather be somthing special that happens to curse levels
+        }
+
         CharacterData selectedCharacter = characterManager.characterDataSOs[selectCharIndex];
 
         // Infect the selected character
@@ -100,8 +105,6 @@ public class CurseManager : MonoBehaviour
                 }
             }
         }
-
-        
     }
 
     private int GetCharByAlignment(CharacterData.CharacterAlignment charAlignment)

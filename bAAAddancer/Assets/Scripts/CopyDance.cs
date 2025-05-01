@@ -32,6 +32,8 @@ public class CopyDance : MonoBehaviour
     private bool isCountingIn = true;
     private int countInIndex = -1;
 
+    bool isRaveScene = false;
+
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -58,7 +60,15 @@ public class CopyDance : MonoBehaviour
             Debug.LogError("no clock counter in scene");
 
         currentRound = GameManager.Instance.GetCurrentRound();
-        roundSwitcherIndex = GameManager.Instance.GetCurrentRound();
+        roundSwitcherIndex = currentRound;
+
+        if (currentRound == 4) // for the Rave Scene, we revert to the first round for moves and everything
+        {
+            isRaveScene = true;
+            currentRound = 3;
+            roundSwitcherIndex = 0;
+        }
+            
 
         //grab the initial root position (before any position changes)
         objectsAndMoveData[0].initialRootPosition = objectsAndMoveData[0].copyObject.transform.position; //*** the script that re-positions characters at the start of the scene might mess this up
@@ -111,7 +121,7 @@ public class CopyDance : MonoBehaviour
     }
     private void Update()
     {
-        if (currentRound >= 1) 
+        if (currentRound >= 1 || isRaveScene) 
         {
             if (playerControls.GenericInput.LBumper.triggered && !updatingRoundSequence)
             {
@@ -164,7 +174,7 @@ public class CopyDance : MonoBehaviour
 
     private void On_Q_BeatHandler()
     {
-        if (isCountingIn)
+        if (isCountingIn && !isRaveScene)
         {
             countInIndex++;
             if (countInIndex == 20) // 4* 4 qbeats = 16 ..+4 -> to start on the next beat ...=20
@@ -172,7 +182,15 @@ public class CopyDance : MonoBehaviour
                 isCountingIn = false;
             }
         }
-        
+        if (isCountingIn && isRaveScene)
+        {
+            countInIndex++;
+            if (countInIndex == 132) //  16(qbeats) * 8 bars (=128)..+4 to start on the next beat -> 132
+            {
+                isCountingIn = false;
+            }
+        }
+
         if (!isCountingIn)
         {
             if (!raveDemonReveal)

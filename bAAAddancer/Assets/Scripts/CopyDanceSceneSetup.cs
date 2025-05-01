@@ -6,10 +6,15 @@ public class CopyDanceSceneSetup : MonoBehaviour
     [SerializeField] private GameObject playerSetupTransforms;
     [SerializeField] private GameObject[] npcSetupTransforms;
 
+    [SerializeField] private GameObject playerRaveSetupTransforms;
+    [SerializeField] private GameObject[] npcRaveSetupTransforms;
+
     public bool charsPositionedInScene;
 
     void Start()
     {
+        int roundIndex = GameManager.Instance.GetCurrentRound();
+
         charsPositionedInScene = false;
 
         characterManager = FindObjectOfType<CharacterManager>();
@@ -29,16 +34,35 @@ public class CopyDanceSceneSetup : MonoBehaviour
 
             if (characterProfile.characterDataSO.characterRoleSelect == CharacterData.CharacterRole.Player)
             {
-                //copyDanceScript.enabled = false;
                 copyDanceScript.enabled = true;
-                character.transform.position = playerSetupTransforms.transform.position;
-                character.transform.rotation = playerSetupTransforms.transform.rotation;
+
+                if (roundIndex < 4)
+                {
+                    character.transform.position = playerSetupTransforms.transform.position;
+                    character.transform.rotation = playerSetupTransforms.transform.rotation;
+                }
+                if (roundIndex == 4)
+                {
+                    character.transform.position = playerRaveSetupTransforms.transform.position;
+                    character.transform.rotation = playerRaveSetupTransforms.transform.rotation;
+                }
+
             }
             else
             {
                 copyDanceScript.enabled = true;
-                character.transform.position = npcSetupTransforms[npcIndex].transform.position;
-                character.transform.rotation = npcSetupTransforms[npcIndex].transform.rotation;
+
+                if (roundIndex < 4)
+                {
+                    character.transform.position = npcSetupTransforms[npcIndex].transform.position;
+                    character.transform.rotation = npcSetupTransforms[npcIndex].transform.rotation;
+                }
+                if (roundIndex == 4)
+                {
+                    character.transform.position = npcRaveSetupTransforms[npcIndex].transform.position;
+                    character.transform.rotation = npcRaveSetupTransforms[npcIndex].transform.rotation;
+                }
+                    
 
                 npcIndex++;
             }

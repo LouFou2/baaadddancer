@@ -4,6 +4,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private ClockCounter clockCounter;
+    [SerializeField] private CurseManager curseManager;
 
     private bool isCountingIn = false;
 
@@ -11,7 +12,7 @@ public class AudioManager : MonoBehaviour
     // * we need to do this because the clock counter syncs with one audio source, so it makes things easier
     [SerializeField] private AudioSource trackAudio;
 
-    [SerializeField] private AudioClip[] musicTracks = new AudioClip[8];
+    [SerializeField] private AudioClip[] musicTracks = new AudioClip[10]; // 2 different tracks for game rounds, plus two different for Rave Scene (gud/cursed)
     [SerializeField] private AudioClip[] countInClips = new AudioClip[8];
 
     private AudioClip currentMusicClip; 
@@ -19,6 +20,8 @@ public class AudioManager : MonoBehaviour
     private int countInIndex = -1;
 
     public static event System.Action On_TrackStarted; //subscribed to by the debugGameAudioManager
+
+    private bool isRaveScene = false;
 
     private void OnEnable()
     {
@@ -33,6 +36,8 @@ public class AudioManager : MonoBehaviour
         isCountingIn = true;
 
         clockCounter = FindObjectOfType<ClockCounter>();
+        curseManager = FindObjectOfType<CurseManager>();
+
         LevelKey currentLevelKey = GameManager.Instance.GetCurrentLevelKey();
 
         AudioClip musicTrack = null;
@@ -88,13 +93,35 @@ public class AudioManager : MonoBehaviour
                     countInClip = countInClips[7];
                     break;
                 }
+
+            case LevelKey.RaveScene:
+                {
+                    isRaveScene = true;
+                    // we need to check if the game was played gud or cursed
+                    float teamCurse = curseManager.GetAverageTeamInfection();
+
+                    // if game is gud
+                    if(teamCurse < 0.25f) // adjust as needed
+                        musicTrack = musicTracks[8]; // the gud track
+
+                    // if game is cursed
+                    else
+                        musicTrack = musicTracks[9]; // the gud track
+                    //no count-in clip
+                    break;
+                }
+
             default:
                 currentLevelKey = LevelKey.IntroMakeDance;
                 break;
         }
         currentMusicClip = musicTrack;
 
-        trackAudio.clip = countInClip;
+        if(countInClip != null)
+            trackAudio.clip = countInClip;
+        else
+            trackAudio.clip = musicTrack; // this is the condition in the Rave Scene
+
         trackAudio.Stop();
         trackAudio.volume = 0;
         trackAudio.Play();
@@ -114,7 +141,7 @@ public class AudioManager : MonoBehaviour
 
     private void On_BeatHandler()
     {
-        if (isCountingIn)
+        if (isCountingIn && !isRaveScene)
         {
             countInIndex++;
 
@@ -138,6 +165,21 @@ public class AudioManager : MonoBehaviour
                 trackAudio.Play();
             }
         }
-        
+
+        if (isRaveScene && isCountingIn)
+        {
+            countInIndex++;
+
+            if (countInIndex == 0)
+            {
+                trackAudio.Stop();
+                trackAudio.volume = 1;
+                trackAudio.Play();
+
+                On_TrackStarted?.Invoke(); // this is so the AudioSource parameters can be passed (to the debug audio manager) once its started
+                isCountingIn = false;
+            }
+        }
+
     }
 }

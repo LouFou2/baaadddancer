@@ -41,7 +41,12 @@ public class DanceSeqSwitchUI_Manager : MonoBehaviour
         if (skipPrevNextButtons != null)
             skipPrevNextButtons.SetActive(false);
         currentRoundIndex = GameManager.Instance.GetCurrentRound();
-        imageSwitcherIndex = currentRoundIndex;
+
+        if (currentRoundIndex != 4) // *** because 4 is the Rave Scene
+            imageSwitcherIndex = currentRoundIndex;
+        else
+            currentRoundIndex = 3;
+            imageSwitcherIndex = 0; // we just set it to the first index for the Rave
 
         if (skipPrevNextButtons != null) 
         {

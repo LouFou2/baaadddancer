@@ -83,14 +83,22 @@ public class DialogueManager_002 : MonoBehaviour
 
     public void StartDancerDialogue() // called from signal emmitter on Timeline
     {
-        dialogueStarted = true;
+        if (roundIndex < 4)
+        {
+            dialogueStarted = true;
 
-        button0.gameObject.SetActive(true); // button 0 is always in use, for skipping + yes/no options
-        // Select button0
-        EventSystem.current.SetSelectedGameObject(button0.gameObject);
-        button0.Select();
-        button0clicked = false;
-        button1clicked = false;
+            button0.gameObject.SetActive(true); // button 0 is always in use, for skipping + yes/no options
+                                                // Select button0
+            EventSystem.current.SetSelectedGameObject(button0.gameObject);
+            button0.Select();
+            button0clicked = false;
+            button1clicked = false;
+        }
+        if (roundIndex == 4) // this means its the rave scene
+        {
+            Debug.Log("Rave Scene...");
+            dialogueStarted = false; // Update loop will not happen
+        }
     }
 
     void Update()
@@ -387,8 +395,6 @@ public class DialogueManager_002 : MonoBehaviour
                         stopDanceScript.StopTheDance();
                     }
                     break;
-
-
 
                 default:
                     roundIndex = -1;
