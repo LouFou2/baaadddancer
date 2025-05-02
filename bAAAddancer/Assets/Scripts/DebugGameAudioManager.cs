@@ -67,7 +67,12 @@ public class DebugGameAudioManager : MonoBehaviour //the debug audio is supervis
             return;
         }
 
-
+        //Logic to manipulate Audio Effects
+        float alignAmount = 1 - alignController.GetFinalAlignedAmount();
+        cutOff = Mathf.Lerp(240, 22000, alignAmount);
+        delayWet = Mathf.Lerp(1, 0, alignAmount);
+        delayAmount = Mathf.Lerp(100, 10, alignAmount);
+        pitch = Mathf.Lerp(1.5f, 1, alignAmount);
 
         // set all the values
         if (alignerGameRunning)

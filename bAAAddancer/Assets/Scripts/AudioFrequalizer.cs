@@ -44,7 +44,7 @@ public class AudioFrequalizer : MonoBehaviour
         clockCounter = FindObjectOfType<ClockCounter>(); // needed to get beat duration
     }
 
-    void Update()
+    /*void Update()
     {
         GetSpectrumAudioSource();
         MakeFrequencyBands();
@@ -53,9 +53,16 @@ public class AudioFrequalizer : MonoBehaviour
 
         PulseBeatLight();
         
-    }
+    }*/
     void On_Q_BeatHandler()
     {
+        GetSpectrumAudioSource();
+        MakeFrequencyBands();
+        BandBuffer();
+        Make5FrequencyBands();
+
+        PulseBeatLight();
+
         Average5BandFreqs();
     }
     void OnBeatHandler()

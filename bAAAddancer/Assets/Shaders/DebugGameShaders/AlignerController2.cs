@@ -6,6 +6,7 @@ public class AlignerController2 : MonoBehaviour
 {
     private PlayerControls playerControls;
 
+    [SerializeField] private UIControlsAnimManager uiAnimsManager;
     [SerializeField] private Material alignerImageMAT; // assign in inspector
 
     private Vector2 randomAlignVectorL;
@@ -117,12 +118,13 @@ public class AlignerController2 : MonoBehaviour
     public void StartAligner() // called from the DebugUI_Manager
     {
         alignerRunning = true;
+        isLocked = false;
+        uiAnimsManager.StartUIAnims();
     }
     public void EndAligner() 
     {
         alignerRunning = false;
         On_AlignerComplete?.Invoke(); // subscribed to by the DebugUI_Manager
-
     }
 
     public float GetFinalAlignedAmount()

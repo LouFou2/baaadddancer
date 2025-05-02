@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIControlsAnimManager : MonoBehaviour
+public class UIControlsAnimManager : MonoBehaviour // This is the Debug / NormAligner game
 {
     [SerializeField] private AlignerController2 alignController; // assign in inspector
     [SerializeField] private GameObject thumbStickL;
@@ -48,7 +48,7 @@ public class UIControlsAnimManager : MonoBehaviour
         triggerRScale = rectTransformTriggerR.localScale;
         exitButtonScale = rectTransformExitButton.localScale;
 
-        StartCoroutine(UIAnimsCoroutine());
+        //StartCoroutine(UIAnimsCoroutine());
     }
     private void Update()
     {

@@ -76,7 +76,7 @@ public class CurseManager : MonoBehaviour
                 break;
         }
 
-        if (roundIndex == 4) // meaning, this is the rave scene
+        if (roundIndex == 4) // meaning, this is the rave scene, we don't try the processes below this (we'll have null errors)
         {
             return; // * this could rather be somthing special that happens to curse levels
         }

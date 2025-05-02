@@ -110,6 +110,7 @@ public class DialogueManager_002 : MonoBehaviour
         else
         {
             float averageTeamCurse = curseManager.GetAverageTeamInfection();
+            Debug.Log("Average Team Curse: " + averageTeamCurse);
             switch (roundIndex)
             {
                 case -1: // no dialogue/ not started
@@ -276,7 +277,7 @@ public class DialogueManager_002 : MonoBehaviour
 
                 case 2:
                     //Round 3 Dialogue [Gud Char is Cursed - angsty response]
-                    curseTolerance = 0.4f;
+                    curseTolerance = 0.3f;
 
                     if (dialogueLineCount == 0)
                     {
@@ -328,7 +329,7 @@ public class DialogueManager_002 : MonoBehaviour
 
                 case 3:
                     //Round 4 Dialogue [ Gud 1 is cursed, either turns proud cursed or stays extra gud ]
-                    curseTolerance = 0.6f; // *** adjust this if needed
+                    curseTolerance = 0.4f; // *** adjust this if needed
 
                     if (dialogueLineCount == 0)
                     {
@@ -351,7 +352,7 @@ public class DialogueManager_002 : MonoBehaviour
                         dialogueLineCount = 2;
                         button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
-                    if (dialogueLineCount == 2)
+                    if (button0clicked && dialogueLineCount == 2)
                     {
                         if (averageTeamCurse >= curseTolerance)
                             CursedCharResponse("...i...think... this might be ...the new me");
