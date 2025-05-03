@@ -110,7 +110,7 @@ public class DialogueManager_002 : MonoBehaviour
         else
         {
             float averageTeamCurse = curseManager.GetAverageTeamInfection();
-            Debug.Log("Average Team Curse: " + averageTeamCurse);
+            //Debug.Log("Average Team Curse: " + averageTeamCurse);
             switch (roundIndex)
             {
                 case -1: // no dialogue/ not started

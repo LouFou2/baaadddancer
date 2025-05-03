@@ -41,15 +41,21 @@ public class AlignerController2 : MonoBehaviour
     {
         // Set L Thumb random target Vector on circumference
         float angleL = Random.Range(0f, Mathf.PI * 2);
-        randomAlignVectorL = new Vector2(Mathf.Cos(angleL), Mathf.Sin(angleL));
+        randomAlignVectorL = new Vector2(Mathf.Cos(angleL), Mathf.Sin(angleL)); // (-1, -1) to (1, 1) range
+
+        //***this is just for debugging. it is remapped 0-1 for input value because we use UV coordinates in the shader/material
         Vector2 remappedTargetL = new Vector2(Mathf.InverseLerp(-1f, 1f, randomAlignVectorL.x), Mathf.InverseLerp(-1f, 1f, randomAlignVectorL.y));
         alignerImageMAT.SetVector("_TempDebugTargetL", remappedTargetL);
+        //***
 
         // Set R Thumb random target Vector on circumference
         float angleR = Random.Range(0f, Mathf.PI * 2);
-        randomAlignVectorR = new Vector2(Mathf.Cos(angleR), Mathf.Sin(angleR));
+        randomAlignVectorR = new Vector2(Mathf.Cos(angleR), Mathf.Sin(angleR)); // (-1, -1) to (1, 1) range
+
+        //***just for debugging.
         Vector2 remappedTargetR = new Vector2(Mathf.InverseLerp(-1f, 1f, randomAlignVectorR.x), Mathf.InverseLerp(-1f, 1f, randomAlignVectorR.y));
         alignerImageMAT.SetVector("_TempDebugTargetR", remappedTargetR);
+        //***
     }
 
     void Update()
@@ -70,6 +76,9 @@ public class AlignerController2 : MonoBehaviour
         Vector2 controlInputL = storedInputX;
         Vector2 controlInputR = storedInputY;
 
+        float thumbAmountL = controlInputL.magnitude;
+        float thumbAmountR = controlInputR.magnitude; // this returns 0-1
+
         if (playerControls.GenericInput.RTrigger.triggered)
         {
             isLocked = !isLocked;
@@ -78,8 +87,29 @@ public class AlignerController2 : MonoBehaviour
         // Interference / random movement
         // 1. the amplitude = the discrepency between the random mystery value and the input
         // 2. the frequency = faster the closer it gets to the mystery value
-        float ampX = Vector2.Distance(randomAlignVectorL, controlInputL) * 0.5f; // we half this range because the range is 0-2
-        float ampY = Vector2.Distance(randomAlignVectorR, controlInputR) * 0.5f; // e.g. (0,-1) - (0, 1) = (0, -2) 
+
+        Vector2 randomDirX = randomAlignVectorL.normalized; // "X" as in the left thumb controlling the left-right bar
+        Vector2 inputDirX = controlInputL.normalized;
+        
+
+        Vector2 randomDirY = randomAlignVectorR.normalized; // "Y" as in the right thumb controlling the up-down bar
+        Vector2 inputDirY = controlInputR.normalized;
+
+        float alignmentX = Vector2.Dot(randomDirX, inputDirX);
+        float alignmentY = Vector2.Dot(randomDirY, inputDirY);
+
+        float remappedX = Mathf.InverseLerp(-1f, 1f, alignmentX); // 0 = opposite, 1 = aligned
+        float remappedY = Mathf.InverseLerp(-1f, 1f, alignmentY);
+
+        float factorThumbAmountX = remappedX * thumbAmountL; // this uses the amount the thumbstick is pushed to the edge as a factor
+        float factorThumbAmountY = remappedY * thumbAmountR; // so no pushing will 0 out, fully on edge will be * 1
+
+        float ampX = 1 - factorThumbAmountX; // need this because 1 is "max discrepency"
+        float ampY = 1 - factorThumbAmountY;
+
+        //*** CAN REMOVE *** older "distance"/discrepency calculation:
+        /*float ampX = Vector2.Distance(randomAlignVectorL, controlInputL) * 0.5f; // we half this range because the range is 0-2
+        float ampY = Vector2.Distance(randomAlignVectorR, controlInputR) * 0.5f; // e.g. (0,-1) - (0, 1) = (0, -2) */
 
         float freqX = Mathf.Lerp(10f, 0.5f, ampX); // see how the speed will be faster the closer we are to the mystery value (the smaller the distance)
         float freqY = Mathf.Lerp(20f, 0.5f, ampY);
