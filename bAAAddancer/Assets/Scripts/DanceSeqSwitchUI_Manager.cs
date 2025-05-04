@@ -44,9 +44,12 @@ public class DanceSeqSwitchUI_Manager : MonoBehaviour
 
         if (currentRoundIndex != 4) // *** because 4 is the Rave Scene
             imageSwitcherIndex = currentRoundIndex;
-        else
+        else // the rave scene:
+        {
             currentRoundIndex = 3;
             imageSwitcherIndex = 0; // we just set it to the first index for the Rave
+        }
+            
 
         if (skipPrevNextButtons != null) 
         {

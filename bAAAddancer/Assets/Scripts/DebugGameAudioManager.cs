@@ -9,6 +9,7 @@ public class DebugGameAudioManager : MonoBehaviour //the debug audio is supervis
     private ClockCounter clockCounter;
 
     private float tempo;
+    private float beatInterval;
 
     [SerializeField] [Range(0,1)] private float volume;
     [SerializeField] [Range(0.25f, 2)] private float pitch;
@@ -68,11 +69,25 @@ public class DebugGameAudioManager : MonoBehaviour //the debug audio is supervis
         }
 
         //Logic to manipulate Audio Effects
-        float alignAmount = 1 - alignController.GetFinalAlignedAmount();
-        cutOff = Mathf.Lerp(240, 22000, alignAmount);
-        delayWet = Mathf.Lerp(1, 0, alignAmount);
-        delayAmount = Mathf.Lerp(100, 10, alignAmount);
-        pitch = Mathf.Lerp(1.5f, 1, alignAmount);
+
+        beatInterval = clockCounter.GetBeatInterval();
+
+        float alignAmountX = alignController.GetAlignedX();
+        float alignAmountY = alignController.GetAlignedY();
+        float thumbMagX = alignController.GetThumbMagnitudeX();
+        float thumbMagY = alignController.GetThumbMagnitudeY();
+        float barX = alignController.GetBarPosX();
+        float barY = alignController.GetBarPosY();
+
+        //So we just have to decide how to use the 4 value ranges:
+
+        cutOff = Mathf.Lerp(240, 22000, thumbMagY);
+        delayWet = Mathf.Lerp(1, 0, alignAmountY);
+        delayAmount = Mathf.Lerp(beatInterval * 64, beatInterval , alignAmountY);
+        pitch = Mathf.Lerp(0.1f, 1.5f, thumbMagX);
+
+        volume = Mathf.Lerp(0.2f, 1f, barX);
+        cutOff *= Mathf.Lerp(0.05f, 1f, barY); // Note: we multiply the above cutOff value again here, so its an extra factor
 
         // set all the values
         if (alignerGameRunning)

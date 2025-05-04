@@ -15,7 +15,14 @@ public class AlignerController2 : MonoBehaviour
     private Vector2 storedInputX = Vector2.zero;
     private Vector2 storedInputY = Vector2.zero;
 
-    private float finalAlignedAmount;
+    private float finalAlignedAmount; // the total, L + R / X + Y bars
+
+    private float thumbMagnitudeX = 0f;
+    private float thumbMagnitudeY = 0f;
+    private float alignedAmountX = 0f;
+    private float alignedAmountY = 0f;
+    private float barPosX = 0.5f;
+    private float barPosY = 0.5f;
 
     private float time;
 
@@ -70,14 +77,17 @@ public class AlignerController2 : MonoBehaviour
         // Input
         if (!isLocked) // it will store the last input(or defaults) when the aligners get locked  
         {
-            storedInputX = playerControls.GenericInput.LThumb.ReadValue<Vector2>();
-            storedInputY = playerControls.GenericInput.RThumb.ReadValue<Vector2>();
+            storedInputX = playerControls.GenericInput.LThumb.ReadValue<Vector2>(); // Note: the stored inputs onky gets modified if it is not locked
+            storedInputY = playerControls.GenericInput.RThumb.ReadValue<Vector2>(); // otherwise we use a stored value
+
+            thumbMagnitudeX = storedInputX.magnitude; // the magnitude values also gets stored while unlocked
+            thumbMagnitudeY = storedInputY.magnitude;
         }
         Vector2 controlInputL = storedInputX;
         Vector2 controlInputR = storedInputY;
 
-        float thumbAmountL = controlInputL.magnitude;
-        float thumbAmountR = controlInputR.magnitude; // this returns 0-1
+        float thumbAmountL = thumbMagnitudeX;
+        float thumbAmountR = thumbMagnitudeY; // this returns 0-1
 
         if (playerControls.GenericInput.RTrigger.triggered)
         {
@@ -91,7 +101,6 @@ public class AlignerController2 : MonoBehaviour
         Vector2 randomDirX = randomAlignVectorL.normalized; // "X" as in the left thumb controlling the left-right bar
         Vector2 inputDirX = controlInputL.normalized;
         
-
         Vector2 randomDirY = randomAlignVectorR.normalized; // "Y" as in the right thumb controlling the up-down bar
         Vector2 inputDirY = controlInputR.normalized;
 
@@ -101,17 +110,19 @@ public class AlignerController2 : MonoBehaviour
         float remappedX = Mathf.InverseLerp(-1f, 1f, alignmentX); // 0 = opposite, 1 = aligned
         float remappedY = Mathf.InverseLerp(-1f, 1f, alignmentY);
 
+        if (!isLocked)
+        {
+            alignedAmountX = remappedX;
+            alignedAmountY = remappedY;
+        }
+
         float factorThumbAmountX = remappedX * thumbAmountL; // this uses the amount the thumbstick is pushed to the edge as a factor
         float factorThumbAmountY = remappedY * thumbAmountR; // so no pushing will 0 out, fully on edge will be * 1
 
         float ampX = 1 - factorThumbAmountX; // need this because 1 is "max discrepency"
         float ampY = 1 - factorThumbAmountY;
 
-        //*** CAN REMOVE *** older "distance"/discrepency calculation:
-        /*float ampX = Vector2.Distance(randomAlignVectorL, controlInputL) * 0.5f; // we half this range because the range is 0-2
-        float ampY = Vector2.Distance(randomAlignVectorR, controlInputR) * 0.5f; // e.g. (0,-1) - (0, 1) = (0, -2) */
-
-        float freqX = Mathf.Lerp(10f, 0.5f, ampX); // see how the speed will be faster the closer we are to the mystery value (the smaller the distance)
+        float freqX = Mathf.Lerp(20f, 0.5f, ampX); // see how the speed will be faster the closer we are to the mystery value (the smaller the distance)
         float freqY = Mathf.Lerp(20f, 0.5f, ampY);
 
         float xBarSineValue = Mathf.Sin(time * freqX) * ampX;
@@ -120,6 +131,9 @@ public class AlignerController2 : MonoBehaviour
         // Remap to 0-1 values
         float remapX = Mathf.InverseLerp(-1, 1, xBarSineValue);
         float remapY = Mathf.InverseLerp(-1, 1, yBarSineValue);
+
+        barPosX = Mathf.InverseLerp(-1, 1, Mathf.Sin(time * freqX)); //we disregard the "amp" values (so we only use the frequency as LFO effect)
+        barPosY = Mathf.InverseLerp(-1, 1, Mathf.Sin(time * freqY));
 
         // Set Shader Material Values
         alignerImageMAT.SetFloat("_BarPosX", remapX);
@@ -132,6 +146,7 @@ public class AlignerController2 : MonoBehaviour
 
         Vector2 remapThumbL = new Vector2(remapThumbL_X, remapThumbL_Y);
         Vector2 remapThumbR = new Vector2(remapThumbR_X, remapThumbR_Y);
+
 
         alignerImageMAT.SetVector("_ThumbInputX", remapThumbL);
         alignerImageMAT.SetVector("_ThumbInputY", remapThumbR);
@@ -160,5 +175,29 @@ public class AlignerController2 : MonoBehaviour
     public float GetFinalAlignedAmount()
     {
         return finalAlignedAmount;
+    }
+    public float GetAlignedX()
+    {
+        return alignedAmountX;
+    }
+    public float GetAlignedY()
+    {
+        return alignedAmountY;
+    }
+    public float GetThumbMagnitudeX()
+    {
+        return thumbMagnitudeX;
+    }
+    public float GetThumbMagnitudeY()
+    {
+        return thumbMagnitudeY;
+    }
+    public float GetBarPosX()
+    {
+        return barPosX;
+    }
+    public float GetBarPosY()
+    {
+        return barPosY;
     }
 }
