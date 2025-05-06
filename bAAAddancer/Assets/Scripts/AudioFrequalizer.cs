@@ -15,7 +15,7 @@ public class AudioFrequalizer : MonoBehaviour
     public static float[] bandBuffer = new float[8];
     static float[] bufferDecrease = new float[8];
 
-    [SerializeField] private float[] bandPusher5 = new float[5];
+    public float[] bandPusher5 = new float[5];
 
     // THis is to calculate an average value for each frequency band 5:
     public static float[] freqBand5Sum = new float[5];
@@ -28,6 +28,9 @@ public class AudioFrequalizer : MonoBehaviour
     private float beatLightAmount = 0;
     private float beatDuration;
     private float beatTime = 0;
+
+    //*** FOR DEBUGGINH
+    float maxFreqAmount = 0;
 
     private void OnEnable()
     {
@@ -113,7 +116,7 @@ public class AudioFrequalizer : MonoBehaviour
 
             average /= count;
 
-            freqBand8[i] = average * 10;
+            freqBand8[i] = average;
         }
     }
 
@@ -145,6 +148,14 @@ public class AudioFrequalizer : MonoBehaviour
 
         for (int i = 0; i < freqBand5.Length; i++)
         {
+            // **REMOVE LATER, DEBUGGING:
+            if (freqBand5[i] > maxFreqAmount)
+            {
+                maxFreqAmount = freqBand5[i];
+                //Debug.Log("Max Freq Amount: " + maxFreqAmount);
+            }
+            // ***
+
             freqBand5[i] *= bandPusher5[i];
 
             // Accumulate values for averaging
