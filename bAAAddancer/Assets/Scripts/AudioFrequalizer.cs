@@ -64,7 +64,7 @@ public class AudioFrequalizer : MonoBehaviour
         Make5FrequencyBands();
 
         PulseBeatLight();
-        
+
     }*/
     void On_Q_BeatHandler()
     {
