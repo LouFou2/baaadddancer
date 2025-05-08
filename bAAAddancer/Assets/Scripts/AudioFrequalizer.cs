@@ -9,28 +9,37 @@ public class AudioFrequalizer : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     private ClockCounter clockCounter;
 
-    public static float[] samples = new float[512];
-    public static float[] freqBand8 = new float[8];
-    public static float[] freqBand5 = new float[5];
-    public static float[] bandBuffer = new float[8];
-    static float[] bufferDecrease = new float[8];
+    public static float[] samplesL = new float[512];
+    public static float[] samplesR = new float[512];
 
-    public float[] bandPusher5 = new float[5];
+    public static float[] freqBand8L = new float[8];
+    public static float[] freqBand8R = new float[8];
 
-    // THis is to calculate an average value for each frequency band 5:
+    public static float[] freqBand5L = new float[5];
+    public static float[] freqBand5R = new float[5];
+
+    public static float[] bandBufferL = new float[8];
+    public static float[] bandBufferR = new float[8];
+    static float[] bufferDecreaseL = new float[8];
+    static float[] bufferDecreaseR = new float[8];
+
+    public float[] bandPusher5L = new float[5];
+    public float[] bandPusher5R = new float[5];
+
+    /*// THis is to calculate an average value for each frequency band 5: *** REMOVE: don't need averaging
     public static float[] freqBand5Sum = new float[5];
     public static int sampleCount = 0;
-    public static float[] averagedFreqBand5 = new float[5];
+    public static float[] averagedFreqBand5 = new float[5];*/
 
     // Debugging Visualisers ** REMOVE LATER
-    [SerializeField] private Image[] freq5BandViz;    // Array to hold the cubes for each frequency band
+    [SerializeField] private Image[] freq5BandVizL;    // Array to hold the cubes for each frequency band
     [SerializeField] private Image beatViz;
     private float beatLightAmount = 0;
     private float beatDuration;
     private float beatTime = 0;
 
-    //*** FOR DEBUGGINH
-    float maxFreqAmount = 0;
+    //*** FOR DEBUGGING
+    //float maxFreqAmountL = 0;
 
     private void OnEnable()
     {
@@ -66,7 +75,7 @@ public class AudioFrequalizer : MonoBehaviour
 
         PulseBeatLight();
 
-        Average5BandFreqs();
+        DebugVizualize5BandFreqs(); 
     }
     void OnBeatHandler()
     {
@@ -82,7 +91,8 @@ public class AudioFrequalizer : MonoBehaviour
 
     void GetSpectrumAudioSource()
     {
-        audioSource.GetSpectrumData(samples, 0, FFTWindow.Blackman);
+        audioSource.GetSpectrumData(samplesL, 0, FFTWindow.Blackman);
+        audioSource.GetSpectrumData(samplesR, 1, FFTWindow.Blackman);
     }
 
     void MakeFrequencyBands()
@@ -91,7 +101,8 @@ public class AudioFrequalizer : MonoBehaviour
 
         for (int i = 0; i < 8; i++)
         {
-            float average = 0;
+            float averageL = 0;
+            float averageR = 0;
 
             // the calculation below sets up 8 "frequency bands". It works exponentially, rather than dividing all frequencies equally:
             // e.g:
@@ -110,13 +121,16 @@ public class AudioFrequalizer : MonoBehaviour
 
             for (int j = 0; j < sampleCount; j++)
             {
-                average += samples[count] * (count + 1);
+                averageL += samplesL[count] * (count + 1);
+                averageR += samplesR[count] * (count + 1);
                 count++;
             }
 
-            average /= count;
+            averageL /= count;
+            averageR /= count;
 
-            freqBand8[i] = average;
+            freqBand8L[i] = averageL;
+            freqBand8R[i] = averageR;
         }
     }
 
@@ -124,15 +138,26 @@ public class AudioFrequalizer : MonoBehaviour
     {
         for (int i = 0; i < 8; i++)
         {
-            if (freqBand8[i] > bandBuffer[i])
+            if (freqBand8L[i] > bandBufferL[i])
             {
-                bandBuffer[i] = freqBand8[i];
-                bufferDecrease[i] = 0.005f;
+                bandBufferL[i] = freqBand8L[i];
+                bufferDecreaseL[i] = 0.005f;
             }
-            if (freqBand8[i] < bandBuffer[i])
+            if (freqBand8L[i] < bandBufferL[i])
             {
-                bandBuffer[i] -= bufferDecrease[i];
-                bufferDecrease[i] *= 1.2f;
+                bandBufferL[i] -= bufferDecreaseL[i];
+                bufferDecreaseL[i] *= 1.2f;
+            }
+
+            if (freqBand8R[i] > bandBufferR[i])
+            {
+                bandBufferR[i] = freqBand8R[i];
+                bufferDecreaseR[i] = 0.005f;
+            }
+            if (freqBand8R[i] < bandBufferR[i])
+            {
+                bandBufferR[i] -= bufferDecreaseR[i];
+                bufferDecreaseR[i] *= 1.2f;
             }
         }
     }
@@ -140,34 +165,41 @@ public class AudioFrequalizer : MonoBehaviour
     void Make5FrequencyBands()
     {
         // Combine pairs of bands to get a 5-band average
-        freqBand5[0] = (freqBand8[0] + freqBand8[1]) / 2f;
-        freqBand5[1] = (freqBand8[2] + freqBand8[3]) / 2f;
-        freqBand5[2] = freqBand8[4];  // Keep this as a single band
-        freqBand5[3] = freqBand8[5];  // Keep this as a single band
-        freqBand5[4] = (freqBand8[6] + freqBand8[7]) / 2f;
+        freqBand5L[0] = (freqBand8L[0] + freqBand8L[1]) / 2f;
+        freqBand5L[1] = (freqBand8L[2] + freqBand8L[3]) / 2f;
+        freqBand5L[2] = freqBand8L[4];  // Keep this as a single band
+        freqBand5L[3] = freqBand8L[5];  // Keep this as a single band
+        freqBand5L[4] = (freqBand8L[6] + freqBand8L[7]) / 2f;
 
-        for (int i = 0; i < freqBand5.Length; i++)
+        freqBand5R[0] = (freqBand8R[0] + freqBand8R[1]) / 2f;
+        freqBand5R[1] = (freqBand8R[2] + freqBand8R[3]) / 2f;
+        freqBand5R[2] = freqBand8R[4];  // Keep this as a single band
+        freqBand5R[3] = freqBand8R[5];  // Keep this as a single band
+        freqBand5R[4] = (freqBand8R[6] + freqBand8R[7]) / 2f;
+
+        for (int i = 0; i < 5; i++)
         {
-            // **REMOVE LATER, DEBUGGING:
+            /*// **REMOVE LATER, DEBUGGING:
             if (freqBand5[i] > maxFreqAmount)
             {
                 maxFreqAmount = freqBand5[i];
-                //Debug.Log("Max Freq Amount: " + maxFreqAmount);
+                Debug.Log("Max Freq Amount: " + maxFreqAmount);
             }
-            // ***
+            // ****/
 
-            freqBand5[i] *= bandPusher5[i];
+            freqBand5L[i] *= bandPusher5L[i];
+            freqBand5R[i] *= bandPusher5R[i];
 
-            // Accumulate values for averaging
-            freqBand5Sum[i] += freqBand5[i];
+            /*// Accumulate values for averaging *** REMOVE: don't need averaging, as I already only calculate frequency value every q-Beat
+            freqBand5Sum[i] += freqBand5[i];*/
         }
-        sampleCount++;
+        //sampleCount++; *** REMOVE: don't need averaging
     }
-    void Average5BandFreqs()
+    void DebugVizualize5BandFreqs() // *** CAN REMOVE IF NOT USING DEBUG VISUALISATION
     {
-        if (sampleCount == 0) return;
+        /*if (sampleCount == 0) return;
 
-        // Calculate the average
+        // Calculate the average *** REMOVE: don't need averaging, as I already only calculate frequency value every q-Beat
         for (int i = 0; i < 5; i++)
         {
             averagedFreqBand5[i] = freqBand5Sum[i] / sampleCount;
@@ -175,11 +207,11 @@ public class AudioFrequalizer : MonoBehaviour
 
         // Reset accumulators
         freqBand5Sum = new float[5];
-        sampleCount = 0;
+        sampleCount = 0;*/
 
         //*** REMOVE LATER: VIZUALIZERS
         // Update the cubes based on the frequency data every frame
-        if (freq5BandViz.Length != 5)
+        if (freq5BandVizL.Length != 5)
         {
             return;
         }
@@ -187,8 +219,8 @@ public class AudioFrequalizer : MonoBehaviour
         {
             for (int i = 0; i < 5; i++)
             {
-                float height = averagedFreqBand5[i] * 10;  // Scale to make it more visible
-                freq5BandViz[i].rectTransform.localScale = new Vector3(freq5BandViz[i].rectTransform.localScale.x, height, freq5BandViz[i].rectTransform.localScale.z);  // Adjust height (y-axis scale)
+                float height = freqBand5L[i] * 10;  // Scale to make it more visible
+                freq5BandVizL[i].rectTransform.localScale = new Vector3(freq5BandVizL[i].rectTransform.localScale.x, height, freq5BandVizL[i].rectTransform.localScale.z);  // Adjust height (y-axis scale)
             }
         }
         Color color = beatViz.color;

@@ -4,19 +4,40 @@ using UnityEngine;
 
 public class FreqMover : MonoBehaviour // a script to move objects between two positions using frequency analyzer
 {
-    [SerializeField] private ClockCounter clockCounter;
+    //[SerializeField] private ClockCounter clockCounter; //***REMOVE: NOT USING THIS?
     [SerializeField] private AudioFrequalizer audioFrequalizer;
-    private float[] freqValues = new float[5];
-    private float[] bandPushers = new float[5];
+    private float[] freqValuesL = new float[5];
+    private float[] freqValuesR = new float[5];
+    private float[] bandPushersL = new float[5];
+    private float[] bandPushersR = new float[5];
+
     [SerializeField] private GameObject[] moveObjectsL; // should be 5, but should do left AND right
-    [SerializeField] private float[] moveObjectRangeL = new float[5];
-    private bool[] canSwitchDirL = new bool[5];
+    [SerializeField] private GameObject[] moveObjectsR;
+
+    [SerializeField] private float[] moveObjectRange = new float[5]; // instead of this, we will use some given Vector3 positions
+
     [SerializeField] private int resetCount = 2; // how many beats befor we reset the MaxFrequency
     private int beatCount = 0;
 
-    private float maxFrequency;
+    /*private float[] maxFrequencyL = new float[5]; // ***REMOVE? don't really need this, was using it to store the peaks
+    private float[] maxFrequencyR = new float[5];*/
 
-    [SerializeField] private bool[] directionL = new bool[5]; // if true, it is positive direction, false is negative direction
+    /* We need cool logic to set up target positions for moveObjects to lerp between
+     * OPTION A - we can check the recorded positions and find targets that are:
+     * 1. relatively far from the default/intitial position (iterate through the array)
+     * 2. then find another position that is the furthest from this position (iterate through the array again)
+     * OPTION B - we can semi-randomly set target positions that are: 
+     * 1. relatively far from the initial position of the object
+     * 2. another semi-random position that is far-ish from the first target
+    */
+    // trying Option B first:
+    private Vector3[] moveObjectInitialPosL = new Vector3[5]; // get a reference to the starting positions
+    private Vector3[] moveObjectInitialPosR = new Vector3[5]; // *** not sure we actually need this
+
+    private Vector3[] moveObjectTargetPosA_L = new Vector3[5]; // we will set two target positions to lerp between
+    private Vector3[] moveObjectTargetPosB_L = new Vector3[5]; 
+    private Vector3[] moveObjectTargetPosA_R = new Vector3[5]; // for each side
+    private Vector3[] moveObjectTargetPosB_R = new Vector3[5]; 
 
     private void OnEnable()
     {
@@ -31,62 +52,90 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
 
     void Start()
     {
-        clockCounter = FindObjectOfType<ClockCounter>();
+        //clockCounter = FindObjectOfType<ClockCounter>(); //***REMOVE: NOT USING THIS?
 
         for (int i = 0; i < 5; i++)
         {
-            bandPushers[i] = audioFrequalizer.bandPusher5[i];
-            canSwitchDirL[i] = false;
+            bandPushersL[i] = audioFrequalizer.bandPusher5L[i];
+            bandPushersR[i] = audioFrequalizer.bandPusher5R[i];
+
+            // storing the initial default positions
+            moveObjectInitialPosL[i] = moveObjectsL[i].transform.position;
+            moveObjectInitialPosR[i] = moveObjectsR[i].transform.position;
+            
+        }
+        SetTargetPositionPairs();
+    }
+    void SetTargetPositionPairs()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            // Generate A direction
+            Vector3 dirA_L = Random.onUnitSphere;
+            Vector3 dirA_R = Random.onUnitSphere;
+
+            // Generate B direction that is roughly opposite to A
+            Vector3 dirB_L;
+            do
+            {
+                dirB_L = Random.onUnitSphere;
+            } while (Vector3.Dot(dirA_L, dirB_L) > -0.8f); // Adjust threshold as needed
+
+            Vector3 dirB_R;
+            do
+            {
+                dirB_R = Random.onUnitSphere;
+            } while (Vector3.Dot(dirA_R, dirB_R) > -0.8f);
+
+            // Assign target positions
+            moveObjectTargetPosA_L[i] = moveObjectInitialPosL[i] + dirA_L * moveObjectRange[i];
+            moveObjectTargetPosB_L[i] = moveObjectInitialPosL[i] + dirB_L * moveObjectRange[i];
+            moveObjectTargetPosA_R[i] = moveObjectInitialPosR[i] + dirA_R * moveObjectRange[i];
+            moveObjectTargetPosB_R[i] = moveObjectInitialPosR[i] + dirB_R * moveObjectRange[i];
         }
     }
-
     private void On_Q_BeatHandler()
     {
-        for (int i = 0; i < freqValues.Length; i++)
+        for (int i = 0; i < freqValuesL.Length; i++)
         {
-            freqValues[i] = AudioFrequalizer.freqBand5[i] / bandPushers[i]; // the bandpushers multiplies the frequency values so we need the original value
-            if (freqValues[i] > maxFrequency)
+            freqValuesL[i] = AudioFrequalizer.freqBand5L[i] / bandPushersL[i]; // the bandpushers multiplies the frequency values so we need the original value
+
+            /*if (freqValuesL[i] > maxFrequencyL[i])
             {
-                maxFrequency = freqValues[i]; //should be between 0-1 now
-                Debug.Log(maxFrequency);
-            }
+                maxFrequencyL[i] = freqValuesL[i]; //should be between 0-1 now
+            }*/
+        }
+        for (int i = 0; i < freqValuesR.Length; i++)
+        {
+            freqValuesR[i] = AudioFrequalizer.freqBand5R[i] / bandPushersR[i]; // the bandpushers multiplies the frequency values so we need the original value
+
+            /*if (freqValuesR[i] > maxFrequencyR[i])
+            {
+                maxFrequencyR[i] = freqValuesR[i]; //should be between 0-1 now
+            }*/
+        }
+
+        // Lerping:
+        for (int i = 0; i < freqValuesL.Length; i++)
+        {
+            moveObjectsL[i].transform.position = Vector3.Lerp(moveObjectTargetPosA_L[i], moveObjectTargetPosB_L[i], freqValuesL[i]);
+            
+        }
+        for (int i = 0; i < freqValuesR.Length; i++)
+        {
+            moveObjectsR[i].transform.position = Vector3.Lerp(moveObjectTargetPosA_R[i], moveObjectTargetPosB_R[i], freqValuesR[i]);
+            
         }
     }
     private void OnBeatHandler()
     {
         beatCount++;
-        if (beatCount == resetCount) // we need to reset the maxFreq every little bit so it doesnt stay stuck on an unreachable max
+        if (beatCount == resetCount) // we need to reset the loop duration for some rythm variety
         {
-            maxFrequency = 0;
+            resetCount = Random.Range(1, 6); // every reset we randomise the  move loop duration
+            SetTargetPositionPairs();
             beatCount = 0;
-            Debug.Log("reset");
         }
     }
 
-    private void Update()
-    {
-        for (int i = 0; i < freqValues.Length; i++)
-        {
-            if (freqValues[i] >= maxFrequency) // although it can only be ==, never more (i think)
-            {
-                canSwitchDirL[i] = true;
-            }
-            if (freqValues[i] < maxFrequency && canSwitchDirL[i])
-            {
-                directionL[i] = !directionL[i];
-                canSwitchDirL[i] = false;
-            }
-
-            if (directionL[i])
-            {
-                float lerpedY = Mathf.Lerp(0, moveObjectRangeL[i], freqValues[i]);
-                moveObjectsL[i].transform.position = new Vector3(moveObjectsL[i].transform.position.x, lerpedY, moveObjectsL[i].transform.position.z);
-            }
-            if (!directionL[i])
-            {
-                float lerpedY = Mathf.Lerp(0, -moveObjectRangeL[i], freqValues[i]); // note: its lerping to the negative
-                moveObjectsL[i].transform.position = new Vector3(moveObjectsL[i].transform.position.x, lerpedY, moveObjectsL[i].transform.position.z);
-            }
-        }
-    }
 }

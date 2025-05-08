@@ -112,11 +112,11 @@ public class ShaderBender : MonoBehaviour
     }
     void ProcessSpectrumData()
     {
-        isPelvis = AudioFrequalizer.averagedFreqBand5[0];
-        isTorso = AudioFrequalizer.averagedFreqBand5[1];
-        isFeet = AudioFrequalizer.averagedFreqBand5[2];
-        isHands = AudioFrequalizer.averagedFreqBand5[3];
-        isHead = AudioFrequalizer.averagedFreqBand5[4];
+        isPelvis = AudioFrequalizer.freqBand5L[0];
+        isTorso = AudioFrequalizer.freqBand5L[1];
+        isFeet = AudioFrequalizer.freqBand5L[2];
+        isHands = AudioFrequalizer.freqBand5L[3];
+        isHead = AudioFrequalizer.freqBand5L[4];
 
         /* old code
         //** trying something here: use frequency data to control glitches on different parts of the body
