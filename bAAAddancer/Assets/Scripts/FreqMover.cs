@@ -135,8 +135,8 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
                     break;
             }
 
-            Vector3 dirL = new Vector3(xDirL, yDirL, zDirL).normalized;
-            Vector3 dirR = new Vector3(xDirR, yDirR, zDirR).normalized;
+            Vector3 dirL = new Vector3(xDirL, yDirL, zDirL);
+            Vector3 dirR = new Vector3(xDirR, yDirR, zDirR);
 
             moveObjectTargetPosA_L[i] = moveObjectInitialPosL[i] + (dirL * moveObjectRange[i]);
             moveObjectTargetPosA_R[i] = moveObjectInitialPosR[i] + (dirR * moveObjectRange[i]);

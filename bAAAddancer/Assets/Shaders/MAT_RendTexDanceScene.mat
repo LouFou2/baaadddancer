@@ -25,6 +25,14 @@ Material:
         m_Texture: {fileID: 8400000, guid: e1cb4abd19f8f6a46badaf915854efde, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _TexelSize_34e463e7fb9e47fd9765d7f3e7121ad0_Texture_1:
+        m_Texture: {fileID: 8400000, guid: e1cb4abd19f8f6a46badaf915854efde, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_6149a2105dac435692b4701abe6673fe_Out_0:
+        m_Texture: {fileID: 8400000, guid: e1cb4abd19f8f6a46badaf915854efde, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -39,9 +47,20 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _OffsetX: 0.5
+    - _OffsetY: 0.5
+    - _Power: 0.65
+    - _PowerY: 0.73
+    - _PowerZ: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    - _Scale: 0.05
+    - _ScaleX: 0.23
+    - _ScaleY: 0.393
+    m_Colors:
+    - _Color: {r: 0.07718695, g: 0, b: 0.14150941, a: 1}
+    - _ColorY: {r: 0, g: 0.06518864, b: 0.041413963, a: 1}
+    - _ColorZ: {r: 1.2978265, g: 0, b: 2.9960785, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1014135410024511568
 MonoBehaviour:
