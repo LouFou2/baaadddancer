@@ -7,9 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_RendTexDanceScene
-  m_Shader: {fileID: -6465566751694194690, guid: 454035da562ba0a4ca4ccdf5dc80fb77,
-    type: 3}
+  m_Name: MAT_ScreenBender
+  m_Shader: {fileID: 4800000, guid: ba7f7019c499ebc41861f60be672d018, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -22,18 +21,6 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _RendTex:
-        m_Texture: {fileID: 8400000, guid: e1cb4abd19f8f6a46badaf915854efde, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_0fff2fd8cc0541b1afbd9caacb05cc4d_Texture_1:
-        m_Texture: {fileID: 8400000, guid: e1cb4abd19f8f6a46badaf915854efde, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _TexelSize_34e463e7fb9e47fd9765d7f3e7121ad0_Texture_1:
-        m_Texture: {fileID: 8400000, guid: e1cb4abd19f8f6a46badaf915854efde, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_6149a2105dac435692b4701abe6673fe_Out_0:
         m_Texture: {fileID: 8400000, guid: e1cb4abd19f8f6a46badaf915854efde, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -51,39 +38,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _NormalRot: -1.38
     - _OffsetX: 0.5
     - _OffsetY: 0.845
-    - _Pow: 7.09
-    - _Power: 0.65
+    - _Pow: 8.2
     - _PowerY: 1.22
     - _PowerZ: 2.05
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 0.05
     - _ScaleX: 0.269
     - _ScaleY: 0.462
     - _ThumbMagnitudeL: 0
     - _ThumbMagnitudeR: 0
-    - _VertexShiftFactorZ: 0.67
-    - _VertexZ: 1
+    - _VertexShiftFactorZ: 0.72
     m_Colors:
-    - _Color: {r: 0.07718695, g: 0, b: 0.14150941, a: 1}
-    - _ColorY: {r: 0, g: 1, b: 0.05548787, a: 1}
+    - _ColorY: {r: 0, g: 1, b: 0.05490196, a: 1}
     - _ColorZ: {r: 1.2978265, g: 0, b: 2.9960785, a: 1}
     - _ThumbPosL: {r: 0, g: 0, b: 0, a: 0}
     - _ThumbPosR: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &1014135410024511568
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5
