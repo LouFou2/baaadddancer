@@ -57,30 +57,31 @@ Shader "SHAD_ScreenBender"
             GeomData vert3 = input[2];
             
             // a flat normal 
-            float3 normalizedEdge1 = normalize(vert2.positionWS - vert1.positionWS);
-            float3 normalizedEdge2 = normalize(vert3.positionWS - vert1.positionWS);
-            float3 flatNormal = normalize(cross(normalizedEdge1, normalizedEdge2));
+            //float3 normalizedEdge1 = normalize(vert2.positionWS - vert1.positionWS);
+            //float3 normalizedEdge2 = normalize(vert3.positionWS - vert1.positionWS);
+            //float3 flatNormal = normalize(cross(normalizedEdge1, normalizedEdge2));
 
             // to flatten the tri:
-            vert1.normalWS = flatNormal;
-            vert2.normalWS = flatNormal;
-            vert3.normalWS = flatNormal;
+            //vert1.normalWS = flatNormal;
+            //vert2.normalWS = flatNormal;
+            //vert3.normalWS = flatNormal;
 
             // Compute centroid in world space
-            float3 poop = (vert1.positionWS + vert2.positionWS + vert3.positionWS) / 3;
+            float3 centroidWS = (vert1.positionWS + vert2.positionWS + vert3.positionWS) / 3;
 
-            float shrinkAmount = vert1.positionWS.z; // we'll just use the first vert of the triangle's z position **BUT HOW TO GET IT?
+            float shrinkAmount = vert1.positionWS.z; // we'll just use the first vert of the triangle's z position
             shrinkAmount = saturate(shrinkAmount); // ensure 0-1
 
             // "shrink" the triangles, relative to their z value in world space
             // Move the vertex toward the centroid
-            float3 toCenter1 = poop - vert1.positionWS;
-            float3 toCenter2 = poop - vert2.positionWS;
-            float3 toCenter3 = poop - vert3.positionWS;
+            float3 toCenter1 = centroidWS - vert1.positionWS;
+            float3 toCenter2 = centroidWS - vert2.positionWS;
+            float3 toCenter3 = centroidWS - vert3.positionWS;
 
             vert1.positionWS += toCenter1 * shrinkAmount;
             vert2.positionWS += toCenter2 * shrinkAmount;
             vert3.positionWS += toCenter3 * shrinkAmount;
+
 
             // make the tri:
             vert1.positionCS = TransformWorldToHClip(vert1.positionWS);
@@ -1045,7 +1046,7 @@ Shader "SHAD_ScreenBender"
         #pragma multi_compile_instancing
         #pragma multi_compile _ DOTS_INSTANCING_ON
         #pragma vertex vert
-        //#pragma geometry geom
+        //#pragma geometry geom // **THIS BREAKS
         #pragma fragment frag
         
         // DotsInstancingOptions: <None>
