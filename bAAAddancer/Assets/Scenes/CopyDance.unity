@@ -13857,7 +13857,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6dccf9d7f43224aacdec3c5343d9dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenRenderTextMat: {fileID: 2100000, guid: 2e994b1602e4f444d95e2806b61f1d5c, type: 2}
+  screenRenderTextureMat: {fileID: 2100000, guid: 47a97c934afeb47439f8e7c577be384b,
+    type: 2}
+  meshRenderer: {fileID: 1622392239}
+--- !u!23 &1622392239 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: ca9547fc06777f14d85385f714c7b5c3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1988469426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1645292183
 GameObject:
   m_ObjectHideFlags: 0
@@ -18061,7 +18069,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2e994b1602e4f444d95e2806b61f1d5c, type: 2}
+      objectReference: {fileID: 2100000, guid: 47a97c934afeb47439f8e7c577be384b, type: 2}
     - target: {fileID: 919132149155446097, guid: ca9547fc06777f14d85385f714c7b5c3,
         type: 3}
       propertyPath: m_Name
