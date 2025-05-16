@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5335795044339920699
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -7,8 +20,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_ScreenBender3
-  m_Shader: {fileID: 4800000, guid: 340b8b930e8ffc64b93dee69b8cb3e61, type: 3}
+  m_Name: MAT_DemonFaceBack
+  m_Shader: {fileID: -6465566751694194690, guid: e01b590a069f87c4aabe428edbab8173,
+    type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -20,10 +34,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _RendTex:
-        m_Texture: {fileID: 8400000, guid: e1cb4abd19f8f6a46badaf915854efde, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -38,27 +48,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _OffsetX: 0.5
-    - _OffsetY: 1.205
-    - _Pow: 1
-    - _Power: 3
-    - _PowerY: 1.22
-    - _PowerZ: 2.05
+    - _EyesPower: 16
+    - _MouthPower: 16
+    - _MouthPowerX: 1
+    - _MouthPowerY: 1
+    - _MouthScalerX: 6
+    - _MouthScalerY: 2
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ScaleX: 0.272
-    - _ScaleY: 0.433
     - _ThumbMagL: 0
+    - _ThumbMagPower: 1
     - _ThumbMagR: 0
-    - _ThumbMagnitudeL: 0
-    - _ThumbMagnitudeR: 0
-    - _ThumbsDisplaceMaxZ: 0.73
-    - _VertexShiftFactorZ: 1
     m_Colors:
-    - _ColorY: {r: 0, g: 1, b: 0.05490196, a: 1}
-    - _ColorZ: {r: 1.297827, g: 0, b: 2.996078, a: 1}
-    - _ThumbInL: {r: 0, g: 0, b: 0, a: 0}
-    - _ThumbInR: {r: 0, g: 0, b: 0, a: 0}
-    - _ThumbPosL: {r: 0, g: 0, b: 0, a: 0}
-    - _ThumbPosR: {r: 0, g: 0, b: 0, a: 0}
+    - _MouthCenter: {r: 0, g: 0, b: 0, a: 0}
+    - _ThumbL: {r: 0, g: 0, b: 0, a: 0}
+    - _ThumbR: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

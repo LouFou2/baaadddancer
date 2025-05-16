@@ -29,6 +29,7 @@ Shader "SHAD_RendTexDanceScene2"
         _ThumbMagL("ThumbMagL", Float) = 0
         _ThumbMagR("ThumbMagR", Float) = 0
         _Power("Power", Float) = 6
+        _ThumbsDisplaceMaxZ("ThumbsDisplaceMaxZ", Float) = 1
     }
     SubShader
     {
@@ -42,6 +43,7 @@ Shader "SHAD_RendTexDanceScene2"
         uniform float _ThumbMagL;
         uniform float _ThumbMagR;
         uniform float _Power;
+        uniform float _ThumbsDisplaceMaxZ; // the multiplier for how much thumbs interaction also displaces verts
 
         struct GeomData
         {
@@ -82,15 +84,16 @@ Shader "SHAD_RendTexDanceScene2"
             float distL = length(deltaL);
             float distR = length(deltaR);
 
-            float shrinkL = _ThumbMagL * pow(saturate(1.0 - distL), _Power);
-            float shrinkR = _ThumbMagR * pow(saturate(1.0 - distR), _Power);
+            float thumbExponentL = pow(_ThumbMagL, 2) * 5; // the * 5 here just makes the falloff faster, (y reaches 1 before x reaches 1)
+            float thumbExponentR = pow(_ThumbMagR, 2) * 5;
+
+            float shrinkL = thumbExponentL * pow(saturate(1.0 - distL), _Power);
+            float shrinkR = thumbExponentR * pow(saturate(1.0 - distR), _Power);
 
             float totalShrink = saturate(shrinkL + shrinkR);
 
             return totalShrink;
-
         }
-
 
         [maxvertexcount(3)] 
         void geom(triangle GeomData input[3], inout TriangleStream<GeomData> triStream)
@@ -112,7 +115,9 @@ Shader "SHAD_RendTexDanceScene2"
             // Compute centroid in world space
             float3 centroidWS = (vert1.positionWS + vert2.positionWS + vert3.positionWS) / 3;
 
-            float shrinkAmount = CalculateShrinkAmount(vert1.positionCS); // we'll just use the first vert of the triangle's z position
+            float shrinkAmount1 = CalculateShrinkAmount(vert1.positionCS);
+            float shrinkAmount2 = CalculateShrinkAmount(vert2.positionCS);
+            float shrinkAmount3 = CalculateShrinkAmount(vert3.positionCS);
 
             // "shrink" the triangles, relative to their z value in world space
             // Move the vertex toward the centroid
@@ -120,9 +125,17 @@ Shader "SHAD_RendTexDanceScene2"
             float3 toCenter2 = centroidWS - vert2.positionWS;
             float3 toCenter3 = centroidWS - vert3.positionWS;
 
-            vert1.positionWS += toCenter1 * shrinkAmount;
-            vert2.positionWS += toCenter2 * shrinkAmount;
-            vert3.positionWS += toCenter3 * shrinkAmount;
+            vert1.positionWS += toCenter1 * shrinkAmount1;
+            vert2.positionWS += toCenter2 * shrinkAmount2;
+            vert3.positionWS += toCenter3 * shrinkAmount3;
+
+            // displacement **trying along z axis first
+            // we can use the shrinkamount (which is 0-1) to also drive the displacement (we can multiply by )
+
+            vert1.positionWS.z += _ThumbsDisplaceMaxZ * shrinkAmount1;
+            vert2.positionWS.z += _ThumbsDisplaceMaxZ * shrinkAmount2;
+            vert3.positionWS.z += _ThumbsDisplaceMaxZ * shrinkAmount3;
+
 
             // make the tri:
             vert1.positionCS = TransformWorldToHClip(vert1.positionWS);
