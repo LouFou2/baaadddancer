@@ -80,7 +80,7 @@ public class CameraMover : MonoBehaviour // Script for taking control of the Cam
 
             // --- Movement ---
             // Move the camera in the local forward and right directions
-            Vector3 moveDirection = new Vector3(-horizontalInput.x, verticalMove, -horizontalInput.y); // just negating x/y values here because it's audience left-right
+            Vector3 moveDirection = new Vector3(horizontalInput.x, verticalMove, -horizontalInput.y); // just negating x/y values here because it's audience left-right
             Vector3 newPosition = defaultCam.transform.position + (moveDirection * camMoveSpeed * Time.deltaTime);
             
             //Clamp movement to boundaries
@@ -91,7 +91,7 @@ public class CameraMover : MonoBehaviour // Script for taking control of the Cam
             defaultCam.transform.position = new Vector3(xClamped, yClamped, zClamped);
 
             // --- Rotation ---
-            float yaw = cameraRotation.x * camRotateSpeed * Time.deltaTime;
+            float yaw = -cameraRotation.x * camRotateSpeed * Time.deltaTime;
             float pitch = -cameraRotation.y * camRotateSpeed * Time.deltaTime;
 
             // Update angles
