@@ -6,6 +6,10 @@ public class DemonFaceScreen : MonoBehaviour
 {
     [SerializeField] private ScreenManipulator screenManipulator; // assign in inspector
     [SerializeField] private Material matDemonFaceScreen; // assign in inspector
+    [SerializeField] private Material screenRenderTextureMat; // assign in inspector
+
+    [SerializeField] private float offsetY = -0.5f;
+    [SerializeField] private float scaleMovementY = 0.5f;
 
     void Update()
     {
@@ -14,11 +18,17 @@ public class DemonFaceScreen : MonoBehaviour
         float thumbMagL = screenManipulator.GetThumbMagL();
         float thumbMagR = screenManipulator.GetThumbMagR();
 
-        //a little fancy calculations for placing the center of the mouth:
-        Vector2 vectorBetweenThumbs = thumbR - thumbL;
-        vectorBetweenThumbs *= 0.5f;
-        Vector2 centerBetweenThumbs = thumbL + vectorBetweenThumbs;
-        matDemonFaceScreen.SetVector("_MouthCenter", centerBetweenThumbs);
+        //placing the center of the mouth between the two thumb inputs:
+        float thumbCenterX = (thumbR.x - thumbL.x) * 0.5f;
+        float thumbCenterY = (thumbR.y - thumbL.y) * 0.5f;
+
+        float positionX = thumbL.x + thumbCenterX;
+        float positionY = thumbL.y + offsetY + (thumbCenterY * scaleMovementY);
+
+        Vector2 calculatedMouthPos = new Vector2(positionX, positionY);
+
+        matDemonFaceScreen.SetVector("_MouthCenter", calculatedMouthPos);
+        screenRenderTextureMat.SetVector("_MouthCenter", calculatedMouthPos);
 
         matDemonFaceScreen.SetVector("_ThumbL", thumbL);
         matDemonFaceScreen.SetVector("_ThumbR", thumbR);

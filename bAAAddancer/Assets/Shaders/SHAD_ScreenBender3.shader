@@ -30,6 +30,10 @@ Shader "SHAD_RendTexDanceScene2"
         _ThumbMagR("ThumbMagR", Float) = 0
         _Power("Power", Float) = 6
         _ThumbsDisplaceMaxZ("ThumbsDisplaceMaxZ", Float) = 1
+
+        _MouthCenter("MouthCenter", Vector) = (0, 0, 0, 0)
+        _MouthScaleX("MouthScaleX", Range(1, 16)) = 1 
+
     }
     SubShader
     {
@@ -44,6 +48,9 @@ Shader "SHAD_RendTexDanceScene2"
         uniform float _ThumbMagR;
         uniform float _Power;
         uniform float _ThumbsDisplaceMaxZ; // the multiplier for how much thumbs interaction also displaces verts
+
+        uniform float2 _MouthCenter;
+        uniform float _MouthScaleX;
 
         struct GeomData
         {
@@ -94,6 +101,19 @@ Shader "SHAD_RendTexDanceScene2"
 
             return totalShrink;
         }
+        float CalculateMouthGapShrink(float4 vertClipPosition)
+        {
+            float2 vertXY = vertClipPosition.xy / vertClipPosition.w;
+            vertXY.y = -vertXY.y; // have to invert the y because of how clip space works
+            float2 delta = vertXY - _MouthCenter;
+            delta.x *= _MouthScaleX;
+            float dist = length(delta);
+            float combinedMag = (_ThumbMagL + _ThumbMagR) * 0.5;
+            float exponent = pow(combinedMag, 2) * 5; // the effect of *5 is to make the value reach 1 sooner, so we get a bigger gap
+            float shrink = exponent * pow(saturate(1.0 - dist), _Power);
+            float totalShrink = saturate(shrink);
+            return totalShrink;
+        }
 
         [maxvertexcount(3)] 
         void geom(triangle GeomData input[3], inout TriangleStream<GeomData> triStream)
@@ -119,6 +139,10 @@ Shader "SHAD_RendTexDanceScene2"
             float shrinkAmount2 = CalculateShrinkAmount(vert2.positionCS);
             float shrinkAmount3 = CalculateShrinkAmount(vert3.positionCS);
 
+            float mouthShrink1 = CalculateMouthGapShrink(vert1.positionCS);
+            float mouthShrink2 = CalculateMouthGapShrink(vert2.positionCS);
+            float mouthShrink3 = CalculateMouthGapShrink(vert3.positionCS);
+
             // "shrink" the triangles, relative to their z value in world space
             // Move the vertex toward the centroid
             float3 toCenter1 = centroidWS - vert1.positionWS;
@@ -129,6 +153,10 @@ Shader "SHAD_RendTexDanceScene2"
             vert2.positionWS += toCenter2 * shrinkAmount2;
             vert3.positionWS += toCenter3 * shrinkAmount3;
 
+            vert1.positionWS += toCenter1 * mouthShrink1;
+            vert2.positionWS += toCenter2 * mouthShrink2;
+            vert3.positionWS += toCenter3 * mouthShrink3;
+
             // displacement **trying along z axis first
             // we can use the shrinkamount (which is 0-1) to also drive the displacement (we can multiply by )
 
@@ -136,6 +164,10 @@ Shader "SHAD_RendTexDanceScene2"
             vert2.positionWS.z += _ThumbsDisplaceMaxZ * shrinkAmount2;
             vert3.positionWS.z += _ThumbsDisplaceMaxZ * shrinkAmount3;
 
+            vert1.positionWS.z += _ThumbsDisplaceMaxZ * mouthShrink1;
+            vert2.positionWS.z += _ThumbsDisplaceMaxZ * mouthShrink2;
+            vert3.positionWS.z += _ThumbsDisplaceMaxZ * mouthShrink3;
+ 
 
             // make the tri:
             vert1.positionCS = TransformWorldToHClip(vert1.positionWS);
