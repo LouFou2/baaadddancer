@@ -167,7 +167,6 @@ Shader "SHAD_RendTexDanceScene2"
             vert1.positionWS.z += _ThumbsDisplaceMaxZ * mouthShrink1;
             vert2.positionWS.z += _ThumbsDisplaceMaxZ * mouthShrink2;
             vert3.positionWS.z += _ThumbsDisplaceMaxZ * mouthShrink3;
- 
 
             // make the tri:
             vert1.positionCS = TransformWorldToHClip(vert1.positionWS);

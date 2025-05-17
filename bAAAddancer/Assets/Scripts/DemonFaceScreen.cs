@@ -11,6 +11,8 @@ public class DemonFaceScreen : MonoBehaviour
     [SerializeField] private float offsetY = -0.5f;
     [SerializeField] private float scaleMovementY = 0.5f;
 
+    private Vector2 mouthPos;
+
     void Update()
     {
         Vector2 thumbL = screenManipulator.GetThumbVectorL();
@@ -25,14 +27,18 @@ public class DemonFaceScreen : MonoBehaviour
         float positionX = thumbL.x + thumbCenterX;
         float positionY = thumbL.y + offsetY + (thumbCenterY * scaleMovementY);
 
-        Vector2 calculatedMouthPos = new Vector2(positionX, positionY);
+        mouthPos = new Vector2(positionX, positionY);
 
-        matDemonFaceScreen.SetVector("_MouthCenter", calculatedMouthPos);
-        screenRenderTextureMat.SetVector("_MouthCenter", calculatedMouthPos);
+        matDemonFaceScreen.SetVector("_MouthCenter", mouthPos);
+        screenRenderTextureMat.SetVector("_MouthCenter", mouthPos);
 
         matDemonFaceScreen.SetVector("_ThumbL", thumbL);
         matDemonFaceScreen.SetVector("_ThumbR", thumbR);
         matDemonFaceScreen.SetFloat("_ThumbMagL", thumbMagL);
         matDemonFaceScreen.SetFloat("_ThumbMagR", thumbMagR);
+    }
+    public Vector2 GetMouthCenter()
+    {
+        return mouthPos;
     }
 }
