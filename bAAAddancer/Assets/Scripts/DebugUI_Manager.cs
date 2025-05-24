@@ -121,6 +121,8 @@ public class DebugUI_Manager : MonoBehaviour // this manager also supervises the
     }
     void AlignerCompleteHandler()
     {
+        debugAudioManager.EndAlignerAudio(); // ***another lazy lazy move
+
         alignerRunning = false;
 
         abstractsButtonsPanel.SetActive(true);

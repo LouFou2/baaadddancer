@@ -26,14 +26,10 @@ public class AudioFrequalizer : MonoBehaviour
     public float[] bandPusher5L = new float[5];
     public float[] bandPusher5R = new float[5];
 
-    /*// THis is to calculate an average value for each frequency band 5: *** REMOVE: don't need averaging
-    public static float[] freqBand5Sum = new float[5];
-    public static int sampleCount = 0;
-    public static float[] averagedFreqBand5 = new float[5];*/
-
     // Debugging Visualisers ** REMOVE LATER
-    [SerializeField] private Image[] freq5BandVizL;    // Array to hold the cubes for each frequency band
-    [SerializeField] private Image beatViz;
+    //[SerializeField] private Image[] freq5BandVizL;    // Array to hold the cubes for each frequency band
+    //[SerializeField] private Image beatViz;
+
     private float beatLightAmount = 0;
     private float beatDuration;
     private float beatTime = 0;
@@ -56,16 +52,6 @@ public class AudioFrequalizer : MonoBehaviour
         clockCounter = FindObjectOfType<ClockCounter>(); // needed to get beat duration
     }
 
-    /*void Update()
-    {
-        GetSpectrumAudioSource();
-        MakeFrequencyBands();
-        BandBuffer();
-        Make5FrequencyBands();
-
-        PulseBeatLight();
-
-    }*/
     void On_Q_BeatHandler()
     {
         GetSpectrumAudioSource();
@@ -75,7 +61,7 @@ public class AudioFrequalizer : MonoBehaviour
 
         PulseBeatLight();
 
-        DebugVizualize5BandFreqs(); 
+        //DebugVizualize5BandFreqs(); 
     }
     void OnBeatHandler()
     {
@@ -179,25 +165,14 @@ public class AudioFrequalizer : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            /*// **REMOVE LATER, DEBUGGING:
-            if (freqBand5[i] > maxFreqAmount)
-            {
-                maxFreqAmount = freqBand5[i];
-                Debug.Log("Max Freq Amount: " + maxFreqAmount);
-            }
-            // ****/
-
             freqBand5L[i] *= bandPusher5L[i];
             freqBand5R[i] *= bandPusher5R[i];
-
-            /*// Accumulate values for averaging *** REMOVE: don't need averaging, as I already only calculate frequency value every q-Beat
-            freqBand5Sum[i] += freqBand5[i];*/
         }
-        //sampleCount++; *** REMOVE: don't need averaging
     }
+/*
     void DebugVizualize5BandFreqs() // *** CAN REMOVE IF NOT USING DEBUG VISUALISATION
     {
-        /*if (sampleCount == 0) return;
+        *//*if (sampleCount == 0) return;
 
         // Calculate the average *** REMOVE: don't need averaging, as I already only calculate frequency value every q-Beat
         for (int i = 0; i < 5; i++)
@@ -207,7 +182,7 @@ public class AudioFrequalizer : MonoBehaviour
 
         // Reset accumulators
         freqBand5Sum = new float[5];
-        sampleCount = 0;*/
+        sampleCount = 0;*//*
 
         //*** REMOVE LATER: VIZUALIZERS
         // Update the cubes based on the frequency data every frame
@@ -227,4 +202,5 @@ public class AudioFrequalizer : MonoBehaviour
         color.a = beatLightAmount;
         beatViz.color = color;
     }
+*/
 }

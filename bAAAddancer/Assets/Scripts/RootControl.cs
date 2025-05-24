@@ -16,6 +16,7 @@ public class RootControl : MonoBehaviour
     [SerializeField] private RecordingData recordingDataSO;
 
     [SerializeField] private bool grounded = true;
+    [SerializeField] private float moveFactor = 0.5f;
     [SerializeField] private float jumpHeight = 0.5f;
     private float jumpTime = 0f;
     [SerializeField] private float jumpDuration = 0f;
@@ -87,16 +88,16 @@ public class RootControl : MonoBehaviour
                 switch (viewSwitcher.CurrentView)  // Access the current view from ViewSwitcher
                 {
                     case ViewSwitcher.ViewSwitch.front:
-                        rootPosition = new Vector3(-xInput, currentRecordedPosition.y, -zInput);
+                        rootPosition = new Vector3(-xInput * moveFactor, currentRecordedPosition.y, -zInput * moveFactor);
                         break;
                     case ViewSwitcher.ViewSwitch.top:
-                        rootPosition = new Vector3(-xInput, currentRecordedPosition.y, -zInput);
+                        rootPosition = new Vector3(-xInput * moveFactor, currentRecordedPosition.y, -zInput * moveFactor);
                         break;
                     case ViewSwitcher.ViewSwitch.left:
-                        rootPosition = new Vector3(-zInput, currentRecordedPosition.y, xInput);
+                        rootPosition = new Vector3(-zInput * moveFactor, currentRecordedPosition.y, xInput * moveFactor);
                         break;
                     case ViewSwitcher.ViewSwitch.right:
-                        rootPosition = new Vector3(zInput, currentRecordedPosition.y, -xInput);
+                        rootPosition = new Vector3(zInput * moveFactor, currentRecordedPosition.y, -xInput * moveFactor);
                         break;
                     default:
                         viewSwitcher.CurrentView = ViewSwitcher.ViewSwitch.front; // Set default view to front if the current view is not recognized

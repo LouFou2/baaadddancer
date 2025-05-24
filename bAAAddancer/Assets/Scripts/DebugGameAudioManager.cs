@@ -17,6 +17,12 @@ public class DebugGameAudioManager : MonoBehaviour //the debug audio is supervis
     [SerializeField] [Range(0, 1)] private float delayWet;
     [SerializeField] [Range(10, 60)] private float delayAmount;
 
+    private float initVolume;
+    private float initPitch;
+    private float initCutOff;
+    private float initDelayWet;
+    private float initDelayAmount;
+
     public bool debugUIRunning = false; //this gets triggered from the DebugUI_Manager
     public bool alignerGameRunning = false; //also this
 
@@ -36,11 +42,17 @@ public class DebugGameAudioManager : MonoBehaviour //the debug audio is supervis
     }
     void TrackStartedHandler()
     {
-        volume = audioSource.volume;
-        pitch = audioSource.pitch;
-        cutOff = audioSource.GetComponent<AudioLowPassFilter>().cutoffFrequency;
-        delayAmount = audioSource.GetComponent<AudioEchoFilter>().delay;
-        delayWet = audioSource.GetComponent<AudioEchoFilter>().wetMix;
+        initVolume = audioSource.volume;
+        initPitch = audioSource.pitch;
+        initCutOff = audioSource.GetComponent<AudioLowPassFilter>().cutoffFrequency;
+        initDelayAmount = audioSource.GetComponent<AudioEchoFilter>().wetMix;
+        initDelayWet = audioSource.GetComponent<AudioEchoFilter>().delay;
+        
+        volume = initVolume;
+        pitch = initPitch;
+        cutOff = initCutOff;
+        delayAmount = initDelayAmount;
+        delayWet = initDelayWet;
     }
     // these methods are called from DialogueManager_002 === 
     public void StartDebugUIAudio() 
@@ -57,7 +69,15 @@ public class DebugGameAudioManager : MonoBehaviour //the debug audio is supervis
     }
     public void EndAlignerAudio()
     {
+        Debug.Log("reset audio");
         alignerGameRunning = false;
+
+        audioSource.volume = initVolume;
+        audioSource.pitch = initPitch;
+        clockCounter.SetTempo(134);
+        audioSource.GetComponent<AudioLowPassFilter>().cutoffFrequency = initCutOff;
+        audioSource.GetComponent<AudioEchoFilter>().delay = initDelayAmount;
+        audioSource.GetComponent<AudioEchoFilter>().wetMix = initDelayWet;
     }
     // ===
 
@@ -101,6 +121,8 @@ public class DebugGameAudioManager : MonoBehaviour //the debug audio is supervis
             audioSource.GetComponent<AudioEchoFilter>().delay = delayAmount;
             audioSource.GetComponent<AudioEchoFilter>().wetMix = delayWet;
         }
+        else EndAlignerAudio(); // just repeating because the update is weird
+
         
     }
 

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5335795044339920699
+--- !u!114 &-8614052236824813828
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,52 +20,42 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_DemonFaceBack
-  m_Shader: {fileID: -6465566751694194690, guid: e01b590a069f87c4aabe428edbab8173,
-    type: 3}
+  m_Name: RENDTEX_DanceScene
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 8400000, guid: e1cb4abd19f8f6a46badaf915854efde, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
+    - _MainTex:
+        m_Texture: {fileID: 8400000, guid: e1cb4abd19f8f6a46badaf915854efde, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EyesPower: 16
-    - _EyesScalerX: 1.7
-    - _MouthOpener: 0.74969864
-    - _MouthPower: 16
-    - _MouthPowerX: 1
-    - _MouthPowerY: 1
-    - _MouthScalerX: 3.6
-    - _MouthScalerY: 2
-    - _PupilScalerX: 1
-    - _QueueControl: 0
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BlendOp: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DstBlend: 0
     - _QueueOffset: 0
-    - _ThumbMagL: 0
-    - _ThumbMagPower: 1
-    - _ThumbMagR: 0
+    - _SampleGI: 0
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _ZWrite: 1
     m_Colors:
-    - _EyesColor: {r: 0.7069709, g: 1, b: 0.5411765, a: 0}
-    - _MouthCenter: {r: 0, g: -0.5, b: 0, a: 0}
-    - _TeethColor: {r: 0.86756575, g: 1, b: 0.5424528, a: 0}
-    - _ThumbL: {r: 0, g: 0, b: 0, a: 0}
-    - _ThumbR: {r: 0, g: 0, b: 0, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -55,7 +55,7 @@ public class ScreenManipulator : MonoBehaviour
 
     void OnBeatHandler()
     {
-        meshIndex++;
+        //meshIndex++;
         if (meshIndex >= glitchMeshes.Length)
         {
             meshIndex = 0; // this just keeps it looping

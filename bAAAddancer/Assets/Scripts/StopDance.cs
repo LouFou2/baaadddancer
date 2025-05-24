@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class StopDance : MonoBehaviour
 {
+    private PlayerControls playerControls;
     [SerializeField] private CharacterManager characterManager;
     [SerializeField] private SceneSwitcher sceneSwitcher;
     [SerializeField] private AudioSource music;
@@ -16,12 +17,33 @@ public class StopDance : MonoBehaviour
     public UnityEvent StopDanceEvent;
     public UnityEvent GotoRaveEvent;
 
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+    private void OnDisable()
+    {
+        playerControls.Disable();
+    }
 
     private void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
 
         roundIndex = GameManager.Instance.GetCurrentRound();
+    }
+    private void Update()
+    {
+        //only listening for "return" button
+        if (playerControls.GenericInput.HomeButton.triggered)
+        {
+            Debug.Log("click!");
+            EndRaveReturn();
+        }
     }
     public void StopTheDance()
     {
@@ -60,4 +82,10 @@ public class StopDance : MonoBehaviour
             GotoRaveEvent?.Invoke();
     }
     
+    private void EndRaveReturn()
+    {
+        Debug.Log("click!");
+        GameManager.Instance.RestartGame();
+    }
+
 }

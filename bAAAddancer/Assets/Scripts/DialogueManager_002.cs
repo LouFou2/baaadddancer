@@ -261,7 +261,7 @@ public class DialogueManager_002 : MonoBehaviour
                         button1clicked = false;
                     }
 
-                    if (button0clicked && dialogueLineCount == 12)
+                    if (dialogueLineCount == 12 && !debugRunning)
                     {
                         EndSceneChoice("gotta keep dancing", "");
                         dialogueLineCount = 14;
@@ -313,7 +313,7 @@ public class DialogueManager_002 : MonoBehaviour
                         button1clicked = false;
                     }
 
-                    if (button0clicked && dialogueLineCount == 12)
+                    if (dialogueLineCount == 12 && !debugRunning)
                     {
                         EndSceneChoice("one more move", "");
                         dialogueLineCount = 14;
@@ -337,7 +337,7 @@ public class DialogueManager_002 : MonoBehaviour
                         // because if game is played straight, the character will respond straight
                         // or if game is played bent, character will respond more positively
                         if (averageTeamCurse >= curseTolerance) 
-                            CursedCharResponse("...");
+                            CursedCharResponse("i've never been this messy");
                         else
                             CursedCharResponse("i feel so stupid");
                         dialogueLineCount = 1;
@@ -358,6 +358,15 @@ public class DialogueManager_002 : MonoBehaviour
                             CursedCharResponse("...i...think... this might be ...the new me");
                         else
                             CursedCharResponse("let's beat this game");
+                        dialogueLineCount = 3;
+                        button0clicked = false; // ensures it doesn't skip to next line in same frame
+                    }
+                    if (button1clicked && dialogueLineCount == 2)
+                    {
+                        if (averageTeamCurse >= curseTolerance)
+                            CursedCharResponse("...i...think... this might be ...the new me");
+                        else
+                            CursedCharResponse("i'm not used to getting messy");
                         dialogueLineCount = 3;
                         button0clicked = false; // ensures it doesn't skip to next line in same frame
                     }
@@ -383,7 +392,7 @@ public class DialogueManager_002 : MonoBehaviour
                         button1clicked = false;
                     }
 
-                    if (button0clicked && dialogueLineCount == 12)
+                    if (dialogueLineCount == 12 && !debugRunning)
                     {
                         EndSceneChoice("it's time...", "");
                         dialogueLineCount = 14;
@@ -494,6 +503,8 @@ public class DialogueManager_002 : MonoBehaviour
         button0.Select(); // button 0 is already active
         if (dialogueLine1 != "") // only need this option if there are two responses
             button1.gameObject.SetActive(true);
+        else
+            button1.gameObject.SetActive(false); //just making sure it's off
 
         // flag the corresponding virtual camera related to current character's index
         camManager.SetCamera(playerIndex);

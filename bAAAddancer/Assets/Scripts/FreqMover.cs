@@ -30,10 +30,8 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
     private Vector3[] moveObjectInitialPosL = new Vector3[5]; // get a reference to the starting positions
     private Vector3[] moveObjectInitialPosR = new Vector3[5]; 
 
-    private Vector3[] moveObjectTargetPosA_L = new Vector3[5]; // we will set two target positions to lerp between
-    private Vector3[] moveObjectTargetPosB_L = new Vector3[5]; 
-    private Vector3[] moveObjectTargetPosA_R = new Vector3[5]; // for each side
-    private Vector3[] moveObjectTargetPosB_R = new Vector3[5];
+    private Vector3[] moveObjectTargetDir_L = new Vector3[5]; 
+    private Vector3[] moveObjectTargetDir_R = new Vector3[5];
 
     [Serializable]
     public class ObjectLimits
@@ -51,9 +49,7 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
 
     //*** REMOVE LATER: just for debugging
     private GameObject[] leftMarkersA = new GameObject[5];
-    private GameObject[] leftMarkersB = new GameObject[5];
     private GameObject[] rightMarkersA = new GameObject[5];
-    private GameObject[] rightMarkersB = new GameObject[5];
 
     private void OnEnable()
     {
@@ -71,13 +67,13 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
         for (int i = 0; i < 5; i++)
         {
             // storing the initial default positions
-            moveObjectInitialPosL[i] = moveObjectsL[i].transform.position;
-            moveObjectInitialPosR[i] = moveObjectsR[i].transform.position;
+            moveObjectInitialPosL[i] = moveObjectsL[i].transform.localPosition;
+            moveObjectInitialPosR[i] = moveObjectsR[i].transform.localPosition;
 
         }
-        SetTargetPositionPairs();
+        SetTargetPositions();
     }
-    void SetTargetPositionPairs()
+    void SetTargetPositions()
     {
         for (int i = 0; i < 5; i++) // for each object, we set a main direction, with randomised secondary values
         {
@@ -108,7 +104,7 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
                     break;
             }
 
-            int mainDirectionR = UnityEngine.Random.Range(0, 3);
+            int mainDirectionR = UnityEngine.Random.Range(0, 2); // use 3 instead of 2 if we need z as well 
             int posOrNegR = UnityEngine.Random.Range(0, 2);
             float xDirR = 0;
             float yDirR = 0;
@@ -125,11 +121,11 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
                     yDirR = (posOrNegL == 0) ? objectMovementLimitR[i].yMin : objectMovementLimitR[i].yMax;
                     zDirR = UnityEngine.Random.Range(objectMovementLimitR[i].zMin, objectMovementLimitR[i].zMax);
                     break;
-                case 2: // z is main direction
+                /*case 2: // z is main direction
                     xDirR = UnityEngine.Random.Range(objectMovementLimitR[i].xMin, objectMovementLimitR[i].xMax);
                     yDirR = UnityEngine.Random.Range(objectMovementLimitR[i].yMin, objectMovementLimitR[i].yMax);
                     zDirR = (posOrNegL == 0) ? objectMovementLimitR[i].zMin : objectMovementLimitR[i].zMax;
-                    break;
+                    break;*/
                 default:
                     mainDirectionR = 0;
                     break;
@@ -138,13 +134,16 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
             Vector3 dirL = new Vector3(xDirL, yDirL, zDirL);
             Vector3 dirR = new Vector3(xDirR, yDirR, zDirR);
 
-            moveObjectTargetPosA_L[i] = moveObjectInitialPosL[i] + (dirL * moveObjectRange[i]);
-            moveObjectTargetPosA_R[i] = moveObjectInitialPosR[i] + (dirR * moveObjectRange[i]);
+            moveObjectTargetDir_L[i] = dirL * moveObjectRange[i];
+            moveObjectTargetDir_R[i] = dirR * moveObjectRange[i];
+
+            //***REMOVE LATER: debugging
+            //ShowTargetMarkers(i);
+            //***
+
         }
 
-        //***REMOVE LATER: debugging
-        //ShowTargetMarkers(3);
-        //***
+
     }
     
     private void On_Q_BeatHandler()
@@ -162,7 +161,6 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
             }
 
             lerpValueL[i] = Mathf.InverseLerp(0, maxFrequencyL[i], freqValuesL[i]); // this uses a 0-1 range using the max frequency as 1
-
         }
         for (int i = 0; i < freqValuesR.Length; i++)
         {
@@ -180,11 +178,11 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
         // Lerping:
         for (int i = 0; i < freqValuesL.Length; i++)
         {
-            moveObjectsL[i].transform.position = Vector3.Lerp(moveObjectInitialPosL[i], moveObjectTargetPosA_L[i], lerpValueL[i]);
+            moveObjectsL[i].transform.localPosition = Vector3.Lerp(Vector3.zero, moveObjectTargetDir_L[i], lerpValueL[i]);
         }
         for (int i = 0; i < freqValuesR.Length; i++)
         {
-            moveObjectsR[i].transform.position = Vector3.Lerp(moveObjectInitialPosR[i], moveObjectTargetPosA_R[i], lerpValueR[i]);
+            moveObjectsR[i].transform.localPosition = Vector3.Lerp(Vector3.zero, moveObjectTargetDir_R[i], lerpValueR[i]);
         }
     }
     private void OnBeatHandler()
@@ -193,7 +191,7 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
         if (beatCount == resetCount) // we need to reset the loop duration for some rythm variety
         {
             resetCount = UnityEngine.Random.Range(1, 6); // every reset we randomise the  move loop duration
-            SetTargetPositionPairs();
+            SetTargetPositions();
             beatCount = 0;
         }
     }
@@ -202,65 +200,24 @@ public class FreqMover : MonoBehaviour // a script to move objects between two p
     void ShowTargetMarkers(int index)
     {
         if (leftMarkersA[index] != null) Destroy(leftMarkersA[index]);
-        if (leftMarkersB[index] != null) Destroy(leftMarkersB[index]);
         if (rightMarkersA[index] != null) Destroy(rightMarkersA[index]);
-        if (rightMarkersB[index] != null) Destroy(rightMarkersB[index]);
 
         // Instantiate or use primitive cube
         leftMarkersA[index] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        leftMarkersB[index] = GameObject.CreatePrimitive(PrimitiveType.Cube);
         rightMarkersA[index] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        rightMarkersB[index] = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
         // Resize to small cubes
         leftMarkersA[index].transform.localScale = Vector3.one * 0.1f;
-        leftMarkersB[index].transform.localScale = Vector3.one * 0.1f;
         rightMarkersA[index].transform.localScale = Vector3.one * 0.1f;
-        rightMarkersB[index].transform.localScale = Vector3.one * 0.1f;
 
         // Position
-        leftMarkersA[index].transform.position = moveObjectTargetPosA_L[index];
-        leftMarkersB[index].transform.position = moveObjectTargetPosB_L[index];
-        rightMarkersA[index].transform.position = moveObjectTargetPosA_R[index];
-        rightMarkersB[index].transform.position = moveObjectTargetPosB_R[index];
+        leftMarkersA[index].transform.position = moveObjectInitialPosL[index] + moveObjectTargetDir_L[index];
+        rightMarkersA[index].transform.position = moveObjectInitialPosR[index] + moveObjectTargetDir_R[index];
 
         // Colors
         leftMarkersA[index].GetComponent<Renderer>().material.color = Color.blue;
-        leftMarkersB[index].GetComponent<Renderer>().material.color = Color.cyan;
         rightMarkersA[index].GetComponent<Renderer>().material.color = Color.red;
-        rightMarkersB[index].GetComponent<Renderer>().material.color = Color.magenta;
 
-        /*for (int i = 0; i < 5; i++)
-        {
-            if (leftMarkersA[i] != null) Destroy(leftMarkersA[i]);
-            if (leftMarkersB[i] != null) Destroy(leftMarkersB[i]);
-            if (rightMarkersA[i] != null) Destroy(rightMarkersA[i]);
-            if (rightMarkersB[i] != null) Destroy(rightMarkersB[i]);
-
-            // Instantiate or use primitive cube
-            leftMarkersA[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            leftMarkersB[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            rightMarkersA[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            rightMarkersB[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-
-            // Resize to small cubes
-            leftMarkersA[i].transform.localScale = Vector3.one * 0.1f;
-            leftMarkersB[i].transform.localScale = Vector3.one * 0.1f;
-            rightMarkersA[i].transform.localScale = Vector3.one * 0.1f;
-            rightMarkersB[i].transform.localScale = Vector3.one * 0.1f;
-
-            // Position
-            leftMarkersA[i].transform.position = moveObjectTargetPosA_L[i];
-            leftMarkersB[i].transform.position = moveObjectTargetPosB_L[i];
-            rightMarkersA[i].transform.position = moveObjectTargetPosA_R[i];
-            rightMarkersB[i].transform.position = moveObjectTargetPosB_R[i];
-
-            // Colors
-            leftMarkersA[i].GetComponent<Renderer>().material.color = Color.blue;
-            leftMarkersB[i].GetComponent<Renderer>().material.color = Color.cyan;
-            rightMarkersA[i].GetComponent<Renderer>().material.color = Color.red;
-            rightMarkersB[i].GetComponent<Renderer>().material.color = Color.magenta;
-        }*/
     }
 
 }

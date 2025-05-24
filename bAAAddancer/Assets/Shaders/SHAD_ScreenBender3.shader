@@ -32,7 +32,49 @@ Shader "SHAD_RendTexDanceScene2"
         _ThumbsDisplaceMaxZ("ThumbsDisplaceMaxZ", Float) = 1
 
         _MouthCenter("MouthCenter", Vector) = (0, 0, 0, 0)
-        _MouthScaleX("MouthScaleX", Range(1, 16)) = 1 
+        _MouthScaleX("MouthScaleX", Range(1, 16)) = 1
+
+        // tentacle stuff
+        _TentacleDisplaceMaxZ("TentacleDisplaceMaxZ", Float) = 1
+        _TentacleFalloff("TentacleFalloff", Float) = 0.1
+
+        _TentaclePosL_0("TentaclePosL_0", Vector) = (0, 0, 0, 0)
+        _TentaclePosL_1("TentaclePosL_1", Vector) = (0, 0, 0, 0)
+        _TentaclePosL_2("TentaclePosL_2", Vector) = (0, 0, 0, 0)
+        _TentaclePosL_3("TentaclePosL_3", Vector) = (0, 0, 0, 0)
+        _TentaclePosL_4("TentaclePosL_4", Vector) = (0, 0, 0, 0)
+
+        _TentaclePosR_0("TentaclePosR_0", Vector) = (0, 0, 0, 0)
+        _TentaclePosR_1("TentaclePosR_1", Vector) = (0, 0, 0, 0)
+        _TentaclePosR_2("TentaclePosR_2", Vector) = (0, 0, 0, 0)
+        _TentaclePosR_3("TentaclePosR_3", Vector) = (0, 0, 0, 0)
+        _TentaclePosR_4("TentaclePosR_4", Vector) = (0, 0, 0, 0)
+
+        // Second Layer
+        _Tentacle2PosL_0("Tentacle2PosL_0", Vector) = (0, 0, 0, 0)
+        _Tentacle2PosL_1("Tentacle2PosL_1", Vector) = (0, 0, 0, 0)
+        _Tentacle2PosL_2("Tentacle2PosL_2", Vector) = (0, 0, 0, 0)
+        _Tentacle2PosL_3("Tentacle2PosL_3", Vector) = (0, 0, 0, 0)
+        _Tentacle2PosL_4("Tentacle2PosL_4", Vector) = (0, 0, 0, 0)
+
+        _Tentacle2PosR_0("Tentacle2PosR_0", Vector) = (0, 0, 0, 0)
+        _Tentacle2PosR_1("Tentacle2PosR_1", Vector) = (0, 0, 0, 0)
+        _Tentacle2PosR_2("Tentacle2PosR_2", Vector) = (0, 0, 0, 0)
+        _Tentacle2PosR_3("Tentacle2PosR_3", Vector) = (0, 0, 0, 0)
+        _Tentacle2PosR_4("Tentacle2PosR_4", Vector) = (0, 0, 0, 0)
+
+        // Third Layer
+        _Tentacle3PosL_0("Tentacle3PosL_0", Vector) = (0, 0, 0, 0)
+        _Tentacle3PosL_1("Tentacle3PosL_1", Vector) = (0, 0, 0, 0)
+        _Tentacle3PosL_2("Tentacle3PosL_2", Vector) = (0, 0, 0, 0)
+        _Tentacle3PosL_3("Tentacle3PosL_3", Vector) = (0, 0, 0, 0)
+        _Tentacle3PosL_4("Tentacle3PosL_4", Vector) = (0, 0, 0, 0)
+
+        _Tentacle3PosR_0("Tentacle3PosR_0", Vector) = (0, 0, 0, 0)
+        _Tentacle3PosR_1("Tentacle3PosR_1", Vector) = (0, 0, 0, 0)
+        _Tentacle3PosR_2("Tentacle3PosR_2", Vector) = (0, 0, 0, 0)
+        _Tentacle3PosR_3("Tentacle3PosR_3", Vector) = (0, 0, 0, 0)
+        _Tentacle3PosR_4("Tentacle3PosR_4", Vector) = (0, 0, 0, 0)
 
     }
     SubShader
@@ -51,6 +93,48 @@ Shader "SHAD_RendTexDanceScene2"
 
         uniform float2 _MouthCenter;
         uniform float _MouthScaleX;
+
+        // tentacle stuff
+        uniform float _TentacleDisplaceMaxZ;
+        uniform float _TentacleFalloff;
+
+        uniform float2 _TentaclePosL_0;
+        uniform float2 _TentaclePosL_1;
+        uniform float2 _TentaclePosL_2;
+        uniform float2 _TentaclePosL_3;
+        uniform float2 _TentaclePosL_4;
+
+        uniform float2 _TentaclePosR_0;
+        uniform float2 _TentaclePosR_1;
+        uniform float2 _TentaclePosR_2;
+        uniform float2 _TentaclePosR_3;
+        uniform float2 _TentaclePosR_4;
+
+        //second layer
+        uniform float2 _Tentacle2PosL_0;
+        uniform float2 _Tentacle2PosL_1;
+        uniform float2 _Tentacle2PosL_2;
+        uniform float2 _Tentacle2PosL_3;
+        uniform float2 _Tentacle2PosL_4;
+
+        uniform float2 _Tentacle2PosR_0;
+        uniform float2 _Tentacle2PosR_1;
+        uniform float2 _Tentacle2PosR_2;
+        uniform float2 _Tentacle2PosR_3;
+        uniform float2 _Tentacle2PosR_4;
+
+        //third layer
+        uniform float2 _Tentacle3PosL_0;
+        uniform float2 _Tentacle3PosL_1;
+        uniform float2 _Tentacle3PosL_2;
+        uniform float2 _Tentacle3PosL_3;
+        uniform float2 _Tentacle3PosL_4;
+
+        uniform float2 _Tentacle3PosR_0;
+        uniform float2 _Tentacle3PosR_1;
+        uniform float2 _Tentacle3PosR_2;
+        uniform float2 _Tentacle3PosR_3;
+        uniform float2 _Tentacle3PosR_4;
 
         struct GeomData
         {
@@ -114,15 +198,105 @@ Shader "SHAD_RendTexDanceScene2"
             float totalShrink = saturate(shrink);
             return totalShrink;
         }
+        float CalculateTentaclesDisplacement(float3 vertWorldPosition)
+        {
+            float2 vertXY = vertWorldPosition.xy;
 
-        [maxvertexcount(3)] 
+            float totalDisplacement = 0.0;
+
+            // Declare array of tentacle positions
+            float2 tentaclePositions[10] = {
+                _TentaclePosL_0, _TentaclePosL_1, _TentaclePosL_2, _TentaclePosL_3, _TentaclePosL_4,
+                _TentaclePosR_0, _TentaclePosR_1, _TentaclePosR_2, _TentaclePosR_3, _TentaclePosR_4
+            };
+
+            for (int i = 0; i < 10; i++)
+            {
+                float2 delta = vertXY - tentaclePositions[i];
+                float dist = length(delta);
+
+                // Smooth falloff
+                float influence = pow(saturate(1.0 - dist / _TentacleFalloff), 2.0);
+                totalDisplacement += influence;
+            }
+
+            float combinedMag = (_ThumbMagL + _ThumbMagR) * 0.5;
+
+            // Clamp to [0,1] in case of excessive overlap
+            totalDisplacement = saturate(totalDisplacement * combinedMag);
+
+            // Apply max Z displacement
+            return totalDisplacement * _TentacleDisplaceMaxZ;
+        }
+        float CalculateTentaclesXYDisplacement2(float3 vertWorldPosition)
+        {
+            float2 vertXY = vertWorldPosition.xy;
+
+            float totalDisplacement = 0.0;
+
+            // Declare array of tentacle positions
+            float2 tentacle2Positions[10] = {
+                _Tentacle2PosL_0, _Tentacle2PosL_1, _Tentacle2PosL_2, _Tentacle2PosL_3, _Tentacle2PosL_4,
+                _Tentacle2PosR_0, _Tentacle2PosR_1, _Tentacle2PosR_2, _Tentacle2PosR_3, _Tentacle2PosR_4
+            };
+
+            for (int i = 0; i < 10; i++)
+            {
+                float2 delta = vertXY - tentacle2Positions[i];
+                float dist = length(delta);
+
+                // Smooth falloff
+                float influence = pow(saturate(1.0 - dist / _TentacleFalloff), 2.0);
+                totalDisplacement += influence;
+            }
+
+            float combinedMag = (_ThumbMagL + _ThumbMagR) * 0.5;
+
+            // Clamp to [0,1] in case of excessive overlap
+            totalDisplacement = saturate(totalDisplacement * combinedMag);
+
+            // Apply max Z displacement
+            return totalDisplacement * _TentacleDisplaceMaxZ;
+        }
+        float CalculateTentaclesXYDisplacement3(float3 vertWorldPosition)
+        {
+            float2 vertXY = vertWorldPosition.xy;
+
+            float totalDisplacement = 0.0;
+
+            // Declare array of tentacle positions
+            float2 tentacle3Positions[10] = {
+                _Tentacle3PosL_0, _Tentacle3PosL_1, _Tentacle3PosL_2, _Tentacle3PosL_3, _Tentacle3PosL_4,
+                _Tentacle3PosR_0, _Tentacle3PosR_1, _Tentacle3PosR_2, _Tentacle3PosR_3, _Tentacle3PosR_4
+            };
+
+            for (int i = 0; i < 10; i++)
+            {
+                float2 delta = vertXY - tentacle3Positions[i];
+                float dist = length(delta);
+
+                // Smooth falloff
+                float influence = pow(saturate(1.0 - dist / _TentacleFalloff), 2.0);
+                totalDisplacement += influence;
+            }
+
+            float combinedMag = (_ThumbMagL + _ThumbMagR) * 0.5;
+
+            // Clamp to [0,1] in case of excessive overlap
+            totalDisplacement = saturate(totalDisplacement * combinedMag);
+
+            // Apply max Z displacement
+            return totalDisplacement * _TentacleDisplaceMaxZ;
+        }
+
+        [maxvertexcount(9)] 
         void geom(triangle GeomData input[3], inout TriangleStream<GeomData> triStream)
         {
             GeomData vert1 = input[0];
             GeomData vert2 = input[1];
             GeomData vert3 = input[2];
             
-            // a flat normal 
+            // a flat normal *** MAY OR MAY NOT NEED THIS (in this case all tris are flat already)
             //float3 normalizedEdge1 = normalize(vert2.positionWS - vert1.positionWS);
             //float3 normalizedEdge2 = normalize(vert3.positionWS - vert1.positionWS);
             //float3 flatNormal = normalize(cross(normalizedEdge1, normalizedEdge2));
@@ -158,7 +332,7 @@ Shader "SHAD_RendTexDanceScene2"
             vert3.positionWS += toCenter3 * mouthShrink3;
 
             // displacement **trying along z axis first
-            // we can use the shrinkamount (which is 0-1) to also drive the displacement (we can multiply by )
+            // we can use the shrinkamount (which is 0-1) to also drive the displacement (we can multiply by _ThumbsDisplaceMaxZ)
 
             vert1.positionWS.z += _ThumbsDisplaceMaxZ * shrinkAmount1;
             vert2.positionWS.z += _ThumbsDisplaceMaxZ * shrinkAmount2;
@@ -167,6 +341,11 @@ Shader "SHAD_RendTexDanceScene2"
             vert1.positionWS.z += _ThumbsDisplaceMaxZ * mouthShrink1;
             vert2.positionWS.z += _ThumbsDisplaceMaxZ * mouthShrink2;
             vert3.positionWS.z += _ThumbsDisplaceMaxZ * mouthShrink3;
+
+            // diplacing the tentacles (we can multiply by _TentacleDisplaceMaxZ)
+            vert1.positionWS.z += CalculateTentaclesDisplacement(vert1.positionWS);
+            vert2.positionWS.z += CalculateTentaclesDisplacement(vert2.positionWS);
+            vert3.positionWS.z += CalculateTentaclesDisplacement(vert3.positionWS);
 
             // make the tri:
             vert1.positionCS = TransformWorldToHClip(vert1.positionWS);
@@ -178,6 +357,79 @@ Shader "SHAD_RendTexDanceScene2"
             triStream.Append(vert3);
 
             triStream.RestartStrip();
+
+            // === LAYER 2 triangles
+            GeomData t1 = input[0];
+            GeomData t2 = input[1];
+            GeomData t3 = input[2];
+
+            // "shrink" the triangles, invert proportion to their z displacement*
+            // Compute centroid in world space
+            float3 centroidWS2 = (t1.positionWS + t2.positionWS + t3.positionWS) / 3;
+            float3 toCenter4 = centroidWS2 - t1.positionWS;
+            float3 toCenter5 = centroidWS2 - t2.positionWS;
+            float3 toCenter6 = centroidWS2 - t3.positionWS;
+            float shrinkAmount4 = 1- pow(CalculateTentaclesDisplacement(t1.positionWS), 0.1); //*invert proportion to their z displacement
+            float shrinkAmount5 = 1- pow(CalculateTentaclesDisplacement(t2.positionWS), 0.1);
+            float shrinkAmount6 = 1- pow(CalculateTentaclesDisplacement(t3.positionWS), 0.1);
+            t1.positionWS += toCenter4 * shrinkAmount4;
+            t2.positionWS += toCenter5 * shrinkAmount5;
+            t3.positionWS += toCenter6 * shrinkAmount6;
+
+            t1.positionWS.z += CalculateTentaclesDisplacement(t1.positionWS) * 3;
+            t2.positionWS.z += CalculateTentaclesDisplacement(t2.positionWS) * 3;
+            t3.positionWS.z += CalculateTentaclesDisplacement(t3.positionWS) * 3;
+
+            t1.positionWS.xy += CalculateTentaclesXYDisplacement2(t1.positionWS);
+            t2.positionWS.xy += CalculateTentaclesXYDisplacement2(t2.positionWS);
+            t3.positionWS.xy += CalculateTentaclesXYDisplacement2(t3.positionWS);
+
+            t1.positionCS = TransformWorldToHClip(t1.positionWS);
+            t2.positionCS = TransformWorldToHClip(t2.positionWS);
+            t3.positionCS = TransformWorldToHClip(t3.positionWS);
+
+            triStream.Append(t1);
+            triStream.Append(t2);
+            triStream.Append(t3);
+
+            triStream.RestartStrip();
+
+            // === LAYER 3 triangles
+            GeomData t4 = input[0];
+            GeomData t5 = input[1];
+            GeomData t6 = input[2];
+
+            // "shrink" the triangles, invert proportion to their z displacement*
+            // Compute centroid in world space
+            float3 centroidWS3 = (t4.positionWS + t5.positionWS + t6.positionWS) / 3;
+            float3 toCenter7 = centroidWS3 - t4.positionWS;
+            float3 toCenter8 = centroidWS3 - t5.positionWS;
+            float3 toCenter9 = centroidWS3 - t6.positionWS;
+            float shrinkAmount7 = 1- pow(CalculateTentaclesDisplacement(t4.positionWS), 0.05); //*invert proportion to their z displacement
+            float shrinkAmount8 = 1- pow(CalculateTentaclesDisplacement(t5.positionWS), 0.05);
+            float shrinkAmount9 = 1- pow(CalculateTentaclesDisplacement(t6.positionWS), 0.05);
+            t4.positionWS += toCenter7 * shrinkAmount7;
+            t5.positionWS += toCenter8 * shrinkAmount8;
+            t6.positionWS += toCenter9 * shrinkAmount9;
+
+            t4.positionWS.z += CalculateTentaclesDisplacement(t4.positionWS) * 4;
+            t5.positionWS.z += CalculateTentaclesDisplacement(t5.positionWS) * 4;
+            t6.positionWS.z += CalculateTentaclesDisplacement(t6.positionWS) * 4;
+
+            t4.positionWS.xy += CalculateTentaclesXYDisplacement3(t4.positionWS);
+            t5.positionWS.xy += CalculateTentaclesXYDisplacement3(t5.positionWS);
+            t6.positionWS.xy += CalculateTentaclesXYDisplacement3(t6.positionWS);
+
+            t4.positionCS = TransformWorldToHClip(t4.positionWS);
+            t5.positionCS = TransformWorldToHClip(t5.positionWS);
+            t6.positionCS = TransformWorldToHClip(t6.positionWS);
+
+            triStream.Append(t4);
+            triStream.Append(t5);
+            triStream.Append(t6);
+
+            triStream.RestartStrip();
+            
         }
         ENDHLSL
 

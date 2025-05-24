@@ -382,6 +382,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "HomeButton",
+                    "type": "Button",
+                    "id": "391a03eb-083a-417d-83f2-a5605d094a01",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -569,6 +578,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "BButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "625db48f-39df-4df5-bbf2-679aeffa0bf8",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HomeButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d060c84-6d11-4619-9db1-dc2f034bf6be",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HomeButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

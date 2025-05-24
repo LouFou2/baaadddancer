@@ -1017,9 +1017,9 @@ RectTransform:
   m_Father: {fileID: 1829223823}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 38.02, y: -20.235}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &96743418
@@ -1660,7 +1660,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.23921569, g: 1, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3491,7 +3491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &424951751
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5921,9 +5921,9 @@ RectTransform:
   m_Father: {fileID: 1829223823}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 262.98, y: -20.235}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &661869340
@@ -7490,6 +7490,7 @@ MonoBehaviour:
     type: 2}
   recordingDataSO: {fileID: 0}
   grounded: 1
+  moveFactor: 0.3
   jumpHeight: 1
   jumpDuration: 0
   isJumping: 0
@@ -7686,9 +7687,9 @@ RectTransform:
   m_Father: {fileID: 1829223823}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 94.259995, y: -20.235}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &940720229
@@ -9831,9 +9832,9 @@ RectTransform:
   m_Father: {fileID: 1829223823}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 206.74, y: -20.235}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1285849593
@@ -10479,9 +10480,9 @@ RectTransform:
   m_Father: {fileID: 1829223823}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150.5, y: -20.235}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1499834434
@@ -10602,7 +10603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.23921569, g: 1, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10870,19 +10871,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1894888610}
-  bandPusher5:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  freq5BandViz:
-  - {fileID: 96743418}
-  - {fileID: 940720229}
-  - {fileID: 1499834434}
-  - {fileID: 1285849593}
-  - {fileID: 661869340}
-  beatViz: {fileID: 1829223825}
+  bandPusher5L:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  bandPusher5R:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!114 &1574619662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10896,6 +10896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clockCounter: {fileID: 532574482}
+  curseManager: {fileID: 0}
   trackAudio: {fileID: 1894888610}
   musicTracks:
   - {fileID: 8300000, guid: 4db0bd0a5024abb4ca7816cf083ec020, type: 3}
