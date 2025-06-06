@@ -38,12 +38,12 @@ public class StopDance : MonoBehaviour
     }
     private void Update()
     {
-        //only listening for "return" button
+        /*//only listening for "return" button
         if (playerControls.GenericInput.HomeButton.triggered)
         {
             Debug.Log("click!");
             EndRaveReturn();
-        }
+        }*/
     }
     public void StopTheDance()
     {
@@ -82,10 +82,9 @@ public class StopDance : MonoBehaviour
             GotoRaveEvent?.Invoke();
     }
     
-    private void EndRaveReturn()
+    /*private void EndRaveReturn()
     {
-        Debug.Log("click!");
         GameManager.Instance.RestartGame();
-    }
+    }*/
 
 }

@@ -95,12 +95,12 @@ public class CurseManager : MonoBehaviour
         {
             if (characterData.infectionLevel > 1) characterData.infectionLevel = 1; //clamp at max 1
 
-            // last round gives the remaining player the average curse level too
+            // last round gives the remaining character the average curse level too
             if (roundIndex == 3)
             {
                 if (characterData != null && characterData.charAlignment == CharacterData.CharacterAlignment.Bent2)
                 {
-                    //Player gets average of all chars' infections
+                    //character gets average of all chars' infections
                     characterData.infectionLevel = averageInfection;
                 }
             }

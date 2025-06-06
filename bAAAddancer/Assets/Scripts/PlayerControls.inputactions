@@ -391,6 +391,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ButtonN",
+                    "type": "Button",
+                    "id": "8f0cc91c-eb93-41ec-b66d-e33f3b0dabe9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ButtonS",
+                    "type": "Button",
+                    "id": "811262c8-4015-4e63-a612-9f60368ae586",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -600,6 +618,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "HomeButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2f6acd58-8c8c-4b10-baac-48edaf85870d",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ButtonN",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d55af3c3-98d4-4761-989f-201fd148b572",
+                    "path": "<XInputController>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ButtonN",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8648ca6d-dc26-4126-abe7-1b54e0486663",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ButtonS",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f7b958d-2fb2-402b-b464-9ab25d3e4871",
+                    "path": "<XInputController>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ButtonS",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

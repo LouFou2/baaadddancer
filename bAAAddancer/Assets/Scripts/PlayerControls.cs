@@ -413,6 +413,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ButtonN"",
+                    ""type"": ""Button"",
+                    ""id"": ""8f0cc91c-eb93-41ec-b66d-e33f3b0dabe9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ButtonS"",
+                    ""type"": ""Button"",
+                    ""id"": ""811262c8-4015-4e63-a612-9f60368ae586"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -624,6 +642,50 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""HomeButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2f6acd58-8c8c-4b10-baac-48edaf85870d"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonN"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d55af3c3-98d4-4761-989f-201fd148b572"",
+                    ""path"": ""<XInputController>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonN"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8648ca6d-dc26-4126-abe7-1b54e0486663"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonS"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f7b958d-2fb2-402b-b464-9ab25d3e4871"",
+                    ""path"": ""<XInputController>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ButtonS"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -659,6 +721,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_GenericInput_XButton = m_GenericInput.FindAction("XButton", throwIfNotFound: true);
         m_GenericInput_BButton = m_GenericInput.FindAction("BButton", throwIfNotFound: true);
         m_GenericInput_HomeButton = m_GenericInput.FindAction("HomeButton", throwIfNotFound: true);
+        m_GenericInput_ButtonN = m_GenericInput.FindAction("ButtonN", throwIfNotFound: true);
+        m_GenericInput_ButtonS = m_GenericInput.FindAction("ButtonS", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -881,6 +945,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_GenericInput_XButton;
     private readonly InputAction m_GenericInput_BButton;
     private readonly InputAction m_GenericInput_HomeButton;
+    private readonly InputAction m_GenericInput_ButtonN;
+    private readonly InputAction m_GenericInput_ButtonS;
     public struct GenericInputActions
     {
         private @PlayerControls m_Wrapper;
@@ -896,6 +962,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @XButton => m_Wrapper.m_GenericInput_XButton;
         public InputAction @BButton => m_Wrapper.m_GenericInput_BButton;
         public InputAction @HomeButton => m_Wrapper.m_GenericInput_HomeButton;
+        public InputAction @ButtonN => m_Wrapper.m_GenericInput_ButtonN;
+        public InputAction @ButtonS => m_Wrapper.m_GenericInput_ButtonS;
         public InputActionMap Get() { return m_Wrapper.m_GenericInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -938,6 +1006,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @HomeButton.started += instance.OnHomeButton;
             @HomeButton.performed += instance.OnHomeButton;
             @HomeButton.canceled += instance.OnHomeButton;
+            @ButtonN.started += instance.OnButtonN;
+            @ButtonN.performed += instance.OnButtonN;
+            @ButtonN.canceled += instance.OnButtonN;
+            @ButtonS.started += instance.OnButtonS;
+            @ButtonS.performed += instance.OnButtonS;
+            @ButtonS.canceled += instance.OnButtonS;
         }
 
         private void UnregisterCallbacks(IGenericInputActions instance)
@@ -975,6 +1049,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @HomeButton.started -= instance.OnHomeButton;
             @HomeButton.performed -= instance.OnHomeButton;
             @HomeButton.canceled -= instance.OnHomeButton;
+            @ButtonN.started -= instance.OnButtonN;
+            @ButtonN.performed -= instance.OnButtonN;
+            @ButtonN.canceled -= instance.OnButtonN;
+            @ButtonS.started -= instance.OnButtonS;
+            @ButtonS.performed -= instance.OnButtonS;
+            @ButtonS.canceled -= instance.OnButtonS;
         }
 
         public void RemoveCallbacks(IGenericInputActions instance)
@@ -1022,5 +1102,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnXButton(InputAction.CallbackContext context);
         void OnBButton(InputAction.CallbackContext context);
         void OnHomeButton(InputAction.CallbackContext context);
+        void OnButtonN(InputAction.CallbackContext context);
+        void OnButtonS(InputAction.CallbackContext context);
     }
 }

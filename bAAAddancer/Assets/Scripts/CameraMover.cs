@@ -28,6 +28,12 @@ public class CameraMover : MonoBehaviour // Script for taking control of the Cam
 
     bool canControlCamera = false;
 
+    private int beatCount = 0;
+
+    private List<Vector3> recordedPositions = new List<Vector3>();
+    private List<Quaternion> recordedRotations = new List<Quaternion>();
+    private bool switchCam;
+
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -36,10 +42,18 @@ public class CameraMover : MonoBehaviour // Script for taking control of the Cam
     private void OnEnable()
     {
         playerControls.Enable();
+
+        ClockCounter.On_Beat_Trigger += OnBeatHandler; // Subscribe to the beat trigger event
+
+        AudioManager.On_DemonReveal += DemonRevealHandler; //the audioManager will trigger this on the correct beat of the track for demon reveal
     }
     private void OnDisable()
     {
         playerControls.Disable();
+
+        ClockCounter.On_Beat_Trigger -= OnBeatHandler;
+
+        AudioManager.On_DemonReveal -= DemonRevealHandler;
     }
 
     public void StartCamControl()
@@ -61,6 +75,18 @@ public class CameraMover : MonoBehaviour // Script for taking control of the Cam
     {
         if (!canControlCamera)
         {
+            // Use a random position + rotation from the stored list
+            if (recordedPositions.Count > 0 && recordedRotations.Count == recordedPositions.Count && switchCam)
+            {
+                int randomIndex = Random.Range(0, recordedPositions.Count);
+
+                // Set the camera's transform to the random one
+                defaultCam.transform.position = recordedPositions[randomIndex];
+                defaultCam.transform.rotation = recordedRotations[randomIndex];
+
+                switchCam = false;
+            }
+
             return;
         }
         else // here we go camera controls...
@@ -105,5 +131,33 @@ public class CameraMover : MonoBehaviour // Script for taking control of the Cam
             // Apply rotation
             defaultCam.transform.rotation = Quaternion.Euler(pitchAngle, yawAngle, 0f);
         }
+    }
+    private void RecordCurrentTransform()
+    {
+        recordedPositions.Add(defaultCam.transform.position);
+        recordedRotations.Add(defaultCam.transform.rotation);
+    }
+
+    void OnBeatHandler()
+    {
+        
+        beatCount++;
+
+        switchCam = true;
+
+        if (beatCount % 4 == 0)
+        {
+            
+            if (canControlCamera)
+            {
+                RecordCurrentTransform();
+            }
+        }
+    }
+
+    // ** STUPIDLY THIS IS GETTING IT FROM THE AUDIO MANAGER, IT COULD JUST HANDLE IT INTERNALLY
+    void DemonRevealHandler() // basically just gotta stop the cam control
+    {
+        canControlCamera = false;
     }
 }

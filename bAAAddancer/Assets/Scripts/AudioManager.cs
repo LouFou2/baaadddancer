@@ -18,10 +18,14 @@ public class AudioManager : MonoBehaviour
     private AudioClip currentMusicClip; 
 
     private int countInIndex = -1;
+    [SerializeField] private int beatCount = 0;
 
     public static event System.Action On_TrackStarted; //subscribed to by the debugGameAudioManager
+    public static event System.Action On_DemonReveal; //subscribed to by the screen manipulator AND the camera mover (if demon is revealed or not)
 
     private bool isRaveScene = false;
+
+    private bool demonReveal = false; // this will determine if the "OnDemonReveal" action gets fired
 
     private void OnEnable()
     {
@@ -106,7 +110,11 @@ public class AudioManager : MonoBehaviour
 
                     // if game is cursed
                     else
-                        musicTrack = musicTracks[9]; // the gud track
+                    {
+                        musicTrack = musicTracks[9]; // the demon track
+                        demonReveal = true;
+                    }
+                        
                     //no count-in clip
                     break;
                 }
@@ -141,6 +149,8 @@ public class AudioManager : MonoBehaviour
 
     private void On_BeatHandler()
     {
+        beatCount++;
+
         if (isCountingIn && !isRaveScene)
         {
             countInIndex++;
@@ -180,6 +190,16 @@ public class AudioManager : MonoBehaviour
                 isCountingIn = false;
             }
         }
+        // SUPER IMPORTANT: TO REVEAL THE RAVE DEMON:::
+        if (isRaveScene && demonReveal && beatCount == 192)
+        {
+            On_DemonReveal?.Invoke();
+        }
 
+        if (isRaveScene && beatCount > 0 && !trackAudio.isPlaying && trackAudio.time == 0f)
+        {
+            GameManager.Instance.RestartGame();
+        }
     }
+
 }
